@@ -1,4 +1,4 @@
-package Plance;
+package plance;
 
 public class Casella {
 	//	Attributi
