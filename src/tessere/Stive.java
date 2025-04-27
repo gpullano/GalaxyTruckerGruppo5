@@ -1,22 +1,21 @@
 package tessere;
 
 public class Stive extends Tessera {
-	private final int scomparto;
-	private final String colore;
+	//può avere dai 2 ai 3 scomparti da generare casualmente 
+	private final int scomparti;
 	
-	public Stive(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown,int scomparto) {
+	public Stive(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown,int scomparti) {
 		super(latoDx, latoSx, latoSup, latoDown);
-		this.scomparto=scomparto;
-		this.colore="blu";
+		this.scomparti=scomparti;
+		
 		
 	}
 
 	public int getScomparto() {
-		return scomparto;
+		return scomparti;
 	}
 
-	public String getColore() {
-		return colore;
-	}
+
+
 
 }

@@ -8,6 +8,7 @@ public class VanoBatteria extends Tessera {
 		super(latoDx, latoSx, latoSup, latoDown);
 		this.batteria=batteria;
 	}
+	//getter
 	public int getBatteria() {
 		return batteria;
 	}
