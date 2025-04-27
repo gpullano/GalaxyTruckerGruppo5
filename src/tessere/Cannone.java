@@ -1,20 +1,17 @@
 package tessere;
 
 public class Cannone extends Tessera {
-	//attributi
-	private final float sparo;
 	
 	//costruttore
-	public Cannone(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown, float sparo) {
+	public Cannone(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
 		super(latoDx, latoSx, latoSup, latoDown);
-		this.sparo=sparo;
-		
 	}
 
 	// getter
 	public float getSparo() {
-		return sparo;
+		if (this.latoSup == Connettore.CANNONE)
+			return 1;
+		else
+			return 0.5f;
 	}
-	//metodi 
-
 }
