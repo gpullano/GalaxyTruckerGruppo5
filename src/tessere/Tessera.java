@@ -4,8 +4,7 @@ public abstract class Tessera {
 	//attributi
 	private final Connettore latoDx;
 	private final Connettore latoSx;
-	//protected perché vi accedo nella classe Cannone
-	protected final Connettore latoSup;
+	private final Connettore latoSup;
 	private final Connettore latoDown;
 	
 	//costruttore
