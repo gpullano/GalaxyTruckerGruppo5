@@ -7,7 +7,7 @@ public class CannoneDoppio extends Tessera implements Attivabile {
 	}
 
 	public int getFuoco() {
-		if(this.latoSup == Connettore.CANNONE) {
+		if(this.getLatoSup() == Connettore.CANNONE) {
 			return 2;
 		}
 		return 1;

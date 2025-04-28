@@ -9,7 +9,7 @@ public class Cannone extends Tessera {
 
 	// getter
 	public float getSparo() {
-		if (this.latoSup == Connettore.CANNONE)
+		if (this.getLatoSup() == Connettore.CANNONE)
 			return 1;
 		else
 			return 0.5f;
