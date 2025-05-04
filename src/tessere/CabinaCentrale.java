@@ -7,8 +7,8 @@ public class CabinaCentrale extends Tessera {
 	// non possiede alieni
 	
 
-	public CabinaCentrale(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown, Colore colore) {
-		super(latoDx, latoSx, latoSup, latoDown);
+	public CabinaCentrale(Colore colore) {
+		super(Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE);
 		this.setEquipaggio(2);
 		this.colore=colore;
 			

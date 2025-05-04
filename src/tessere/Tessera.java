@@ -2,10 +2,10 @@ package tessere;
 
 public abstract class Tessera {
 	//attributi
-	private final Connettore latoDx;
-	private final Connettore latoSx;
-	private final Connettore latoSup;
-	private final Connettore latoDown;
+	private Connettore latoDx;
+	private Connettore latoSx;
+	private Connettore latoSup;
+	private Connettore latoDown;
 	
 	//costruttore
 	public Tessera(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown)
@@ -34,4 +34,7 @@ public abstract class Tessera {
 	}
 	
 	//metodi
+//	TODO
+//	public void ruota() {
+//	}
 }
