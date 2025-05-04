@@ -2,22 +2,35 @@ package plance;
 
 public class Casella {
 	//	Attributi
-	private final int colonna;
-	private final int riga;
-	
+	private final Posizione posizione;
+	private boolean occupato;
 	//	Costruttore
-	public Casella(int colonna, int riga) {
-		this.colonna = colonna;
-		this.riga = riga;
+	//public Casella(posizio) {
+	//	this.occupato = occupato;
+	//}
+	
+	public Casella(Posizione posizione, boolean occupato) {
+		this.posizione = posizione;
+		this.occupato = occupato;
+	}
+	
+	public void setOccupato(boolean occupato) {
+		this.occupato = occupato;	
+	}
+	 
+	
+	public boolean isOccupato() {
+		return occupato;
+	}
+	
+	
+//	getter
+	
+	public Posizione getPosizione() {
+		return posizione;
 	}
 
-	//	getter e setter
-	public int getColonna() {
-		return colonna;
-	}
-
-	public int getRiga() {
-		return riga;
-	}
+	
+	
 	
 }

@@ -1,6 +1,6 @@
 package plance;
 
-public class PlanceNave {
+public abstract class PlanceNave {
 	// attributi
 	
 	private Casella caselle[][];
@@ -8,16 +8,30 @@ public class PlanceNave {
 	// costruttore
 
 	public PlanceNave(int riga, int colonna) {
-		this.caselle = new Casella[riga][colonna];
+		this.setCaselle(new Casella[riga][colonna]);
 		
 		for(int r = 0; r < riga; r++) {
 			for(int c = 0; c < colonna; c++) {
-				caselle[r][c] = new Casella(r,c);
+				getCaselle()[r][c] = new Casella(new Posizione(r,c),false);
 			}
 		}
 	}
 	
+	public abstract void creaNave();
+	
+	
 
+
+	
+	public abstract void stampaNave();
+
+	public Casella[][] getCaselle() {
+		return caselle;
+	}
+
+	public void setCaselle(Casella caselle[][]) {
+		this.caselle = caselle;
+	}
 	
 	
 	
