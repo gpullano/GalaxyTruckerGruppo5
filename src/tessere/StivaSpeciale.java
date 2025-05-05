@@ -1,5 +1,7 @@
 package tessere;
 
+import collezionabili.Merci;
+
 public class StivaSpeciale extends Tessera {
 	/* la stiva speciale è di colore rosso e può avere solo 1 o 2 scomparti, sempre generati casualmente */
 	private final int scomparti;

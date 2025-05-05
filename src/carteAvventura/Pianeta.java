@@ -2,10 +2,11 @@ package carteAvventura;
 
 import java.util.Random;
 
-import tessere.Merci;
+import collezionabili.Merci;
 
 public class Pianeta {
 	private final Merci merciPianeta[];
+	private boolean occupato;
 	
 	public Pianeta() {
 		//ogni pianeta può avere da 1 a 5 merci
@@ -14,5 +15,13 @@ public class Pianeta {
 
 	public Merci[] getMerciPianeta() {
 		return merciPianeta;
+	}
+
+	public boolean isOccupato() {
+		return occupato;
+	}
+
+	public void setOccupato(boolean occupato) {
+		this.occupato = occupato;
 	}
 }

@@ -1,14 +1,14 @@
 package carteAvventura;
 
-public class Contrabbandieri extends Carta {
+public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	// attributi
-	private int fuocoNemico;
-	private int merci;
+	private final int fuocoNemico;
+	private final int merciRimosse;
 	
-	public Contrabbandieri(int giorniDiVolo, int livello,int fuocoNemico, int merci) {
+	public Contrabbandieri(int giorniDiVolo, int livello, int fuocoNemico, int merciRimosse) {
 		super(giorniDiVolo, livello);
-		this.setFuocoNemico(fuocoNemico);
-		this.setMerci(merci);
+		this.fuocoNemico = fuocoNemico;
+		this.merciRimosse = merciRimosse;		
 	}
 
 	@Override
@@ -21,16 +21,7 @@ public class Contrabbandieri extends Carta {
 		return fuocoNemico;
 	}
 
-	public void setFuocoNemico(int fuocoNemico) {
-		this.fuocoNemico = fuocoNemico;
+	public int getMerciRimosse() {
+		return merciRimosse;
 	}
-
-	public int getMerci() {
-		return merci;
-	}
-
-	public void setMerci(int merci) {
-		this.merci = merci;
-	}
-
 }

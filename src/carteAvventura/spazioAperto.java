@@ -2,8 +2,8 @@ package carteAvventura;
 
 public class spazioAperto extends Carta {
 // non ha attributi 
-	public spazioAperto(int giorniDiVolo, int livello) {
-		super(giorniDiVolo, livello);
+	public spazioAperto(int livello) {
+		super(livello);
 		// TODO Auto-generated constructor stub
 	}
 

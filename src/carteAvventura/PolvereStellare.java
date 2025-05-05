@@ -1,6 +1,6 @@
 package carteAvventura;
 
-public class PolvereStellare extends Carta {
+public class PolvereStellare extends CartaPerditaGiorniVolo {
 	// non ha attributi
 	public PolvereStellare(int giorniDiVolo, int livello) {
 		super(giorniDiVolo, livello);
