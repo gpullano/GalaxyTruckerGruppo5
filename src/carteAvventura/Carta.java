@@ -21,5 +21,9 @@ public abstract class Carta {
 	public int getLivello() {
 		return livello;
 	}
+	// metodi 
+	//	metodo astratto che ogni carta implementa con @override
+	public abstract void attiva() ;
+	//	TODO parametro in attiva 
 	
 }
