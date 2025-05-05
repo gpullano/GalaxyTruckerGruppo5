@@ -1,5 +1,8 @@
 package carteAvventura;
 
+//polvere stellare, spazio aperto, pioggia di meteoriti x dopo, zona di guerra, contrabbandieri, 
+//nave abbandonata, schiavisti
+
 public abstract class Carta {
 	// attributi
 	private final int  giorniDiVolo;
