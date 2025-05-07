@@ -5,21 +5,19 @@ public class Casella {
 	private final Posizione posizione;
 	private boolean occupato;
 	//	Costruttore
-	//public Casella(posizio) {
-	//	this.occupato = occupato;
-	//}
+	
 	
 	public Casella(Posizione posizione, boolean occupato) {
 		this.posizione = posizione;
 		this.occupato = occupato;
 	}
 	
-	public void setOccupato(boolean occupato) {
+	public void setUtilizzabile(boolean occupato) {
 		this.occupato = occupato;	
 	}
 	 
 	
-	public boolean isOccupato() {
+	public boolean isUtilizzabile() {
 		return occupato;
 	}
 	
