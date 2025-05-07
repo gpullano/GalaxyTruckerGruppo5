@@ -1,62 +1,65 @@
 package plance;
 
+
 public class PlanceNaveLivello1 extends PlanceNave{
 
 	public PlanceNaveLivello1() {
-		super(4, 6);
+		super(5, 7);
+		this.creaNave();
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void creaNave() {
-		int r=0;
-		int c=0;
-		
+		for(int r = 0; r <= 4; r++) {
+		int c = 0;
 		if (r == 0) {
-			if (c == 3) {
-				getCaselle()[c][r].setOccupato(true);
+			for( c = 3; c <= 3;c++) {
+				getCaselle()[r][c].setUtilizzabile(true);
 				
 		}
 		}
 		if (r == 1) {
 			for(c = 2; c <= 4; c++) {
-				getCaselle()[c][r].setOccupato(true);
+				getCaselle()[r][c].setUtilizzabile(true);
 			}
 		}
 		
 		if (r == 2) {
 			for(c = 1; c <= 5; c++) {
-				getCaselle()[c][r].setOccupato(true);
+				getCaselle()[r][c].setUtilizzabile(true);
 			}
 		}
 		
 		if (r == 3) {
 			for(c = 1; c <= 5; c++) {
-				getCaselle()[c][r].setOccupato(true);
+				getCaselle()[r][c].setUtilizzabile(true);
 			}
 		}
 		
 		if (r == 4) {
 			for(c = 1; c <= 2; c++) {
-				getCaselle()[c][r].setOccupato(true);
+				getCaselle()[r][c].setUtilizzabile(true);
 			}
 			for(c = 4; c <= 5; c++) {
-				getCaselle()[c][r].setOccupato(true);
+				getCaselle()[r][c].setUtilizzabile(true);
 			}
 		}	
+		}
 	}
 
 	@Override
 	public void stampaNave() {
 		for(int r = 0; r <= 4; r++) {
 			for(int c = 0; c <= 6; c++) {
-				if(getCaselle()[r][c].isOccupato()) {
-					System.out.println("▢");
+				if(getCaselle()[r][c].isUtilizzabile()) {
+					System.out.print("▢\t");
 				}else {
-					System.out.println(" ");
+					System.out.print("\t");
 				}
 				
 			}
+			System.out.println();
 		}
 	}
 	
