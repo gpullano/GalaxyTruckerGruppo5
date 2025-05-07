@@ -1,5 +1,7 @@
 package gameLogic;
-
+import gameLogic.Colore;
 public class Giocatore {
-	// TODO
+	// attributi 
+	private final Colore colore;
+	
 }
