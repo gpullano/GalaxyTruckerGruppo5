@@ -5,7 +5,6 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	private final int fuocoNemico;
 	private final int merciRimosse;
 	private final int merciAcquisite;
-	private final int giorniVolo;
 	Random rand=new Random();
 	public Contrabbandieri( int livello ) {
 		super(livello);
