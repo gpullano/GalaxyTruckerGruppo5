@@ -2,15 +2,15 @@ package tessere;
 
 public class VanoBatteria extends Tessera {
 	// attributo
-	private final int batteria;
+	private int batterie;
 	//costruttore ereditato superclasse
-	public VanoBatteria(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown, int batteria) {
+	public VanoBatteria(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown, int batterie) {
 		super(latoDx, latoSx, latoSup, latoDown);
-		this.batteria=batteria;
+		this.batterie=batterie;
 	}
-	//getter
-	public int getBatteria() {
-		return batteria;
+	//getter 
+	public int getBatterie() {
+		return batterie;
 	}
 
 	
