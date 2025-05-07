@@ -1,5 +1,7 @@
 package tessere;
 
+import gameLogic.Colore;
+
 public class CabinaCentrale extends Tessera {
 	// attributi 
 	private final Colore colore;

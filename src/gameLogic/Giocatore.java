@@ -1,5 +1,6 @@
 package gameLogic;
-
 public class Giocatore {
-	// TODO
+	// attributi 
+	private final Colore colore;
+	
 }
