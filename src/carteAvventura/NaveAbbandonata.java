@@ -5,8 +5,8 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	private final int equipaggioRichiesto;
 	private final int CreditiCosmiciOttenuti;
 
-	public NaveAbbandonata(int giorniDiVolo, int livello, int equipaggioRichiesto, int CreditiCosmiciOttenuti) {
-		super(giorniDiVolo, livello);
+	public NaveAbbandonata(int livello, int equipaggioRichiesto, int CreditiCosmiciOttenuti) {
+		super(livello);
 		this.CreditiCosmiciOttenuti=CreditiCosmiciOttenuti;
 		this.equipaggioRichiesto=equipaggioRichiesto;
 	}
