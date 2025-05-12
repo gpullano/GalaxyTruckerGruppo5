@@ -40,7 +40,4 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		
 	}
 
-	
->>>>>>> 5636abc Ho implementato la classe schiavisti e modificato pirati
-
 }
