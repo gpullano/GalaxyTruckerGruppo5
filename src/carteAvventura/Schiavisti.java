@@ -41,13 +41,12 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 	}
 
 
-<<<<<<< HEAD
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-=======
->>>>>>> stash
+
 
 }
