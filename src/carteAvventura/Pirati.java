@@ -1,6 +1,6 @@
 package carteAvventura;
 import java.util.Random;
-public class Pirati extends Carta {
+public class Pirati extends CartaPerditaGiorniVolo {
 	private final int potenzaFuoco;
 	private final int creditiCosmici;
 	

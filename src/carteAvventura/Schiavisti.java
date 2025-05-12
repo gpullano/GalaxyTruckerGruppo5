@@ -3,34 +3,44 @@ package carteAvventura;
 import java.util.Random;
 
 public class Schiavisti extends CartaPerditaGiorniVolo {
-	private final int potenzaFuoco;
-	private final int creditiVinti;
-	private final int equipaggioRichiesto;
 
+	private final int equipaggioPerso;
+	private final int potenzaFuoco;
+	private final int creditiCosmici;
+	
+	
 	public Schiavisti(int livello) {
 		super(livello);
 		Random rand = new Random();
-		this.potenzaFuoco = rand.nextInt(4) + 5;
-		this.creditiVinti = rand.nextInt(6) + 5;
-		this.equipaggioRichiesto = rand.nextInt(3) + 3;
+		this.equipaggioPerso = rand.nextInt(3)+4;
+		this.potenzaFuoco = rand.nextInt(2)+5;
+		this.creditiCosmici = rand.nextInt(2)+4;
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
 
+	public int getEquipaggioPerso() {
+		return equipaggioPerso;
 	}
+
 
 	public int getPotenzaFuoco() {
 		return potenzaFuoco;
 	}
 
-	public int getCreditiVinti() {
-		return creditiVinti;
+
+	public int getCreditiCosmici() {
+		return creditiCosmici;
 	}
 
-	public int getEquipaggioRichiesto() {
-		return equipaggioRichiesto;
+
+	@Override
+	public void attiva() {
+		// TODO Auto-generated method stub
+		
 	}
+
+	
+>>>>>>> 5636abc Ho implementato la classe schiavisti e modificato pirati
 
 }
