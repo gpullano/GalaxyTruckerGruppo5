@@ -13,4 +13,10 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

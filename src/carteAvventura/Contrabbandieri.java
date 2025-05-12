@@ -38,4 +38,12 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	public Merci[] getMerciAcquisite() {
 		return merciAcquisite;
 	}
+
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

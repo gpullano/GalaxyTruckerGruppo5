@@ -26,4 +26,10 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		return creditiCosmici;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

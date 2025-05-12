@@ -25,5 +25,11 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	public void attiva() {
 	//	TODO implementare la classe 
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

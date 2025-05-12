@@ -32,4 +32,11 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 	public Merci getMerce() {
 		return merce;
 	}
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

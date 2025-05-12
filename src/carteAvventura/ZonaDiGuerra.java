@@ -1,20 +1,18 @@
 package carteAvventura;
 
-import java.util.Random;
+import gameLogic.Cannonata;
 
-public class Schiavisti extends CartaPerditaGiorniVolo {
-
+public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
 	private final int potenzaFuoco;
-	private final int creditiCosmici;
+	private final Cannonata cannonata[];
 	
 	
-	public Schiavisti(int livello) {
+	public ZonaDiGuerra(int livello) {
 		super(livello);
-		Random rand = new Random();
-		this.equipaggioPerso = rand.nextInt(3)+4;
-		this.potenzaFuoco = rand.nextInt(2)+5;
-		this.creditiCosmici = rand.nextInt(2)+4;
+		this.equipaggioPerso = 0;
+		this.potenzaFuoco = 0;
+		this.cannonata = new Cannonata[2];
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,10 +25,9 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 	public int getPotenzaFuoco() {
 		return potenzaFuoco;
 	}
-
-
-	public int getCreditiCosmici() {
-		return creditiCosmici;
+	
+	public Cannonata[] getCannonata() {
+		return cannonata;
 	}
 
 
