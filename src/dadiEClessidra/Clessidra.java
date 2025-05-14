@@ -1,6 +1,6 @@
 package dadiEClessidra;
 
-public class clessidra {
+public class Clessidra {
     //***attribute
     private int phaseDuration;
     private int inputPhaseDuration;
@@ -9,7 +9,7 @@ public class clessidra {
     private volatile boolean running = false;
     
     // constructions
-    public clessidra(int phaseDuration, GameLevel level) {
+    public Clessidra(int phaseDuration, GameLevel level) {
     this.level = level;
     this.phaseDuration = phaseDuration;
     this.inputPhaseDuration = phaseDuration;
