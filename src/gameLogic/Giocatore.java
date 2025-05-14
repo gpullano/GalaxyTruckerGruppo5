@@ -3,7 +3,7 @@ package gameLogic;
 public class Giocatore {
 	public class giocatore {
     // Attributi
-    private Colore razzo;
+    private Colore colore;
     private nave stato;
     private int creditistellari;
     private int posizione;
@@ -11,8 +11,8 @@ public class Giocatore {
     
 
     // Costruttore
-    public giocatore(Colore razzo, nave stato ) {
-        this.razzo= razzo;
+    public giocatore(Colore colore, nave stato ) {
+        this.colore= colore;
         this.stato = stato;
         this.creditistellari = 0;
         this.posizione = 0;
@@ -21,8 +21,8 @@ public class Giocatore {
     }
 
     // Getters
-    public Colore getRazzo() {
-        return razzo;
+    public Colore getColore() {
+        return colore;
     }
 
     public nave getStato() {
@@ -46,8 +46,8 @@ public class Giocatore {
         this.stato = stato;
     }
 
-    public void setRazzo(Colore razzo) {
-        this.razzo = razzo;
+    public void setColore(Colore colore) {
+        this.colore = colore;
     }
 
 
