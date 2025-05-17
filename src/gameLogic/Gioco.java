@@ -7,6 +7,14 @@ public class Gioco {
 	}
 	
 	public void play() {
-		// TODO
+		ConsoleIO inputOutput = new ConsoleIO();
+        SetupPartita setup = new SetupPartita(inputOutput);
+
+        
+        
+        
+        
+     // alla fine del gioco
+        inputOutput.chiudiScanner();
 	}
 }
