@@ -7,7 +7,7 @@ public class Giocatore {
     private nave stato;
     private int creditistellari;
     private int posizione;
-    private boolean hasGivenUp;
+    private boolean haAbbandonato;
     
 
     // Costruttore
@@ -16,7 +16,7 @@ public class Giocatore {
         this.stato = stato;
         this.creditistellari = 0;
         this.posizione = 0;
-        this.hasGivenUp = false;
+        this.haAbbandonato = false;
         
     }
 
@@ -36,8 +36,8 @@ public class Giocatore {
     public int getPosizione() {
         return posizione;
     }
-    public boolean getHasGivenUp() {
-        return hasGivenUp;
+    public boolean getHaAbbandonato() {
+        return haAbbandonato;
     }
 
     // Setters
@@ -71,8 +71,8 @@ public class Giocatore {
         }
     }
  
-    public void giveUp() {
-        hasGivenUp = true;
+    public void abbandonaPartita() {
+    	haAbbandonato = true;
         System.out.println("Il giocatore ha deciso di arrendersi.");
     }
 }
