@@ -1,10 +1,6 @@
 package carteAvventura;
 import java.util.Random;
 
-import gameLogic.Dimensione;
-import gameLogic.Meteorite;
-import gameLogic.Provenienza;
-
 public class PioggiaDiMeteoriti extends Carta {
 	// attributi
 	

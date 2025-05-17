@@ -1,4 +1,4 @@
-package gameLogic;
+package carteAvventura;
 import java.util.Random;
 
 public enum Dimensione {

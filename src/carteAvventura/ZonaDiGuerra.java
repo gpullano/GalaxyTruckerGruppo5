@@ -1,7 +1,5 @@
 package carteAvventura;
 
-import gameLogic.Cannonata;
-
 public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
 	private final int potenzaFuoco;

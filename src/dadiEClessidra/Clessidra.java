@@ -1,15 +1,17 @@
 package dadiEClessidra;
 
+import gameLogic.LivelloPartita;
+
 public class Clessidra {
     //***attribute
     private int phaseDuration;
     private int inputPhaseDuration;
-    private GameLevel level;
+    private LivelloPartita level;
     private Thread timerThread;
     private volatile boolean running = false;
     
     // constructions
-    public Clessidra(int phaseDuration, GameLevel level) {
+    public Clessidra(int phaseDuration, LivelloPartita level) {
     this.level = level;
     this.phaseDuration = phaseDuration;
     this.inputPhaseDuration = phaseDuration;
@@ -20,7 +22,7 @@ public class Clessidra {
         return phaseDuration;
     }
     
-    public GameLevel getLevel() {
+    public LivelloPartita getLevel() {
         return level;
     }
     
@@ -29,18 +31,20 @@ public class Clessidra {
         this.phaseDuration = phaseDuration;
     }
     
-    public void setGameLevel(GameLevel level) {
+    public void setGameLevel(LivelloPartita level) {
         this.level = level;
         switch (level) {
-            case LEVEL_I:
+            case LIVELLO1:
                 System.out.println("LEVEL_I: 1 clessidra, when the first player finishes ,the game starts");
                 break;
-            case LEVEL_II:
+            case LIVELLO2:
                 System.out.println("LEVEL_II: 1 clessidra, when the second player finishes, the game starts");
                 break;
-            case LEVEL_III:
+            case LIVELLO3:
                 System.out.println("LEVEL_III: 1 clessidra, when the third player finishes, the game starts");
                 break;
+		default:
+			break;
     }
     }
     

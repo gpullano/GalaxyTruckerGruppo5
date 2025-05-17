@@ -4,19 +4,19 @@ import java.util.Random;
 
 public class Dadi {
     //attribute
-    int face;
+    int faccia;
 
     //constructor
     public Dadi(){
-        this.face=0;
+        this.faccia=0;
         
     }
     
     //methods
-    public int start(){ 
+    public int lancia(){ 
         Random rn = new Random();
-        this.face=rn.nextInt(6)+1;
-        return this.face;
+        this.faccia=rn.nextInt(12)+1;
+        return this.faccia;
         
     }    
 }

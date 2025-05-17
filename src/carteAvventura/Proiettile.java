@@ -1,4 +1,4 @@
-package gameLogic;
+package carteAvventura;
 
 public abstract class Proiettile {
 	private final Provenienza provenienza;
