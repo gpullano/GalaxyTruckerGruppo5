@@ -1,15 +1,22 @@
 package collezionabili;
-import java.util.Random;
-public enum Merci {
-	BLU(1), VERDE(2), GIALLA(3), ROSSA(4);
 
-	Merci(int i) {
-		}
-	// generatore di merci casuale
-	 public static Merci generaMerceCasuale() {
-		 Random rand=new Random();
-	        Merci[] valori = Merci.values();
-	        int indice = rand.nextInt(valori.length);
-	        return valori[indice];
-	    }
+public class Merci {
+	public enum Colore {
+		ROSSO, GIALLO, BLU, VERDE
+	}
+	
+	private Colore colore;
+	
+	public Merci (Colore colore) {
+		this.setColore(colore);
+	}
+
+	public Colore getColore() {
+		return colore;
+	}
+
+	public void setColore(Colore colore) {
+		this.colore = colore;
+	}
+	
 }
