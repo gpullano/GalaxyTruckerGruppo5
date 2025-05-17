@@ -1,10 +1,8 @@
 package galaxytrucker;
 
-import gameLogic.Gioco;
 
 public class Main {
     public static void main(String[] args) {
-        Gioco gioco = new Gioco();
-        gioco.play();
+        System.out.println("It just works");
     }
 }

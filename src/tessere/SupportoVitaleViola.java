@@ -12,5 +12,9 @@ public class SupportoVitaleViola extends Tessera {
 	public String getColore() {
 		return colore;
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "STVV";
+	}
 
 }

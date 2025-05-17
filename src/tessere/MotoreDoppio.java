@@ -16,5 +16,9 @@ public class MotoreDoppio extends Tessera implements Attivabile{
 				getPotenza();
 			}
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "MotoD";
+	}
 
 }

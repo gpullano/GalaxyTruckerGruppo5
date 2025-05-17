@@ -13,7 +13,7 @@ public class CabinaCentrale extends Tessera {
 		super(Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE);
 		this.setEquipaggio(2);
 		this.colore=colore;
-			
+
 	}
 
 
@@ -30,8 +30,8 @@ public class CabinaCentrale extends Tessera {
 	public Colore getColore() {
 		return colore;
 	}
-
-
-	
-
+	@Override
+	public String getNomeBreve() {
+    	return "CabCen";
+	}
 }

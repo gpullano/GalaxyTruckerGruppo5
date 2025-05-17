@@ -28,11 +28,11 @@ public class Cabina extends Tessera {
 	public void setAlieni(int alieni) {
 		this.alieni = alieni;
 	}
+	//Methodi
+
 	
 	
 	
-	
-	//metodi
 	
 
 }
