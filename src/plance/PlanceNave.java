@@ -12,7 +12,7 @@ public abstract class PlanceNave {
 		
 		for(int r = 0; r < riga; r++) {
 			for(int c = 0; c < colonna; c++) {
-				getCaselle()[r][c] = new Casella(new Posizione(r,c),false);
+				getCaselle()[r][c] = new Casella(new Posizione(r,c));
 			}
 		}
 	}

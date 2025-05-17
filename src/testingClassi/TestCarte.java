@@ -26,5 +26,8 @@ public class TestCarte {
 	        System.out.println(carta); // Chiama il toString appropriato
         // Chiama il metodo implementato dalla classe concreta
 	    }
+		Carta primaCarta = mazzoDiCarte.remove(0);
+		
+		System.out.println(primaCarta);
 	}
 }
