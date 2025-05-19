@@ -83,10 +83,10 @@ public class GeneratoreTessere {
 				connettoreCasuale()
 				);
 				}
-	public static  Tessera generaScudoBassoSx() {
+	public static  Tessera generaScudoBassoDx() {
 		return new GeneratoreScudi(
-				connettoreCasuale(),
 				Connettore.SCUDO,
+				connettoreCasuale(),
 				connettoreCasuale(),
 				Connettore.SCUDO
 				);

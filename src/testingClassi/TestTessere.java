@@ -14,7 +14,7 @@ public class TestTessere {
 		mazzoCarte.add(GeneratoreTessere.generaMotoreCasuale());
 		mazzoCarte.add(GeneratoreTessere.generaMotoreDoppioCasuale());
 		mazzoCarte.add(GeneratoreTessere.generaScudoAltoDx());
-		mazzoCarte.add(GeneratoreTessere.generaScudoBassoSx());
+		mazzoCarte.add(GeneratoreTessere.generaScudoBassoDx());
 		mazzoCarte.add(GeneratoreTessere.generaStiva());
 		mazzoCarte.add(GeneratoreTessere.generaStivaSpeciale());
 		mazzoCarte.add(GeneratoreTessere.generaSupportoVitaleMarrone());
