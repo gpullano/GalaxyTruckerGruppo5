@@ -10,6 +10,9 @@ public abstract class Tessera {
 	//costruttore
 	public Tessera(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown)
 	{
+		if(this.latoDown == null || this.latoDx == null || this.latoSup == null || this.latoSx == null) {
+			throw new NullPointerException("I lati della tessera devono essere non nulli");
+		}
 		this.latoDx = latoDx;
 		this.latoSx = latoSx;
 		this.latoSup = latoSup;

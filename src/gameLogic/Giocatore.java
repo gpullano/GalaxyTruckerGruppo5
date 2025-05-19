@@ -16,6 +16,13 @@ public class Giocatore {
 
 	// Costruttore
     public giocatore(Colore colore, PlanceNave stato ) {
+    	if(stato == null) {
+    		throw new NullPointerException("Il giocatore non può avere una nave nulla");
+    	}
+    	if(colore == null) {
+    		throw new NullPointerException("Il giocatore non può avere un colore nullo");
+    	}
+    	
         this.colore= colore;
         this.stato = stato;
         this.creditistellari = 0;

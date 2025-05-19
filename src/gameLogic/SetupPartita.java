@@ -3,17 +3,27 @@ package gameLogic;
 public class SetupPartita {
 	//attributi
 	private final LivelloPartita livelloPartita;
-	//TODO - parte giocatori
+	private final int numGiocatori;
+	private final Colore coloreGiocatori[];
 	
 	//costruttore
 	public SetupPartita(ConsoleIO inputOutput) {
 		this.livelloPartita = inputOutput.chiediLivelloGioco();
-		// TODO - parte giocatori
+		this.numGiocatori = inputOutput.chiediNumGiocatori();
+		this.coloreGiocatori = inputOutput.chiediColoreGiocatori(numGiocatori);
 	}
 	
 	//getters e setters
 	public LivelloPartita getLivelloPartita() {
 		return livelloPartita;
+	}
+
+	public int getNumGiocatori() {
+		return numGiocatori;
+	}
+
+	public Colore[] getColoreGiocatori() {
+		return coloreGiocatori;
 	}
 
 }
