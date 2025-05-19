@@ -19,5 +19,8 @@ public class CannoneDoppio extends Tessera implements Attivabile {
 				getFuoco();
 			}
 	}
-	
+	@Override
+	public String getNomeBreve() {
+    	return "CannD";
+	}
 }

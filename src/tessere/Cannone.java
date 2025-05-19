@@ -14,4 +14,12 @@ public class Cannone extends Tessera {
 		else
 			return 0.5f;
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "CANON";
+	}
+
+
+
+	
 }

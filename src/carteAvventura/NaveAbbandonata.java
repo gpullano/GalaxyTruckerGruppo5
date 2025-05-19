@@ -6,7 +6,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	private final int equipaggioRichiesto;
 	private final int CreditiCosmiciOttenuti;
 	
-	public NaveAbbandonata( int livello) {
+	public NaveAbbandonata(int livello) {
 		super(livello);
 		Random rand =new Random();
 		this.CreditiCosmiciOttenuti=rand.nextInt(6)+2;

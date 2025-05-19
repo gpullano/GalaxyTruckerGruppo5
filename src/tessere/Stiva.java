@@ -14,6 +14,10 @@ public class Stiva extends Tessera {
 	public int getScomparto() {
 		return scomparti;
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "Stiva";
+	}
 
 
 

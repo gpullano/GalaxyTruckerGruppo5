@@ -12,6 +12,10 @@ public class VanoBatteria extends Tessera {
 	public int getBatterie() {
 		return batterie;
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "VanBa";
+	}
 
 	
 	

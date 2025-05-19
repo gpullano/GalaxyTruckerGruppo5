@@ -27,5 +27,9 @@ public class StivaSpeciale extends Tessera {
 	public void setMerci(Merci merci[]) {
 			this.merci = merci;
 	}
+	@Override
+	public String getNomeBreve() {
+    	return "StivS";
+	}
 
 }

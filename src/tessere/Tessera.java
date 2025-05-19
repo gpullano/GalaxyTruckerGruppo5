@@ -3,8 +3,8 @@ package tessere;
 public abstract class Tessera {
 	//attributi
 	private Connettore latoDx;
-	private Connettore latoSx;
-	private Connettore latoSup;
+	protected Connettore latoSx;
+	protected Connettore latoSup;
 	private Connettore latoDown;
 	
 	//costruttore
@@ -37,4 +37,26 @@ public abstract class Tessera {
 //	TODO
 //	public void ruota() {
 //	}
-}
+	@Override
+	public String toString() {
+		String sup = (getLatoSup() != null) ? getLatoSup().toString() : " ";
+		String inf = (getLatoDown() != null) ? getLatoDown().toString() : " ";
+		String sx = (getLatoSx() != null) ? getLatoSx().toString() : " ";
+		String dx = (getLatoDx() != null) ? getLatoDx().toString() : " ";
+
+		String nome = getNomeBreve();//get the name of every unic class
+
+		String risultato = "";
+		risultato += "     " + sup + "\n";
+		risultato += sx +" "+ nome+" " + dx + "\n";
+		risultato +="     "+ inf+"\n";
+
+		return risultato;
+			 
+	}
+	//method to get the name of every class
+	public String getNomeBreve() {
+   		return this.getClass().getSimpleName().toUpperCase();
+	}
+
+	}

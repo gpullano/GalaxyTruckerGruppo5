@@ -1,4 +1,4 @@
-package gameLogic;
+package carteAvventura;
 
 public class Meteorite extends Proiettile{
 	

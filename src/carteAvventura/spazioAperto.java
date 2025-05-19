@@ -13,6 +13,7 @@ public class spazioAperto extends Carta {
 
 	}
 
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

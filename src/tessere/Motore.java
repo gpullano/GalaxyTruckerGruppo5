@@ -11,5 +11,9 @@ public class Motore extends Tessera {
 		return 1;
 	}
 	//metodi
+	@Override
+	public String getNomeBreve() {
+    	return "Motor";
+	}
 
 }
