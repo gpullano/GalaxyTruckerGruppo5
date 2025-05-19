@@ -2,23 +2,25 @@ package testingClassi;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import tessere.Cabina;
-import tessere.Cannone;
-import tessere.Connettore;
-import tessere.GeneratoreScudi;
-import tessere.Motore;
-import tessere.Stiva;
 import tessere.Tessera;
 
 public class TestTessere {
 	
 	public void test() {
 		List<Tessera> mazzoCarte = new LinkedList<>();
-		mazzoCarte.add(new Cabina(Connettore.UNIVERSALE,Connettore.DOPPIO,Connettore.SINGOLO,Connettore.UNIVERSALE));
-		mazzoCarte.add(new Cannone(Connettore.NULLO,Connettore.NULLO,Connettore.CANNONE,Connettore.UNIVERSALE));
-		mazzoCarte.add(new GeneratoreScudi(Connettore.SCUDO,Connettore.DOPPIO,Connettore.NULLO,Connettore.NULLO));
-		mazzoCarte.add(new Motore(Connettore.DOPPIO,Connettore.NULLO,Connettore.SINGOLO,Connettore.MOTORE));
-		mazzoCarte.add(new Stiva(Connettore.UNIVERSALE,Connettore.DOPPIO,Connettore.NULLO,Connettore.SINGOLO,2));
+		mazzoCarte.add(GeneratoreTessere.generaCannoneCasuale());
+		mazzoCarte.add(GeneratoreTessere.generaCannoneDoppioCasuale());
+		mazzoCarte.add(GeneratoreTessere.generaModuliStrutturali());
+		mazzoCarte.add(GeneratoreTessere.generaMotoreCasuale());
+		mazzoCarte.add(GeneratoreTessere.generaMotoreDoppioCasuale());
+		mazzoCarte.add(GeneratoreTessere.generaScudoAltoDx());
+		mazzoCarte.add(GeneratoreTessere.generaScudoBassoSx());
+		mazzoCarte.add(GeneratoreTessere.generaStiva());
+		mazzoCarte.add(GeneratoreTessere.generaStivaSpeciale());
+		mazzoCarte.add(GeneratoreTessere.generaSupportoVitaleMarrone());
+		mazzoCarte.add(GeneratoreTessere.generaSupportoVitaleViola());
+
+		
 		
 		Collections.shuffle(mazzoCarte);
 		for (Tessera tessera : mazzoCarte) {
