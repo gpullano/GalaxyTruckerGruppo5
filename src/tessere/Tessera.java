@@ -34,9 +34,15 @@ public abstract class Tessera {
 	}
 	
 	//metodi
-//	TODO
-//	public void ruota() {
-//	}
+
+	public void ruota() {
+		// gira in senso antiorario 
+		Connettore temp=latoSup;
+		latoSup=latoSx;
+		latoSx=latoDown;
+		latoDown=latoDx;
+		latoDx=temp;
+	}
 	@Override
 	public String toString() {
 		String sup = (getLatoSup() != null) ? getLatoSup().toString() : " ";

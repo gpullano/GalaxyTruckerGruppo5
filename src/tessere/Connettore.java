@@ -9,7 +9,9 @@ public enum Connettore {
     MOTORE("M"),
     CANNONEDOPPIO("C2"),
     MOTOREDOPPIO("M2"),
-    SCUDO("X");
+    SCUDO("X"),
+	NULLO("//");
+	
 	private final String simbolo;
 
     // Costruttore
