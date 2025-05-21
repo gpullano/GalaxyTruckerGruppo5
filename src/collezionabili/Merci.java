@@ -1,10 +1,8 @@
 package collezionabili;
 
+import gameLogic.Colore;
+
 public class Merci {
-	public enum Colore {
-		ROSSO, GIALLO, BLU, VERDE
-	}
-	
 	private Colore colore;
 	
 	public Merci (Colore colore) {
