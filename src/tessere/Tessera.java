@@ -56,9 +56,9 @@ public abstract class Tessera {
 		String nome = getNomeBreve();//get the name of every unic class
 
 		String risultato = "";
-		risultato += "     " + sup + "\n";
-		risultato += sx +" "+ nome+" " + dx + "\n";
-		risultato +="     "+ inf+"\n";
+		risultato += "    " + sup + "\n";
+		risultato += sx + nome + dx + "\n";
+		risultato +="    "+ inf+"\n";
 
 		return risultato;
 			 

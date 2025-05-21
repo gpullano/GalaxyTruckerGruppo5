@@ -29,6 +29,10 @@ public class Cabina extends Tessera {
 		this.alieni = alieni;
 	}
 	//Methodi
+	@Override
+	public String getNomeBreve() {
+    	return " CABIN ";
+	}
 
 	
 	

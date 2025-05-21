@@ -11,7 +11,7 @@ public class GeneratoreScudi extends Tessera implements Attivabile{
 	}
 	@Override
 	public String getNomeBreve() {
-    	return "GenSc";
+    	return " GenSc ";
 	}
 
 }

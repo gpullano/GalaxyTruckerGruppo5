@@ -29,7 +29,7 @@ public class StivaSpeciale extends Tessera {
 	}
 	@Override
 	public String getNomeBreve() {
-    	return "StivS";
+    	return " StivS ";
 	}
 
 }

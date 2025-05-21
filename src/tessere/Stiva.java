@@ -16,7 +16,7 @@ public class Stiva extends Tessera {
 	}
 	@Override
 	public String getNomeBreve() {
-    	return "Stiva";
+    	return " Stiva ";
 	}
 
 

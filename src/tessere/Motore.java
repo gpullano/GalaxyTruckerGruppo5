@@ -13,7 +13,7 @@ public class Motore extends Tessera {
 	//metodi
 	@Override
 	public String getNomeBreve() {
-    	return "Motor";
+    	return " Motor ";
 	}
 
 }

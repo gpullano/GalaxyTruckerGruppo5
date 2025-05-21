@@ -21,6 +21,6 @@ public class CannoneDoppio extends Tessera implements Attivabile {
 	}
 	@Override
 	public String getNomeBreve() {
-    	return "CannD";
+    	return " CannD ";
 	}
 }
