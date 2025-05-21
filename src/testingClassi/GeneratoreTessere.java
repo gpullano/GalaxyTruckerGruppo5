@@ -16,6 +16,9 @@ import tessere.SupportoVitaleViola;
 import tessere.Tessera;
 import tessere.Stiva;
 import tessere.StivaSpeciale;
+
+
+
 public class GeneratoreTessere {
 	
 	public static Connettore connettoreCasuale() {
@@ -44,97 +47,217 @@ public class GeneratoreTessere {
 		
 	}
 	public static  Tessera generaCannoneCasuale() {
+		List<Connettore>connettori;
+		do {
+			connettori = Arrays.asList(
+		            connettoreCasuale(),
+		            connettoreCasuale(),
+		            Connettore.CANNONE,
+		            connettoreCasuale()
+		        );
+		    } while (!controllaConnettoriNulli(connettori));
+		// ora che ho controllato che la creazione casuale rispetta i vincoli
 		return new Cannone(
-				connettoreCasuale(),
-				connettoreCasuale(),
-				Connettore.CANNONE,
-				connettoreCasuale()
-				);
+				 connettori.get(0),
+			     connettori.get(1),
+			     connettori.get(2),
+			     connettori.get(3)
+							);
 				}
 	public static  Tessera generaCannoneDoppioCasuale() {
+		List<Connettore>connettori;
+		do {
+			connettori= Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					Connettore.CANNONEDOPPIO,
+					connettoreCasuale()
+					);
+					
+		}while(!controllaConnettoriNulli(connettori));
 		return new CannoneDoppio(
-				connettoreCasuale(),
-				connettoreCasuale(),
-				Connettore.CANNONEDOPPIO,
-				connettoreCasuale()
-				);
+				 connettori.get(0),
+			     connettori.get(1),
+			     connettori.get(2),
+			     connettori.get(3)
+			     );
 				}
 	public static  Tessera generaMotoreCasuale() {
-		return new Motore(
-				connettoreCasuale(),
-				connettoreCasuale(),
-				connettoreCasuale(),
-				Connettore.MOTORE
+				List<Connettore>connettori;
+				do {
+					connettori=Arrays.asList(
+							connettoreCasuale(),
+							connettoreCasuale(),
+							connettoreCasuale(),
+							Connettore.MOTORE
+							);
+							
+				}while(!controllaConnettoriNulli(connettori));
+				return new Motore(
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3)
 				);
 				}
 	public static  Tessera generaMotoreDoppioCasuale() {
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					Connettore.MOTOREDOPPIO
+					);
+					
+		}while(!controllaConnettoriNulli(connettori));
 		return new MotoreDoppio(
-				connettoreCasuale(),
-				connettoreCasuale(),
-				connettoreCasuale(),
-				Connettore.MOTOREDOPPIO
-				);
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3)
+			    );
 				}
 	public static  Tessera generaScudoAltoDx() {
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					Connettore.SCUDO,
+					connettoreCasuale(),
+					Connettore.SCUDO,
+					connettoreCasuale()
+					);
+					
+		}while(!controllaConnettoriNulli(connettori));
 		return new GeneratoreScudi(
-				Connettore.SCUDO,
-				connettoreCasuale(),
-				Connettore.SCUDO,
-				connettoreCasuale()
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3)
 				);
 				}
 	public static  Tessera generaScudoBassoDx() {
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					Connettore.SCUDO,
+					connettoreCasuale(),
+					connettoreCasuale(),
+					Connettore.SCUDO
+					);
+		}while(!controllaConnettoriNulli(connettori));
 		return new GeneratoreScudi(
-				Connettore.SCUDO,
-				connettoreCasuale(),
-				connettoreCasuale(),
-				Connettore.SCUDO
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3)
 				);
 				}
+
 	public static Tessera generaSupportoVitaleViola(){
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					);
+		}while(!controllaConnettoriNulli(connettori));
 		return new SupportoVitaleViola(
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		"VIOLA"
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3), 
+			    "VIOLA"
+		
 	);	
 	}
 	public static Tessera generaSupportoVitaleMarrone(){
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					);
+					
+		}while(!controllaConnettoriNulli(connettori));
 		return new SupportoVitaleMarrone(
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		"MARRONE"
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3), 
+			    "MARRONE"
 	);	
 	}
 	public static Tessera generaStiva(){
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					);
+		}while(!controllaConnettoriNulli(connettori));
 		return new Stiva(
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		2
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3), 
+			    2
 	);	
 	}
 	public static Tessera generaStivaSpeciale(){
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					);
+			
+		}while(!controllaConnettoriNulli(connettori));
 		return new StivaSpeciale(
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		connettoreCasuale(),
-		4
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3),
+			    4
 	);	
 	}
 	public static Tessera generaModuliStrutturali() {
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					);
+		}while(!controllaConnettoriNulli(connettori));
 		return new ModuliStrutturali(
-				connettoreCasuale(),
-				connettoreCasuale(),
-				connettoreCasuale(),
-				connettoreCasuale()
+				connettori.get(0),
+			    connettori.get(1),
+			    connettori.get(2),
+			    connettori.get(3)
 				);
 				
+	}
+	public static boolean controllaConnettoriNulli(List<Connettore> connettori) {
+		int cont=0;
+		for (Connettore c:connettori) {
+			if (c==Connettore.NULLO) {
+				cont++;
+			}
+		}
+		if (cont>2) {
+			return false ;
+		}
+		return true;
 	}
 	
 }

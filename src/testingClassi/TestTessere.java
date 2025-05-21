@@ -1,35 +1,31 @@
 package testingClassi;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import tessere.Tessera;
-
+import java.util.Deque;
+import java.util.ArrayDeque;
 public class TestTessere {
 	
 	public void test() {
-		List<Tessera> mazzoCarte = new LinkedList<>();
-		mazzoCarte.add(GeneratoreTessere.generaCannoneCasuale());
-		mazzoCarte.add(GeneratoreTessere.generaCannoneDoppioCasuale());
-		mazzoCarte.add(GeneratoreTessere.generaModuliStrutturali());
-		mazzoCarte.add(GeneratoreTessere.generaMotoreCasuale());
-		mazzoCarte.add(GeneratoreTessere.generaMotoreDoppioCasuale());
-		mazzoCarte.add(GeneratoreTessere.generaScudoAltoDx());
-		mazzoCarte.add(GeneratoreTessere.generaScudoBassoDx());
-		mazzoCarte.add(GeneratoreTessere.generaStiva());
-		mazzoCarte.add(GeneratoreTessere.generaStivaSpeciale());
-		mazzoCarte.add(GeneratoreTessere.generaSupportoVitaleMarrone());
-		mazzoCarte.add(GeneratoreTessere.generaSupportoVitaleViola());
+		// cambiato da 'list' a 'Deque' perchè è più leggibile, chiaro e adatto a un mazzo 
+		Deque<Tessera> mazzoCarte = new ArrayDeque<>();
+		mazzoCarte.push(GeneratoreTessere.generaCannoneCasuale());
+		mazzoCarte.push(GeneratoreTessere.generaCannoneDoppioCasuale());
+		mazzoCarte.push(GeneratoreTessere.generaModuliStrutturali());
+		mazzoCarte.push(GeneratoreTessere.generaMotoreCasuale());
+		mazzoCarte.push(GeneratoreTessere.generaMotoreDoppioCasuale());
+		mazzoCarte.push(GeneratoreTessere.generaScudoAltoDx());
+		mazzoCarte.push(GeneratoreTessere.generaScudoBassoDx());
+		mazzoCarte.push(GeneratoreTessere.generaStiva());
+		mazzoCarte.push(GeneratoreTessere.generaStivaSpeciale());
+		mazzoCarte.push(GeneratoreTessere.generaSupportoVitaleMarrone());
+		mazzoCarte.push(GeneratoreTessere.generaSupportoVitaleViola());
 
 		
-		
-		Collections.shuffle(mazzoCarte);
-		for (Tessera tessera : mazzoCarte) {
-		System.out.println(tessera);
+		// finchè non è vuoto il mazzo prendo e stampo la tessera 
+		while (!mazzoCarte.isEmpty()) {
+			Tessera t = mazzoCarte.pop();
+			System.out.println(t);
 			
 		}
-		Tessera primaTessera=mazzoCarte.remove(0);
-		
-		System.out.println(primaTessera);
 		
 	}
 }
