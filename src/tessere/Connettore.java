@@ -10,7 +10,7 @@ public enum Connettore {
     CANNONEDOPPIO("C2"),
     MOTOREDOPPIO("M2"),
     SCUDO("X"),
-	NULLO("//");
+	NULLO("--");
 	
 	private final String simbolo;
 
