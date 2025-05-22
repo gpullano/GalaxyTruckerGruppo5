@@ -4,33 +4,25 @@ import gameLogic.LivelloPartita;
 
 public class Clessidra {
     //***attribute
-    private int phaseDuration;
-    private int inputPhaseDuration;
     private LivelloPartita level;
-    private Thread timerThread;
-    private volatile boolean running = false;
+    private int secondsLeft;
+    private boolean running;
     
     // constructions
-    public Clessidra(int phaseDuration, LivelloPartita level) {
+    public Clessidra(int second , LivelloPartita level) {
     this.level = level;
-    this.phaseDuration = phaseDuration;
-    this.inputPhaseDuration = phaseDuration;
+    this.running = false;
+    this.secondsLeft=second;
+    
     }
     
-    // getters
-    public int getPhaseDuration() {
-        return phaseDuration;
-    }
+    // getter
     
     public LivelloPartita getLevel() {
         return level;
     }
     
-    // setters
-    public void setPhaseDuration(int phaseDuration) {
-        this.phaseDuration = phaseDuration;
-    }
-    
+    //method
     public void setGameLevel(LivelloPartita level) {
         this.level = level;
         switch (level) {
@@ -50,53 +42,33 @@ public class Clessidra {
     
     //***methods
     public void start() {
-    
-        if (timerThread != null && timerThread.isAlive()) {
-            System.err.println("test");
-            return; // already running
+        if (running) {
+            System.out.println("Timer already started.");
+            return;
         }
-    
         running = true;
-        timerThread = new Thread(() -> {
-            System.out.println("Time left: " + phaseDuration + " seconds");
-            while (running && phaseDuration > 0) {
-                try {
-                    Thread.sleep(1000); // wait 1 second
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // restore interrupted status
-                break;
+        System.out.println("Timer started with " + secondsLeft + " seconds.");
+    }
+
+     public void tick() {
+        if (running && secondsLeft > 0) {
+            secondsLeft--;
+            System.out.println("Time left: " + secondsLeft + " seconds");
+
+            if (secondsLeft == 0) {
+                running = false;
+                System.out.println("Time's up!");
             }
-            if (running) {
-                phaseDuration--;
-                System.out.println("Time left: " + phaseDuration + " seconds");
-                }
-            }
-        });
-        timerThread.start();
-        
+        }
     }
     
     public void stop() {
         running = false;
-        if (timerThread != null) {
-            timerThread.interrupt(); // optional: in case it's sleeping
-            try{
-                timerThread.join();
-            }catch(InterruptedException e){
-                Thread.currentThread().interrupt();
-            }
-    }
-    }
-    
-    public void reverse(){
-        System.err.println("after reversing");
-        stop();
-        this.phaseDuration = this.inputPhaseDuration - this.phaseDuration;
-        start();
+        System.out.println("Timer stopped.");
     }
     
     public boolean isExpired() {
-        return this.phaseDuration == 0;
+        return secondsLeft == 0;
     }
    
     }
