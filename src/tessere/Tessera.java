@@ -58,7 +58,7 @@ public abstract class Tessera {
 		String risultato = "";
 		risultato += "    " + sup + "\n";
 		risultato += sx + nome + dx + "\n";
-		risultato +="    "+ inf+"\n";
+		risultato +="    "+ inf;
 
 		return risultato;
 			 

@@ -1,7 +1,10 @@
 package plance;
 
+import tessere.Tessera;
 
 public class PlanceNaveLivello1 extends PlanceNave{
+	private Casella[][] caselle;
+	private Tessera tessera;
 
 	public PlanceNaveLivello1() {
 		super(5, 7);
@@ -45,23 +48,57 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}	
 		}
 	}
+	
+	public boolean posizionaTessera(Tessera tessera, int riga,int colonna) {
+		/*if (riga < 0 || riga >= getCaselle().length || colonna < 0 || colonna >= getCaselle()[0].length) {
+			System.out.println("Errore: posizione fuori dai limiti (" + riga + "," + colonna + ")");
+		    return false;
+		}*/
+		
+		if (!getCaselle()[riga][colonna].isUtilizzabile()) {
+			System.out.println("Errore: la casella (" + riga + "," + colonna + ") non è utilizzabile");
+		    return false;
+		}
+		
+		if (getCaselle()[riga][colonna].isOccupata()) {
+			System.out.println("Errore: la casella (" + riga + "," + colonna + ") è già occupata");
+		    return false;
+		}
+		
+		getCaselle()[riga][colonna].setTessera(tessera);
+		System.out.println("Tessera posizionata con successo in (" + riga + "," + colonna + ")");
+		return true;
+	}
 
 	@Override
 	public void stampaNave() {
+		System.out.println();
 		for(int r = 0; r <= 4; r++) {
 			for(int c = 0; c <= 6; c++) {
 				if(getCaselle()[r][c].isUtilizzabile()) {
-					// bisogna aggiungere la condizione per quando viene
-					// stampata la tessera anziché il quadratino
-					// bisogna cioé vedere se la casella è vuota o meno
-					System.out.print("▢\t");
+					if (getCaselle()[r][c].isOccupata()) {
+						System.out.print(getCaselle()[r][c].getTessera().toString());
+					} else {
+						System.out.print("▢\t\t");	
+					}
 				}else {
-					System.out.print("\t");
+			    	System.out.print("\t\t");
 				}
 				
 			}
 			System.out.println();
+			System.out.println();
+			System.out.println();
 		}
 	}
+
+	public Tessera getTessera() {
+		return getTessera();
+	}
+
+	public void setTessera(Tessera tessera) {
+		this.tessera = tessera;
+	}
+
 	
 }

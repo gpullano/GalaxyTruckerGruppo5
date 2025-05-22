@@ -1,9 +1,14 @@
 package plance;
+
+import gameLogic.Colore;
+
 public class PlanceVolo {
 	
 	private Cella cella[][];
+	private PosizioneGiocatore[] posizioneGiocatori;
+	private int lunghezzaPercorso = 17;
 	
-	public PlanceVolo(int riga, int colonna) {
+	public PlanceVolo(int riga, int colonna, int numeroGiocatori, Colore colori[]) {
 		this.setCella(new Cella[riga][colonna]);
 		
 		for(int r = 0; r < riga; r++) {
@@ -12,8 +17,15 @@ public class PlanceVolo {
 				
 			}
 		}
+
+		
+		for(int i = 0; i < numeroGiocatori; i++) {
+			this.posizioneGiocatori[i] = new PosizioneGiocatore(0,1,0,colori[i]);
+		}
+	
 		
 	}
+	
 
 	public void percorso() {
 		int righe = cella.length;
@@ -42,6 +54,17 @@ public class PlanceVolo {
 		
     }
 	
+	public PosizioneGiocatore[] getPosizioneGiocatori() {
+		return posizioneGiocatori;
+	}
+	
+	public void stampaGiocatori() {
+		for (PosizioneGiocatore p : posizioneGiocatori ) {
+			System.out.println(p);
+		}
+	}
+	
+	
 	public void stampaVolo() {
 		for(int r = 0; r < cella.length; r++) {
 			for(int c = 0; c < cella[r].length; c++) {
@@ -64,6 +87,16 @@ public class PlanceVolo {
 
 	public void setCella(Cella cella[][]) {
 		this.cella = cella;
+	}
+
+
+	public int getLunghezzaPercorso() {
+		return lunghezzaPercorso;
+	}
+
+
+	public void setLunghezzaPercorso(int lunghezzaPercorso) {
+		this.lunghezzaPercorso = lunghezzaPercorso;
 	}
 
 }
