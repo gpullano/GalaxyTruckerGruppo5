@@ -22,11 +22,22 @@ public class PioggiaDiMeteoriti extends Carta {
 		// TODO Auto-generated method stub
 
 	}
+	public int getNumeroMeteorite() {
+		return numeroMeteorite;
+	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Pioggia Di Meteoriti - Livello: ").append(getLivello()).append("\n");
+		sb.append("La tua nave verrà colpita da ").append(getNumeroMeteorite() + " ").append("meteoriti\n");
+		
+		for(int i = 0; i < meteoriti.length; i++) {
+			sb.append(" - Meteorite ").append(i +1).append(": ").append(meteoriti[i].getDimensione()).append(" da ").append(meteoriti[i].getProvenienza()).append("\n");
+		}
+		
+		
+		return sb.toString();
 	}
 
 }

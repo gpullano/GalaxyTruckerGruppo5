@@ -6,4 +6,5 @@ public class Meteorite extends Proiettile{
 	{
 		super(dimensione, provenienza);
 	}
+	
 }

@@ -11,10 +11,14 @@ public abstract class Proiettile {
 	}
 
 	public Dimensione getPotenza() {
-		return dimensione;
+		return getDimensione();
 	}
 
 	public Provenienza getProvenienza() {
 		return provenienza;
+	}
+
+	public Dimensione getDimensione() {
+		return dimensione;
 	}
 }

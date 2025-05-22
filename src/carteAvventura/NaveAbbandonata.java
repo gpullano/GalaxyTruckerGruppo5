@@ -28,8 +28,15 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Nave Abbandonata - Livello: ").append(getLivello()).append("\n");
+		sb.append("Questa carta richiede di rinunciare a ").append(getEquipaggioRichiesto() + " ").append("pedine equipaggio\n");
+		sb.append("La carta permette di guadagnare ").append(getCreditiCosmiciOttenuti() + " ").append("crediti cosmici\n");
+		sb.append("Effetto: perdita di giorni di volo ").append(getGiorniVoloPersi()).append("\n\n");
+	
+		
+		return sb.toString();
 	}
+
 	
 }
