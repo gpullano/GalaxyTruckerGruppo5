@@ -11,6 +11,7 @@ public class SetupPartita {
 		this.livelloPartita = inputOutput.chiediLivelloGioco();
 		this.numGiocatori = inputOutput.chiediNumGiocatori();
 		this.coloreGiocatori = inputOutput.chiediColoreGiocatori(numGiocatori);
+		
 	}
 	
 	//getters e setters

@@ -3,7 +3,6 @@ package gameLogic;
 import plance.PlanceNave;
 
 public class Giocatore {
-	public class giocatore {
     // Attributi
     private Colore colore;
     private PlanceNave stato;
@@ -15,7 +14,7 @@ public class Giocatore {
    
 
 	// Costruttore
-    public giocatore(Colore colore, PlanceNave stato ) {
+    public Giocatore(Colore colore, PlanceNave stato ) {
     	if(stato == null) {
     		throw new NullPointerException("Il giocatore non può avere una nave nulla");
     	}
@@ -102,7 +101,4 @@ public class Giocatore {
     public void incrementaPilaScarti() {
     	this.pilaScarti++;
     }
-}
-
-	
 }
