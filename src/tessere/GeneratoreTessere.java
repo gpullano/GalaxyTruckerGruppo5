@@ -1,25 +1,16 @@
-package testingClassi;
+package tessere;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import tessere.Cannone;
-import tessere.CannoneDoppio;
-import tessere.Connettore;
-import tessere.GeneratoreScudi;
-import tessere.ModuliStrutturali;
-import tessere.Motore;
-import tessere.MotoreDoppio;
-import tessere.SupportoVitaleMarrone;
-import tessere.SupportoVitaleViola;
-import tessere.Tessera;
-import tessere.Stiva;
-import tessere.StivaSpeciale;
-
 
 
 public class GeneratoreTessere {
+	
+	  private GeneratoreTessere() {
+		    throw new IllegalStateException("Utility class");
+		  }
 	
 	public static Connettore connettoreCasuale() {
 		Random rand=new Random();

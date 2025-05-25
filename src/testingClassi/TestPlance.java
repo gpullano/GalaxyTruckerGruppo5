@@ -12,6 +12,7 @@ import carteAvventura.StazioneAbbandonata;
 import carteAvventura.ZonaDiGuerra;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
+import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
 public class TestPlance {

@@ -1,4 +1,5 @@
 package testingClassi;
+import tessere.GeneratoreTessere;
 import tessere.Tessera;
 import java.util.Deque;
 import java.util.ArrayDeque;

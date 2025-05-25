@@ -14,6 +14,7 @@ public class Mazzetto {
 		return carte;
 	}
 
+	//TODO valutane l'utilita'
 	public void setCarte(List<Carta> carte) {
 		this.carte = carte;
 	}

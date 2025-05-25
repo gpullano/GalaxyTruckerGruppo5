@@ -7,27 +7,24 @@ public class Giocatore {
     private Colore colore;
     private PlanceNave stato;
     private int creditistellari;
-//	la posizione la assegnamo alla plancia volo
-//    private int posizione;
     private boolean haAbbandonato;
-    public int pilaScarti;
+    private int pilaScarti;
    
 
 	// Costruttore
     public Giocatore(Colore colore, PlanceNave stato ) {
+    	this.colore= colore;
+        this.stato = stato;
+        this.creditistellari = 0;
+        this.haAbbandonato = false;
+        this.pilaScarti = 0;   
+        
     	if(stato == null) {
     		throw new NullPointerException("Il giocatore non può avere una nave nulla");
     	}
     	if(colore == null) {
     		throw new NullPointerException("Il giocatore non può avere un colore nullo");
-    	}
-    	
-        this.colore= colore;
-        this.stato = stato;
-        this.creditistellari = 0;
-//        this.posizione = 0;
-        this.haAbbandonato = false;
-        this.pilaScarti = 0;        
+    	}     
     }
 
     // Getters
@@ -42,10 +39,6 @@ public class Giocatore {
     public int getCreditiStellari() {
         return creditistellari;
     }
-
-//    public int getPosizione() {
-//        return posizione;
-//    }
     
     public boolean getHaAbbandonato() {
         return haAbbandonato;
@@ -64,12 +57,7 @@ public class Giocatore {
     public void setColore(Colore colore) {
         this.colore = colore;
     }
-
-
-//    public void setPosizione(int posizione) {
-//        this.posizione = posizione;
-//    }
-   
+ 
 
 //	valutare se è necessario un setter:
 //	public void setPilaScarti(int pilaScarti) {
@@ -86,12 +74,6 @@ public class Giocatore {
             this.creditistellari -=quantita; 
         }
     }
-
-//    public void avanzaPosizione() {
-//        if(posizione<20){
-//            posizione++; 
-//        }
-//    }
  
     public void abbandonaPartita() {
     	haAbbandonato = true;
