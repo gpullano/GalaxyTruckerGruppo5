@@ -118,7 +118,7 @@ public class Gioco {
 	public void play() {    
 		
 		
-		//dopo aver completato l'assemblaggio delle navi
+		// dopo aver completato l'assemblaggio delle navi
 		List<Carta> mazzoDiCarte = creaMazzoUnico();
 		
 	}
