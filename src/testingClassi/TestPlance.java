@@ -5,26 +5,32 @@ import carteAvventura.Contrabbandieri;
 import carteAvventura.NaveAbbandonata;
 import carteAvventura.PioggiaDiMeteoriti;
 import carteAvventura.Pirati;
+import carteAvventura.PolvereStellare;
+import carteAvventura.Schiavisti;
+import carteAvventura.SpazioAperto;
+import carteAvventura.StazioneAbbandonata;
+import carteAvventura.ZonaDiGuerra;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import tessere.Tessera;
 
 public class TestPlance {
 	public static void main(String[] args) {
-		/*PlanceNaveLivello1 s = new PlanceNaveLivello1();
+		PlanceNaveLivello1 s = new PlanceNaveLivello1();
 		Tessera tessera = GeneratoreTessere.generaStiva();
 		System.out.println(tessera);
 		s.posizionaTessera(tessera, 2, 3);
-		s.stampaNave();*/
+		s.stampaNave();
 		
 		
-	//	PlanceVolo p = new PlanceVolo(5, 8);
-		//p.percorso();
-		//p.stampaVolo();
+		/*PlanceVolo p = new PlanceVolo(5, 8, 4, GIALLO);
+		p.percorso();
+		p.stampaVolo();**/
 		
 		
-		//CartaPianeti carta = new CartaPianeti(1);
-		//System.out.println(carta.toString());
+		CartaPianeti carta0 = new CartaPianeti(1);
+		System.out.println(carta0.toString());
+		
 		NaveAbbandonata carta = new NaveAbbandonata(1);
 		System.out.println(carta.toString());
 		
@@ -34,8 +40,23 @@ public class TestPlance {
 		Pirati carta2 = new Pirati(1);
 		System.out.println(carta2.toString());
 		
-		//Contrabbandieri carta1 = new Contrabbandieri(1);
-		//System.out.println(carta1.toString());
+		PolvereStellare carta3 = new PolvereStellare(1);
+		System.out.println(carta3.toString());
+		
+		Schiavisti carta4 = new Schiavisti(1);
+		System.out.println(carta4.toString());
+		
+		SpazioAperto carta5 = new SpazioAperto(1);
+		System.out.println(carta5.toString());
+		
+		StazioneAbbandonata carta6 = new StazioneAbbandonata(1);
+		System.out.println(carta6.toString());
+		
+		ZonaDiGuerra carta7 = new ZonaDiGuerra(1);
+		System.out.println(carta7.toString());
+		
+		Contrabbandieri carta8 = new Contrabbandieri(1);
+		System.out.println(carta8.toString());
 	}
 
 }

@@ -38,8 +38,16 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Zona Di Guerra - Livello: ").append(getLivello()).append("\n");
+		sb.append("- Prima linea:\n");
+		sb.append("  Il giocatore con meno equipaggio perde 3 giorni di volo\n");
+		sb.append("- Seconda linea:\n");
+		sb.append("  Il giocatore con meno potenza motrice perde 2 membri dell'equipaggio\n");
+		sb.append("- Terza linea:\n");
+		sb.append("  Il giocatore con meno potenza di fuoco riceve una cannonata leggera e una cannonata pesante proveniente da dietro\n");
+		
+		return sb.toString();
 	}
 
 }

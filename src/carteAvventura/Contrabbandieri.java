@@ -1,5 +1,6 @@
 package carteAvventura;
 import java.util.Random;
+import gameLogic.Colore;
 
 import collezionabili.Merci;
 public class Contrabbandieri extends CartaPerditaGiorniVolo {
@@ -17,10 +18,10 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		int numeroMerci = rand.nextInt(4) + 2;
 		this.merciAcquisite= new Merci[numeroMerci];
 		
-		Merci.Colore[] colori = Merci.Colore.values();
+		Colore[] colori = Colore.values();
 		
 		for (int i = 0; i < numeroMerci; i++) {
-			Merci.Colore coloreCasuale = colori[rand.nextInt(colori.length)];
+			Colore coloreCasuale = colori[rand.nextInt(colori.length)];
 			this.merciAcquisite[i] = new Merci(coloreCasuale);
 			
 		}

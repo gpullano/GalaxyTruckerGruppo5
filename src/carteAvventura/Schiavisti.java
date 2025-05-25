@@ -44,8 +44,19 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Schiavisti - Livello: ").append(getLivello()).append("\n");
+		sb.append("Gli schiavisti hanno una potenza di fuoco = ").append(getPotenzaFuoco()).append("\n");
+		sb.append("- Se il giocatore vince ").append("\n");
+		sb.append("  - Guadagna ").append(getCreditiCosmici() + " ").append("crediti cosmici\n");
+		sb.append("  Effetto: perdita di giorni di volo ").append(getGiorniVoloPersi()).append("\n");
+		sb.append("  Per evitare la perdita di giorni di volo, puoi rinunciare alla ricompensa").append("\n\n");
+		
+		sb.append("- Se il giocatore perde ").append("\n");
+        sb.append("  Deve rinunciare a ").append(getEquipaggioPerso() + " ").append("componenti dell'equipaggio\n");
+		
+		
+		return sb.toString();
 	}
 
 

@@ -2,6 +2,7 @@ package carteAvventura;
 
 import java.util.Random;
 import collezionabili.Merci;
+import gameLogic.Colore;
 
 public class Pianeta {
 	private final Merci merciPianeta[];
@@ -13,10 +14,10 @@ public class Pianeta {
 		int numeroMerci = rand.nextInt(5) + 1;
 		this.merciPianeta = new Merci[numeroMerci];
 		
-		Merci.Colore[] colori = Merci.Colore.values();
+        Colore[] colori = Colore.values();
 		
 		for (int i = 0; i < numeroMerci; i++) {
-			Merci.Colore coloreCasuale = colori[rand.nextInt(colori.length)];
+			Colore coloreCasuale = colori[rand.nextInt(colori.length)];
 			this.merciPianeta[i] = new Merci(coloreCasuale);
 			
 		}
