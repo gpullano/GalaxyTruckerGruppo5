@@ -5,6 +5,8 @@ import java.util.List;
 //import java.util.Queue;
 //
 import carteAvventura.Carta;
+import carteAvventura.GeneratoreCarte;
+import carteAvventura.Mazzetto;
 import dadiEClessidra.Clessidra;
 import dadiEClessidra.Dadi;
 import plance.PlanceNaveLivello1;
@@ -19,7 +21,9 @@ public class Gioco {
     private Dadi dadi; // Se hai una classe Dadi
 //    private List<Carta> mazzoDiCarte[];
     private final LivelloPartita livelloPartita;
-//    private final int DIM_MAZZI = 4;
+    private final Mazzetto[] mazzettiDiCarte;
+    private static final int N_MAZZETTI = 4;
+    private static final int DIM_MAZZETTO = 2;
     
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita) {
         this.livelloPartita = livelloPartita;
@@ -29,10 +33,9 @@ public class Gioco {
         
         this.clessidra = new Clessidra(20, livelloPartita);
         this.dadi = new Dadi();
-        //TODO - implementazioni mazzi di carte
         
-        
-        // TODO - fai la funzione che in base al livello crea i mazzi di carte (magari in setupPartita)
+        //implementazioni mazzi di carte
+        this.mazzettiDiCarte = Gioco.creaMazzetti(livelloPartita.getNumeroLivello());
 
     }
 	
@@ -62,6 +65,20 @@ public class Gioco {
         }
     	return giocatori;
     }
+
+    private static Mazzetto[] creaMazzetti(int livelloPartita) {
+    	Mazzetto[] mazzetti = new Mazzetto[N_MAZZETTI];
+    	for(int i = 0; i < N_MAZZETTI; i++) {
+    		mazzetti[i] = new Mazzetto();
+    		for(int j = 0; j < DIM_MAZZETTO; j++) {
+    			mazzetti[i].aggiungiCarta(GeneratoreCarte.generaCartaCasuale(livelloPartita));
+    		}
+    	}
+    	return mazzetti;
+    }
+    
+    
+    
 //    private static LinkedList<Carta>[] creaMazzoDiCarte(int livelloPartita, int dimensioneMazzi){
 //    	LinkedList<Carta> mazzoDiCarte = new LinkedList<Carta>[dimensioneMazzi]();
 //    	switch(livelloPartita) {
