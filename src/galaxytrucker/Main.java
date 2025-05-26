@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
     	ConsoleIO inputOutput = new ConsoleIO();
         SetupPartita setup = new SetupPartita(inputOutput);
-        Gioco g = new Gioco(setup.getNumGiocatori(), setup.getColoreGiocatori(), setup.getLivelloPartita());
+        Gioco g = new Gioco(setup.getNumGiocatori(), setup.getColoreGiocatori(), setup.getLivelloPartita(), inputOutput);
 
         g.play();
 

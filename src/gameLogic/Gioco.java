@@ -23,9 +23,10 @@ public class Gioco {
     private static final int N_MAZZETTI = 4;
     private static final int DIM_MAZZETTO = 2;
     private final int N_GIOCATORI;
+    private final ConsoleIO inputOutput;
     
     
-    public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita) {
+    public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita, ConsoleIO inputOutput) {
         this.livelloPartita = livelloPartita;
         this.N_GIOCATORI = numGiocatori;
         this.clessidra = new Clessidra(20, livelloPartita);
@@ -37,6 +38,7 @@ public class Gioco {
         
         //creazione mazzi di carte
         this.mazzettiDiCarte = creaMazzetti();
+        this.inputOutput = inputOutput;
         
     }
 	
