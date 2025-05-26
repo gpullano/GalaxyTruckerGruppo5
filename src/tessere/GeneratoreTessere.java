@@ -10,7 +10,7 @@ public class GeneratoreTessere {
 	private static Random rand1=new Random();
 	private static Random rand2=new Random();
 	// aggiungo un parametro che è la qta di tessere disponibili
-	private static final int NUMERO_TIPI_TESSERE=11; 
+	private static final int NUMERO_TIPI_TESSERE=12; 
 	
 	  private GeneratoreTessere() {
 		    throw new IllegalStateException("Utility class");
@@ -242,6 +242,26 @@ public class GeneratoreTessere {
 				);
 				
 	}
+	private static Tessera generaVanoBatteria() {
+		List<Connettore>connettori;
+		do {
+			connettori=Arrays.asList(
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale(),
+					connettoreCasuale()
+					
+					);
+			
+		}while(!controllaConnettoriNulli(connettori));
+		return new VanoBatteria(
+			connettori.get(0),
+			connettori.get(1),
+		    connettori.get(2),
+		    connettori.get(3),
+		    3
+			);
+		}
 	private  static boolean controllaConnettoriNulli(List<Connettore> connettori) {
 		int cont=0;
 		for (Connettore c:connettori) {
@@ -252,7 +272,6 @@ public class GeneratoreTessere {
 		return cont > 2;
 	}
 	
-		// TODO - aggiungere batterie
 		public static Tessera generaTessere () {
 			 int indiceTessera=rand2.nextInt(NUMERO_TIPI_TESSERE);
 			 Tessera tessera=null;
@@ -289,6 +308,9 @@ public class GeneratoreTessere {
 				break;
 			case 10:
 				tessera=generaSupportoVitaleViola();
+				break;
+			case 11:
+				tessera=generaVanoBatteria();
 				break;
 			default:
             	//nel caso venga modificato numeroTessere
