@@ -9,6 +9,9 @@ import java.util.Random;
 public class GeneratoreTessere {
 	private static Random rand1=new Random();
 	private static Random rand2=new Random();
+	// aggiungo un parametro che è la qta di tessere disponibili
+	private static final int NUMERO_TIPI_TESSERE=11; 
+	
 	  private GeneratoreTessere() {
 		    throw new IllegalStateException("Utility class");
 		  }
@@ -246,19 +249,12 @@ public class GeneratoreTessere {
 				cont++;
 			}
 		}
-		if (cont>2) {
-			return false ;
-		}
-		return true;
+		return cont > 2;
 	}
 	
-	
-	// aggiungo un parametro che è la qta di tessere disponibili
-		private static final int numeroTipiTessere=11; 
-		Random rand= new Random();
 		
 		public static Tessera generaTessere () {
-			 int indiceTessera=rand2.nextInt(numeroTipiTessere);
+			 int indiceTessera=rand2.nextInt(NUMERO_TIPI_TESSERE);
 			 Tessera tessera=null;
 			switch (indiceTessera) {
 			case 0:

@@ -93,7 +93,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 
 	public Tessera getTessera() {
-		return getTessera();
+		return this.tessera;
 	}
 
 	public void setTessera(Tessera tessera) {
