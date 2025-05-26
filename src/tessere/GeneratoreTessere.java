@@ -50,7 +50,7 @@ public class GeneratoreTessere {
 		            Connettore.CANNONE,
 		            connettoreCasuale()
 		        );
-		    } while (!controllaConnettoriNulli(connettori));
+		    } while (controllaConnettoriNulli(connettori));
 		// ora che ho controllato che la creazione casuale rispetta i vincoli
 		return new Cannone(
 				 connettori.get(0),
@@ -69,7 +69,7 @@ public class GeneratoreTessere {
 					connettoreCasuale()
 					);
 					
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new CannoneDoppio(
 				 connettori.get(0),
 			     connettori.get(1),
@@ -87,7 +87,7 @@ public class GeneratoreTessere {
 							Connettore.MOTORE
 							);
 							
-				}while(!controllaConnettoriNulli(connettori));
+				}while(controllaConnettoriNulli(connettori));
 				return new Motore(
 				connettori.get(0),
 			    connettori.get(1),
@@ -105,7 +105,7 @@ public class GeneratoreTessere {
 					Connettore.MOTOREDOPPIO
 					);
 					
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new MotoreDoppio(
 				connettori.get(0),
 			    connettori.get(1),
@@ -123,7 +123,7 @@ public class GeneratoreTessere {
 					connettoreCasuale()
 					);
 					
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new GeneratoreScudi(
 				connettori.get(0),
 			    connettori.get(1),
@@ -140,7 +140,7 @@ public class GeneratoreTessere {
 					connettoreCasuale(),
 					Connettore.SCUDO
 					);
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new GeneratoreScudi(
 				connettori.get(0),
 			    connettori.get(1),
@@ -158,7 +158,7 @@ public class GeneratoreTessere {
 					connettoreCasuale(),
 					connettoreCasuale()
 					);
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new SupportoVitaleViola(
 				connettori.get(0),
 			    connettori.get(1),
@@ -178,7 +178,7 @@ public class GeneratoreTessere {
 					connettoreCasuale()
 					);
 					
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new SupportoVitaleMarrone(
 				connettori.get(0),
 			    connettori.get(1),
@@ -196,7 +196,7 @@ public class GeneratoreTessere {
 					connettoreCasuale(),
 					connettoreCasuale()
 					);
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new Stiva(
 				connettori.get(0),
 			    connettori.get(1),
@@ -215,7 +215,7 @@ public class GeneratoreTessere {
 					connettoreCasuale()
 					);
 			
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new StivaSpeciale(
 				connettori.get(0),
 			    connettori.get(1),
@@ -233,7 +233,7 @@ public class GeneratoreTessere {
 					connettoreCasuale(),
 					connettoreCasuale()
 					);
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new ModuliStrutturali(
 				connettori.get(0),
 			    connettori.get(1),
@@ -252,7 +252,7 @@ public class GeneratoreTessere {
 		return cont > 2;
 	}
 	
-		
+		// TODO - aggiungere batterie
 		public static Tessera generaTessere () {
 			 int indiceTessera=rand2.nextInt(NUMERO_TIPI_TESSERE);
 			 Tessera tessera=null;

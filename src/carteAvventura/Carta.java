@@ -9,7 +9,7 @@ public abstract class Carta {
 	
 	// costruttore
 	
-	public Carta(int livello) {
+	protected Carta(int livello) {
 		if(livello < 1 || livello > 3) {
 			throw new IllegalArgumentException("Il livello della carta deve essere compreso tra 1 e 3.");
 		}

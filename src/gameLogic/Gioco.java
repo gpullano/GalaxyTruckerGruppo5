@@ -1,13 +1,9 @@
 package gameLogic;
 
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-
-//import java.util.Queue;
-//
 import carteAvventura.Carta;
 import carteAvventura.GeneratoreCarte;
 import carteAvventura.Mazzetto;
@@ -15,25 +11,18 @@ import dadiEClessidra.Clessidra;
 import dadiEClessidra.Dadi;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
-//import plance.PlanceVolo;
-//import tessere.Tessera;
-import tessere.Tessera;
 
 public class Gioco {
-	private final Giocatore[] giocatori;
-    private Deque<Tessera> mucchioTessere;
-//    TODO - implementa il mucchio di tessere viste
-//    private List<Tessera> tessereViste;
+	private final List<Giocatore> giocatori;
     private Clessidra clessidra;
     private PlanceVolo planceVolo;
     private Dadi dadi; // Se hai una classe Dadi
-    private List<Carta>[] mazzoDiCarte;
+    private List<Carta> mazzoDiCarte;
     private final LivelloPartita livelloPartita;
     private final Mazzetto[] mazzettiDiCarte;
     private static final int N_MAZZETTI = 4;
     private static final int DIM_MAZZETTO = 2;
     private final int N_GIOCATORI;
-    private static final int N_TESSERE = 156;
     
     
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita) {
@@ -49,25 +38,22 @@ public class Gioco {
         //creazione mazzi di carte
         this.mazzettiDiCarte = creaMazzetti();
         
-        //creazione pila di tessere
-        this.mucchioTessere = creaMucchioTessere();
-        
     }
 	
-   // TODO - valuta il lancio di un'eccezione per questa funzione
-    private Giocatore[] creaGiocatori(Colore[] coloriGiocatori) {
-    	Giocatore[] giocatori = new Giocatore[N_GIOCATORI];
+    
+    private List<Giocatore> creaGiocatori(Colore[] coloriGiocatori) {
+    	List<Giocatore> giocatori = new ArrayList<>();
     	
     	//creazione dei giocatori in base al livello
     	switch(livelloPartita.getNumeroLivello()) {
     	case 1: {
 	    		for (int i = 0; i < N_GIOCATORI; i++) {
-	                giocatori[i] = new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1());
+	                giocatori.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1()));
 	            }
 	    		return giocatori;
 	    	}
 
-    	case 2: System.out.println("Futura implementazione..."); break;
+    	//case 2: System.out.println("Futura implementazione..."); break;
     	//case 3: System.out.println("Futura implementazione...");break;
     	//case 4: System.out.println("Futura implementazione...");break;
     	
@@ -76,9 +62,9 @@ public class Gioco {
     	
     	// nel caso vengano scelti livelli diversi dal livello 1:
     	for (int i = 0; i < N_GIOCATORI; i++) {
-            giocatori[i] = new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1());
+            giocatori.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1()));
         }
-    	return giocatori;
+		return giocatori;
     }
 
     private Mazzetto[] creaMazzetti() {
@@ -106,15 +92,6 @@ public class Gioco {
         return mazzoUnico;
     }
    
-    private Deque<Tessera> creaMucchioTessere(){
-    	Deque<Tessera> mucchio = new ArrayDeque<>();
-    	for(int i = 0; i < N_TESSERE; i++) {
-//    		TODO - finisci implementazione
-    		mucchio.add(null);
-    	}
-    	
-		return mucchio; 	
-    }
 
 	public void play() {    
 		

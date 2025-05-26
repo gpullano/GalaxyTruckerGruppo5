@@ -5,11 +5,11 @@ public enum Connettore {
 	UNIVERSALE("U"),
     DOPPIO("D"),
     SINGOLO("S"),
-    CANNONE("C"),
+    CANNONE("+"),
     MOTORE("M"),
     CANNONEDOPPIO("C2"),
     MOTOREDOPPIO("M2"),
-    SCUDO("X"),
+    SCUDO("()"),
 	NULLO("--");
 	
 	private final String simbolo;

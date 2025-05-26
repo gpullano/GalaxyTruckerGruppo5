@@ -8,7 +8,7 @@ public abstract class Tessera {
 	private Connettore latoDown;
 	
 	//costruttore
-	public Tessera(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown)
+	protected Tessera(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown)
 	{
 		this.latoDx = latoDx;
 		this.latoSx = latoSx;

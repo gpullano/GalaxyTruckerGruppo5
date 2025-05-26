@@ -6,4 +6,9 @@ public class ModuliStrutturali extends Tessera{
 		super(latoDx, latoSx, latoSup, latoDown);
 		
 	}
+	
+	@Override
+	public String getNomeBreve() {
+    	return " ModSt ";
+	}
 }
