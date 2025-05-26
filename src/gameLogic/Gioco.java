@@ -1,6 +1,7 @@
 package gameLogic;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,6 +121,7 @@ public class Gioco {
 		
 		// dopo aver completato l'assemblaggio delle navi
 		List<Carta> mazzoDiCarte = creaMazzoUnico();
+		Collections.shuffle(mazzoDiCarte);
 		
 	}
 }

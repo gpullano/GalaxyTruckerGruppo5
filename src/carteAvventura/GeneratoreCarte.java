@@ -1,7 +1,6 @@
 package carteAvventura;
 import java.util.Random;
 
-// Non importiamo più java.util.function.Supplier
 
 public class GeneratoreCarte {
 
