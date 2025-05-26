@@ -1,26 +1,32 @@
 package gameLogic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
 import carteAvventura.Mazzetto;
+import dadiEClessidra.Clessidra;
 import plance.PlanceVolo;
 import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
-public class Assemblaggio extends Fase {
+public class FaseAssemblaggio extends Fase {
 	private static final int N_TESSERE = 20; // TODO - da modificare con 156 per il gioco vero
+	private static final int TEMPO_CLESSIDRA = 20;
     private Deque<Tessera> mucchioTessere;
-    private List<Tessera> TessereViste;
+    private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
-    
+    private Clessidra clessidra;
     
     //costruttore
-	public Assemblaggio(List<Giocatore> giocatori, Mazzetto[] mazzettiDiCarte, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+	public FaseAssemblaggio(List<Giocatore> giocatori,PlanceVolo planceVolo, Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
 		super(giocatori, planceVolo, inputOutput);
 		this.setMucchioTessere(creaMucchioTessere());
-		this.mazzettiDiCarte = mazzettiDiCarte;
+		this.mazzettiDiCarte = new Mazzetto[]{mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2]}; // Le 3 pile inferiori
+	    // La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
+		this.clessidra = new Clessidra(TEMPO_CLESSIDRA);
+		this.tessereScoperte = new ArrayList<>();	
 	}
 	
 	//getter e setter

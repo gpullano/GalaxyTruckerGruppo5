@@ -14,7 +14,7 @@ import plance.PlanceVolo;
 
 public class Gioco {
 	private final List<Giocatore> giocatori;
-    private Clessidra clessidra;
+    
     private PlanceVolo planceVolo;
     private Dadi dadi; // Se hai una classe Dadi
     private List<Carta> mazzoDiCarte;
@@ -29,7 +29,6 @@ public class Gioco {
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita, ConsoleIO inputOutput) {
         this.livelloPartita = livelloPartita;
         this.N_GIOCATORI = numGiocatori;
-        this.clessidra = new Clessidra(20, livelloPartita);
         this.dadi = new Dadi();
         this.planceVolo = new PlanceVolo(5, 8, N_GIOCATORI, coloriGiocatori);
         
@@ -97,6 +96,10 @@ public class Gioco {
 
 	public void play() {    
 		
+		Fase faseCorrente;
+
+	    faseCorrente = new FaseAssemblaggio(this.giocatori, this.planceVolo, this.mazzettiDiCarte, this.inputOutput); // Passa inputOutput
+	    faseCorrente.eseguiFase();
 		
 		// dopo aver completato l'assemblaggio delle navi
 		List<Carta> mazzoDiCarte = creaMazzoUnico();
