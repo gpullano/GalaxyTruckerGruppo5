@@ -10,9 +10,12 @@ import carteAvventura.Schiavisti;
 import carteAvventura.SpazioAperto;
 import carteAvventura.StazioneAbbandonata;
 import carteAvventura.ZonaDiGuerra;
+import gameLogic.Colore;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 import tessere.GeneratoreTessere;
+
 import tessere.Tessera;
 
 public class TestPlance {
@@ -24,9 +27,10 @@ public class TestPlance {
 		s.stampaNave();
 		
 		
-		/*PlanceVolo p = new PlanceVolo(5, 8, 4, GIALLO);
+		PlanceVolo p = new PlanceVolo(5, 8, 1, null);
+		PlanceVolo psp = new PlanceVolo(5, 8, 1, null);
 		p.percorso();
-		p.stampaVolo();**/
+		p.stampaVolo();
 		
 		
 		CartaPianeti carta0 = new CartaPianeti(1);
@@ -58,6 +62,10 @@ public class TestPlance {
 		
 		Contrabbandieri carta8 = new Contrabbandieri(1);
 		System.out.println(carta8.toString());
+		
+		PosizioneGiocatore pg = new PosizioneGiocatore(0, 0, 1, Colore.ROSSO);
+		pg.daCordinateAPosizione();
+		System.out.println(pg.getPosizione());
 	}
 
 }

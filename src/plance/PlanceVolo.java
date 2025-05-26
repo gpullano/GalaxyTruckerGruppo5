@@ -6,7 +6,7 @@ public class PlanceVolo {
 	
 	private Cella cella[][];
 	private PosizioneGiocatore[] posizioneGiocatori;
-	private int lunghezzaPercorso = 17;
+	private static final int LUNGHEZZA_PERCORSO = 18;
 	
 	public PlanceVolo(int riga, int colonna, int numeroGiocatori, Colore colori[]) {
 		this.setCella(new Cella[riga][colonna]);
@@ -19,9 +19,9 @@ public class PlanceVolo {
 		}
 
 		
-		for(int i = 0; i < numeroGiocatori; i++) {
+		/*for(int i = 0; i < numeroGiocatori; i++) {
 			this.posizioneGiocatori[i] = new PosizioneGiocatore(0,1,0,colori[i]);
-		}
+		}*/
 	
 		
 	}
@@ -75,7 +75,15 @@ public class PlanceVolo {
 		}
 	}
 
-
+	public void avanzaPosizione(Colore colore, int giorni) {
+		for(PosizioneGiocatore giocatore: posizioneGiocatori) {
+			if(colore == giocatore.getColore()) {
+				giocatore.aggiornaPosizione(giorni, PlanceVolo.LUNGHEZZA_PERCORSO);
+			}
+		}
+		
+		//TODO fare conversione a coordinate 
+	}
 	
 	
 	
@@ -89,14 +97,9 @@ public class PlanceVolo {
 		this.cella = cella;
 	}
 
-
+	//TODO - se non è necessaria rimuoverla
 	public int getLunghezzaPercorso() {
-		return lunghezzaPercorso;
-	}
-
-
-	public void setLunghezzaPercorso(int lunghezzaPercorso) {
-		this.lunghezzaPercorso = lunghezzaPercorso;
+		return LUNGHEZZA_PERCORSO;
 	}
 
 }

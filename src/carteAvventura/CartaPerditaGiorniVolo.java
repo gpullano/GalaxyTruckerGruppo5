@@ -8,9 +8,9 @@ public abstract class CartaPerditaGiorniVolo extends Carta{
 	private final int giorniVoloPersi;
 	
 	//costruttore
-	public CartaPerditaGiorniVolo(int livello) {
+	protected CartaPerditaGiorniVolo(int livello) {
 		super(livello);
-		this.giorniVoloPersi = new Random().nextInt(3) + 1;
+		this.giorniVoloPersi = new Random().nextInt(3) - 3;
 	}
 	
 	//getter

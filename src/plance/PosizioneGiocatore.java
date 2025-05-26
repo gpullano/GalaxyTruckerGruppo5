@@ -7,6 +7,7 @@ public class PosizioneGiocatore {
 	private int colonna;
 	private int giro;
 	private Colore colore;
+	private int posizione;
 
 
 
@@ -18,6 +19,29 @@ public PosizioneGiocatore(int riga, int colonna, int giro, Colore colore) {
 }
 
 
+public void daCordinateAPosizione() {
+	
+	if (this.riga == 0) {
+		this.posizione = this.colonna;
+		
+	}
+	
+	if (this.colonna == 0) {
+		this.posizione = 19 - this.riga;
+	}
+	
+	if (this.colonna == 7) {
+		this.posizione = this.riga + 6;
+	}
+	
+	if (this.riga == 4) {
+		this.posizione = 16 - this.colonna;
+	}
+	
+	
+	
+	setPosizione(this.posizione);
+}
 
 public int getRiga() {
 	return riga;
@@ -59,11 +83,39 @@ public void setColore(Colore colore) {
 	this.colore = colore;
 }
 
+public Colore getColore() {
+	return this.colore;
+}
+
+public int getPosizione() {
+	return posizione;
+}
+
+
+
+public void setPosizione(int posizione) {
+	this.posizione = posizione;
+}
+
+public void aggiornaPosizione(int giorni, int lunghezzaPercorso) {
+	if(this.posizione + giorni > lunghezzaPercorso) {
+		this.posizione += giorni - lunghezzaPercorso;
+		this.giro++;
+	}else {
+		this.posizione += giorni;
+	}
+	
+}
+
 @Override
 public String toString() {
 	return "PosizioneGiocatore{" + "riga=" + riga + ", colonna=" + colonna + ", giro=" + giro + ", colore=" + colore + "}";
 	
 }
+
+
+
+
 
 
 }
