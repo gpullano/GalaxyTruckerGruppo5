@@ -7,15 +7,16 @@ import java.util.Random;
 
 
 public class GeneratoreTessere {
-	
+	private static Random rand1=new Random();
+	private static Random rand2=new Random();
 	  private GeneratoreTessere() {
 		    throw new IllegalStateException("Utility class");
 		  }
 	
-	public static Connettore connettoreCasuale() {
-		Random rand=new Random();
+	  private static Connettore connettoreCasuale() {
+		
 		// contiene tutti i valori dei connettori 
-		Connettore valori[]=Connettore.values();
+		Connettore[] valori=Connettore.values();
 		// escludo certi tipi di connettori 
 		List<Connettore> esclusi=Arrays.asList(
 			Connettore.CANNONE,
@@ -32,12 +33,12 @@ public class GeneratoreTessere {
 		}
 		
 		// scelgo a caso dalla lista 'validi' 
-		return validi.get(rand.nextInt(validi.size()));
+		return validi.get(rand1.nextInt(validi.size()));
 		
 				
 		
 	}
-	public static  Tessera generaCannoneCasuale() {
+	private static Tessera generaCannoneCasuale() {
 		List<Connettore>connettori;
 		do {
 			connettori = Arrays.asList(
@@ -55,7 +56,7 @@ public class GeneratoreTessere {
 			     connettori.get(3)
 							);
 				}
-	public static  Tessera generaCannoneDoppioCasuale() {
+	private  static Tessera generaCannoneDoppioCasuale() {
 		List<Connettore>connettori;
 		do {
 			connettori= Arrays.asList(
@@ -73,7 +74,7 @@ public class GeneratoreTessere {
 			     connettori.get(3)
 			     );
 				}
-	public static  Tessera generaMotoreCasuale() {
+	private  static Tessera generaMotoreCasuale() {
 				List<Connettore>connettori;
 				do {
 					connettori=Arrays.asList(
@@ -91,7 +92,7 @@ public class GeneratoreTessere {
 			    connettori.get(3)
 				);
 				}
-	public static  Tessera generaMotoreDoppioCasuale() {
+	private  static Tessera generaMotoreDoppioCasuale() {
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -109,7 +110,7 @@ public class GeneratoreTessere {
 			    connettori.get(3)
 			    );
 				}
-	public static  Tessera generaScudoAltoDx() {
+	private  static Tessera generaScudoAltoDx() {
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -127,7 +128,7 @@ public class GeneratoreTessere {
 			    connettori.get(3)
 				);
 				}
-	public static  Tessera generaScudoBassoDx() {
+	private static  Tessera generaScudoBassoDx() {
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -145,7 +146,7 @@ public class GeneratoreTessere {
 				);
 				}
 
-	public static Tessera generaSupportoVitaleViola(){
+	private static Tessera generaSupportoVitaleViola(){
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -164,7 +165,7 @@ public class GeneratoreTessere {
 		
 	);	
 	}
-	public static Tessera generaSupportoVitaleMarrone(){
+	private static Tessera generaSupportoVitaleMarrone(){
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -183,7 +184,7 @@ public class GeneratoreTessere {
 			    "MARRONE"
 	);	
 	}
-	public static Tessera generaStiva(){
+	private static  Tessera generaStiva(){
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -201,7 +202,7 @@ public class GeneratoreTessere {
 			    2
 	);	
 	}
-	public static Tessera generaStivaSpeciale(){
+	private static Tessera generaStivaSpeciale(){
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -220,7 +221,7 @@ public class GeneratoreTessere {
 			    4
 	);	
 	}
-	public static Tessera generaModuliStrutturali() {
+	private  static Tessera generaModuliStrutturali() {
 		List<Connettore>connettori;
 		do {
 			connettori=Arrays.asList(
@@ -238,7 +239,7 @@ public class GeneratoreTessere {
 				);
 				
 	}
-	public static boolean controllaConnettoriNulli(List<Connettore> connettori) {
+	private  static boolean controllaConnettoriNulli(List<Connettore> connettori) {
 		int cont=0;
 		for (Connettore c:connettori) {
 			if (c==Connettore.NULLO) {
@@ -251,4 +252,52 @@ public class GeneratoreTessere {
 		return true;
 	}
 	
+	
+	// aggiungo un parametro che è la qta di tessere disponibili
+		private static final int numeroTipiTessere=11; 
+		Random rand= new Random();
+		
+		public static Tessera generaTessere () {
+			 int indiceTessera=rand2.nextInt(numeroTipiTessere);
+			 Tessera tessera=null;
+			switch (indiceTessera) {
+			case 0:
+				tessera=generaCannoneCasuale();
+				break;
+			case 1:
+				tessera=generaCannoneDoppioCasuale();
+				break;
+			case 2:
+				tessera=generaModuliStrutturali();
+				break;
+			case 3:
+				tessera=generaMotoreCasuale();
+				break;
+			case 4:
+				tessera=generaMotoreDoppioCasuale();
+				break;
+			case 5:
+				tessera=generaScudoAltoDx();
+				break;
+			case 6: 
+				tessera=generaScudoBassoDx();
+				break;
+			case 7:
+				tessera=generaStiva();
+				break;
+			case 8: 
+				tessera=generaStivaSpeciale();
+				break;
+			case 9:
+				tessera=generaSupportoVitaleMarrone();
+				break;
+			case 10:
+				tessera=generaSupportoVitaleViola();
+				break;
+			default:
+            	//nel caso venga modificato numeroTessere
+                throw new IllegalStateException("Tipo di tessera non valido: " + tessera);
+			}
+			return tessera;
+		}
 }
