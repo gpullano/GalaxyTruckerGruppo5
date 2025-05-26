@@ -7,7 +7,6 @@ public class TestingMain {
 	//	test1.test();
 		
 		TestTessere test2= new TestTessere();
-		test2.test();
 	}
 
 }

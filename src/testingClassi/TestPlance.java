@@ -18,7 +18,7 @@ import tessere.Tessera;
 public class TestPlance {
 	public static void main(String[] args) {
 		PlanceNaveLivello1 s = new PlanceNaveLivello1();
-		Tessera tessera = GeneratoreTessere.generaStiva();
+		Tessera tessera = GeneratoreTessere.generaTessere();
 		System.out.println(tessera);
 		s.posizionaTessera(tessera, 2, 3);
 		s.stampaNave();
