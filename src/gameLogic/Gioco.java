@@ -16,7 +16,7 @@ public class Gioco {
 	private final List<Giocatore> giocatori;
     
     private PlanceVolo planceVolo;
-    private Dadi dadi; // Se hai una classe Dadi
+    private Dadi dadi; 
     private List<Carta> mazzoDiCarte;
     private final LivelloPartita livelloPartita;
     private final Mazzetto[] mazzettiDiCarte;
@@ -54,7 +54,7 @@ public class Gioco {
 	    		return giocatori;
 	    	}
 
-    	//case 2: System.out.println("Futura implementazione..."); break;
+    	case 2: System.out.println("Futura implementazione..."); break;
     	//case 3: System.out.println("Futura implementazione...");break;
     	//case 4: System.out.println("Futura implementazione...");break;
     	
@@ -78,32 +78,27 @@ public class Gioco {
     	}
     	return mazzetti;
     }
-    
-    private List<Carta> creaMazzoUnico(){
-    	List<Carta> mazzoUnico = new LinkedList<>(); // Inizializza il nuovo mazzo unico
-
-        if (this.mazzettiDiCarte != null) {
-            for (Mazzetto mazzettoCorrente : this.mazzettiDiCarte) {
-                if (mazzettoCorrente != null && mazzettoCorrente.getCarte() != null) {
-                    // Aggiunge tutte le carte del mazzettoCorrente al mazzoUnico
-                    mazzoUnico.addAll(mazzettoCorrente.getCarte());
-                }
-            }
-        }
-        return mazzoUnico;
-    }
    
 
 	public void play() {    
 		
-		Fase faseCorrente;
-
-	    faseCorrente = new FaseAssemblaggio(this.giocatori, this.planceVolo, this.mazzettiDiCarte, this.inputOutput); // Passa inputOutput
-	    faseCorrente.eseguiFase();
-		
-		// dopo aver completato l'assemblaggio delle navi
-		List<Carta> mazzoDiCarte = creaMazzoUnico();
-		Collections.shuffle(mazzoDiCarte);
+		// 1. Assemblaggio
+		FaseAssemblaggio faseAssemblaggio = new FaseAssemblaggio(this.giocatori, this.planceVolo, this.mazzettiDiCarte, this.inputOutput);
+	    faseAssemblaggio.eseguiFase();
+	    
+	    // 2. Preparazione al decollo
+	    FasePreparazioneDecollo fasePreparazioneDecollo = new FasePreparazioneDecollo(this.giocatori, this.inputOutput);
+	    fasePreparazioneDecollo.eseguiFase();
+	    mazzoDiCarte = fasePreparazioneDecollo.creaMazzoUnico(this.mazzettiDiCarte);
+	    Collections.shuffle(mazzoDiCarte);
+	    
+	    // 3. Il volo
+	    FaseVolo faseVolo = new FaseVolo(this.giocatori, this.inputOutput, this.mazzoDiCarte, this.dadi);
+	    faseVolo.eseguiFase();
+	    
+	    // 4. Fine del viaggio
+	    FaseFineDelViaggio faseFineDelViaggio = new FaseFineDelViaggio(this.giocatori, this.inputOutput);
+	    faseFineDelViaggio.eseguiFase();
 		
 	}
 }

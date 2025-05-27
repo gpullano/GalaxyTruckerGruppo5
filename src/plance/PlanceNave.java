@@ -1,11 +1,19 @@
 package plance;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import tessere.Tessera;
+
 public abstract class PlanceNave {
 	// attributi
-	private Casella caselle[][];
-	
+	private Casella[][] caselle;
+	private List<Tessera> componentiPrenotati;
 	// costruttore
-	public PlanceNave(int riga, int colonna) {
+	protected PlanceNave(int riga, int colonna) {
+		if(riga < 0 || colonna < 0) {
+			throw new IndexOutOfBoundsException("Non puoi inserire un numero di righe e di colonne minori di zero.");
+		}
 		this.setCaselle(new Casella[riga][colonna]);
 		
 		for(int r = 0; r < riga; r++) {
@@ -13,6 +21,8 @@ public abstract class PlanceNave {
 				getCaselle()[r][c] = new Casella(new Posizione(r,c));
 			}
 		}
+		
+		this.componentiPrenotati = new LinkedList<>();
 	}
 	
 	
@@ -21,18 +31,23 @@ public abstract class PlanceNave {
 		return caselle;
 	}
 
-	public void setCaselle(Casella caselle[][]) {
+	public void setCaselle(Casella[][] caselle) {
 		this.caselle = caselle;
 	}
+	
 	
 	
 	// metodi 
 	public abstract void creaNave();
 	public abstract void stampaNave();
 
-
-	
-	
+	public void aggiungiComponentePrenotato(Tessera componente) {
+		if(this.componentiPrenotati.size() < 2) {
+			this.componentiPrenotati.add(componente);
+		} else {
+			throw new IllegalStateException("Impossibile aggiungere un componente prenotato. Limite di 2 componenti già raggiunto.");
+		}
+	}
 	
 	
 }

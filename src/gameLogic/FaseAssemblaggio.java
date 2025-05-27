@@ -18,13 +18,17 @@ public class FaseAssemblaggio extends Fase {
     private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
     private Clessidra clessidra;
+    private PlanceVolo planceVolo;
     
     //costruttore
-	public FaseAssemblaggio(List<Giocatore> giocatori,PlanceVolo planceVolo, Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
-		super(giocatori, planceVolo, inputOutput);
+	public FaseAssemblaggio(List<Giocatore> giocatori, PlanceVolo planceVolo,  Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
+		super(giocatori, inputOutput);
+		this.planceVolo = planceVolo;
 		this.setMucchioTessere(creaMucchioTessere());
-		this.mazzettiDiCarte = new Mazzetto[]{mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2]}; // Le 3 pile inferiori
-	    // La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
+		
+		// Le 3 pile inferiori - La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
+		this.mazzettiDiCarte = new Mazzetto[]{mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2]}; 
+		
 		this.clessidra = new Clessidra(TEMPO_CLESSIDRA);
 		this.tessereScoperte = new ArrayList<>();	
 	}
