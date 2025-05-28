@@ -1,6 +1,7 @@
 package gameLogic;
 
 import plance.PlanceNave;
+import plance.PosizioneGiocatore;
 
 public class Giocatore {
     // Attributi
@@ -9,6 +10,7 @@ public class Giocatore {
     private int creditistellari;
     private boolean haAbbandonato;
     private int pilaScarti;
+    private PosizioneGiocatore posizione;
    
 
 	// Costruttore
@@ -47,6 +49,9 @@ public class Giocatore {
     public int getPilaScarti() {
 		return pilaScarti;
 	}
+    public PosizioneGiocatore getPosizione() {
+		return posizione;
+	}
 
     // Setters
 
@@ -57,6 +62,9 @@ public class Giocatore {
     public void setColore(Colore colore) {
         this.colore = colore;
     }
+    public void setPosizione(PosizioneGiocatore posizione) {
+		this.posizione = posizione;
+	}
  
 
 //	valutare se è necessario un setter:
@@ -83,4 +91,6 @@ public class Giocatore {
     public void incrementaPilaScarti() {
     	this.pilaScarti++;
     }
+
+	
 }

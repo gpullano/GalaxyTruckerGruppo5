@@ -1,15 +1,20 @@
 package carteAvventura;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
+import gameLogic.Giocatore;
+import plance.PosizioneGiocatore;
 
 public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	// attributi secondo me equipaggio e crediti vanno generati casualmente 
 	private final int equipaggioRichiesto;
-	private final int CreditiCosmiciOttenuti;
+	private final int creditiCosmiciOttenuti;
 	
 	public NaveAbbandonata(int livello) {
 		super(livello);
 		Random rand =new Random();
-		this.CreditiCosmiciOttenuti=rand.nextInt(6)+2;
+		this.creditiCosmiciOttenuti=rand.nextInt(6)+2;
 		this.equipaggioRichiesto=rand.nextInt(10)+2;
 	}
 	
@@ -17,14 +22,10 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		return equipaggioRichiesto;
 	}
 	public int getCreditiCosmiciOttenuti() {
-		return CreditiCosmiciOttenuti;
+		return creditiCosmiciOttenuti;
 	}
 	
 // metodi 
-// @override
-	public void attiva() {
-	//	TODO implementare la classe 
-	}
 
 	@Override
 	public String toString() {
@@ -38,5 +39,27 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		return sb.toString();
 	}
 
+	@Override
+	public void attiva(List<Giocatore>giocatori) {
+		Scanner scanner=new Scanner(System.in);
+		//devo trovare il leader 
+		// inizializzo il leader
+		Giocatore leader=giocatori.get(0);
+		int giroLeader=leader.getPosizione().getGiro();
+		for (int i=1; i<giocatori.size();i++) {
+			if (giocatori.get(i).getPosizione().getGiro()<giroLeader) {
+				leader=giocatori.get(i);
+			}
+			
+		}
+		System.out.println("il leader è il giocatore: "+leader);
+		System.out.println(leader+" vuoi avvalerti della carta Nave Abbandonata?(si/no)");
+		String risposta=scanner.nextLine().trim().toLowerCase();
+		if (risposta=="si"||risposta=="sì") {
+			
+		}
+	}
+
 	
 }
+
