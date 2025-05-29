@@ -14,7 +14,6 @@ import plance.PlanceVolo;
 
 public class Gioco {
 	private final List<Giocatore> giocatori;
-    
     private PlanceVolo planceVolo;
     private Dadi dadi; 
     private List<Carta> mazzoDiCarte;

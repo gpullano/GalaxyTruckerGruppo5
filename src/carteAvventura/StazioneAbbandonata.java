@@ -2,7 +2,10 @@ package carteAvventura;
 
 import collezionabili.Merci;
 import gameLogic.Colore;
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 
+import java.util.List;
 import java.util.Random;
 
 public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
@@ -27,13 +30,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 			
 		}
 	}
-	
-	 
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
 
-	}
 
 
 	public int getEquipaggioRichiesto() {
@@ -59,6 +56,14 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 		sb.append("Effetto: perdita di giorni di volo ").append(getGiorniVoloPersi()).append("\n\n");
 		
 		return sb.toString();
+	}
+
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -1,6 +1,10 @@
 package carteAvventura;
 
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 
 public class CartaPianeti extends CartaPerditaGiorniVolo {
 	// attributi
@@ -22,11 +26,6 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 		return pianeti;
 	}
 
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String toString() {
@@ -50,6 +49,13 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
         }
 		}
 		return sb.toString();
+	}
+
+	
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,5 +1,10 @@
 package carteAvventura;
 
+import java.util.List;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
+
 public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
 	private final int potenzaFuoco;
@@ -28,14 +33,6 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		return cannonata;
 	}
 
-
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -48,6 +45,13 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		sb.append("  Il giocatore con meno potenza di fuoco riceve una cannonata leggera e una cannonata pesante proveniente da dietro\n");
 		
 		return sb.toString();
+	}
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,10 @@
 package carteAvventura;
 
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 
 public class Schiavisti extends CartaPerditaGiorniVolo {
 
@@ -33,15 +37,8 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		return creditiCosmici;
 	}
 
-
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	
+	// metodi
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -57,6 +54,13 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		
 		
 		return sb.toString();
+	}
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -1,7 +1,6 @@
 package gameLogic;
 
 import plance.PlanceNave;
-import plance.PosizioneGiocatore;
 
 public class Giocatore {
     // Attributi
@@ -10,7 +9,6 @@ public class Giocatore {
     private int creditistellari;
     private boolean haAbbandonato;
     private int pilaScarti;
-    private PosizioneGiocatore posizione;
    
 
 	// Costruttore
@@ -20,7 +18,6 @@ public class Giocatore {
         this.creditistellari = 0;
         this.haAbbandonato = false;
         this.pilaScarti = 0;   
-        
     	if(stato == null) {
     		throw new NullPointerException("Il giocatore non può avere una nave nulla");
     	}
@@ -49,9 +46,6 @@ public class Giocatore {
     public int getPilaScarti() {
 		return pilaScarti;
 	}
-    public PosizioneGiocatore getPosizione() {
-		return posizione;
-	}
 
     // Setters
 
@@ -62,12 +56,9 @@ public class Giocatore {
     public void setColore(Colore colore) {
         this.colore = colore;
     }
-    public void setPosizione(PosizioneGiocatore posizione) {
-		this.posizione = posizione;
-	}
  
 
-//	valutare se è necessario un setter:
+//	TODO - valutare se è necessario un setter:
 //	public void setPilaScarti(int pilaScarti) {
 //		this.pilaScarti = pilaScarti;
 //	}
@@ -78,19 +69,23 @@ public class Giocatore {
     }
 
     public void rimuoviCrediti(int quantita) {
-        if(creditistellari>=quantita){
-            this.creditistellari -=quantita; 
+        if(creditistellari >= quantita){
+            this.creditistellari -= quantita; 
         }
     }
  
     public void abbandonaPartita() {
     	haAbbandonato = true;
-        System.out.println("Il giocatore ha deciso di arrendersi.");
+        // TODO - va gestito nella classe ConsoleIO
+    	// System.out.println("Il giocatore ha deciso di arrendersi.");
     }
     
     public void incrementaPilaScarti() {
     	this.pilaScarti++;
     }
 
-	
+	public int ContaPotenzaMotori() {
+		// TODO da implementare
+		return 0;
+	}
 }

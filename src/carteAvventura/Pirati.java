@@ -1,5 +1,9 @@
 package carteAvventura;
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 public class Pirati extends CartaPerditaGiorniVolo {
 	private final int potenzaFuoco;
 	private final int creditiCosmici;
@@ -16,12 +20,6 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		for (int i = 0;i < cannonate.length; i++) {
 			cannonate[i]=new Cannonata(Dimensione.generaDimensione(),Provenienza.generaProvenienza());
 		}
-	}
-
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public int getPotenzaFuoco() {
@@ -57,6 +55,14 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		}
 		
 		return sb.toString();
+	}
+
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

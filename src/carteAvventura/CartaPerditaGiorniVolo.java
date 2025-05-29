@@ -1,6 +1,10 @@
 package carteAvventura;
 
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 
 
 public abstract class CartaPerditaGiorniVolo extends Carta{
@@ -17,5 +21,8 @@ public abstract class CartaPerditaGiorniVolo extends Carta{
 	public int getGiorniVoloPersi() {
 		return giorniVoloPersi;
 	}
+	
+	// metodi 
+	public abstract void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo);
 	
 }

@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import gameLogic.Giocatore;
+import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
 
 public class NaveAbbandonata extends CartaPerditaGiorniVolo {
@@ -40,11 +41,11 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	}
 
 	@Override
-	public void attiva(List<Giocatore>giocatori) {
+	public void attiva(List<Giocatore> giocatori, PlanceVolo plancevolo) {
 		Scanner scanner=new Scanner(System.in);
 		//devo trovare il leader 
 		// inizializzo il leader
-		Giocatore leader=giocatori.get(0);
+		Giocatore leader = plance;
 		int giroLeader=leader.getPosizione().getGiro();
 		for (int i=1; i<giocatori.size();i++) {
 			if (giocatori.get(i).getPosizione().getGiro()<giroLeader) {

@@ -1,10 +1,12 @@
 package carteAvventura;
+import java.util.List;
 import java.util.Random;
 import gameLogic.Colore;
-
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
 import collezionabili.Merci;
 public class Contrabbandieri extends CartaPerditaGiorniVolo {
-	// attributi generare casualmente gli attributi in base al livello 
+	
 	private final int fuocoNemico;
 	private final int merciRimosse;
 	private final Merci merciAcquisite[];
@@ -38,14 +40,6 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		return merciRimosse;
 	}
 	
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 	public Merci[] getMerciAcquisite() {
 		return merciAcquisite;
 	}
@@ -71,6 +65,14 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		sb.append("  - non succede niente però i contrabbandieri continuano ad attaccare").append("\n");
 		
 		return sb.toString();
+	}
+
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

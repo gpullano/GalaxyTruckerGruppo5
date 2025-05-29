@@ -1,16 +1,15 @@
 package carteAvventura;
 
+import java.util.List;
+
+import gameLogic.Giocatore;
+import plance.PlanceVolo;
+
 public class PolvereStellare extends CartaPerditaGiorniVolo {
 	// non ha attributi
 	public PolvereStellare(int livello) {
 		super(livello);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-
 	}
 
 
@@ -21,6 +20,13 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 		sb.append("Ogni giocatore perde ").append(getGiorniVoloPersi() + " ").append("giorni di volo per ogni connettore scoperto\n");
 		
 		return sb.toString();
+	}
+
+
+	@Override
+	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

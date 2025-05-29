@@ -1,5 +1,8 @@
 package carteAvventura;
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.Giocatore;
 
 public class PioggiaDiMeteoriti extends Carta {
 	// attributi
@@ -17,11 +20,6 @@ public class PioggiaDiMeteoriti extends Carta {
 		}
 	}
 
-	@Override
-	public void attiva() {
-		// TODO Auto-generated method stub
-
-	}
 	public int getNumeroMeteorite() {
 		return numeroMeteorite;
 	}
@@ -38,6 +36,11 @@ public class PioggiaDiMeteoriti extends Carta {
 		
 		
 		return sb.toString();
+	}
+	
+	public void attiva(List<Giocatore> giocatori) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
