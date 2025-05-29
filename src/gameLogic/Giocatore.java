@@ -11,6 +11,7 @@ public class Giocatore {
     private int pilaScarti;
     private boolean assemblaggioTerminato;
 
+
 	// Costruttore
     public Giocatore(Colore colore, PlanceNave stato ) {
     	this.colore= colore;
