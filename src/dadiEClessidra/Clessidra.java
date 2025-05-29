@@ -1,19 +1,30 @@
 package dadiEClessidra;
 
-
+/**
+* La classe Clessidra rappresenta un timer a conto alla rovescia. 
+* Si può avviare, fermare ed esegue il tick ogni secondo, riducendo il tempo rimanente.
+*/
 public class Clessidra {
     //***attribute
     private int secondsLeft;
     private boolean running;
-    
-    // constructions
+
+/**
+* Costruisce una clessidra con il tempo iniziale specificato.
+* @param second Il numero di secondi da definire per il conto alla rovescia.
+*/
+     // constructions
     public Clessidra(int second) {
     this.running = false;
     this.secondsLeft=second;
     
     }
-    
-    //***methods
+
+/**
+* Avvia il timer se non è operativo.
+* Stampa un messaggio con il tempo rimanente.
+*/
+     //***methods
     public void start() {
         if (running) {
             System.out.println("Timer already started.");
@@ -23,6 +34,10 @@ public class Clessidra {
         System.out.println("Timer started with " + secondsLeft + " seconds.");
     }
 
+/**
+* Esegue un tick del timer. Riducendo il tempo rimanente.
+* Stampa il tempo rimasto. Se il tempo finisce, il timer si ferma.
+*/
      public void tick() {
         if (running && secondsLeft > 0) {
             secondsLeft--;
@@ -34,12 +49,19 @@ public class Clessidra {
             }
         }
     }
-    
-    public void stop() {
+
+/**
+*  Ferma il tempo.
+*/
+     public void stop() {
         running = false;
         System.out.println("Timer stopped.");
     }
-    
+
+/**
+* Si accerta che il timer è scaduto perciò il tempo rimanente è uguale a zero.
+* @return zero secondi se il tempo è finito.
+*/
     public boolean isExpired() {
         return secondsLeft == 0;
     }
