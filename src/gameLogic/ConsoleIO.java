@@ -108,6 +108,8 @@ public class ConsoleIO {
         return coloreGiocatori;
     }
 	
+//	TODO
+//	public AzioneAssemblaggio chiediAzioneAssemblaggio();
 	
 	
 

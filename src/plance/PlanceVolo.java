@@ -26,7 +26,7 @@ public class PlanceVolo {
 		
 	}
 	
-
+	// TODO - da spostare in ConsoleIO
 	public void percorso() {
 		int righe = cella.length;
 		int colonne = cella[0].length;

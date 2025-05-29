@@ -4,12 +4,12 @@ import plance.PlanceNave;
 
 public class Giocatore {
     // Attributi
-    private Colore colore;
+    private final Colore colore;
     private PlanceNave stato;
     private int creditistellari;
     private boolean haAbbandonato;
     private int pilaScarti;
-   
+    private boolean assemblaggioTerminato;
 
 	// Costruttore
     public Giocatore(Colore colore, PlanceNave stato ) {
@@ -46,16 +46,21 @@ public class Giocatore {
     public int getPilaScarti() {
 		return pilaScarti;
 	}
+    
+    public boolean isAssemblaggioTerminato() {
+		return assemblaggioTerminato;
+	}
 
     // Setters
 
     public void setStato(PlanceNave stato) {
         this.stato = stato;
     }
-
-    public void setColore(Colore colore) {
-        this.colore = colore;
-    }
+    
+    public void setAssemblaggioTerminato(boolean assemblaggioTerminato) {
+		this.assemblaggioTerminato = assemblaggioTerminato;
+	}
+    
  
 
 //	TODO - valutare se è necessario un setter:

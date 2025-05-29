@@ -17,10 +17,26 @@ public abstract class Fase {
 	//esegui fase
 	
 	protected Fase(List<Giocatore> giocatori, ConsoleIO inputOutput) {
-		this.giocatori = giocatori;
-		this.inputOutput = inputOutput;
+		this.setGiocatori(giocatori);
+		this.setInputOutput(inputOutput);
 	}
 	
 	public abstract void eseguiFase();
+
+	public List<Giocatore> getGiocatori() {
+		return giocatori;
+	}
+
+	public void setGiocatori(List<Giocatore> giocatori) {
+		this.giocatori = giocatori;
+	}
+
+	public ConsoleIO getInputOutput() {
+		return inputOutput;
+	}
+
+	public void setInputOutput(ConsoleIO inputOutput) {
+		this.inputOutput = inputOutput;
+	}
 	
 }

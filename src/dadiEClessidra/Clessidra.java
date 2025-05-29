@@ -5,7 +5,7 @@ package dadiEClessidra;
 * Si può avviare, fermare ed esegue il tick ogni secondo, riducendo il tempo rimanente.
 */
 public class Clessidra {
-    //***attribute
+    //attributi
     private int secondsLeft;
     private boolean running;
 
@@ -13,18 +13,19 @@ public class Clessidra {
 * Costruisce una clessidra con il tempo iniziale specificato.
 * @param second Il numero di secondi da definire per il conto alla rovescia.
 */
-     // constructions
     public Clessidra(int second) {
     this.running = false;
     this.secondsLeft=second;
     
     }
+    
 
+  //metodi
+    
 /**
 * Avvia il timer se non è operativo.
 * Stampa un messaggio con il tempo rimanente.
 */
-     //***methods
     public void start() {
         if (running) {
             System.out.println("Timer already started.");
@@ -50,9 +51,6 @@ public class Clessidra {
         }
     }
 
-/**
-*  Ferma il tempo.
-*/
      public void stop() {
         running = false;
         System.out.println("Timer stopped.");

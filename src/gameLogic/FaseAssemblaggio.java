@@ -55,8 +55,19 @@ public class FaseAssemblaggio extends Fase {
 
 	@Override
 	public void eseguiFase() {
-		// TODO Auto-generated method stub
 		
+		// valutare se introdurre l'attributo "haAgganciato" in planceVolo o in Giocatore
+		// in giocatore c'è l'attributo "assemblaggioTermianto"
+		
+		int numAssemblaggiTerminati = 0;
+		
+		do {
+			for(Giocatore giocatore : this.getGiocatori()) {
+				// TODO - bisogna far partire la clessidra e se finisce bisogna far finire il turno
+//				giocatore = this.getInputOutput().;
+			}
+		}while(numAssemblaggiTerminati < 4); //finché non tutti hanno terminato l'assemblaggio
+
 	}
 
 	

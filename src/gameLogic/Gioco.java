@@ -45,17 +45,17 @@ public class Gioco {
     	List<Giocatore> giocatori = new ArrayList<>();
     	
     	//creazione dei giocatori in base al livello
-    	switch(livelloPartita.getNumeroLivello()) {
-    	case 1: {
+    	switch(livelloPartita) {
+    	case LIVELLO1: {
 	    		for (int i = 0; i < N_GIOCATORI; i++) {
 	                giocatori.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1()));
 	            }
 	    		return giocatori;
 	    	}
 
-    	case 2: System.out.println("Futura implementazione..."); break;
-    	//case 3: System.out.println("Futura implementazione...");break;
-    	//case 4: System.out.println("Futura implementazione...");break;
+    	case LIVELLO2: System.out.println("Futura implementazione..."); break;
+    	//case LIVELLO3: System.out.println("Futura implementazione...");break;
+    	//case TRASVOLATA_INTERGALATTICA: System.out.println("Futura implementazione...");break;
     	
     	default: System.out.println("Futura implementazione...");
     	}
