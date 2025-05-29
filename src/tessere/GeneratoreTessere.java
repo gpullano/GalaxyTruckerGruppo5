@@ -4,18 +4,27 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
-
+/**
+*classe per generare richieste casuali di {@link Tessera} con parametri di connettori diversi.
+*non può essere realizzata.
+*/
 public class GeneratoreTessere {
 	private static Random rand1=new Random();
 	private static Random rand2=new Random();
 	// aggiungo un parametro che è la qta di tessere disponibili
 	private static final int NUMERO_TIPI_TESSERE=12; 
-	
-	  private GeneratoreTessere() {
+
+/**
+*costruttore privato per evitare la realizzazione della classe di utilità
+*/
+        private GeneratoreTessere() {
 		    throw new IllegalStateException("Utility class");
 		  }
-	
+
+/**
+*genera un connettore casuale escludendo certi tipi di connettori
+*@return un {@link Connettore} valido.
+*/
 	  private static Connettore connettoreCasuale() {
 		
 		// contiene tutti i valori dei connettori 
@@ -271,7 +280,11 @@ public class GeneratoreTessere {
 		}
 		return cont > 2;
 	}
-	
+
+/**
+*generatore di una tessera casuale tra le 12 disponibili.
+*@return un oggetto {@link Tessera} generato casualmente.
+*/
 		public static Tessera generaTessere () {
 			 int indiceTessera=rand2.nextInt(NUMERO_TIPI_TESSERE);
 			 Tessera tessera=null;
