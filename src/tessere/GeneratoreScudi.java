@@ -3,7 +3,7 @@ package tessere;
 /**
 * generatore scudi per proteggere la nave.
 */
-public class GeneratoreScudi extends Tessera implements Attivabile{ 
+public class GeneratoreScudi extends Tessera{ 
 	
 /**
 *costruttore del generatorescudi.
@@ -14,15 +14,6 @@ public class GeneratoreScudi extends Tessera implements Attivabile{
 */
 	public GeneratoreScudi(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
 		super(latoDx, latoSx, latoSup, latoDown);
-	}
-
-/**
-*attiva il generatore scudi se alimentato.
-*@param energia true se alimentato se no false
-*/
-	@Override
-	public void attiva(boolean energia) {
-		System.out.println("Ti sei difeso con lo scudo!");
 	}
 
 /**

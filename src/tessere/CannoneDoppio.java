@@ -3,7 +3,7 @@ package tessere;
 /**
 *la classe cannonedoppio rappresenta una tessera attacco che si attiva con doppia potenza di fuoco.
 */
-public class CannoneDoppio extends Tessera implements Attivabile {
+public class CannoneDoppio extends Tessera {
 	
 /**
 *costruttore della classe cannonedoppio
@@ -21,21 +21,11 @@ public class CannoneDoppio extends Tessera implements Attivabile {
 *restituisce la potenza di fuoco del cannonedoppio. 
 *@return 2 se il lato superiore è un cannone se no 1.
 */
-	public int getFuoco() {
+	public int getSparo() {
 		if(this.getLatoSup() == Connettore.CANNONE) {
 			return 2;
 		}
 		return 1;
-	}
-
-/**attiva il cannone doppio se riceve energia.
-*@param energia true se la tessera riceve energia se no false.
-*/	
-	@Override
-	public void attiva(boolean energia) {
-			if(energia) {
-				getFuoco();
-			}
 	}
 	
 /**

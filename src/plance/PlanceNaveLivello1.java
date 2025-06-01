@@ -1,19 +1,31 @@
 package plance;
 
+import tessere.Cabina;
+import tessere.CabinaCentrale;
+import tessere.Cannone;
+import tessere.CannoneDoppio;
+import tessere.Motore;
+import tessere.MotoreDoppio;
 import tessere.Tessera;
 
 public class PlanceNaveLivello1 extends PlanceNave{
+	private static final int NUM_RIGHE = 5;
+	private static final int NUM_COLONNE = 7;
+	
 	private Casella[][] caselle;
 	private int potenzaFuoco;
-	private int potenzaMotrice;
+	private int potenzaMotori;
 	private int equipaggioTotale;
+	private int energiaTotale;
+	
 
 	public PlanceNaveLivello1() {
-		super(5, 7);
+		super(NUM_RIGHE, NUM_COLONNE);
 		this.creaNave();
 		this.equipaggioTotale = 0;
 		this.potenzaFuoco = 0;
-		this.potenzaMotrice = 0;
+		this.potenzaMotori = 0;
+		this.energiaTotale = 0;
 	}
 
 	// getters e setters
@@ -28,13 +40,13 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 
 
-	public int getPotenzaMotrice() {
-		return potenzaMotrice;
+	public int getPotenzaMotori() {
+		return potenzaMotori;
 	}
 
 
-	public void setPotenzaMotrice(int potenzaMotrice) {
-		this.potenzaMotrice = potenzaMotrice;
+	public void setPotenzaMotori(int potenzaMotrice) {
+		this.potenzaMotori = potenzaMotrice;
 	}
 
 
@@ -49,6 +61,61 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	// metodi
+	
+	//TODO - verificare se serve
+	public void aggiungiEnergia(int energia) {
+		if(energia < 0) {
+			throw new IllegalArgumentException("Non puoi inserire un'energia negativa");
+		}
+		this.energiaTotale += energia;
+	}
+	
+	public void calcolaPotenzaFuoco(int energieDaSpendere) {
+		for(int i = 0; i < NUM_RIGHE; i++) {
+			for(int j = 0; j < NUM_COLONNE; j++) {
+				if(this.caselle[i][j].getTessera() instanceof Cannone cannone) {
+					this.potenzaFuoco += cannone.getSparo();
+				} else if(this.caselle[i][j].getTessera() instanceof CannoneDoppio cannoneDoppio && 
+						energieDaSpendere > 0 && this.energiaTotale > 0) {
+					this.potenzaFuoco += cannoneDoppio.getSparo();
+					this.energiaTotale--;
+					energieDaSpendere--;
+				}
+			}
+		}
+	}
+	
+	public void calcolaPotenzaMotori(int energieDaSpendere) {
+		for(int i = 0; i < NUM_RIGHE; i++) {
+			for(int j = 0; j < NUM_COLONNE; j++) {
+				if(this.caselle[i][j].getTessera() instanceof Motore motore) {
+					this.potenzaMotori += motore.getPotenza();
+				} else if(this.caselle[i][j].getTessera() instanceof MotoreDoppio motoreDoppio && 
+						energieDaSpendere > 0 && this.energiaTotale > 0) {
+					this.potenzaMotori += motoreDoppio.getPotenza();
+					this.energiaTotale--;
+					energieDaSpendere--;
+				}
+			}
+		}
+	}
+	
+	public void calcolaEquipaggio() {
+		for(int i = 0; i < NUM_RIGHE; i++) {
+			for(int j = 0; j < NUM_COLONNE; j++) {
+				if(this.caselle[i][j].getTessera() instanceof Cabina cabina) {
+					this.equipaggioTotale += cabina.getEquipaggio() + cabina.getAlieni();
+				} else if(this.caselle[i][j].getTessera() instanceof CabinaCentrale cabinaCentrale) {
+					this.equipaggioTotale += cabinaCentrale.getEquipaggio();
+				}
+			}
+		}
+	}
+	
+	//TODO - valutare una funzione attiva scudo che permette di attivare lo scudo se abbiamo energia
+	// e creare eventualmente un attributo "latiProtetti" che tiene traccia dei lati della nave
+	// protetti dagli scudi, di modo da non dover controllare tessera per tessera. Questa funzione
+	// verrà chiamata durante l'assemblaggio.
 	
 	@Override
 	public void creaNave() {
@@ -80,7 +147,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		if (r == 4) {
 			for(c = 1; c <= 2; c++) {
 				getCaselle()[r][c].setUtilizzabile(true);
-			}
+			} 
 			for(c = 4; c <= 5; c++) {
 				getCaselle()[r][c].setUtilizzabile(true);
 			}
@@ -129,6 +196,20 @@ public class PlanceNaveLivello1 extends PlanceNave{
 			System.out.println();
 			System.out.println();
 		}
+	}
+
+	/**
+	 * @return the energiaTotale
+	 */
+	public int getEnergiaTotale() {
+		return energiaTotale;
+	}
+
+	/**
+	 * @param energiaTotale the energiaTotale to set
+	 */
+	public void setEnergiaTotale(int energiaTotale) {
+		this.energiaTotale = energiaTotale;
 	}
 
 	

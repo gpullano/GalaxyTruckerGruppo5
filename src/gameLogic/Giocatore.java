@@ -1,11 +1,11 @@
 package gameLogic;
 
-import plance.PlanceNave;
+import plance.PlanceNaveLivello1;
 
 public class Giocatore {
     // Attributi
     private final Colore colore;
-    private PlanceNave planceNave;
+    private PlanceNaveLivello1 planceNave;
     private int creditistellari;
     private boolean haAbbandonato;
     private int pilaScarti;
@@ -13,7 +13,7 @@ public class Giocatore {
 
 
 	// Costruttore
-    public Giocatore(Colore colore, PlanceNave planceNave) {
+    public Giocatore(Colore colore, PlanceNaveLivello1 planceNave) {
     	this.colore= colore;
         this.planceNave = planceNave;
         this.creditistellari = 0;
@@ -32,7 +32,7 @@ public class Giocatore {
         return colore;
     }
 
-    public PlanceNave getPlanceNave() {
+    public PlanceNaveLivello1 getPlanceNave() {
         return planceNave;
     }
 
@@ -54,7 +54,7 @@ public class Giocatore {
 
     // Setters
 
-    public void setPlanceNave(PlanceNave stato) {
+    public void setPlanceNave(PlanceNaveLivello1 stato) {
         this.planceNave = stato;
     }
     
@@ -90,8 +90,4 @@ public class Giocatore {
     	this.pilaScarti++;
     }
 
-	public int ContaPotenzaMotori() {
-		// TODO da implementare
-		return 0;
-	}
 }

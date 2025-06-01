@@ -3,7 +3,7 @@ package tessere;
 /** 
 *rappresenta una tessea che può  essere attivata per dare maggiore potenza
 */
-public class MotoreDoppio extends Tessera implements Attivabile{
+public class MotoreDoppio extends Tessera {
 	
 /**
 *costruttore motoredoppio
@@ -25,18 +25,6 @@ public class MotoreDoppio extends Tessera implements Attivabile{
 // getter
 	public int getPotenza() {
 		return 2;
-	}
-	
-/**
-*attiva il motore doppio se viene data energia.
-*@param energia true per attivare il motore se no false
-*/
-// metodi 
-	@Override
-	public void attiva(boolean energia) {
-			if(energia) {
-				getPotenza();
-			}
 	}
 
 /**
