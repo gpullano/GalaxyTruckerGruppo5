@@ -101,5 +101,10 @@ public class PlanceVolo {
 	public int getLunghezzaPercorso() {
 		return LUNGHEZZA_PERCORSO;
 	}
+	
+	public Colore[] trovaLeader() {
+		// TODO la fa il Gabri 
+		return null;
+	}
 
 }

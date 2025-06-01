@@ -42,25 +42,6 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatori, PlanceVolo plancevolo) {
-		Scanner scanner=new Scanner(System.in);
-		//devo trovare il leader 
-		// inizializzo il leader
-		Giocatore leader = plance;
-		int giroLeader=leader.getPosizione().getGiro();
-		for (int i=1; i<giocatori.size();i++) {
-			if (giocatori.get(i).getPosizione().getGiro()<giroLeader) {
-				leader=giocatori.get(i);
-			}
-			
-		}
-		System.out.println("il leader è il giocatore: "+leader);
-		System.out.println(leader+" vuoi avvalerti della carta Nave Abbandonata?(si/no)");
-		String risposta=scanner.nextLine().trim().toLowerCase();
-		if (risposta=="si"||risposta=="sì") {
-			
-		}
 	}
-
-	
 }
 
