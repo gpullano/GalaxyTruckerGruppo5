@@ -42,7 +42,7 @@ public class ConsoleIO {
 	            // Tento di convertire l'intero letto in un valore enum
 	            livelloScelto = LivelloPartita.fromNumero(scelta);
 	            inputValido = true;
-
+	            // TODO - cambiare quest'eccezione e metterne una controllata
 	        } catch (NumberFormatException e) {
 	            System.err.println("Input non valido. Per favore, inserisci un numero.");
 	        } catch (IllegalArgumentException e) {

@@ -5,7 +5,7 @@ import plance.PlanceNave;
 public class Giocatore {
     // Attributi
     private final Colore colore;
-    private PlanceNave stato;
+    private PlanceNave planceNave;
     private int creditistellari;
     private boolean haAbbandonato;
     private int pilaScarti;
@@ -13,13 +13,13 @@ public class Giocatore {
 
 
 	// Costruttore
-    public Giocatore(Colore colore, PlanceNave stato ) {
+    public Giocatore(Colore colore, PlanceNave planceNave) {
     	this.colore= colore;
-        this.stato = stato;
+        this.planceNave = planceNave;
         this.creditistellari = 0;
         this.haAbbandonato = false;
         this.pilaScarti = 0;   
-    	if(stato == null) {
+    	if(planceNave == null) {
     		throw new NullPointerException("Il giocatore non può avere una nave nulla");
     	}
     	if(colore == null) {
@@ -32,8 +32,8 @@ public class Giocatore {
         return colore;
     }
 
-    public PlanceNave getStato() {
-        return stato;
+    public PlanceNave getPlanceNave() {
+        return planceNave;
     }
 
     public int getCreditiStellari() {
@@ -54,8 +54,8 @@ public class Giocatore {
 
     // Setters
 
-    public void setStato(PlanceNave stato) {
-        this.stato = stato;
+    public void setPlanceNave(PlanceNave stato) {
+        this.planceNave = stato;
     }
     
     public void setAssemblaggioTerminato(boolean assemblaggioTerminato) {

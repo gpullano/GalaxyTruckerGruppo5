@@ -4,13 +4,52 @@ import tessere.Tessera;
 
 public class PlanceNaveLivello1 extends PlanceNave{
 	private Casella[][] caselle;
-	private Tessera tessera;
+	private int potenzaFuoco;
+	private int potenzaMotrice;
+	private int equipaggioTotale;
 
 	public PlanceNaveLivello1() {
 		super(5, 7);
 		this.creaNave();
+		this.equipaggioTotale = 0;
+		this.potenzaFuoco = 0;
+		this.potenzaMotrice = 0;
 	}
 
+	// getters e setters
+
+	public int getPotenzaFuoco() {
+		return potenzaFuoco;
+	}
+
+
+	public void setPotenzaFuoco(int potenzaFuoco) {
+		this.potenzaFuoco = potenzaFuoco;
+	}
+
+
+	public int getPotenzaMotrice() {
+		return potenzaMotrice;
+	}
+
+
+	public void setPotenzaMotrice(int potenzaMotrice) {
+		this.potenzaMotrice = potenzaMotrice;
+	}
+
+
+	
+	public int getEquipaggioTotale() {
+		return equipaggioTotale;
+	}
+
+
+	public void setEquipaggioTotale(int equipaggioTotale) {
+		this.equipaggioTotale = equipaggioTotale;
+	}
+	
+	// metodi
+	
 	@Override
 	public void creaNave() {
 		for(int r = 0; r <= 4; r++) {
@@ -90,14 +129,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 			System.out.println();
 			System.out.println();
 		}
-	}
-
-	public Tessera getTessera() {
-		return this.tessera;
-	}
-
-	public void setTessera(Tessera tessera) {
-		this.tessera = tessera;
 	}
 
 	
