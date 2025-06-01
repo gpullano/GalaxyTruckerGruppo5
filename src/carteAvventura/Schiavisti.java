@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import gameLogic.Giocatore;
-<<<<<<< Upstream, based on branch 'main' of https://github.com/gpullano/GalaxyTruckerGruppo5.git
 import plance.PlanceVolo;
-=======
-import plance.PosizioneGiocatore;
->>>>>>> 4143ff1 aggiunta di files
 
 public class Schiavisti extends CartaPerditaGiorniVolo {
 
@@ -41,16 +37,8 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		return creditiCosmici;
 	}
 
-<<<<<<< Upstream, based on branch 'main' of https://github.com/gpullano/GalaxyTruckerGruppo5.git
 	
 	// metodi
-=======
-
-
-
-
-
->>>>>>> 4143ff1 aggiunta di files
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -70,11 +58,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 
 	@Override
-<<<<<<< Upstream, based on branch 'main' of https://github.com/gpullano/GalaxyTruckerGruppo5.git
 	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
-=======
-	public void attiva(List<Giocatore> giocatori, PosizioneGiocatore posizione) {
->>>>>>> 4143ff1 aggiunta di files
 		// TODO Auto-generated method stub
 		
 	}

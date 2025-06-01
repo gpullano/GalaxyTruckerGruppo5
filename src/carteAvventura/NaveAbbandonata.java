@@ -6,7 +6,6 @@ import java.util.Scanner;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
-import tessere.Tessera;
 
 public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	// attributi secondo me equipaggio e crediti vanno generati casualmente 
@@ -42,33 +41,25 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	}
 
 	@Override
-<<<<<<< Upstream, based on branch 'main' of https://github.com/gpullano/GalaxyTruckerGruppo5.git
 	public void attiva(List<Giocatore> giocatori, PlanceVolo plancevolo) {
 		Scanner scanner=new Scanner(System.in);
-=======
-	public void attiva(List<Giocatore>giocatori, PosizioneGiocatore posizione, List<Tessera> tessere) {
->>>>>>> 4143ff1 aggiunta di files
 		//devo trovare il leader 
 		// inizializzo il leader
 		Giocatore leader = plance;
 		int giroLeader=leader.getPosizione().getGiro();
-		// uso un contatore per vedere se hanno tutti lo stesso giro 
-		int cont=0;
 		for (int i=1; i<giocatori.size();i++) {
 			if (giocatori.get(i).getPosizione().getGiro()<giroLeader) {
 				leader=giocatori.get(i);
-				if (giocatori.get(i).getPosizione().getGiro()==giroLeader) {
-					cont=cont+1;
-				}
 			}
 			
-		}if(cont==3) { // sono tutti allo stesso giro, qui bisognerebbe controllare la riga o la colonna
-				
 		}
-		// tolgo l'equipaggio 
-		tessere.get(Cabina);
+		System.out.println("il leader è il giocatore: "+leader);
+		System.out.println(leader+" vuoi avvalerti della carta Nave Abbandonata?(si/no)");
+		String risposta=scanner.nextLine().trim().toLowerCase();
+		if (risposta=="si"||risposta=="sì") {
+			
+		}
 	}
-	
 
 	
 }
