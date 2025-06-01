@@ -60,12 +60,13 @@ public class FaseAssemblaggio extends Fase {
 		// in giocatore c'è l'attributo "assemblaggioTermianto"
 		
 		int numAssemblaggiTerminati = 0;
-		
+		this.getInputOutput().inizioAssemblaggio();
 		do {
 			for(Giocatore giocatore : this.getGiocatori()) {
 				// TODO - bisogna far partire la clessidra e se finisce bisogna far finire il turno
 //				giocatore = this.getInputOutput().;
 			}
+			
 		}while(numAssemblaggiTerminati < 4); //finché non tutti hanno terminato l'assemblaggio
 
 	}

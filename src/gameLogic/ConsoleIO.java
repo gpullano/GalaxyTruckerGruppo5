@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class ConsoleIO {
 	// attributi
 	private final Scanner sc;
+	private boolean inputValido;
 	
 	// costruttore
 	public ConsoleIO() {
@@ -21,12 +22,12 @@ public class ConsoleIO {
 	
 	
 	
-	//-------
+	//------- SETUP PARTITA
 	
 	public LivelloPartita chiediLivelloGioco() {
 	    int scelta = -1;
 	    LivelloPartita livelloScelto = null;
-	    boolean inputValido = false;
+	    inputValido = false;
 
 	    while (!inputValido) {
 	        System.out.println("--- MODALITA' - PREMI: ---");
@@ -56,7 +57,7 @@ public class ConsoleIO {
 
 	public int chiediNumGiocatori() {
 	    int numGiocatori = 0;
-	    boolean inputValido = false;
+	    inputValido = false;
 	    System.out.println("--- SCELTA GIOCATORI: ---");
 	    while (!inputValido) {
 	        System.out.println("In quanti siete, camionisti spaziali?: ");
@@ -85,7 +86,7 @@ public class ConsoleIO {
 		System.out.println("R/r -> ROSSO");
 		
 		for (int i = 0; i < numGiocatori; i++) {
-            boolean inputValido = false;
+            inputValido = false;
 
             while (!inputValido) { 
                 System.out.print("Giocatore " + (i + 1) + ", che colore vuoi scegliere?: ");
@@ -108,8 +109,45 @@ public class ConsoleIO {
         return coloreGiocatori;
     }
 	
-//	TODO
-//	public AzioneAssemblaggio chiediAzioneAssemblaggio();
+	//---- FASI DI GIOCO 
+	
+	
+	//Fase di assemblaggio
+	
+	public void inizioAssemblaggio() {
+		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
+	}
+	
+	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean componenteAgganciato) {
+		AzioneAssemblaggio azioneScelta = null;
+		inputValido = false;
+		int scelta = 0;
+		
+		do {
+			System.out.println("Giocatore " + colore + "Quale azione vuoi compiere? - PREMI:");
+			System.out.println("1 - PESCARE UNA TESSERA");
+	        System.out.println("2 - PRENOTARE UNA TESSERA");
+	        if(componenteAgganciato) {
+	        	System.out.println("3 - TERMINARE ASSEMBLAGGIO");
+		        System.out.println("4 - TRASVOLATA INTERGALATTICA");
+	        }
+	        System.out.print("La tua scelta: ");
+	        
+	        try {
+	            scelta = Integer.parseInt(sc.nextLine());
+	            // Tento di convertire l'intero letto in un valore enum
+	            azioneScelta = AzioneAssemblaggio.fromNumero(scelta);
+	            inputValido = true;
+	            // TODO - cambiare quest'eccezione e metterne una controllata
+	        } catch (NumberFormatException e) {
+	            System.err.println("Input non valido. Per favore, inserisci un numero.");
+	        } catch (IllegalArgumentException e) {
+	            System.err.println(e.getMessage());
+	        }
+		}while(!inputValido);
+		
+		return azioneScelta;
+	}
 	
 	
 

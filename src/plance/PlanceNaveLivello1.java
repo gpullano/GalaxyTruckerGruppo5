@@ -17,6 +17,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int energiaTotale;
+	private boolean componenteAgganciato;
+	// TODO - attributo per verificare se ci sono tessere prenotate
 	
 
 	public PlanceNaveLivello1() {
@@ -26,6 +28,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaFuoco = 0;
 		this.potenzaMotori = 0;
 		this.energiaTotale = 0;
+		this.componenteAgganciato = false;
 	}
 
 	// getters e setters
@@ -59,6 +62,25 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	public void setEquipaggioTotale(int equipaggioTotale) {
 		this.equipaggioTotale = equipaggioTotale;
 	}
+	
+	public int getEnergiaTotale() {
+		return energiaTotale;
+	}
+
+
+	public void setEnergiaTotale(int energiaTotale) {
+		this.energiaTotale = energiaTotale;
+	}
+
+	
+	public boolean isComponenteAgganciato() {
+		return componenteAgganciato;
+	}
+
+	public void setComponenteAgganciato(boolean componenteAgganciato) {
+		this.componenteAgganciato = componenteAgganciato;
+	}
+
 	
 	// metodi
 	
@@ -198,19 +220,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}
 	}
 
-	/**
-	 * @return the energiaTotale
-	 */
-	public int getEnergiaTotale() {
-		return energiaTotale;
-	}
-
-	/**
-	 * @param energiaTotale the energiaTotale to set
-	 */
-	public void setEnergiaTotale(int energiaTotale) {
-		this.energiaTotale = energiaTotale;
-	}
 
 	
 }
