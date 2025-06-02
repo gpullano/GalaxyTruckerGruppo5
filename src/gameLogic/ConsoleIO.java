@@ -125,27 +125,29 @@ public class ConsoleIO {
 		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
 	}
 	
+	
 	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean haAgganciatoComponente, boolean haPrenotatoComponente, boolean esistonoTessereScoperte) {
 		AzioneAssemblaggio azioneScelta = null;
 		//lista di scelte che si aggiorna in base alle scelte disponibili
-		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
+		List<Integer> scelteDisponibili = new ArrayList<>();
+		scelteDisponibili.add(1);
+		
 		inputValido = false;
 		int scelta = 0;
 		
 		do {
-			System.out.println("Giocatore " + colore + "Quale azione vuoi compiere? - PREMI:");
+			System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
 			System.out.println("1 - PESCARE UNA TESSERA");
-	        System.out.println("2 - PRENOTARE UNA TESSERA");
 	        if(haAgganciatoComponente) {
-	        	System.out.println("3 - TERMINARE ASSEMBLAGGIO");
-	        	System.out.println("4 - GUARDARE MAZZI DI CARTE");
-	        	scelteDisponibili.addAll(Arrays.asList(3, 4));
+	        	System.out.println("2 - TERMINARE ASSEMBLAGGIO");
+	        	System.out.println("3 - GUARDARE MAZZI DI CARTE");
+	        	scelteDisponibili.addAll(Arrays.asList(2, 3));
 	        } else if(haPrenotatoComponente) {
-	        	System.out.println("5 - PRENDI TESSERA PRENOTATA");
-	        	scelteDisponibili.add(5);
+	        	System.out.println("4 - PRENDI TESSERA PRENOTATA");
+	        	scelteDisponibili.add(4);
 	        } else if(esistonoTessereScoperte) {
-	        	System.out.println("6 - PRENDI TESSERA SCOPERTA");
-	        	scelteDisponibili.add(6);
+	        	System.out.println("5 - PRENDI TESSERA SCOPERTA");
+	        	scelteDisponibili.add(5);
 	        }
 	        System.out.print("La tua scelta: ");
 	        
@@ -159,7 +161,8 @@ public class ConsoleIO {
 	            		inputValido = true;
 	            	}
 	            }
-	            throw new InputNonValidoException("Numero non valido.");
+	            if(!inputValido)
+	            	throw new InputNonValidoException("Numero non valido.");
 	        } catch (NumberFormatException e) {
 	            System.err.println(INPUT_NON_VALIDO);
 	        } catch (InputNonValidoException e) {
@@ -167,9 +170,57 @@ public class ConsoleIO {
 	        }
 		}while(!inputValido);
 		
+		//TODO - valutare se tenere la riga di codice seguente
+		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
+		
 		return azioneScelta;
 	}
 	
+	public AzioneAssemblaggio chiediAzioneSulleTessere(Colore colore, boolean tesseraPrenotata) {
+		AzioneAssemblaggio azioneScelta = null;
+		inputValido = false;
+		int scelta = 0;
+		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
 	
+		do {
+			System.out.println("Giocatore " + colore + " cosa vuoi fare con la tessera che hai in mano - PREMI:");
+			System.out.println("1 - RUOTARLA");
+	        System.out.println("2 - AGGANCIARLA");
+	        
+	        //Se ho preso la tessera dai miei due slot di tessere prenotate, non ha senso lasciare
+	        //disponibili queste due opzioni seguenti.
+	        //Questo controllo verifica che la tessera considerata non sia una tessera prenotata.
+	        if(!tesseraPrenotata) {
+	        	System.out.println("3 - RIMETTERLA SUL TAVOLO");
+	        	System.out.println("4 - PRENOTARLA PER DOPO");
+		        System.out.print("La tua scelta: ");
+	        	scelteDisponibili.addAll(Arrays.asList(3, 4));
+	        } 
+	        System.out.print("La tua scelta: ");
+	        
+	        try {
+	            scelta = Integer.parseInt(sc.nextLine());
+	            
+	            //verifico se la scelta inserita dall'utente è tra le opzioni stampate
+	            for(Integer opzione : scelteDisponibili) {
+	            	if(scelta == opzione) {
+	            		azioneScelta = AzioneAssemblaggio.fromNumero(scelta + 5);
+	            		inputValido = true;
+	            	}
+	            }
+	            if(!inputValido)
+	            	throw new InputNonValidoException("Numero non valido.");
+	        } catch (NumberFormatException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        } catch (InputNonValidoException e) {
+	            System.err.println(e.getMessage());
+	        }
+		}while(!inputValido);
+		
+		//TODO - valutare se tenere la riga di codice seguente
+		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
+		
+		return azioneScelta;
+	}
 
 }
