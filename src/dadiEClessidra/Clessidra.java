@@ -60,8 +60,8 @@ public class Clessidra {
 * Si accerta che il timer è scaduto perciò il tempo rimanente è uguale a zero.
 * @return zero secondi se il tempo è finito.
 */
-    public boolean isExpired() {
-        return secondsLeft == 0;
+    public boolean isNotExpired() {
+        return secondsLeft != 0;
     }
    
     }

@@ -63,58 +63,81 @@ public class FaseAssemblaggio extends Fase {
 		AzioneAssemblaggio sceltaTessera = null;
 		Tessera tesseraPescata = null;
 		int numAssemblaggiTerminati = 0;
+		
 		this.getInputOutput().inizioAssemblaggio();
-		do {
+		
+		//ciclo che va avanti finché non tutti hanno terminato l'assemblaggio
+		while(numAssemblaggiTerminati < this.getGiocatori().size()){
+			
+			//for per scorrere ogni giocatore
 			for(Giocatore giocatore : this.getGiocatori()) {
-				sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
-						giocatore.getPlanceNave().isComponenteAgganciato(),
-						giocatore.getPlanceNave().haTesserePrenotate(), !this.tessereScoperte.isEmpty());
-				switch(sceltaOpzioni) {
-				case PESCA_TESSERA:{
-					tesseraPescata = this.mucchioTessere.pop();
-					sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), false, tesseraPescata);
+				
+				//se il giocatore non ha terminato l'assemblaggio gli do la possibilità di compiere azioni
+				if(giocatore.isAssemblaggioTerminato())
+				{
 					
-					switch(sceltaTessera) {
-						case RUOTA_TESSERA:{
+					//il giocatore può continuare a svolgere azioni finché non scade il tempo della clessidra
+					while(this.clessidra.isNotExpired()){
+				
+					sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
+							giocatore.getPlanceNave().isComponenteAgganciato(),
+							giocatore.getPlanceNave().haTesserePrenotate(), !this.tessereScoperte.isEmpty());
+						switch(sceltaOpzioni) {
+						case PESCA_TESSERA:{
+							tesseraPescata = this.mucchioTessere.pop();
+							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), false, tesseraPescata);
+							
+							switch(sceltaTessera) {
+								case RUOTA_TESSERA:{
+									
+									break;
+								}
+								case AGGANCIA_TESSERA:{
+									
+									break;
+								}
+								case RIMETTI_TESSERA_SUL_TAVOLO:{
+									
+									break;
+								}
+								case PRENOTA_TESSERA:{
+									
+									break;
+								}
+								default:
+									break;
+							}
+							break;
+						}
+						case TERMINA_ASSEMBLAGGIO:{
+							giocatore.terminaAssemblaggio();
+							numAssemblaggiTerminati++;
+							break;
+						}
+						case GUARDA_MAZZI_CARTE: {
 							
 							break;
 						}
-						case AGGANCIA_TESSERA:{
+						case PRENDI_TESSERA_PRENOTATA:{
 							
 							break;
 						}
-						case RIMETTI_TESSERA_SUL_TAVOLO:{
+						case PRENDI_TESSERA_SCOPERTA:{
 							
 							break;
 						}
-						case PRENOTA_TESSERA:{
-							
+						//TODO
+						default:
 							break;
+						
 						}
 					}
-					break;
 				}
-				case TERMINA_ASSEMBLAGGIO:{
-					
-					break;
-				}
-				case GUARDA_MAZZI_CARTE: {
-					
-					break;
-				}
-				case PRENDI_TESSERA_PRENOTATA:{
-					
-					break;
-				}
-				case PRENDI_TESSERA_SCOPERTA:{
-					
-					break;
-				}
-				
 			}
-			
+				
 		}
-		}while(numAssemblaggiTerminati < 4); //finché non tutti hanno terminato l'assemblaggio
 
 	}
+	
+	
 }

@@ -58,8 +58,8 @@ public class Giocatore {
         this.planceNave = stato;
     }
     
-    public void setAssemblaggioTerminato(boolean assemblaggioTerminato) {
-		this.assemblaggioTerminato = assemblaggioTerminato;
+    public void terminaAssemblaggio() {
+		this.assemblaggioTerminato = true;
 	}
     
  
