@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import eccezioni.InputNonValidoException;
+import tessere.Tessera;
 
 public class ConsoleIO {
 	//stringhe costanti
@@ -176,13 +177,14 @@ public class ConsoleIO {
 		return azioneScelta;
 	}
 	
-	public AzioneAssemblaggio chiediAzioneSulleTessere(Colore colore, boolean tesseraPrenotata) {
+	public AzioneAssemblaggio chiediAzioneSulleTessere(Colore colore, boolean tesseraPrenotata, Tessera tesseraPescata) {
 		AzioneAssemblaggio azioneScelta = null;
 		inputValido = false;
 		int scelta = 0;
 		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
-	
+		
 		do {
+			System.out.println("TESSERA PESCATA: " + tesseraPescata);
 			System.out.println("Giocatore " + colore + " cosa vuoi fare con la tessera che hai in mano - PREMI:");
 			System.out.println("1 - RUOTARLA");
 	        System.out.println("2 - AGGANCIARLA");

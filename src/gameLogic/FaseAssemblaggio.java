@@ -59,18 +59,62 @@ public class FaseAssemblaggio extends Fase {
 		// valutare se introdurre l'attributo "haAgganciato" in planceVolo o in Giocatore
 		// in giocatore c'è l'attributo "assemblaggioTermianto"
 		
+		AzioneAssemblaggio sceltaOpzioni = null;
+		AzioneAssemblaggio sceltaTessera = null;
+		Tessera tesseraPescata = null;
 		int numAssemblaggiTerminati = 0;
 		this.getInputOutput().inizioAssemblaggio();
 		do {
 			for(Giocatore giocatore : this.getGiocatori()) {
-				// TODO - bisogna far partire la clessidra e se finisce bisogna far finire il turno
-//				giocatore = this.getInputOutput().;
+				sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
+						giocatore.getPlanceNave().isComponenteAgganciato(),
+						giocatore.getPlanceNave().haTesserePrenotate(), !this.tessereScoperte.isEmpty());
+				switch(sceltaOpzioni) {
+				case PESCA_TESSERA:{
+					tesseraPescata = this.mucchioTessere.pop();
+					sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), false, tesseraPescata);
+					
+					switch(sceltaTessera) {
+						case RUOTA_TESSERA:{
+							
+							break;
+						}
+						case AGGANCIA_TESSERA:{
+							
+							break;
+						}
+						case RIMETTI_TESSERA_SUL_TAVOLO:{
+							
+							break;
+						}
+						case PRENOTA_TESSERA:{
+							
+							break;
+						}
+					}
+					break;
+				}
+				case TERMINA_ASSEMBLAGGIO:{
+					
+					break;
+				}
+				case GUARDA_MAZZI_CARTE: {
+					
+					break;
+				}
+				case PRENDI_TESSERA_PRENOTATA:{
+					
+					break;
+				}
+				case PRENDI_TESSERA_SCOPERTA:{
+					
+					break;
+				}
+				
 			}
 			
+		}
 		}while(numAssemblaggiTerminati < 4); //finché non tutti hanno terminato l'assemblaggio
 
 	}
-
-	
-
 }
