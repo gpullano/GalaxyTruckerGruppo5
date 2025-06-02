@@ -172,9 +172,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						}
 						case PRENDI_TESSERA_SCOPERTA:{
-							//TODO devi implementare il fatto che posso scegliere l'indice della tessera
-							//che voglio prendere
-							//tesseraPescata = this.tessereScoperte.get();
+							tesseraPescata = this.getInputOutput().chiediTesseraScopertaDaPescare(tessereScoperte);
 							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
 									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
@@ -193,7 +191,6 @@ public class FaseAssemblaggio extends Fase {
 									break;
 								}
 								case RIMETTI_TESSERA_SUL_TAVOLO:{
-									//TODO - valuta se rimetterla nel suo indice
 									this.tessereScoperte.add(tesseraPescata);
 									break;
 								}

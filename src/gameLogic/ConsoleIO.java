@@ -235,6 +235,7 @@ public class ConsoleIO {
 		return azioneScelta;
 	}
 	
+	//TODO - testare le quattro funzioni seguenti
 	public void ruotaTessera(Tessera tesseraPescata) {
 		boolean ruotaAncora = true;
 		String scelta;
@@ -282,6 +283,39 @@ public class ConsoleIO {
 		}
 	}
 	
+	public Tessera chiediTesseraScopertaDaPescare(List<Tessera> tessereScoperte) {
+		boolean indiceNonValido = true;
+		int sceltaIndice = -1;
+		stampaTessereScoperte(tessereScoperte);
+		while(indiceNonValido){
+			System.out.println("INDICA LA POSIZIONE DELLA TESSERA CHE VUOI PESCARE " +
+					"Da 1 a " + tessereScoperte.size());
+			try {
+				sceltaIndice = Integer.parseInt(sc.nextLine());
+				if(sceltaIndice < 1 || sceltaIndice > tessereScoperte.size()) {
+					System.err.println("Scelta non valida, indice non esistente.");
+				} else {
+					//tolgo 1 a sceltaIndice di modo da ottenere l'indice corretto
+					sceltaIndice--;
+					System.out.println(tessereScoperte.get(sceltaIndice));
+					return tessereScoperte.remove(sceltaIndice);
+				}
+					
+			} catch (NumberFormatException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        }
+			
+		}
+			return null;
+	}
+	
+	public void stampaTessereScoperte(List<Tessera> tessereScoperte) {
+		System.out.println("\n--- TESSERE SCOPERTE ---");
+		//TODO - da sistemare con la nuova toString()
+		for(Tessera tessera : tessereScoperte) {
+			System.out.println("\n" + tessera);
+		}
+	}
 	
 
 }
