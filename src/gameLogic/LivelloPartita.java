@@ -1,6 +1,6 @@
 package gameLogic;
 
-import eccezioni.InputNonValidoException;
+import eccezioni.NumeroNonValidoException;
 
 public enum LivelloPartita {
     LIVELLO1(1),   
@@ -21,12 +21,12 @@ public enum LivelloPartita {
     }
 
     // Metodo statico per ottenere l'enum dal numero intero
-    public static LivelloPartita fromNumero(int numero) throws InputNonValidoException {
+    public static LivelloPartita fromNumero(int numero) throws NumeroNonValidoException {
         for (LivelloPartita livello : values()) {
             if (livello.numeroLivello == numero) {
                 return livello; // Trovato il valore corrispondente
             }
         }
-        throw new InputNonValidoException("Numero livello non valido: " + numero + ". I valori validi sono 1, 2, 3, 4.");
+        throw new NumeroNonValidoException("Numero livello non valido: " + numero + ". I valori validi sono 1, 2, 3, 4.");
     }
 }

@@ -23,7 +23,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int energiaTotale;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
-	
 
 	public PlanceNaveLivello1() {
 		super(NUM_RIGHE, NUM_COLONNE);
@@ -37,7 +36,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 
 	// getters e setters
-	
 	
 	/**
 	 * Metodo che ritorna una tessera prenotata
@@ -63,15 +61,15 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	
 	
 	
-	public void setTesseraPrenotata(Tessera t) {
+	public void aggiungiTesseraPrenotata(Tessera t) {
 		if(this.spazioTesserePrenotate.size() >= NUM_TESSERE_PRENOTABILI) {
 			throw new IllegalArgumentException("Non puoi prenotare ulteriori tessere, "
 					+ "il numero massimo e'" + NUM_TESSERE_PRENOTABILI);
 		} 
 		this.spazioTesserePrenotate.add(t);
 	}
-
 	
+
 	
 	public int getPotenzaFuoco() {
 		return potenzaFuoco;
@@ -124,6 +122,10 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	
 	// metodi
 	
+	public boolean isSpazioTesserePrenotatePieno() {
+		return spazioTesserePrenotate.size() == NUM_TESSERE_PRENOTABILI;
+	}	
+	
 	/**
 	 * Metodo che verifica se sono stati prenotati componenti
 	 * viene utilizzato nella classe dedicata all'input/output (ConsoleIO)
@@ -132,7 +134,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	 * @return
 	 */
 	public boolean haTesserePrenotate() {
-		return this.spazioTesserePrenotate.size() > 0;
+		return !this.spazioTesserePrenotate.isEmpty();
 	}
 	
 	//TODO - verificare se serve

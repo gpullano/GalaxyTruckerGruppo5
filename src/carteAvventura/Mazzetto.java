@@ -24,12 +24,8 @@ public class Mazzetto {
 		this.carte.add(carta);
 	}
 	
-	//chiama la toString() di ogni carta
-	public void guardaCarte() {
-		for(Carta i: carte) {			
-			System.out.println(i);
-		}
+	public int dimensioneMazzetto() {
+		return this.carte.size();
 	}
-	
 	
 }

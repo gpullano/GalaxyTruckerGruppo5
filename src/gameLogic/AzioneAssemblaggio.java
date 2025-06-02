@@ -1,13 +1,13 @@
 package gameLogic;
 
-import eccezioni.InputNonValidoException;
+import eccezioni.NumeroNonValidoException;
 
 public enum AzioneAssemblaggio {
 	//Sempre disponibili
 	PESCA_TESSERA(1),
 	//Disponibili dopo aver agganciato una tessera
 	TERMINA_ASSEMBLAGGIO(2),
-	GUARDA_MAZZI_CARTE(3),
+	GUARDA_MAZZETTI_CARTE(3),
 	//Disponibile dopo aver prenotato una tessera
     PRENDI_TESSERA_PRENOTATA(4),
     //Disponibile dopo che ci sono tessere scoperte
@@ -31,12 +31,12 @@ public enum AzioneAssemblaggio {
 		return numeroScelta;
 	}
 	
-	public static AzioneAssemblaggio fromNumero(int numero) throws InputNonValidoException{
+	public static AzioneAssemblaggio fromNumero(int numero) throws NumeroNonValidoException{
         for (AzioneAssemblaggio azione : values()) {
             if (azione.getNumeroScelta() == numero) {
                 return azione;
             }
         }
-        throw new InputNonValidoException("Numero non valido.");
+        throw new NumeroNonValidoException("Numero non valido. Reinseriscilo");
     }
 }

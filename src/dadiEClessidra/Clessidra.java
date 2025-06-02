@@ -26,6 +26,7 @@ public class Clessidra {
 * Avvia il timer se non è operativo.
 * Stampa un messaggio con il tempo rimanente.
 */
+    //TODO - tradurre
     public void start() {
         if (running) {
             System.out.println("Timer already started.");

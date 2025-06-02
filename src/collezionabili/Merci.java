@@ -3,7 +3,7 @@ package collezionabili;
 import gameLogic.Colore;
 
 /**
-*rappresenta una merce con un coloe associat.
+*rappresenta una merce con un colore associato.
 */
 
 public class Merci {
@@ -18,7 +18,7 @@ public class Merci {
 	}
 
 /**
-*restituice il colore della merce
+*restituisce il colore della merce
 *@return colore associato alla merce
 */
 	public Colore getColore() {

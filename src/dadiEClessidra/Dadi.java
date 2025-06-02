@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
 * La classe Dadi simula un dado con 12 facce. 
-* Si può lanciare per ottenere un valore casuale da 1 a 12.
+* Si può lanciare il dado per ottenere un valore casuale da 1 a 12.
 */
 public class Dadi {
 	
