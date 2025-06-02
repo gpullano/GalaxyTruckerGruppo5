@@ -75,15 +75,19 @@ public class PlanceVolo {
 		}
 	}
 
+	
 	public void avanzaPosizione(Colore colore, int giorni) {
+		
 		for(PosizioneGiocatore giocatore: posizioneGiocatori) {
 			if(colore == giocatore.getColore()) {
 				giocatore.aggiornaPosizione(giorni, PlanceVolo.LUNGHEZZA_PERCORSO);
+				
+				
 			}
+				
 		}
-		
-		//TODO fare conversione a coordinate 
 	}
+	
 	
 	
 	
