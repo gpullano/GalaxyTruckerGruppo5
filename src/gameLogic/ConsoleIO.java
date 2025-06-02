@@ -1,10 +1,15 @@
 package gameLogic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import eccezioni.InputNonValidoException;
+
 public class ConsoleIO {
+	//stringhe costanti
+	private static final String INPUT_NON_VALIDO = "Input non valido. Per favore, inserisci un numero.";
 	// attributi
 	private final Scanner sc;
 	private boolean inputValido;
@@ -45,8 +50,8 @@ public class ConsoleIO {
 	            inputValido = true;
 	            // TODO - cambiare quest'eccezione e metterne una controllata
 	        } catch (NumberFormatException e) {
-	            System.err.println("Input non valido. Per favore, inserisci un numero.");
-	        } catch (IllegalArgumentException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        } catch (InputNonValidoException e) {
 	            // Se l'input è un intero ma non valido
 	            System.err.println(e.getMessage());
 	        }
@@ -70,12 +75,14 @@ public class ConsoleIO {
 	                System.err.println("Numero di giocatori non valido. Per favore, inserisci un numero tra 2 e 4.");
 	            }
 	        } catch (NumberFormatException e) {
-	            System.err.println("Input non valido. Per favore, inserisci un numero.");
+	            System.err.println(INPUT_NON_VALIDO);
 	        } 
 	    }
 	    return numGiocatori;
 	}
 
+	//TODO - verifica il corretto funzionamento di questo metodo per
+	//colori diversi da quelli esatti. Ad es: "roSSo" anziché "ROSSO".
 	public Colore[] chiediColoreGiocatori(int numGiocatori) {
 		Colore coloreGiocatori[] = new Colore[numGiocatori];
 		List<Colore> coloriSceltiTemp = new ArrayList<>();
@@ -118,8 +125,10 @@ public class ConsoleIO {
 		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
 	}
 	
-	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean componenteAgganciato) {
+	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean haAgganciatoComponente, boolean haPrenotatoComponente, boolean esistonoTessereScoperte) {
 		AzioneAssemblaggio azioneScelta = null;
+		//lista di scelte che si aggiorna in base alle scelte disponibili
+		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
 		inputValido = false;
 		int scelta = 0;
 		
@@ -127,21 +136,33 @@ public class ConsoleIO {
 			System.out.println("Giocatore " + colore + "Quale azione vuoi compiere? - PREMI:");
 			System.out.println("1 - PESCARE UNA TESSERA");
 	        System.out.println("2 - PRENOTARE UNA TESSERA");
-	        if(componenteAgganciato) {
+	        if(haAgganciatoComponente) {
 	        	System.out.println("3 - TERMINARE ASSEMBLAGGIO");
-		        System.out.println("4 - TRASVOLATA INTERGALATTICA");
+	        	System.out.println("4 - GUARDARE MAZZI DI CARTE");
+	        	scelteDisponibili.addAll(Arrays.asList(3, 4));
+	        } else if(haPrenotatoComponente) {
+	        	System.out.println("5 - PRENDI TESSERA PRENOTATA");
+	        	scelteDisponibili.add(5);
+	        } else if(esistonoTessereScoperte) {
+	        	System.out.println("6 - PRENDI TESSERA SCOPERTA");
+	        	scelteDisponibili.add(6);
 	        }
 	        System.out.print("La tua scelta: ");
 	        
 	        try {
 	            scelta = Integer.parseInt(sc.nextLine());
-	            // Tento di convertire l'intero letto in un valore enum
-	            azioneScelta = AzioneAssemblaggio.fromNumero(scelta);
-	            inputValido = true;
-	            // TODO - cambiare quest'eccezione e metterne una controllata
+	            
+	            //verifico se la scelta inserita dall'utente è tra le opzioni stampate
+	            for(Integer opzione : scelteDisponibili) {
+	            	if(scelta == opzione) {
+	            		azioneScelta = AzioneAssemblaggio.fromNumero(scelta);
+	            		inputValido = true;
+	            	}
+	            }
+	            throw new InputNonValidoException("Numero non valido.");
 	        } catch (NumberFormatException e) {
-	            System.err.println("Input non valido. Per favore, inserisci un numero.");
-	        } catch (IllegalArgumentException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        } catch (InputNonValidoException e) {
 	            System.err.println(e.getMessage());
 	        }
 		}while(!inputValido);

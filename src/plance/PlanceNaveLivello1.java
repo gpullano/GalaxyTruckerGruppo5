@@ -1,5 +1,8 @@
 package plance;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import tessere.Cabina;
 import tessere.CabinaCentrale;
 import tessere.Cannone;
@@ -11,14 +14,15 @@ import tessere.Tessera;
 public class PlanceNaveLivello1 extends PlanceNave{
 	private static final int NUM_RIGHE = 5;
 	private static final int NUM_COLONNE = 7;
+	private static final int NUM_TESSERE_PRENOTABILI = 2;
 	
 	private Casella[][] caselle;
 	private int potenzaFuoco;
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int energiaTotale;
-	private boolean componenteAgganciato;
-	// TODO - attributo per verificare se ci sono tessere prenotate
+	private boolean componenteAgganciato; // boolean, true/false
+	private List<Tessera> spazioTesserePrenotate;
 	
 
 	public PlanceNaveLivello1() {
@@ -29,10 +33,46 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaMotori = 0;
 		this.energiaTotale = 0;
 		this.componenteAgganciato = false;
+		this.spazioTesserePrenotate = new LinkedList<>();
 	}
 
 	// getters e setters
+	
+	
+	/**
+	 * Metodo che ritorna una tessera prenotata
+	 * @param i è l'indice in cui si trova la tessera (N.B: tra 1 o 2, anziché 0 o 1)
+	 * @return la tessera prenotata all'indice i
+	 */
+	public Tessera getTesseraPrenotata(int i) {
+		
+		if(i < 1 || i > NUM_TESSERE_PRENOTABILI) {
+			throw new IllegalArgumentException("Puoi usare solo tessere che sono in posizione 1 o 2");
+		} 
+		
+		//riporto agli indici utilizzati per gli array/list
+		i--;
+		// Controllo se l'indice calcolato è valido per la dimensione attuale della lista
+        if (i < 0 || i >= this.spazioTesserePrenotate.size()) {
+            throw new IndexOutOfBoundsException("Non c'è una tessera prenotata alla posizione " + i +
+                                                ". Tessere prenotate attuali: " + this.spazioTesserePrenotate.size());
+        }
 
+		return this.spazioTesserePrenotate.get(i);
+	}
+	
+	
+	
+	public void setTesseraPrenotata(Tessera t) {
+		if(this.spazioTesserePrenotate.size() >= NUM_TESSERE_PRENOTABILI) {
+			throw new IllegalArgumentException("Non puoi prenotare ulteriori tessere, "
+					+ "il numero massimo e'" + NUM_TESSERE_PRENOTABILI);
+		} 
+		this.spazioTesserePrenotate.add(t);
+	}
+
+	
+	
 	public int getPotenzaFuoco() {
 		return potenzaFuoco;
 	}
@@ -83,6 +123,17 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	
 	// metodi
+	
+	/**
+	 * Metodo che verifica se sono stati prenotati componenti
+	 * viene utilizzato nella classe dedicata all'input/output (ConsoleIO)
+	 * nella fase di assemblaggio per mostrare determinate opzioni
+	 * ad esempio: "PRENDI TESSERA PRENOTATA".
+	 * @return
+	 */
+	public boolean haTesserePrenotate() {
+		return this.spazioTesserePrenotate.size() > 0;
+	}
 	
 	//TODO - verificare se serve
 	public void aggiungiEnergia(int energia) {
