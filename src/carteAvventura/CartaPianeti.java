@@ -3,6 +3,7 @@ package carteAvventura;
 import java.util.List;
 import java.util.Random;
 
+import collezionabili.Merci;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
@@ -55,8 +56,11 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 	
 
 	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
-		// TODO Auto-generated method stub
+		int merciGiocatore=giocatore.getPlanceNave().getMerciTotali();
+		int merciPianeta=pianeti[0].getMerciPianeta().length;
+		giocatore.getPlanceNave().setMerciTotali(merciGiocatore+merciPianeta);
 		
+		posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(), 18);
 	}
 
 }
