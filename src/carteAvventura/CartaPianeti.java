@@ -56,7 +56,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 
 	
 
-	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		int merciGiocatore=giocatore.getPlanceNave().getMerciTotali();
 		int merciPianeta=pianeti[0].getMerciPianeta().length;
 		giocatore.getPlanceNave().setMerciTotali(merciGiocatore+merciPianeta);

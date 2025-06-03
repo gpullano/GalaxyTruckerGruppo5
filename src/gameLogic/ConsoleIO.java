@@ -143,8 +143,8 @@ public class ConsoleIO {
 		int scelta = 0;
 		
 		while(!inputValido) {
+			System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
 			if(esistonoTessereMucchio) {
-				System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
 				System.out.println("1 - PESCARE UNA TESSERA");
 				scelteDisponibili.add(1);
 			}
@@ -207,7 +207,7 @@ public class ConsoleIO {
 	        	System.out.println("3 - RIMETTERLA A POSTO");
 	        	scelteDisponibili.add(3);
 	        } 
-	        if(!spazioTesserePrenotatePieno || !tesseraPrenotata) {
+	        if(!spazioTesserePrenotatePieno && !tesseraPrenotata) {
 	        	System.out.println("4 - PRENOTARLA PER DOPO");
 	        	scelteDisponibili.add(4);
 	        }
@@ -378,6 +378,61 @@ public class ConsoleIO {
 			System.out.println();
 			System.out.println();
 			System.out.println();
+		}
+	}
+	
+	public void agganciaTessera(Giocatore giocatore, Tessera tesseraDaAgganciare) {
+		boolean tesseraAgganciata = false;
+		
+		
+		while(!tesseraAgganciata) {
+			 int riga = -1, colonna = -1;
+			    boolean rigaValida = false;
+			    boolean colonnaValida = false;
+
+			    // Stampa la plancia per aiutare l'utente (metodo helper)
+			    stampaNave(giocatore.getPlanceNave());
+
+			    // Chiedi la riga
+			    while (!rigaValida) {
+			        System.out.print("Inserisci la RIGA dove agganciare (es. 1, 2, ...): ");
+			        String inputRiga = sc.nextLine().trim();
+			        try {
+			            riga = Integer.parseInt(inputRiga);
+			             //verifica se la riga è dentro i limiti
+			             if (riga >= 1 && riga <= PlanceNaveLivello1.getNumRighe()) {
+			                 rigaValida = true;
+			             } else {
+			                 System.err.println("Riga fuori dai limiti della plancia.");
+			             }
+			            
+			        } catch (NumberFormatException e) {
+			            System.err.println("Formato riga non valido. Inserisci un numero.");
+			        }
+			    }
+
+			    // Chiedi la colonna
+			    while (!colonnaValida) {
+			        System.out.print("Inserisci la COLONNA dove agganciare (es. 1, 2, ...): ");
+			        String inputColonna = sc.nextLine().trim();
+			        try {
+			            colonna = Integer.parseInt(inputColonna);
+			             
+			             if (colonna >= 1 && colonna <= PlanceNaveLivello1.getNumColonne()) {
+			                 colonnaValida = true;
+			             } else {
+			                 System.err.println("Colonna fuori dai limiti della plancia.");
+			             }
+			        } catch (NumberFormatException e) {
+			            System.err.println("Formato colonna non valido. Inserisci un numero.");
+			        }
+			        colonna++; //per gestire lo shift delle colonne
+			    }
+			    
+			    if(giocatore.getPlanceNave().agganciaTessera(riga, colonna, tesseraDaAgganciare)) {
+			    	tesseraAgganciata = true;
+			    }
+			
 		}
 	}
 

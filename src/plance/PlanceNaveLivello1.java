@@ -15,7 +15,15 @@ import tessere.StivaSpeciale;
 
 public class PlanceNaveLivello1 extends PlanceNave{
 	private static final int NUM_RIGHE = 5;
+	public static int getNumRighe() {
+		return NUM_RIGHE;
+	}
+
 	private static final int NUM_COLONNE = 7;
+	public static int getNumColonne() {
+		return NUM_COLONNE;
+	}
+
 	private static final int NUM_TESSERE_PRENOTABILI = 2;
 	
 	private Casella[][] caselle;
@@ -245,7 +253,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return true;
 	}
 
-
+	
+	public boolean agganciaTessera(int riga, int colonna, Tessera tesseraDaAgganciare) {
+		if(!this.caselle[riga][colonna].isUtilizzabile()) {
+			return false;
+		} 
+		//TODO Completare
+		return true;
+	}
 	
 
 

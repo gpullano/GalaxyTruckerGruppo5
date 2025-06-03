@@ -110,7 +110,7 @@ public class FaseAssemblaggio extends Fase {
 									break;
 								}
 								case AGGANCIA_TESSERA:{
-									//TODO
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
@@ -153,7 +153,7 @@ public class FaseAssemblaggio extends Fase {
 									break;
 								}
 								case AGGANCIA_TESSERA:{
-									//TODO
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
@@ -183,7 +183,7 @@ public class FaseAssemblaggio extends Fase {
 									break;
 								}
 								case AGGANCIA_TESSERA:{
-									//TODO
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
