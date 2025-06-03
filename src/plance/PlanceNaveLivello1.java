@@ -10,6 +10,8 @@ import tessere.CannoneDoppio;
 import tessere.Motore;
 import tessere.MotoreDoppio;
 import tessere.Tessera;
+import tessere.Stiva;
+import tessere.StivaSpeciale;
 
 public class PlanceNaveLivello1 extends PlanceNave{
 	private static final int NUM_RIGHE = 5;
@@ -21,6 +23,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int energiaTotale;
+	private int merciTotali;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
 
@@ -31,6 +34,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaFuoco = 0;
 		this.potenzaMotori = 0;
 		this.energiaTotale = 0;
+		this.setMerciTotali(0);
 		this.componenteAgganciato = false;
 		this.spazioTesserePrenotate = new LinkedList<>();
 	}
@@ -69,7 +73,15 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.spazioTesserePrenotate.add(t);
 	}
 	
+	
+	// getter e setter
+	public int getMerciTotali() {
+		return merciTotali;
+	}
 
+	public void setMerciTotali(int merciTotali) {
+		this.merciTotali = merciTotali;
+	}
 	
 	public int getPotenzaFuoco() {
 		return potenzaFuoco;
@@ -272,6 +284,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 			System.out.println();
 		}
 	}
+
+	
 
 
 	

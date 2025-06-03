@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import gameLogic.Giocatore;
+import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
 
@@ -39,9 +40,12 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		
 		return sb.toString();
 	}
-
-	@Override
-	public void attiva(List<Giocatore> giocatori, PlanceVolo plancevolo) {
+	// aggiunta del metodo attiva, toglie equipaggio e aggiunge crediti 
+	public void attiva(List<Giocatore> giocatori, PlanceNaveLivello1 plance) {
+		giocatori.get(0).rimuoviCrediti(creditiCosmiciOttenuti);
+		int equipaggio=plance.getEquipaggioTotale();
+		plance.setEquipaggioTotale(equipaggio-equipaggioRichiesto);
+		
 	}
 }
 
