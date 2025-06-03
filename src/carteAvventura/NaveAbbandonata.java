@@ -47,6 +47,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		int equipaggioGiocatore=giocatore.getPlanceNave().getEquipaggioTotale();
 		// tolgo l'equipaggio richiesto dalla carta
 		giocatore.getPlanceNave().setEquipaggioTotale(equipaggioGiocatore-equipaggioRichiesto);
+		posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(),18);
 	}
 }
 
