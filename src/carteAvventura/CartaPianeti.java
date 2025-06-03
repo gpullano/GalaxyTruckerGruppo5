@@ -53,7 +53,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 	}
 
 	
-	@Override
+
 	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		// TODO Auto-generated method stub
 		

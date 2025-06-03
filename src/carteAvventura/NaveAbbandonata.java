@@ -40,11 +40,8 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		
 		return sb.toString();
 	}
-	// aggiunta del metodo attiva, toglie equipaggio e aggiunge crediti 
+
 	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
-		giocatori.get(0).rimuoviCrediti(creditiCosmiciOttenuti);
-		int equipaggio=plance.getEquipaggioTotale();
-		plance.setEquipaggioTotale(equipaggio-equipaggioRichiesto);
 		
 	}
 }
