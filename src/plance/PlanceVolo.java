@@ -98,9 +98,9 @@ public class PlanceVolo {
 		return LUNGHEZZA_PERCORSO;
 	}
 	
-	public Colore trovaLeader() {
-		PosizioneGiocatore leader = posizioneGiocatori[0];
-			for (PosizioneGiocatore giocatori : posizioneGiocatori) {
+	public void trovaLeader() {
+		PosizioneGiocatore leader = this.posizioneGiocatori[0];
+			for (PosizioneGiocatore giocatori : this.posizioneGiocatori) {
 				if (giocatori.getGiro()>leader.getGiro()) {
 					leader=giocatori;
 					
@@ -110,7 +110,7 @@ public class PlanceVolo {
 					}
 				}
 			}
-		return leader.getColore();
+		return;
 	}
 
 }
