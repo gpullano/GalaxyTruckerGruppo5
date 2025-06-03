@@ -245,27 +245,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return true;
 	}
 
-	@Override
-	public void stampaNave() {
-		System.out.println();
-		for(int r = 0; r <= 4; r++) {
-			for(int c = 0; c <= 6; c++) {
-				if(getCaselle()[r][c].isUtilizzabile()) {
-					if (getCaselle()[r][c].isOccupata()) {
-						System.out.print(getCaselle()[r][c].getTessera().toString());
-					} else {
-						System.out.print("▢\t\t");	
-					}
-				}else {
-			    	System.out.print("\t\t");
-				}
-				
-			}
-			System.out.println();
-			System.out.println();
-			System.out.println();
-		}
-	}
 
 	
 

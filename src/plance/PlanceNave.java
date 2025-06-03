@@ -29,7 +29,6 @@ public abstract class PlanceNave {
 	// metodi 
 	public abstract void creaNave();
 	// TODO - da spostare in ConsoleIO
-	public abstract void stampaNave();
 
 
 	

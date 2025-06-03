@@ -64,16 +64,6 @@ public class PlanceVolo {
 		}
 	}
 	
-	
-	public void stampaVolo() {
-		for(int r = 0; r < cella.length; r++) {
-			for(int c = 0; c < cella[r].length; c++) {
-					System.out.print(getCella()[r][c].toString() + '\t');
-				
-			}
-			System.out.println('\n');
-		}
-	}
 
 	
 	public void avanzaPosizione(Colore colore, int giorni) {
