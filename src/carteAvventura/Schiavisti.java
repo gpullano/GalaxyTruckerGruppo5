@@ -5,6 +5,7 @@ import java.util.Random;
 
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 
 public class Schiavisti extends CartaPerditaGiorniVolo {
 
@@ -58,7 +59,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}

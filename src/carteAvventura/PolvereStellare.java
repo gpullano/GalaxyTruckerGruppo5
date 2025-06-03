@@ -4,6 +4,7 @@ import java.util.List;
 
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 
 public class PolvereStellare extends CartaPerditaGiorniVolo {
 	// non ha attributi
@@ -24,7 +25,7 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -4,6 +4,7 @@ import java.util.Random;
 import gameLogic.Colore;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 import collezionabili.Merci;
 public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	
@@ -70,7 +71,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -4,6 +4,7 @@ import collezionabili.Merci;
 import gameLogic.Colore;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 
 import java.util.List;
 import java.util.Random;
@@ -61,7 +62,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		// TODO Auto-generated method stub
 		
 	}

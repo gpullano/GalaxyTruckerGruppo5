@@ -5,6 +5,7 @@ import java.util.List;
 import gameLogic.Giocatore;
 import gameLogic.Gioco;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 
 
 public class SpazioAperto extends Carta {
@@ -24,7 +25,7 @@ public class SpazioAperto extends Carta {
 	}
 	
 	
-	public void attiva(List<Giocatore> giocatori, PlanceVolo planceVolo) {
+	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
 		int potenzaRichiesta = 0;
 
 		//check if every player is on the game or not 
