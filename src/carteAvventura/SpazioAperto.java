@@ -26,7 +26,7 @@ public class SpazioAperto extends Carta {
 	}
 	
 	
-	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
 		int potenzaRichiesta = 0;
 
 		//check if every player is on the game or not 

@@ -60,7 +60,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -42,7 +42,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		return sb.toString();
 	}
 
-	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
 		giocatore.aggiungiCrediti(creditiCosmiciOttenuti);
 		// trovo l'equipaggio del giocatore
 		int equipaggioGiocatore=giocatore.getPlanceNave().getEquipaggioTotale();

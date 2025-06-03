@@ -62,7 +62,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
 		// controllare che la potenza fuoco sia maggiore
 		if (giocatore.getPlanceNave().getPotenzaFuoco()>potenzaFuoco) {
 			inputOutput.

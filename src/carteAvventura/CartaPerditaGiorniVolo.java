@@ -5,6 +5,7 @@ import java.util.Random;
 
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
+import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
 
 
@@ -24,6 +25,6 @@ public abstract class CartaPerditaGiorniVolo extends Carta{
 	}
 	
 	// metodi 
-	public abstract void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput);
+	public abstract void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput);
 	
 }
