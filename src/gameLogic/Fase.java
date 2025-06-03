@@ -8,6 +8,7 @@ import plance.PlanceVolo;
 public abstract class Fase {
 	private List<Giocatore> giocatori;
 	private ConsoleIO inputOutput;
+	private PlanceVolo planceVolo;
 	// list giocatore
 	// dentro fase di assemblaggio attributo mucchio e intero giocatore corrente
 	// fase volo - queue eventi
@@ -16,9 +17,10 @@ public abstract class Fase {
 	//prossimo turno
 	//esegui fase
 	
-	protected Fase(List<Giocatore> giocatori, ConsoleIO inputOutput) {
+	protected Fase(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo) {
 		this.setGiocatori(giocatori);
 		this.setInputOutput(inputOutput);
+		this.setPlanceVolo(planceVolo);
 	}
 	
 	public abstract void eseguiFase();
@@ -37,6 +39,14 @@ public abstract class Fase {
 
 	public void setInputOutput(ConsoleIO inputOutput) {
 		this.inputOutput = inputOutput;
+	}
+
+	public PlanceVolo getPlanceVolo() {
+		return planceVolo;
+	}
+	
+	public void setPlanceVolo(PlanceVolo planceVolo) {
+		this.planceVolo = planceVolo;
 	}
 	
 }

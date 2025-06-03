@@ -5,12 +5,13 @@ import java.util.List;
 
 import carteAvventura.Carta;
 import carteAvventura.Mazzetto;
+import plance.PlanceVolo;
 
 public class FasePreparazioneDecollo extends Fase {
 	
 
-	public FasePreparazioneDecollo(List<Giocatore> giocatori, ConsoleIO inputOutput) {
-		super(giocatori, inputOutput);
+	public FasePreparazioneDecollo(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo) {
+		super(giocatori, inputOutput, planceVolo);
 	}
 
 	@Override

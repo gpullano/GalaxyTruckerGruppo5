@@ -17,7 +17,7 @@ public enum AzioneAssemblaggio {
     //prenotata o non prenotata
     RUOTA_TESSERA(6),
     AGGANCIA_TESSERA(7),
-    RIMETTI_TESSERA_SUL_TAVOLO(8),
+    RIMETTI_TESSERA_A_POSTO(8),
     PRENOTA_TESSERA(9);
     
 	

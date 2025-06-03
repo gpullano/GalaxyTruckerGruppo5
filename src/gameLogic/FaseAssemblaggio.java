@@ -18,12 +18,10 @@ public class FaseAssemblaggio extends Fase {
     private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
     private Clessidra clessidra;
-    private PlanceVolo planceVolo;
     
     //costruttore
 	public FaseAssemblaggio(List<Giocatore> giocatori, PlanceVolo planceVolo,  Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
-		super(giocatori, inputOutput);
-		this.planceVolo = planceVolo;
+		super(giocatori, inputOutput, planceVolo);
 		this.setMucchioTessere(creaMucchioTessere());
 		
 		// Le 3 pile inferiori - La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
@@ -91,7 +89,8 @@ public class FaseAssemblaggio extends Fase {
 						
 					sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
 							giocatore.getPlanceNave().isComponenteAgganciato(),
-							giocatore.getPlanceNave().haTesserePrenotate(), !this.tessereScoperte.isEmpty());
+							giocatore.getPlanceNave().haTesserePrenotate(), 
+							!this.tessereScoperte.isEmpty(), !this.mucchioTessere.isEmpty());
 					
 					
 						switch(sceltaOpzioni) {
@@ -114,7 +113,7 @@ public class FaseAssemblaggio extends Fase {
 									//TODO
 									break;
 								}
-								case RIMETTI_TESSERA_SUL_TAVOLO:{
+								case RIMETTI_TESSERA_A_POSTO:{
 									this.tessereScoperte.add(tesseraPescata);
 									break;
 								}
@@ -139,8 +138,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						}
 						case PRENDI_TESSERA_PRENOTATA:{
-							//TODO - gestisci la richiesta di quale tessera prenotata pescare
-							//tesseraPescata = this.mucchioTessere.pop();
+							tesseraPescata = this.getInputOutput().chiediTesseraPrenotata(giocatore.getPlanceNave().getTesserePrenotate());
 							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
 									true, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
@@ -160,8 +158,8 @@ public class FaseAssemblaggio extends Fase {
 								}
 								//TODO - sistema questo caso di modo tale che la tessera viene rimessa a posto
 								//nel modo corretto
-								case RIMETTI_TESSERA_SUL_TAVOLO:{
-									this.tessereScoperte.add(tesseraPescata);
+								case RIMETTI_TESSERA_A_POSTO:{
+									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
 								}
 								
@@ -190,7 +188,7 @@ public class FaseAssemblaggio extends Fase {
 									//TODO
 									break;
 								}
-								case RIMETTI_TESSERA_SUL_TAVOLO:{
+								case RIMETTI_TESSERA_A_POSTO:{
 									this.tessereScoperte.add(tesseraPescata);
 									break;
 								}

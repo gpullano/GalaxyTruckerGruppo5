@@ -130,7 +130,8 @@ public class ConsoleIO {
 	}
 	
 	
-	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean haAgganciatoComponente, boolean haPrenotatoComponente, boolean esistonoTessereScoperte) {
+	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean haAgganciatoComponente, 
+			boolean haPrenotatoComponente, boolean esistonoTessereScoperte, boolean esistonoTessereMucchio) {
 		AzioneAssemblaggio azioneScelta = null;
 		//lista di scelte che si aggiorna in base alle scelte disponibili
 		List<Integer> scelteDisponibili = new ArrayList<>();
@@ -140,9 +141,11 @@ public class ConsoleIO {
 		int scelta = 0;
 		
 		while(!inputValido) {
-			System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
-			System.out.println("1 - PESCARE UNA TESSERA");
-			scelteDisponibili.add(1);
+			if(esistonoTessereMucchio) {
+				System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
+				System.out.println("1 - PESCARE UNA TESSERA");
+				scelteDisponibili.add(1);
+			}
 	        if(haAgganciatoComponente) {
 	        	System.out.println("2 - TERMINARE ASSEMBLAGGIO");
 	        	System.out.println("3 - GUARDARE MAZZI DI CARTE");
@@ -199,10 +202,10 @@ public class ConsoleIO {
 	        //disponibili queste due opzioni seguenti.
 	        //Questo controllo verifica che la tessera considerata non sia una tessera prenotata.
 	        if(!tesseraPrenotata) {
-	        	System.out.println("3 - RIMETTERLA SUL TAVOLO");
+	        	System.out.println("3 - RIMETTERLA A POSTO");
 	        	scelteDisponibili.add(3);
 	        } 
-	        if(!spazioTesserePrenotatePieno) {
+	        if(!spazioTesserePrenotatePieno || !tesseraPrenotata) {
 	        	System.out.println("4 - PRENOTARLA PER DOPO");
 	        	scelteDisponibili.add(4);
 	        }
@@ -286,7 +289,8 @@ public class ConsoleIO {
 	public Tessera chiediTesseraScopertaDaPescare(List<Tessera> tessereScoperte) {
 		boolean indiceNonValido = true;
 		int sceltaIndice = -1;
-		stampaTessereScoperte(tessereScoperte);
+		System.out.println("\n--- TESSERE SCOPERTE ---");
+		stampaTessere(tessereScoperte);
 		while(indiceNonValido){
 			System.out.println("INDICA LA POSIZIONE DELLA TESSERA CHE VUOI PESCARE " +
 					"Da 1 a " + tessereScoperte.size());
@@ -309,12 +313,38 @@ public class ConsoleIO {
 			return null;
 	}
 	
-	public void stampaTessereScoperte(List<Tessera> tessereScoperte) {
-		System.out.println("\n--- TESSERE SCOPERTE ---");
+	public void stampaTessere(List<Tessera> tessereDaStampare) {
 		//TODO - da sistemare con la nuova toString()
-		for(Tessera tessera : tessereScoperte) {
+		for(Tessera tessera : tessereDaStampare) {
 			System.out.println("\n" + tessera);
 		}
+	}
+	
+	public Tessera chiediTesseraPrenotata(List<Tessera> tesserePrenotate) {
+		boolean indiceNonValido = true;
+		int sceltaIndice = -1;
+		System.out.println("\n--- TESSERE PRENOTATE ---");
+		stampaTessere(tesserePrenotate);
+		while(indiceNonValido){
+			System.out.println("INDICA LA POSIZIONE DELLA TESSERA CHE VUOI PESCARE " +
+					"indice fino a ->" + tesserePrenotate.size());
+			try {
+				sceltaIndice = Integer.parseInt(sc.nextLine());
+				if(sceltaIndice < 1 || sceltaIndice > tesserePrenotate.size()) {
+					System.err.println("Scelta non valida, indice non esistente.");
+				} else {
+					//tolgo 1 a sceltaIndice di modo da ottenere l'indice corretto
+					sceltaIndice--;
+					System.out.println(tesserePrenotate.get(sceltaIndice));
+					return tesserePrenotate.remove(sceltaIndice);
+				}
+					
+			} catch (NumberFormatException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        }
+			
+		}
+			return null;
 	}
 	
 

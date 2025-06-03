@@ -86,17 +86,17 @@ public class Gioco {
 	    faseAssemblaggio.eseguiFase();
 	    
 	    // 2. Preparazione al decollo
-	    FasePreparazioneDecollo fasePreparazioneDecollo = new FasePreparazioneDecollo(this.giocatori, this.inputOutput);
+	    FasePreparazioneDecollo fasePreparazioneDecollo = new FasePreparazioneDecollo(this.giocatori, this.inputOutput, this.planceVolo);
 	    fasePreparazioneDecollo.eseguiFase();
 	    mazzoDiCarte = fasePreparazioneDecollo.creaMazzoUnico(this.mazzettiDiCarte);
 	    Collections.shuffle(mazzoDiCarte);
 	    
 	    // 3. Il volo
-	    FaseVolo faseVolo = new FaseVolo(this.giocatori, this.inputOutput, this.mazzoDiCarte, this.dadi);
+	    FaseVolo faseVolo = new FaseVolo(this.giocatori, this.inputOutput, this.planceVolo, this.mazzoDiCarte, this.dadi);
 	    faseVolo.eseguiFase();
 	    
 	    // 4. Fine del viaggio
-	    FaseFineDelViaggio faseFineDelViaggio = new FaseFineDelViaggio(this.giocatori, this.inputOutput);
+	    FaseFineDelViaggio faseFineDelViaggio = new FaseFineDelViaggio(this.giocatori, this.inputOutput, this.planceVolo);
 	    faseFineDelViaggio.eseguiFase();
 		
 	}

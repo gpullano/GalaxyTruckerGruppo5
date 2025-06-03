@@ -41,26 +41,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	// getters e setters
 	
-	/**
-	 * Metodo che ritorna una tessera prenotata
-	 * @param i è l'indice in cui si trova la tessera (N.B: tra 1 o 2, anziché 0 o 1)
-	 * @return la tessera prenotata all'indice i
-	 */
-	public Tessera getTesseraPrenotata(int i) {
-		
-		if(i < 1 || i > NUM_TESSERE_PRENOTABILI) {
-			throw new IllegalArgumentException("Puoi usare solo tessere che sono in posizione 1 o 2");
-		} 
-		
-		//riporto agli indici utilizzati per gli array/list
-		i--;
-		// Controllo se l'indice calcolato è valido per la dimensione attuale della lista
-        if (i < 0 || i >= this.spazioTesserePrenotate.size()) {
-            throw new IndexOutOfBoundsException("Non c'è una tessera prenotata alla posizione " + i +
-                                                ". Tessere prenotate attuali: " + this.spazioTesserePrenotate.size());
-        }
-
-		return this.spazioTesserePrenotate.get(i);
+	public List<Tessera> getTesserePrenotate(){
+		return spazioTesserePrenotate;
 	}
 	
 	
