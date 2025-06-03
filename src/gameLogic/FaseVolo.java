@@ -10,17 +10,16 @@ public class FaseVolo extends Fase {
 	private List<Carta> mazzoDiCarte;
 	private Dadi dadi;
 
-	public FaseVolo(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo, List<Carta> mazzoDiCarte, Dadi dadi) {
+	public FaseVolo(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo, List<Carta> mazzoDiCarte) {
 		super(giocatori, inputOutput, planceVolo);
 		this.mazzoDiCarte = mazzoDiCarte;
-		this.dadi = dadi;
 	}
 
 	@Override
 	public void eseguiFase() {
 		for(Carta carta: mazzoDiCarte) {
 			if(carta instanceof CartaPerditaGiorniVolo) {
-				((CartaPerditaGiorniVolo) carta).attiva(giocatori, planceVolo, inputOutput);
+				((CartaPerditaGiorniVolo) carta).attiva(this.getGiocatori(), this.getPlanceVolo(), this.getInputOutput());
 			}
 			//TODO - completa
 		}

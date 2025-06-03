@@ -2,6 +2,7 @@ package carteAvventura;
 import java.util.List;
 import java.util.Random;
 
+import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
@@ -11,6 +12,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 	private final int creditiCosmici;
 	private int numeroCannonate;
 	private Cannonata[] cannonate;
+	private Dadi dadi;
 	
 	public Pirati(int livello) {
 		super(livello);
@@ -22,6 +24,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		for (int i = 0;i < cannonate.length; i++) {
 			cannonate[i]=new Cannonata(Dimensione.generaDimensione(),Provenienza.generaProvenienza());
 		}
+		this.dadi = new Dadi();
 	}
 
 	public int getPotenzaFuoco() {
@@ -62,7 +65,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		// controllare che la potenza fuoco sia maggiore
 		if (giocatore.getPlanceNave().getPotenzaFuoco()>potenzaFuoco) {
 			inputOutput.

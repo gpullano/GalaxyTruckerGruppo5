@@ -2,6 +2,7 @@ package carteAvventura;
 
 import java.util.List;
 
+import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
@@ -11,11 +12,13 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
 	private final int potenzaFuoco;
 	private final Cannonata cannonata[];
+	private Dadi dadi;
 	
 	
 	public ZonaDiGuerra(int livello) {
 		super(livello);
 		this.equipaggioPerso = 0;
+		this.dadi = new Dadi();
 		this.potenzaFuoco = 0;
 		this.cannonata = new Cannonata[2];
 		// TODO Auto-generated constructor stub
@@ -51,7 +54,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatore,PlanceVolo plance, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		// TODO Auto-generated method stub
 		
 	}

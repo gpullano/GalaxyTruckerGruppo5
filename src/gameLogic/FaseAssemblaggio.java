@@ -156,8 +156,6 @@ public class FaseAssemblaggio extends Fase {
 									//TODO
 									break;
 								}
-								//TODO - sistema questo caso di modo tale che la tessera viene rimessa a posto
-								//nel modo corretto
 								case RIMETTI_TESSERA_A_POSTO:{
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;

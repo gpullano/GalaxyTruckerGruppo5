@@ -26,7 +26,7 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput) {
+	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		// TODO Auto-generated method stub
 		
 	}

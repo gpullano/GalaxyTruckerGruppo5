@@ -48,19 +48,19 @@ public class PlanceNaveLivello2 extends PlanceNave{
 		}
 	}
 	
-	@Override
-	public void stampaNave() {
-		for(int r = 0; r <= 4; r++) {
-			for(int c = 0; c <= 6; c++) {
-				if(getCaselle()[r][c].isUtilizzabile()) {
-					System.out.println("▢");
-				}else {
-					System.out.println(" ");
-				}
-				
-			}
-		}
-	}
+//	@Override
+//	public void stampaNave() {
+//		for(int r = 0; r <= 4; r++) {
+//			for(int c = 0; c <= 6; c++) {
+//				if(getCaselle()[r][c].isUtilizzabile()) {
+//					System.out.println("▢");
+//				}else {
+//					System.out.println(" ");
+//				}
+//				
+//			}
+//		}
+//	}
 
 
 }

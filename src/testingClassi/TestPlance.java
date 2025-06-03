@@ -24,13 +24,13 @@ public class TestPlance {
 		Tessera tessera = GeneratoreTessere.generaTessere();
 		System.out.println(tessera);
 		s.posizionaTessera(tessera, 2, 3);
-		s.stampaNave();
+//		s.stampaNave();
 		
 		
 		PlanceVolo p = new PlanceVolo(5, 8, 1, null);
 		PlanceVolo psp = new PlanceVolo(5, 8, 1, null);
 		p.percorso();
-		p.stampaVolo();
+//		p.stampaVolo();
 		
 		
 		CartaPianeti carta0 = new CartaPianeti(1);

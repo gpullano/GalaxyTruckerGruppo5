@@ -14,8 +14,7 @@ import plance.PlanceVolo;
 
 public class Gioco {
 	private final List<Giocatore> giocatori;
-    private PlanceVolo planceVolo;
-    private Dadi dadi; 
+    private PlanceVolo planceVolo; 
     private List<Carta> mazzoDiCarte;
     private final LivelloPartita livelloPartita;
     private final Mazzetto[] mazzettiDiCarte;
@@ -28,7 +27,6 @@ public class Gioco {
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita, ConsoleIO inputOutput) {
         this.livelloPartita = livelloPartita;
         this.N_GIOCATORI = numGiocatori;
-        this.dadi = new Dadi();
         this.planceVolo = new PlanceVolo(5, 8, N_GIOCATORI, coloriGiocatori);
         
         //inizializzo l'array di giocatori
@@ -92,7 +90,7 @@ public class Gioco {
 	    Collections.shuffle(mazzoDiCarte);
 	    
 	    // 3. Il volo
-	    FaseVolo faseVolo = new FaseVolo(this.giocatori, this.inputOutput, this.planceVolo, this.mazzoDiCarte, this.dadi);
+	    FaseVolo faseVolo = new FaseVolo(this.giocatori, this.inputOutput, this.planceVolo, this.mazzoDiCarte);
 	    faseVolo.eseguiFase();
 	    
 	    // 4. Fine del viaggio

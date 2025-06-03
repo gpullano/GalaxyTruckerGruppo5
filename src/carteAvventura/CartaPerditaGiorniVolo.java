@@ -25,6 +25,6 @@ public abstract class CartaPerditaGiorniVolo extends Carta{
 	}
 	
 	// metodi 
-	public abstract void attiva(List<Giocatore> giocatore, PlanceVolo plance, ConsoleIO inputOutput);
+	public abstract void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput);
 	
 }

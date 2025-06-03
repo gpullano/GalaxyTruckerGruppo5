@@ -2,13 +2,15 @@ package carteAvventura;
 import java.util.List;
 import java.util.Random;
 
+import dadiEClessidra.Dadi;
 import gameLogic.Giocatore;
 
 public class PioggiaDiMeteoriti extends Carta {
 	// attributi
-	
 	private int numeroMeteorite;
 	private Meteorite[] meteoriti;
+	private Dadi dadi;
+	
 	// costruttore
 	public PioggiaDiMeteoriti(int livello) {
 		super(livello);
@@ -18,6 +20,7 @@ public class PioggiaDiMeteoriti extends Carta {
 		for (int i=0;i<meteoriti.length;i++) {
 			meteoriti[i]=new Meteorite(Dimensione.generaDimensione(),Provenienza.generaProvenienza());
 		}
+		this.dadi = new Dadi();
 	}
 
 	public int getNumeroMeteorite() {
