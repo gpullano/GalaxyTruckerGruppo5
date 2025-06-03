@@ -86,6 +86,8 @@ public class PlanceVolo {
 			}
 				
 		}
+		trovaLeader();
+		
 	}
 	
 	
@@ -106,9 +108,19 @@ public class PlanceVolo {
 		return LUNGHEZZA_PERCORSO;
 	}
 	
-	public Colore[] trovaLeader() {
-		// TODO la fa il Gabri 
-		return null;
+	public Colore trovaLeader() {
+		PosizioneGiocatore leader = posizioneGiocatori[0];
+			for (PosizioneGiocatore giocatori : posizioneGiocatori) {
+				if (giocatori.getGiro()>leader.getGiro()) {
+					leader=giocatori;
+					
+				}else if(giocatori.getGiro()==leader.getGiro()) {
+					if (giocatori.getPosizione()>leader.getPosizione()) {
+						leader=giocatori;
+					}
+				}
+			}
+		return leader.getColore();
 	}
 
 }

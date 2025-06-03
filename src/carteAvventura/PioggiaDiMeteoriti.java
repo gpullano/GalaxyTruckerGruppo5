@@ -39,7 +39,7 @@ public class PioggiaDiMeteoriti extends Carta {
 	}
 	
 	public void attiva(List<Giocatore> giocatori) {
-		// TODO Auto-generated method stub
+	// TODO guardare come implementare il discorso di colpire nave
 
 	}
 
