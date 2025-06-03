@@ -2,6 +2,7 @@ package carteAvventura;
 
 import java.util.List;
 
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import gameLogic.Gioco;
 import plance.PlanceVolo;
@@ -25,7 +26,7 @@ public class SpazioAperto extends Carta {
 	}
 	
 	
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
 		int potenzaRichiesta = 0;
 
 		//check if every player is on the game or not 

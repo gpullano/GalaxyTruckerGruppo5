@@ -1,6 +1,9 @@
 package carteAvventura;
 
+import java.util.List;
 import java.util.Random;
+
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PosizioneGiocatore;
 
@@ -21,6 +24,6 @@ public abstract class CartaPerditaGiorniVolo extends Carta{
 	}
 	
 	// metodi 
-	public abstract void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore);
+	public abstract void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput);
 	
 }

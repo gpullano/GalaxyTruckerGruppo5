@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import collezionabili.Merci;
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
@@ -55,7 +56,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 
 	
 
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
 		int merciGiocatore=giocatore.getPlanceNave().getMerciTotali();
 		int merciPianeta=pianeti[0].getMerciPianeta().length;
 		giocatore.getPlanceNave().setMerciTotali(merciGiocatore+merciPianeta);

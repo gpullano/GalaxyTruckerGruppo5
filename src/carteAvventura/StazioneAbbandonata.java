@@ -2,6 +2,7 @@ package carteAvventura;
 
 import collezionabili.Merci;
 import gameLogic.Colore;
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
@@ -62,7 +63,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
 		// TODO Auto-generated method stub
 		
 	}

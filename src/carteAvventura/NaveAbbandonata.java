@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
@@ -41,7 +42,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		return sb.toString();
 	}
 
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
 		giocatore.aggiungiCrediti(creditiCosmiciOttenuti);
 		// trovo l'equipaggio del giocatore
 		int equipaggioGiocatore=giocatore.getPlanceNave().getEquipaggioTotale();

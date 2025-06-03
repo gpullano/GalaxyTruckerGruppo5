@@ -2,6 +2,7 @@ package carteAvventura;
 import java.util.List;
 import java.util.Random;
 
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
@@ -61,8 +62,16 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 
 	@Override
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
-		// TODO Auto-generated method stub
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
+		// controllare che la potenza fuoco sia maggiore
+		if (giocatore.getPlanceNave().getPotenzaFuoco()>potenzaFuoco) {
+			inputOutput.
+			giocatore.aggiungiCrediti(creditiCosmici);
+			System.out.println("hai sconfitto i Pirati ecco la tua ricompensa: "+"+"+creditiCosmici+" ottenuti");
+			posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(), 18);
+		}
+		System.out.println("Verrai colpito dalle cannonate");
+		// se è maggiore li sconfiggi e ottieni ricompensa, affrontarli costa perdita giorni di volo
 		
 	}
 

@@ -2,6 +2,7 @@ package carteAvventura;
 
 import java.util.List;
 
+import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
@@ -50,7 +51,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 
 
 	@Override
-	public void attiva(Giocatore giocatore, PosizioneGiocatore posizioneGiocatore) {
+	public void attiva(List<Giocatore> giocatore, PosizioneGiocatore posizioneGiocatore, ConsoleIO inputOutput) {
 		// TODO Auto-generated method stub
 		
 	}
