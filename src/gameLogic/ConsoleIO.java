@@ -435,5 +435,31 @@ public class ConsoleIO {
 			
 		}
 	}
+	public boolean chiediAttivare(Giocatore giocatore ) {
+		String scelta="";
+		boolean inputValido=false;
+		while(!inputValido) {
+			System.out.println("Vuoi attivare la carta? premi si/no");
+			try {
+				scelta = sc.nextLine().trim();
+				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
+					!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
+					throw new IllegalArgumentException("scelta non valida, reinseriscila.");
+				}
+				if(scelta.equalsIgnoreCase("no") || scelta.equalsIgnoreCase("n")) {
+					return false;
+				}else if(scelta.equalsIgnoreCase("si")||scelta.equalsIgnoreCase("s")) { // messo per chiarezza
+					return true;
+				}
+				// messo per chiarezza
+				inputValido=true;
+					
+			} catch (IllegalArgumentException e){
+				System.err.println(e.getMessage());
+			}
+			
+		}
+		return false; // messo per chiarezza 
+	}
 
 }

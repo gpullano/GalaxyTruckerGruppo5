@@ -20,9 +20,7 @@ public class PlanceVolo {
 		}
 
 		
-		/*for(int i = 0; i < numeroGiocatori; i++) {
-			this.posizioneGiocatori[i] = new PosizioneGiocatore(0,1,0,colori[i]);
-		}*/
+		posizioneGiocatori = new PosizioneGiocatore[numeroGiocatori];
 	
 		
 	}
@@ -67,27 +65,12 @@ public class PlanceVolo {
 	
 	
 	public void controlloDoppiaggio() {
-		for(int i = posizioneGiocatori.length; i >= 1; i--) {
+		for(int i = posizioneGiocatori.length - 1; i >= 1; i--) {
 			if(posizioneGiocatori[0].getGiro() >= posizioneGiocatori[i].getGiro() && posizioneGiocatori[0].getPosizione() >= posizioneGiocatori[i].getPosizione()) {
 				
 			}
 		}
 		return;
-	}
-
-	
-	public void avanzaPosizione(Colore colore, int giorni) {
-		
-		for(PosizioneGiocatore giocatore: posizioneGiocatori) {
-			if(colore == giocatore.getColore()) {
-				giocatore.aggiornaPosizione(giorni, PlanceVolo.LUNGHEZZA_PERCORSO);
-				
-				
-			}
-				
-		}
-		trovaLeader();
-		
 	}
 	
 	
@@ -111,8 +94,8 @@ public class PlanceVolo {
 	public void trovaLeader() {
 		int lungh=this.posizioneGiocatori.length;
 		PosizioneGiocatore temp;
-		for (int i=0;i<lungh;i++) {
-			for(int j=0;j<lungh-1;j++) {
+		for (int i=0;i<lungh-1;i++) {
+			for(int j=i+1;j<lungh;j++) {
 				PosizioneGiocatore attuale=this.posizioneGiocatori[i];
 				PosizioneGiocatore dopo=this.posizioneGiocatori[j];
 				if (attuale.getGiro()<dopo.getGiro()) {

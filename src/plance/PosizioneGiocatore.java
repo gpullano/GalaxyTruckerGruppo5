@@ -8,6 +8,7 @@ public class PosizioneGiocatore {
 	private int giro;
 	private Colore colore;
 	private int posizione;
+	private static final int LUNGHEZZA_PERCORSO = 18;
 
 
 
@@ -115,9 +116,10 @@ public void setPosizione(int posizione) {
 	this.posizione = posizione;
 }
 
-public void aggiornaPosizione(int giorni, int lunghezzaPercorso) {
-	if(this.posizione + giorni > lunghezzaPercorso) {
-		this.posizione += giorni - lunghezzaPercorso;
+public void aggiornaPosizione(int giorni) {
+	//TODO gestire i casi di posizione negativa
+	if(this.posizione + giorni > LUNGHEZZA_PERCORSO) {
+		this.posizione += giorni - LUNGHEZZA_PERCORSO;
 		this.giro++;
 	}else {
 		this.posizione += giorni;
