@@ -12,7 +12,7 @@ public class GeneratoreTessere {
 	private static Random rand1=new Random();
 	private static Random rand2=new Random();
 	// aggiungo un parametro che è la qta di tessere disponibili
-	private static final int NUMERO_TIPI_TESSERE=12; 
+	private static final int NUMERO_TIPI_TESSERE=11; 
 
 /**
 *costruttore privato per evitare la realizzazione della classe di utilità
@@ -210,29 +210,10 @@ public class GeneratoreTessere {
 				connettori.get(0),
 			    connettori.get(1),
 			    connettori.get(2),
-			    connettori.get(3), 
-			    2
+			    connettori.get(3)
 	);	
 	}
-	private static Tessera generaStivaSpeciale(){
-		List<Connettore>connettori;
-		do {
-			connettori=Arrays.asList(
-					connettoreCasuale(),
-					connettoreCasuale(),
-					connettoreCasuale(),
-					connettoreCasuale()
-					);
-			
-		}while(controllaConnettoriNulli(connettori));
-		return new StivaSpeciale(
-				connettori.get(0),
-			    connettori.get(1),
-			    connettori.get(2),
-			    connettori.get(3),
-			    4
-	);	
-	}
+	
 	private  static Tessera generaModuliStrutturali() {
 		List<Connettore>connettori;
 		do {
@@ -313,16 +294,13 @@ public class GeneratoreTessere {
 			case 7:
 				tessera=generaStiva();
 				break;
-			case 8: 
-				tessera=generaStivaSpeciale();
-				break;
-			case 9:
+			case 8:
 				tessera=generaSupportoVitaleMarrone();
 				break;
-			case 10:
+			case 9:
 				tessera=generaSupportoVitaleViola();
 				break;
-			case 11:
+			case 10:
 				tessera=generaVanoBatteria();
 				break;
 			default:

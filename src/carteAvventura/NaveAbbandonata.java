@@ -59,10 +59,6 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 				
 		}
 		
-		// trovo l'equipaggio del giocatore
-	
-		// tolgo l'equipaggio richiesto dalla carta
-		
 	}
 }
 
