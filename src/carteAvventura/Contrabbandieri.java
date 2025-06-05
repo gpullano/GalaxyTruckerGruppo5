@@ -1,4 +1,5 @@
 package carteAvventura;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import gameLogic.Colore;
@@ -73,7 +74,40 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		// TODO Auto-generated method stub
+		int i = 0;
+		boolean contrabbandieriSconfitti = false;
+		while(i < giocatore.size() || !contrabbandieriSconfitti) {
+			Giocatore giocatoreCorrente = giocatore.get(i);
+			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() < this.fuocoNemico) {
+				//if(getDispMerci >= 2) {
+					giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(merciRimosse));
+					//TODO da gestire meglio le merci rimosse perchè in teoria devono essere tolte le più preziose
+			     // } else {
+			    	  //TODO da gestire la perdita dell'0 energia nel caso fossero finite le meric
+			     // }
+					
+			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.fuocoNemico){
+				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
+					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
+				} else {
+					inputOutput.chiediMerciDaPrendere();
+				}
+				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());		
+				contrabbandieriSconfitti = true;
+			
+			} else if(giocatoreCorrente.getPlanceNave().getPotenzaFuoco() == this.fuocoNemico) {
+				
+				
+				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
+						giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(merciRimosse));
+					} else {
+						inputOutput.chiediMerciDaPrendere();
+					}
+					
+			
+			}
+				i++;
+		}
 		
 	}
 
