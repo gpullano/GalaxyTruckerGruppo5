@@ -2,7 +2,7 @@ package plance;
 
 public abstract class PlanceNave {
 	// attributi
-	private Casella[][] caselle;
+	protected Casella[][] caselle;
 	
 	// costruttore
 	protected PlanceNave(int riga, int colonna) {

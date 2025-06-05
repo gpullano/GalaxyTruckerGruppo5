@@ -19,6 +19,7 @@ import tessere.MotoreDoppio;
 import tessere.Tessera;
 
 public class PlanceNaveLivello1 extends PlanceNave{
+	
 	private static final int NUM_RIGHE = 5;
 	public static int getNumRighe() {
 		return NUM_RIGHE;
@@ -30,8 +31,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 
 	private static final int NUM_TESSERE_PRENOTABILI = 2;
-	
-	private Casella[][] caselle;
+    private static final Posizione POSIZIONE_CABINA_CENTRALE = new Posizione(2, 3);
+    
 	private int potenzaFuoco;
 	private int potenzaMotori;
 	private int equipaggioTotale;
@@ -129,6 +130,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	public void setComponenteAgganciato(boolean componenteAgganciato) {
 		this.componenteAgganciato = componenteAgganciato;
+	}
+	
+	public List<Merci> getMerciNave() {
+		return merciNave;
+	}
+
+	public void setMerciNave(List<Merci> merciNave) {
+		this.merciNave = merciNave;
 	}
 
 	
@@ -264,6 +273,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	
+	
+	
 
 	/**
 	 * Tenta di agganciare una tessera alla plancia in una data posizione.
@@ -329,94 +340,66 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	    return true;
 	}
 
-	public List<Merci> getMerciNave() {
-		return merciNave;
-	}
-
-	public void setMerciNave(List<Merci> merciNave) {
-		this.merciNave = merciNave;
-	}
 	
-	
-	
-	public static List<Tessera> gestisciRimozioneComponente(
-            PlanceNave planciaNave,
-            Posizione posizioneDaRimuovere,
-            List<Posizione> posizioniCabineIniziali) {
-
-        List<Tessera> tessereRimosse = new ArrayList<>();
-        Casella[][] griglia = planciaNave.getCaselle();
-
-        // 1. Rimuovi la tessera specificata inizialmente (se presente)
-        Casella casellaIniziale = griglia[posizioneDaRimuovere.getRiga()][posizioneDaRimuovere.getColonna()];
-        if (casellaIniziale.isOccupata()) {
-            tessereRimosse.add(casellaIniziale.getTessera());
-            casellaIniziale.setTessera(null); // Rimuove la tessera e imposta occupata a false
+	/**
+     * Esegue una scansione completa della nave e rimuove tutte le tessere "orfane",
+     * ovvero quelle che non sono più connesse alla cabina centrale fissa.
+     *
+     */
+    public void gestisciRimozioneOrfani() {       
+     // Controlla se la cabina esiste ANCORA. Se no, tutta la nave è persa.
+        if (!caselle[POSIZIONE_CABINA_CENTRALE.getRiga()][POSIZIONE_CABINA_CENTRALE.getColonna()].isOccupata()) {
+            // Metodo helper per pulire l'intera plancia
+            rimuoviTuttaLaNave(); 
+            return; // Esci subito dal metodo
         }
 
-        // 2. Esegui BFS per trovare tutte le tessere connesse alle cabine
+
         Set<Posizione> tessereConnesse = new HashSet<>();
         Queue<Posizione> codaBFS = new ArrayDeque<>();
 
-        // Aggiungi tutte le cabine iniziali alla coda e al set delle connesse
-        for (Posizione posCabina : posizioniCabineIniziali) {
-            if (griglia[posCabina.getRiga()][posCabina.getColonna()].isOccupata()) {
-                codaBFS.offer(posCabina);
-                tessereConnesse.add(posCabina);
-            }
-        }
-
-        //Delta colonna e delta riga
-        int[] dr = {-1, 0, 1, 0}; // Spostamento per NORD, EST, SUD, OVEST (rispetto alla tessera attuale)
-        int[] dc = {0, 1, 0, -1}; // Spostamento per NORD, EST, SUD, OVEST (rispetto alla tessera attuale)
+        // Inizializza il BFS con la posizione della cabina centrale.
+        codaBFS.offer(POSIZIONE_CABINA_CENTRALE);
+        tessereConnesse.add(POSIZIONE_CABINA_CENTRALE);
+        
+        // I vettori di spostamento per esplorare i vicini
+        int[] dr = {-1, 0, 1, 0}; // N, E, S, W
+        int[] dc = {0, 1, 0, -1}; // N, E, S, W
 
         while (!codaBFS.isEmpty()) {
             Posizione attuale = codaBFS.poll();
-            // TODO - valuta se è necessaria quest'implementazione seguente
-            // Non c'è bisogno di prendere la tessera qui se la casella è garantita occupata
-            // Tessera tesseraAttuale = griglia[attuale.getRiga()][attuale.getColonna()].getTessera();
-            // if (tesseraAttuale == null) continue; // Controllo di sicurezza, anche se non dovrebbe succedere
+            Tessera tesseraAttuale = caselle[attuale.getRiga()][attuale.getColonna()].getTessera();
 
-            // Esplora i vicini
-            for (int i = 0; i < 4; i++) { // i=0 (NORD), i=1 (EST), i=2 (SUD), i=3 (OVEST)
+            for (int i = 0; i < 4; i++) {
                 int rigaVicino = attuale.getRiga() + dr[i];
                 int colonnaVicino = attuale.getColonna() + dc[i];
-                Posizione posVicino = new Posizione(rigaVicino, colonnaVicino);
+                
+                if (isPosizioneValida(rigaVicino, colonnaVicino)) {
+                    Posizione posVicino = new Posizione(rigaVicino, colonnaVicino);
+                    Casella casellaVicina = caselle[rigaVicino][colonnaVicino];
 
-                // Controlla se il vicino è dentro i limiti della plancia
-                if (rigaVicino >= 0 && rigaVicino < NUM_RIGHE && 
-                    colonnaVicino >= 0 && colonnaVicino < NUM_COLONNE) {
-
-                    Casella casellaVicina = griglia[rigaVicino][colonnaVicino];
-                    Casella casellaAttuale = griglia[attuale.getRiga()][attuale.getColonna()];
-
-                    // Se il vicino è occupato e non ancora visitato/connesso
                     if (casellaVicina.isOccupata() && !tessereConnesse.contains(posVicino)) {
-                        Tessera tesseraAttuale = casellaAttuale.getTessera(); 
                         Tessera tesseraVicina = casellaVicina.getTessera();
-
-                        if (tesseraAttuale == null) continue; // Controllo ulteriore
-
                         Connettore connettoreDaAttuale = null;
                         Connettore connettoreDaVicino = null;
 
-                        // Mappa 'i' al lato corretto della tessera attuale e del suo vicino
+                        // Logica identica a prima per ottenere i connettori corretti
                         switch (i) {
-                            case 0: // Stiamo controllando il vicino a NORD della tessera attuale
-                                connettoreDaAttuale = tesseraAttuale.getLatoSup();  // Lato NORD (superiore) della tessera attuale
-                                connettoreDaVicino = tesseraVicina.getLatoDown(); // Lato SUD (inferiore) della tessera vicina (che è a Nord)
+                            case 0: // Vicino a NORD
+                                connettoreDaAttuale = tesseraAttuale.getLatoSup();
+                                connettoreDaVicino = tesseraVicina.getLatoDown();
                                 break;
-                            case 1: // Stiamo controllando il vicino a EST della tessera attuale
-                                connettoreDaAttuale = tesseraAttuale.getLatoDx();   // Lato EST (destro) della tessera attuale
-                                connettoreDaVicino = tesseraVicina.getLatoSx();  // Lato OVEST (sinistro) della tessera vicina (che è a Est)
+                            case 1: // Vicino a EST
+                                connettoreDaAttuale = tesseraAttuale.getLatoDx();
+                                connettoreDaVicino = tesseraVicina.getLatoSx();
                                 break;
-                            case 2: // Stiamo controllando il vicino a SUD della tessera attuale
-                                connettoreDaAttuale = tesseraAttuale.getLatoDown(); // Lato SUD (inferiore) della tessera attuale
-                                connettoreDaVicino = tesseraVicina.getLatoSup();  // Lato NORD (superiore) della tessera vicina (che è a Sud)
+                            case 2: // Vicino a SUD
+                                connettoreDaAttuale = tesseraAttuale.getLatoDown();
+                                connettoreDaVicino = tesseraVicina.getLatoSup();
                                 break;
-                            case 3: // Stiamo controllando il vicino a OVEST della tessera attuale
-                                connettoreDaAttuale = tesseraAttuale.getLatoSx();   // Lato OVEST (sinistro) della tessera attuale
-                                connettoreDaVicino = tesseraVicina.getLatoDx();   // Lato EST (destro) della tessera vicina (che è a Ovest)
+                            case 3: // Vicino a OVEST
+                                connettoreDaAttuale = tesseraAttuale.getLatoSx();
+                                connettoreDaVicino = tesseraVicina.getLatoDx();
                                 break;
                         }
 
@@ -429,44 +412,191 @@ public class PlanceNaveLivello1 extends PlanceNave{
             }
         }
 
-        // 3. Rimuovi tutte le tessere che sono sulla plancia ma non nel set 'tessereConnesse'
+        // Fase 3: Rimuovi tutte le tessere sulla plancia che non sono state raggiunte dal BFS.
         for (int r = 0; r < NUM_RIGHE; r++) {
             for (int c = 0; c < NUM_COLONNE; c++) {
-                Posizione posCorrente = new Posizione(r, c);
-                Casella casellaCorrente = griglia[r][c];
-                if (casellaCorrente.isOccupata() && !tessereConnesse.contains(posCorrente)) {
-                    tessereRimosse.add(casellaCorrente.getTessera());
-                    casellaCorrente.setTessera(null);
+                if (caselle[r][c].isOccupata() && !tessereConnesse.contains(new Posizione(r, c))) {
+                    System.out.println("Tessera orfana rimossa a: (" + r + ", " + c + ")");
+                    caselle[r][c].setTessera(null);
                 }
             }
         }
-
-        return tessereRimosse;
     }
+    
+    /**
+     * metodo helper per rimuovere tutta la nave. E' chiamato in gestisciRimozioneOrfani().
+     */
+    private void rimuoviTuttaLaNave() {
+        System.out.println("La Cabina Centrale è stata distrutta! Tutta la nave è persa.");
+        for (int r = 0; r < NUM_RIGHE; r++) {
+            for (int c = 0; c < NUM_COLONNE; c++) {
+                if (caselle[r][c].isOccupata()) {
+                    caselle[r][c].setTessera(null);
+                }
+            }
+        }
+    }
+	
 
     /**
      * Metodo helper per verificare se due connettori possono connettersi.
      */
-    private static boolean possonoConnettersi(Connettore c1, Connettore c2) {
-        if (c1 == Connettore.NULLO || c2 == Connettore.NULLO) {
-            return false; // I lati lisci (NULLO) non si connettono
+    private boolean possonoConnettersi(Connettore c1, Connettore c2) {
+        // Un connettore valido per la connessione è SINGOLO, DOPPIO o UNIVERSALE.
+        // Altri tipi (NULLO, CANNONE, MOTORE, etc.) non formano legami.
+        if (!isConnettoreDiLegame(c1) || !isConnettoreDiLegame(c2)) {
+            return false;
         }
-        
-        //escludo tutti i connettori diversi da SINGOLO, UNIVERSALE e DOPPIO
-        if (c1 == Connettore.UNIVERSALE && c2 == Connettore.UNIVERSALE ||
-        	c1 == Connettore.UNIVERSALE && c2 == Connettore.SINGOLO ||
-        	c1 == Connettore.SINGOLO && c2 == Connettore.UNIVERSALE ||
-        	c1 == Connettore.UNIVERSALE && c2 == Connettore.DOPPIO ||
-        	c1 == Connettore.DOPPIO && c2 == Connettore.UNIVERSALE) {
-            return true; // Universale si connette con tutto (tranne NULLO, già gestito)
-        }
-        if ((c1 == Connettore.SINGOLO && c2 == Connettore.SINGOLO) ||
-            (c1 == Connettore.DOPPIO && c2 == Connettore.DOPPIO)) {
+
+        // Se uno è universale, la connessione è sempre valida.
+        if (c1 == Connettore.UNIVERSALE || c2 == Connettore.UNIVERSALE) {
             return true;
         }
-        return false;
+
+        // Altrimenti, devono essere dello stesso tipo (SINGOLO-SINGOLO o DOPPIO-DOPPIO).
+        return c1 == c2;
     }
 
+    /**
+     * Helper per determinare se un connettore è usato per legare tessere.
+     */
+    private boolean isConnettoreDiLegame(Connettore c) {
+        return c == Connettore.SINGOLO || c == Connettore.DOPPIO || c == Connettore.UNIVERSALE;
+    }
+
+    
+    /**
+     * Verifica l'intera nave e rimuove immediatamente tutte le tessere
+     * che violano le regole di piazzamento (es. motori/cannoni bloccati).
+     * Poiché rimuove componenti, potrebbe creare delle tessere orfane. E' 
+     * per questo motivo seguita da una chiamata al metodo gestisciRimozioneOrfani
+     */
+    public void verificaERimuoviTessereIllegali() {
+        Casella[][] griglia = this.getCaselle();
+        List<Posizione> posizioniDaRimuovere = new ArrayList<>();
+
+        // Fase 1: Identifica tutte le tessere illegali senza modificare la griglia
+        // per evitare problemi di concorrenza durante l'iterazione.
+        for (int r = 0; r < NUM_RIGHE; r++) {
+            for (int c = 0; c < NUM_COLONNE; c++) {
+                if (griglia[r][c].isOccupata()) {
+                    Tessera tesseraCorrente = griglia[r][c].getTessera();
+                    boolean isLegale = true;
+
+                    if (tesseraCorrente instanceof Cannone || tesseraCorrente instanceof CannoneDoppio) {
+                        isLegale = isPiazzamentoCannoneLegale(r, c);
+                    } else if (tesseraCorrente instanceof Motore || tesseraCorrente instanceof MotoreDoppio) {
+                        isLegale = isPiazzamentoMotoreLegale(r, c);
+                    }
+                    // Aggiungere qui altri controlli di legalità specifici se necessario
+
+                    if (!isLegale) {
+                        posizioniDaRimuovere.add(new Posizione(r, c));
+                    }
+                }
+            }
+        }
+
+        // Fase 2: Rimuovi tutte le tessere identificate come illegali.
+        for (Posizione pos : posizioniDaRimuovere) {
+            griglia[pos.getRiga()][pos.getColonna()].setTessera(null);
+            System.out.println("Tessera illegale rimossa a: " + pos);
+        }
+    }
+
+
+    /**
+     * Verifica se il piazzamento di un cannone alla posizione data è legale.
+     * Un cannone è illegale se la casella davanti alla sua bocca da fuoco è occupata.
+     *
+     * @param r Riga del cannone.
+     * @param c Colonna del cannone.
+     * @return true se il piazzamento è legale, false altrimenti.
+     */
+    private boolean isPiazzamentoCannoneLegale(int r, int c) {
+        Tessera cannone = this.getCaselle()[r][c].getTessera();
+        
+        // Controlliamo ogni lato per la presenza di un connettore di tipo cannone.
+        
+        // Cannone punta a NORD (verso l'alto)
+        if (cannone.getLatoSup() == Connettore.CANNONE || cannone.getLatoSup() == Connettore.CANNONEDOPPIO) {
+            int rigaDavanti = r - 1;
+            // Se c'è una casella davanti e questa è occupata, il piazzamento è illegale.
+            if (isPosizioneValida(rigaDavanti, c) && this.getCaselle()[rigaDavanti][c].isOccupata()) {
+                return false;
+            }
+        }
+        
+        // Cannone punta a EST (verso destra)
+        if (cannone.getLatoDx() == Connettore.CANNONE || cannone.getLatoDx() == Connettore.CANNONEDOPPIO) {
+            int colonnaDavanti = c + 1;
+            if (isPosizioneValida(r, colonnaDavanti) && this.getCaselle()[r][colonnaDavanti].isOccupata()) {
+                return false;
+            }
+        }
+        
+        // Cannone punta a SUD (verso il basso)
+        if (cannone.getLatoDown() == Connettore.CANNONE || cannone.getLatoDown() == Connettore.CANNONEDOPPIO) {
+            int rigaDavanti = r + 1;
+            if (isPosizioneValida(rigaDavanti, c) && this.getCaselle()[rigaDavanti][c].isOccupata()) {
+                return false;
+            }
+        }
+        
+        // Cannone punta a OVEST (verso sinistra)
+        if (cannone.getLatoSx() == Connettore.CANNONE || cannone.getLatoSx() == Connettore.CANNONEDOPPIO) {
+            int colonnaDavanti = c - 1;
+            if (isPosizioneValida(r, colonnaDavanti) && this.getCaselle()[r][colonnaDavanti].isOccupata()) {
+                return false;
+            }
+        }
+
+        return true; // Se nessun controllo ha fallito, il piazzamento è legale.
+    }
+
+
+    /**
+     * Verifica se il piazzamento di un motore alla posizione data è legale.
+     * Un motore è illegale se non punta "indietro" (verso il basso, SUD) o
+     * se la casella dietro il suo scarico è occupata.
+     *
+     * @param r Riga del motore.
+     * @param c Colonna del motore.
+     * @return true se il piazzamento è legale, false altrimenti.
+     */
+    private boolean isPiazzamentoMotoreLegale(int r, int c) {
+        Tessera motore = this.getCaselle()[r][c].getTessera();
+
+
+        // Controlla se c'è un connettore motore su un lato che non sia quello SUD.
+        if (motore.getLatoSup() == Connettore.MOTORE || motore.getLatoSup() == Connettore.MOTOREDOPPIO ||
+            motore.getLatoDx() == Connettore.MOTORE || motore.getLatoDx() == Connettore.MOTOREDOPPIO ||
+            motore.getLatoSx() == Connettore.MOTORE || motore.getLatoSx() == Connettore.MOTOREDOPPIO) {
+            return false; // Piazzamento illegale: motore non punta indietro.
+        }
+
+        //TODO - valutare se necessario
+        // Controlla se il lato SUD ha effettivamente un motore. Se no, non è un motore valido.
+//        if (motore.getLatoDown() != Connettore.MOTORE && motore.getLatoDown() != Connettore.MOTOREDOPPIO) {
+//            return false;
+//        }
+
+        // Ora controlliamo se lo scarico ha dietro una tessera
+        int rigaDietro = r + 1;
+        if (isPosizioneValida(rigaDietro, c) && this.getCaselle()[rigaDietro][c].isOccupata()) {
+            return false; // Piazzamento illegale: scarico del motore bloccato.
+        }
+        
+        return true; // Se tutti i controlli passano, il piazzamento è legale.
+    }
+
+    /**
+     * Metodo helper per verificare se una data posizione (r,c) è all'interno
+     * dei limiti della plancia.
+     */
+    private boolean isPosizioneValida(int r, int c) {
+        return r >= 0 && r < NUM_RIGHE && c >= 0 && c < NUM_COLONNE;
+    }
 
 
 	
