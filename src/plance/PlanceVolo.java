@@ -65,6 +65,15 @@ public class PlanceVolo {
 		}
 	}
 	
+	
+	public void controlloDoppiaggio() {
+		for(int i = posizioneGiocatori.length; i >= 1; i--) {
+			if(posizioneGiocatori[0].getGiro() >= posizioneGiocatori[i].getGiro() && posizioneGiocatori[0].getPosizione() >= posizioneGiocatori[i].getPosizione()) {
+				
+			}
+		}
+		return;
+	}
 
 	
 	public void avanzaPosizione(Colore colore, int giorni) {
