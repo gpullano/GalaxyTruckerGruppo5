@@ -392,7 +392,6 @@ public class ConsoleIO {
 
 			    // Stampa la plancia per aiutare l'utente (metodo helper)
 			    stampaNave(giocatore.getPlanceNave());
-
 			    // Chiedi la riga
 			    while (!rigaValida) {
 			        System.out.print("Inserisci la RIGA dove agganciare (es. 1, 2, ...): ");

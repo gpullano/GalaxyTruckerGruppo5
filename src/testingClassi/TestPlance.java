@@ -20,7 +20,7 @@ import tessere.Tessera;
 
 public class TestPlance {
 	public static void main(String[] args) {
-		PlanceNaveLivello1 s = new PlanceNaveLivello1();
+		PlanceNaveLivello1 s = new PlanceNaveLivello1(Colore.ROSSO);
 		Tessera tessera = GeneratoreTessere.generaTessere();
 		System.out.println(tessera);
 		s.posizionaTessera(tessera, 2, 3);

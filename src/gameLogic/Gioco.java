@@ -40,15 +40,15 @@ public class Gioco {
 	
     
     private List<Giocatore> creaGiocatori(Colore[] coloriGiocatori) {
-    	List<Giocatore> giocatori = new ArrayList<>();
+    	List<Giocatore> giocatoriCreati = new ArrayList<>();
     	
     	//creazione dei giocatori in base al livello
     	switch(livelloPartita) {
     	case LIVELLO1: {
 	    		for (int i = 0; i < N_GIOCATORI; i++) {
-	                giocatori.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1()));
+	    			giocatoriCreati.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1(coloriGiocatori[i])));
 	            }
-	    		return giocatori;
+	    		return giocatoriCreati;
 	    	}
 
     	case LIVELLO2: System.out.println("Futura implementazione..."); break;
@@ -60,9 +60,9 @@ public class Gioco {
     	
     	// nel caso vengano scelti livelli diversi dal livello 1:
     	for (int i = 0; i < N_GIOCATORI; i++) {
-            giocatori.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1()));
+    		giocatoriCreati.add(new Giocatore(coloriGiocatori[i], new PlanceNaveLivello1(coloriGiocatori[i])));
         }
-		return giocatori;
+		return giocatoriCreati;
     }
 
     private Mazzetto[] creaMazzetti() {

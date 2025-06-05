@@ -6,8 +6,8 @@ package tessere;
 public abstract class Tessera {
 	//attributi
 	private Connettore latoDx;
-	protected Connettore latoSx;
-	protected Connettore latoSup;
+	private Connettore latoSx;
+	private Connettore latoSup;
 	private Connettore latoDown;
 	
 /**

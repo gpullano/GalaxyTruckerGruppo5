@@ -18,6 +18,7 @@ public class FaseVolo extends Fase {
 	@Override
 	public void eseguiFase() {
 		for(Carta carta: mazzoDiCarte) {
+			//TODO - aggiungi metodo per chiedere se i giocatori vogliono abbandonare
 			if(carta instanceof CartaPerditaGiorniVolo) {
 				((CartaPerditaGiorniVolo) carta).attiva(this.getGiocatori(), this.getPlanceVolo(), this.getInputOutput());
 			}
