@@ -1,6 +1,5 @@
 package tessere;
 
-import collezionabili.Merci;
 
 /**
 *rappresenta una tessera usata per immagazzinare merci.
@@ -9,7 +8,6 @@ import collezionabili.Merci;
 public class Stiva extends Tessera {
 	//La stiva per motivi di tempo è stata inizializzata a tre scomparti
 	private static final int N_SCOMPARTI = 3;
-	private Merci[] merci;
 
 	
 /**
@@ -21,7 +19,6 @@ public class Stiva extends Tessera {
 */
 	public Stiva(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
 		super(latoDx, latoSx, latoSup, latoDown);
-		this.merci = new Merci[N_SCOMPARTI];
 	}
 
 /** 
@@ -40,16 +37,4 @@ public class Stiva extends Tessera {
 	public String getNomeBreve() {
     	return " Stiva ";
 	}
-
-public Merci[] getMerci() {
-	return merci;
-}
-
-public void setMerci(Merci[] merci) {
-	this.merci = merci;
-}
-
-
-
-
 }

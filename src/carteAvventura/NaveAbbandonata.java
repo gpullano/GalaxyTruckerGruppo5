@@ -56,7 +56,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 				}
 			}
 			
-				
+			i++;
 		}
 		
 	}

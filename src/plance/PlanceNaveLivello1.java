@@ -3,6 +3,7 @@ package plance;
 import java.util.LinkedList;
 import java.util.List;
 
+import collezionabili.Merci;
 import tessere.Cabina;
 import tessere.CabinaCentrale;
 import tessere.Cannone;
@@ -11,7 +12,6 @@ import tessere.Motore;
 import tessere.MotoreDoppio;
 import tessere.Tessera;
 import tessere.Stiva;
-import tessere.StivaSpeciale;
 
 public class PlanceNaveLivello1 extends PlanceNave{
 	private static final int NUM_RIGHE = 5;
@@ -32,6 +32,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int equipaggioTotale;
 	private int energiaTotale;
 	private int merciTotali;
+	private List<Merci> merciNave;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
 
@@ -43,6 +44,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaMotori = 0;
 		this.energiaTotale = 0;
 		this.setMerciTotali(0);
+		this.merciNave = new LinkedList<>();
 		this.componenteAgganciato = false;
 		this.spazioTesserePrenotate = new LinkedList<>();
 	}
@@ -53,7 +55,9 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return spazioTesserePrenotate;
 	}
 	
-	
+	public int getSpazioMerciRimasto() {
+		return this.merciTotali - this.merciNave.size();
+	}
 	
 	public void aggiungiTesseraPrenotata(Tessera t) {
 		if(this.spazioTesserePrenotate.size() >= NUM_TESSERE_PRENOTABILI) {
@@ -260,6 +264,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		} 
 		//TODO Completare
 		return true;
+	}
+
+	public List<Merci> getMerciNave() {
+		return merciNave;
+	}
+
+	public void setMerciNave(List<Merci> merciNave) {
+		this.merciNave = merciNave;
 	}
 	
 

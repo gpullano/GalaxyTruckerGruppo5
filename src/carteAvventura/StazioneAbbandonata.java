@@ -7,13 +7,14 @@ import gameLogic.Giocatore;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 		// attributi 
 	private final int equipaggioRichiesto;
-	private final Merci merciAcquisite[];
+	private final Merci[] merciAcquisite;
 	
 	
 	public StazioneAbbandonata(int livello) {
@@ -51,8 +52,8 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 		sb.append("Stazione Abbandonata - Livello: ").append(getLivello()).append("\n");
 		sb.append("Equipaggio richiesto: ").append(getEquipaggioRichiesto()).append("\n");
 		sb.append("se il giocatore attacca guadagna:").append("\n");
-		collezionabili.Merci[] merci = getMerciAcquisite();
-		for (collezionabili.Merci merce : merci) {
+		Merci[] merci = getMerciAcquisite();
+		for (Merci merce : merci) {
 			sb.append("    - Merce di colore: ").append(merce.getColore()).append("\n");
 		}
 		sb.append("Effetto: perdita di giorni di volo ").append(getGiorniVoloPersi()).append("\n\n");
@@ -64,9 +65,27 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		// TODO Auto-generated method stub
+		int i = 0;
+		boolean attivata = false;
+		while(i < giocatore.size() || !attivata) {
+			Giocatore giocatoreCorrente = giocatore.get(i);
+			if (giocatoreCorrente.getPlanceNave().getEquipaggioTotale() >= this.equipaggioRichiesto) {
+				attivata=inputOutput.chiediAttivare(giocatoreCorrente);
+				if (attivata) {
+					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
+					if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
+						giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));
+					} else {
+						inputOutput.chiediMerciDaPrendere();
+					}
+					
+				}
+			}
+				i++;
+		}
 		
 	}
+
 
 
 

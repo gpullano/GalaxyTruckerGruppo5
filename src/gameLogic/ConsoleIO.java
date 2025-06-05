@@ -435,6 +435,10 @@ public class ConsoleIO {
 			
 		}
 	}
+	
+	
+	
+	// fase volo
 	public boolean chiediAttivare(Giocatore giocatore ) {
 		String scelta="";
 		boolean inputValido=false;
@@ -460,6 +464,10 @@ public class ConsoleIO {
 			
 		}
 		return false; // messo per chiarezza 
+	}
+	
+	public void chiediMerciDaPrendere() {
+		//TODO 
 	}
 
 }
