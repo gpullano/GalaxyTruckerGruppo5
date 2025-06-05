@@ -43,12 +43,12 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	}
 
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		giocatore.aggiungiCrediti(creditiCosmiciOttenuti);
+		// trovo il leader all'interno della lista 
+		
 		// trovo l'equipaggio del giocatore
-		int equipaggioGiocatore=giocatore.getPlanceNave().getEquipaggioTotale();
+	
 		// tolgo l'equipaggio richiesto dalla carta
-		giocatore.getPlanceNave().setEquipaggioTotale(equipaggioGiocatore-equipaggioRichiesto);
-		posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(),18);
+		
 	}
 }
 

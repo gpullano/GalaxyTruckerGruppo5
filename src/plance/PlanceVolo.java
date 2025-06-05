@@ -1,6 +1,7 @@
 package plance;
 
 import gameLogic.Colore;
+import gameLogic.Giocatore;
 
 public class PlanceVolo {
 	
@@ -99,18 +100,30 @@ public class PlanceVolo {
 	}
 	
 	public void trovaLeader() {
-		PosizioneGiocatore leader = this.posizioneGiocatori[0];
-			for (PosizioneGiocatore giocatori : this.posizioneGiocatori) {
-				if (giocatori.getGiro()>leader.getGiro()) {
-					leader=giocatori;
-					
-				}else if(giocatori.getGiro()==leader.getGiro()) {
-					if (giocatori.getPosizione()>leader.getPosizione()) {
-						leader=giocatori;
+		int lungh=this.posizioneGiocatori.length;
+		PosizioneGiocatore temp;
+		for (int i=0;i<lungh;i++) {
+			for(int j=0;j<lungh-1;j++) {
+				PosizioneGiocatore attuale=this.posizioneGiocatori[i];
+				PosizioneGiocatore dopo=this.posizioneGiocatori[j];
+				if (attuale.getGiro()<dopo.getGiro()) {
+				temp=attuale;
+				attuale=dopo;
+				dopo=temp;
+					 
+				}else if(attuale.getGiro()==dopo.getGiro()) {
+					if (attuale.getPosizione()<dopo.getPosizione()) {
+						temp=attuale;
+						attuale=dopo;
+						dopo=temp;
 					}
 				}
+				
+				
 			}
+		}
 		return;
+		
 	}
 
 }
