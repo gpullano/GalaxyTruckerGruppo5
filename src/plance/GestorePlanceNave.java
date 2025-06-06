@@ -16,32 +16,16 @@ import tessere.Tessera;
 
 public class GestorePlanceNave {
 	private static final Posizione POSIZIONE_CABINA_CENTRALE = new Posizione(2, 3);
+	
+	/**
+	 * Costruttore privato, il cui scopo è evitare che si tenti di istanziare la
+	 * classe.
+	 */
 
-	public static boolean posizionaTessera(PlanceNave planceNave, Tessera tessera, int riga,int colonna) {
-		/*if (riga < 0 || riga >= getCaselle().length || colonna < 0 || colonna >= getCaselle()[0].length) {
-			System.out.println("Errore: posizione fuori dai limiti (" + riga + "," + colonna + ")");
-		    return false;
-		}*/
-		
-		if (!planceNave.getCaselle()[riga][colonna].isUtilizzabile()) {
-			System.out.println("Errore: la casella (" + riga + "," + colonna + ") non è utilizzabile");
-		    return false;
-		}
-		
-		if (planceNave.getCaselle()[riga][colonna].isOccupata()) {
-			System.out.println("Errore: la casella (" + riga + "," + colonna + ") è già occupata");
-		    return false;
-		}
-		
-		planceNave.getCaselle()[riga][colonna].setTessera(tessera);
-		System.out.println("Tessera posizionata con successo in (" + riga + "," + colonna + ")");
-		return true;
+	private GestorePlanceNave() {
 	}
 	
 	
-	
-	
-
 	/**
 	 * Tenta di agganciare una tessera alla plancia in una data posizione.
 	 * Esegue i controlli di base:
@@ -59,7 +43,7 @@ public class GestorePlanceNave {
 	    // --- Controllo Limiti Plancia ---
 	    // Verifica se le coordinate target (riga, colonna) sono valide per la matrice.
 	    if (riga < 0 || riga >= PlanceNaveLivello1.getNumRighe() || colonna < 0 || colonna >= PlanceNaveLivello1.getNumColonne()) {
-	        System.err.println("Errore: Le coordinate (" + riga + "," + colonna + ") sono fuori dai limiti della plancia.");
+	        System.err.println("Le coordinate (" + riga + "," + colonna + ") sono fuori dai limiti della plancia.");
 	        return false;
 	    }
 
@@ -99,10 +83,8 @@ public class GestorePlanceNave {
 	        return false;
 	    }
 
-	    //TODO - da spostare in ConsoleIO
 	    // --- Se tutti i controlli leggeri passano, piazza la tessera ---
-	    casellaTarget.setTessera(tesseraDaAgganciare);
-	    System.out.println("Tessera agganciata con successo alla posizione (" + riga + "," + colonna + ").");
+	    casellaTarget.setTessera(tesseraDaAgganciare);    
 	    return true;
 	}
 

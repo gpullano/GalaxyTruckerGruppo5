@@ -5,7 +5,14 @@ import java.util.List;
 
 import carteAvventura.Carta;
 import carteAvventura.Mazzetto;
+import plance.Casella;
+import plance.GestorePlanceNave;
+import plance.OpzioniSupportoVitale;
+import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
+import tessere.Cabina;
+import tessere.SupportoVitaleMarrone;
+import tessere.SupportoVitaleViola;
 
 public class FasePreparazioneDecollo extends Fase {
 	
@@ -16,9 +23,29 @@ public class FasePreparazioneDecollo extends Fase {
 
 	@Override
 	public void eseguiFase() {
-		// TODO Auto-generated method stub
-		//controllo delle navi
-		//collocazione astronauti e alieni
+		
+		this.getInputOutput().inizioPreparazioneAlDecollo();
+
+		
+		//Ciclo per ogni giocatore.	
+		for(Giocatore giocatoreDaControllare : getGiocatori()) {
+			//1. Vengono prima rimossi tutte le tessere che violano le regole di posizionamento:
+			//- cannoni che puntano verso altre tessere
+			//- motori che non puntano verso "dietro"
+			//...
+			GestorePlanceNave.verificaERimuoviTessereIllegali(giocatoreDaControllare.getPlanceNave());
+			
+			//2. Vengono rimosse le tessere orfane - non si verifica che tutti i lati siano connessi, ma
+			//solo che le connessioni siano legali
+			GestorePlanceNave.gestisciRimozioneOrfani(giocatoreDaControllare.getPlanceNave());
+			
+			//conta degli alieni e dell'equipaggio
+			posizionaAlieniEdEquipaggio(giocatoreDaControllare);
+			
+			//TODO - calcolare le batterie totali, ecc.
+		}
+		
+		
 
 	}
 	
@@ -40,5 +67,69 @@ public class FasePreparazioneDecollo extends Fase {
         }
         return mazzoUnico;
     }
+	
+	
+	public void posizionaAlieniEdEquipaggio(Giocatore giocatore) {
+		Casella[][] caselle = giocatore.getPlanceNave().getCaselle();
+		OpzioniSupportoVitale opzioniSupportoVitale;
+		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
+			for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
+				if(caselle[i][j].getTessera() instanceof Cabina) {
+					opzioniSupportoVitale = supportoIntornoCabina(caselle, i, j);
+					
+					switch(opzioniSupportoVitale) {
+						case SUPPORTO_VITALE_VIOLA:{
+							//Il giocatore non ha nessun alieno viola?
+							if(!giocatore.getPlanceNave().HaAlienoViola()) {
+								giocatore.getPlanceNave().setHaAlienoViola(true);
+								//TODO 
+							}
+							
+							break;
+						}
+						
+						case SUPPORTO_VITALE_MARRONE:{
+							//Il giocatore non ha nessun alieno marrone?
+							if(!giocatore.getPlanceNave().HaAlienoMarrone()) {
+								giocatore.getPlanceNave().setHaAlienoMarrone(true);
+								//TODO
+							}
+							break;
+						}
+						
+						case NESSUN_SUPPORTO:{
+							giocatore.getPlanceNave().aggiungiEquipaggio(Cabina.getNumEquipaggio());
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public OpzioniSupportoVitale supportoIntornoCabina(Casella[][] caselle, int riga, int colonna) {
+		int numLatiTessera = 4;
+		int[] dr = {-1, 0, 1, 0};
+	    int[] dc = {0, 1, 0, -1};
+
+	    for (int i = 0; i < numLatiTessera; i++) {
+	        int rigaVicino = riga + dr[i];
+	        int colonnaVicino = colonna + dc[i];
+
+	        //Verifico che i lati adiacenti siano compresi nella matrice
+	        if (rigaVicino >= 0 && rigaVicino < PlanceNaveLivello1.getNumRighe() &&
+	            colonnaVicino >= 0 && colonnaVicino < PlanceNaveLivello1.getNumColonne()) {
+
+	        	if(caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleViola) {
+	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_VIOLA;
+	        		
+	        	} else if (caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleMarrone) {
+	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_MARRONE;
+	        	}
+	            }
+	        }
+	    //Se non trovo nessun supporto vitale...
+	    return OpzioniSupportoVitale.NESSUN_SUPPORTO;
+	}
 
 }

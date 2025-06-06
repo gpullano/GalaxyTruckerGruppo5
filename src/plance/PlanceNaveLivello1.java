@@ -1,19 +1,13 @@
 package plance;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 import collezionabili.Merci;
 import gameLogic.Colore;
 import tessere.Cabina;
 import tessere.CabinaCentrale;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
-import tessere.Connettore;
 import tessere.Motore;
 import tessere.MotoreDoppio;
 import tessere.Tessera;
@@ -40,6 +34,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private List<Merci> merciNave;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
+	private boolean haAlienoViola;
+	private boolean haAlienoMarrone;
 
 	public PlanceNaveLivello1(Colore colore) {
 		super(NUM_RIGHE, NUM_COLONNE);
@@ -53,9 +49,39 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.componenteAgganciato = false;
 		this.spazioTesserePrenotate = new LinkedList<>();
 		this.caselle[2][3].setTessera(new CabinaCentrale(colore));
+		this.haAlienoMarrone = false;
+		this.haAlienoViola = false;
 	}
 
 	// getters e setters
+	
+	/**
+	 * @return the haAlienoViola
+	 */
+	public boolean HaAlienoViola() {
+		return haAlienoViola;
+	}
+
+	/**
+	 * @param haAlienoViola the haAlienoViola to set
+	 */
+	public void setHaAlienoViola(boolean haAlienoViola) {
+		this.haAlienoViola = haAlienoViola;
+	}
+
+	/**
+	 * @return the haAlienoMarrone
+	 */
+	public boolean HaAlienoMarrone() {
+		return haAlienoMarrone;
+	}
+
+	/**
+	 * @param haAlienoMarrone the haAlienoMarrone to set
+	 */
+	public void setHaAlienoMarrone(boolean haAlienoMarrone) {
+		this.haAlienoMarrone = haAlienoMarrone;
+	}
 	
 	public List<Tessera> getTesserePrenotate(){
 		return spazioTesserePrenotate;
@@ -165,6 +191,11 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.energiaTotale += energia;
 	}
 	
+	public void aggiungiEquipaggio(int equipaggio) {
+		//TODO - opportuni controlli da aggiungere
+		this.equipaggioTotale += equipaggio;
+	}
+	
 	public void calcolaPotenzaFuoco(int energieDaSpendere) {
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
@@ -195,6 +226,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}
 	}
 	
+	//TODO - valutare se serve
 	public void calcolaEquipaggio() {
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {

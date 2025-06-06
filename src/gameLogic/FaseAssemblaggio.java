@@ -122,7 +122,6 @@ public class FaseAssemblaggio extends Fase {
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
 								}
-								//TODO
 								default:
 									break;
 							}
@@ -160,8 +159,6 @@ public class FaseAssemblaggio extends Fase {
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
 								}
-								
-								//TODO
 								default:
 									break;
 							}
@@ -194,13 +191,10 @@ public class FaseAssemblaggio extends Fase {
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
 								}
-								//TODO
 								default:
 									break;
 							}
-							break;
 						}
-						//TODO
 						default:
 							break;
 						

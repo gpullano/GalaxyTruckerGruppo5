@@ -6,8 +6,11 @@ import gameLogic.Colore;
 * La classe CabinaCentrale rappresenta una tessera centrale della nave.
 *contiene due membri dell'equipaggio iniziale ed è associata ad un colore specifico.
 */
+
+//TODO - valutare che cabinaCentrale possa estendere cabina
 public class CabinaCentrale extends Tessera {
 	// attributi 
+	private static final int NUM_EQUIPAGGIO = 2;
 	private final Colore colore;
 	private int equipaggio;
 	// non possiede alieni
@@ -20,7 +23,7 @@ public class CabinaCentrale extends Tessera {
 */
 	public CabinaCentrale(Colore colore) {
 		super(Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE, Connettore.UNIVERSALE);
-		this.setEquipaggio(2);
+		this.setEquipaggio(NUM_EQUIPAGGIO);
 		this.colore=colore;
 
 	}

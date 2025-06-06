@@ -8,6 +8,7 @@ import java.util.Scanner;
 import carteAvventura.Carta;
 import carteAvventura.Mazzetto;
 import eccezioni.NumeroNonValidoException;
+import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import tessere.Tessera;
@@ -24,6 +25,8 @@ public class ConsoleIO {
 		this.sc = new Scanner(System.in);
 	}
 	
+	
+	
 	//metodi
 	public void chiudiScanner() {
 		sc.close();	
@@ -32,6 +35,52 @@ public class ConsoleIO {
 	
 	
 	
+	
+	
+	
+	//------------------------------------------------------------------
+	// STAMPA NAVE E PLANCIA DI VOLO
+	public void stampaVolo(PlanceVolo planceVolo) {
+		for(int r = 0; r < planceVolo.getCella().length; r++) {
+			for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
+					System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
+				
+			}
+			System.out.println('\n');
+		}
+	}
+	
+	public void stampaNave(PlanceNaveLivello1 planceNaveLivello1) {
+		System.out.println();
+		for(int r = 0; r <= 4; r++) {
+			for(int c = 0; c <= 6; c++) {
+				if(planceNaveLivello1.getCaselle()[r][c].isUtilizzabile()) {
+					if (planceNaveLivello1.getCaselle()[r][c].isOccupata()) {
+						System.out.print(planceNaveLivello1.getCaselle()[r][c].getTessera().toString());
+					} else {
+						System.out.print("▢\t\t");	
+					}
+				}else {
+			    	System.out.print("\t\t");
+				}
+				
+			}
+			System.out.println();
+			System.out.println();
+			System.out.println();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//------------------------------------------------------------------
 	//------- SETUP PARTITA
 	
 	public LivelloPartita chiediLivelloGioco() {
@@ -122,10 +171,22 @@ public class ConsoleIO {
         return coloreGiocatori;
     }
 	
+	
+	
+	
+	
+	
+	//------------------------------------------------------------------
 	//---- FASI DI GIOCO 
 	
 	
+	
+	
+	
+	//-------------
 	//Fase di assemblaggio
+	//-------------
+	
 	
 	public void inizioAssemblaggio() {
 		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
@@ -350,36 +411,6 @@ public class ConsoleIO {
 			return null;
 	}
 
-	public void stampaVolo(PlanceVolo planceVolo) {
-		for(int r = 0; r < planceVolo.getCella().length; r++) {
-			for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
-					System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
-				
-			}
-			System.out.println('\n');
-		}
-	}
-	
-	public void stampaNave(PlanceNaveLivello1 planceNaveLivello1) {
-		System.out.println();
-		for(int r = 0; r <= 4; r++) {
-			for(int c = 0; c <= 6; c++) {
-				if(planceNaveLivello1.getCaselle()[r][c].isUtilizzabile()) {
-					if (planceNaveLivello1.getCaselle()[r][c].isOccupata()) {
-						System.out.print(planceNaveLivello1.getCaselle()[r][c].getTessera().toString());
-					} else {
-						System.out.print("▢\t\t");	
-					}
-				}else {
-			    	System.out.print("\t\t");
-				}
-				
-			}
-			System.out.println();
-			System.out.println();
-			System.out.println();
-		}
-	}
 	
 	public void agganciaTessera(Giocatore giocatore, Tessera tesseraDaAgganciare) {
 		boolean tesseraAgganciata = false;
@@ -428,7 +459,8 @@ public class ConsoleIO {
 			        colonna++; //per gestire lo shift delle colonne
 			    }
 			    
-			    if(giocatore.getPlanceNave().agganciaTessera(riga, colonna, tesseraDaAgganciare)) {
+			    if(GestorePlanceNave.agganciaTessera(giocatore.getPlanceNave(), tesseraDaAgganciare, riga, colonna)) {
+			    	System.out.println("Tessera agganciata con successo alla posizione (" + riga + "," + colonna + ").");
 			    	tesseraAgganciata = true;
 			    }
 			
@@ -437,7 +469,31 @@ public class ConsoleIO {
 	
 	
 	
-	// fase volo
+	//-------------
+	// fase di preparazione al decollo
+	//-------------
+	
+	
+	
+	
+	
+	public void inizioPreparazioneAlDecollo() {
+		System.out.println("-----FASE DI PREPARAZIONE AL DECOLLO-----");
+	}
+	
+	
+	
+	
+	
+	
+	
+	//-------------
+	// fase di volo
+	//-------------
+	
+	
+	
+	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore
 	public boolean chiediAttivare(Giocatore giocatore ) {
 		String scelta="";
 		boolean inputValido=false;

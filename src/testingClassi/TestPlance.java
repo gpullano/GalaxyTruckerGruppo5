@@ -24,7 +24,7 @@ public class TestPlance {
 		PlanceNaveLivello1 s = new PlanceNaveLivello1(Colore.ROSSO);
 		Tessera tessera = GeneratoreTessere.generaTessere();
 		System.out.println(tessera);
-		GestorePlanceNave.posizionaTessera(s, tessera, 2, 3);
+		GestorePlanceNave.agganciaTessera(s, tessera, 2, 3);
 //		s.stampaNave();
 		
 		

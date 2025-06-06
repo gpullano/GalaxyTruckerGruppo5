@@ -5,6 +5,7 @@ package tessere;
 *Estende la classe e aggiunge attributi per controllare l'equipaggio e gli alieni.
 */
 public class Cabina extends Tessera {
+	private static final int NUM_EQUIPAGGIO = 2;
 	//attributi
 	private int equipaggio;
 	private int alieni;
@@ -66,6 +67,13 @@ public class Cabina extends Tessera {
 	public String getNomeBreve() {
     	return " CABIN ";
 	}
+
+/**
+ * @return il numEquipaggio
+ */
+public static int getNumEquipaggio() {
+	return NUM_EQUIPAGGIO;
+}
 
 	
 	
