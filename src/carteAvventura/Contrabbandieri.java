@@ -79,11 +79,12 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		while(i < giocatore.size() || !contrabbandieriSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() < this.fuocoNemico) {
-				//if(getDispMerci >= 2) {
-					giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(merciRimosse));
+				if(giocatoreCorrente.getPlanceNave().getMerciNave().size() >= this.merciRimosse) {
+					giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(this.merciRimosse));
 					//TODO da gestire meglio le merci rimosse perchè in teoria devono essere tolte le più preziose
 			     // } else {
 			    	  //TODO da gestire la perdita dell'0 energia nel caso fossero finite le meric
+					giocatoreCorrente.getPlanceNave().aggiungiEnergia(-this.merciRimosse);
 			     // }
 					
 			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.fuocoNemico){

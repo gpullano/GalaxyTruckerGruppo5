@@ -27,30 +27,18 @@ public class SpazioAperto extends Carta {
 	
 	
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		int potenzaRichiesta = 0;
-
-		//check if every player is on the game or not 
-		for(Giocatore g : giocatori){
-			if(g.getHaAbbandonato()){
-				 System.out.println("Giocatore " + g.getColore() + " ha abbandonato, nessun effetto.");
-				continue;
-			}
+		int i=0;
+		while(i<giocatore.size()) {
+			Giocatore giocatoreCorrente = giocatore.get(i);
+			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() == 0) {
+				//TODO implementare l'abbandono nave
+			} else {
+				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(giocatoreCorrente.getPlanceNave().getPotenzaFuoco());
+				}
 			
-			int motoriAttivi = g.ContaPotenzaMotori();
-			 System.out.println("Giocatore " + g.getColore() + " ha " + motoriAttivi + " motori attivi.");
-
-            if (motoriAttivi >= potenzaRichiesta) {
-                // Apply the effect — e.g. increase flight days or points
-                // For example:
-                System.out.println("Giocatore " + g.getColore() + " avanza di 1 giorno di volo!");
-                // TODO - Here you could add code to update player's status/score, etc.
-				// Here: increase the flight days of the player
-            } else {
-                System.out.println("Giocatore " + g.getColore() + " non ha potenza sufficiente.");
-            }
-        }
-			
-
+			i++;
 		}
+		
+	}
 
 }
