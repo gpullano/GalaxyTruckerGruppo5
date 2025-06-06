@@ -1,7 +1,6 @@
 package carteAvventura;
 import java.util.List;
 import java.util.Random;
-
 import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
@@ -66,14 +65,33 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		// controllare che la potenza fuoco sia maggiore
-		if (giocatore.getPlanceNave().getPotenzaFuoco()>potenzaFuoco) {
-			inputOutput.
-			giocatore.aggiungiCrediti(creditiCosmici);
-			System.out.println("hai sconfitto i Pirati ecco la tua ricompensa: "+"+"+creditiCosmici+" ottenuti");
-			posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(), 18);
+		
+		int i=0;
+		boolean piratisconfitti=false;
+		Giocatore giocatoriSconfitti[]=new Giocatore[4];
+		while(i<giocatore.size()||!piratisconfitti) {
+			// controllare se la potenza fuoco dei pirati è maggiore
+			if (giocatore.get(i).getPlanceNave().getPotenzaFuoco()<this.potenzaFuoco) {
+				// aggiungo nell'array nella posizione i-esima il giocatore sconfitto 
+				giocatoriSconfitti[i]= giocatore.get(i);
+				
+			}else {
+				giocatore.get(i).aggiungiCrediti(this.creditiCosmici);
+				
+			}
+			i++;
 		}
-		System.out.println("Verrai colpito dalle cannonate");
+		// finito il ciclo ottengo l'array di chi è stato sconfitto per cui faccio tirare i dadi al primo così che si sa dove spareranno i pirati 
+		if(giocatoriSconfitti.length==0) {
+			// nessuno è stato sconfitto
+		}else {
+			// faccio lanciare i dadi per capire dove colpire 
+			int direzione=dadi.lancia();+
+			// colpisco i giocatori presenti nell'array
+			
+		}
+		
+		
 		// se è maggiore li sconfiggi e ottieni ricompensa, affrontarli costa perdita giorni di volo
 		
 	}
