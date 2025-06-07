@@ -8,7 +8,6 @@ public class Giocatore {
     private PlanceNaveLivello1 planceNave;
     private int creditistellari;
     private boolean haAbbandonato;
-    private int pilaScarti;
     private boolean assemblaggioTerminato;
 
 
@@ -17,8 +16,7 @@ public class Giocatore {
     	this.colore= colore;
         this.planceNave = planceNave;
         this.creditistellari = 0;
-        this.haAbbandonato = false;
-        this.pilaScarti = 0;   
+        this.haAbbandonato = false;  
     	if(planceNave == null) {
     		throw new NullPointerException("Il giocatore non può avere una nave nulla");
     	}
@@ -43,10 +41,6 @@ public class Giocatore {
     public boolean getHaAbbandonato() {
         return haAbbandonato;
     }
-    
-    public int getPilaScarti() {
-		return pilaScarti;
-	}
     
     public boolean isAssemblaggioTerminato() {
 		return assemblaggioTerminato;
@@ -84,10 +78,6 @@ public class Giocatore {
     	haAbbandonato = true;
         // TODO - va gestito nella classe ConsoleIO
     	// System.out.println("Il giocatore ha deciso di arrendersi.");
-    }
-    
-    public void incrementaPilaScarti() {
-    	this.pilaScarti++;
     }
 
 }

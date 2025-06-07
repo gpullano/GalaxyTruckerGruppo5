@@ -39,14 +39,12 @@ public class FasePreparazioneDecollo extends Fase {
 			//solo che le connessioni siano legali
 			GestorePlanceNave.gestisciRimozioneOrfani(giocatoreDaControllare.getPlanceNave());
 			
-			//conta degli alieni e dell'equipaggio
+			//Conta degli alieni e dell'equipaggio
 			posizionaAlieniEdEquipaggio(giocatoreDaControllare);
 			
-			//TODO - calcolare le batterie totali, ecc.
+			//Calcolo delle batterie
+			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie();		
 		}
-		
-		
-
 	}
 	
 	/**
@@ -97,10 +95,10 @@ public class FasePreparazioneDecollo extends Fase {
 						case SUPPORTO_VITALE_MARRONE:{
 							//Il giocatore non ha nessun alieno marrone?
 							if (!giocatore.getPlanceNave().HaAlienoMarrone()) {
-							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno viola?");
+							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno marrone?");
 							    if (vuolePiazzare) {
 							        cabina.setAlienoMarrone(true); 
-							        giocatore.getPlanceNave().setHaAlienoMarrone(true);;
+							        giocatore.getPlanceNave().setHaAlienoMarrone(true);
 							    } else {
 							        cabina.setEquipaggio();
 							    }

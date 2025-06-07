@@ -10,10 +10,6 @@ public abstract class Proiettile {
 		this.provenienza = provenienza;
 	}
 
-	public Dimensione getPotenza() {
-		return getDimensione();
-	}
-
 	public Provenienza getProvenienza() {
 		return provenienza;
 	}

@@ -6,7 +6,6 @@ public class Casella {
 	//	Attributi
 	private final Posizione posizione;
 	private boolean utilizzabile;
-	private boolean occupata;
 	private Tessera tessera;
 	
 	
@@ -14,7 +13,6 @@ public class Casella {
 	public Casella(Posizione posizione) {
 		this.posizione = posizione;
 		this.utilizzabile = false;
-		this.occupata = false;
 		this.tessera = null;
 	}
 	
@@ -33,19 +31,9 @@ public class Casella {
 	public boolean isUtilizzabile() {
 		return utilizzabile;
 	}
-	
-	public boolean isOccupata() {
-		return occupata;
-	}
-
-
-	public void setOccupata(boolean occupata) {
-		this.occupata = occupata;
-	}
 
 	public void setTessera(Tessera nuovaTessera) {
 		this.tessera = nuovaTessera;
-		this.occupata = (nuovaTessera != null); 
 	}
 	
 	public Tessera getTessera() {

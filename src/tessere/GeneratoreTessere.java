@@ -249,7 +249,7 @@ public class GeneratoreTessere {
 			connettori.get(1),
 		    connettori.get(2),
 		    connettori.get(3),
-		    3
+		    rand1.nextInt(2) + 2
 			);
 		}
 	private  static boolean controllaConnettoriNulli(List<Connettore> connettori) {

@@ -49,7 +49,7 @@ public class GestorePlanceNave {
 
 	    // --- Controllo Casella Target ---
 	    Casella casellaTarget = planceNave.getCaselle()[riga][colonna];
-	    if (!casellaTarget.isUtilizzabile() || casellaTarget.isOccupata()) {
+	    if (!casellaTarget.isUtilizzabile() || casellaTarget.getTessera() != null) {
 	        System.err.println("Errore: La casella (" + riga + "," + colonna + ") non è utilizzabile o è già occupata.");
 	        return false;
 	    }
@@ -70,7 +70,7 @@ public class GestorePlanceNave {
 
 	            // Ora che siamo sicuri che le coordinate del vicino sono valide, possiamo accedere alla casella.
 	            Casella casellaVicina = planceNave.getCaselle()[rigaVicino][colonnaVicino];
-	            if (casellaVicina.isOccupata()) {
+	            if (casellaVicina.getTessera() != null) {
 	                haAlmenoUnVicinoOccupato = true;
 	                break; // Trovato un vicino, non serve controllare gli altri. Esci dal loop 'for'.
 	            }
@@ -97,7 +97,7 @@ public class GestorePlanceNave {
     public static void gestisciRimozioneOrfani(PlanceNaveLivello1 planceNave) {       
      // Controlla se la cabina esiste ANCORA. Se no, tutta la nave è persa.
     	Casella[][] caselle = planceNave.getCaselle();
-        if (!caselle[POSIZIONE_CABINA_CENTRALE.getRiga()][POSIZIONE_CABINA_CENTRALE.getColonna()].isOccupata()) {
+        if (caselle[POSIZIONE_CABINA_CENTRALE.getRiga()][POSIZIONE_CABINA_CENTRALE.getColonna()].getTessera() == null) {
             // Metodo helper per pulire l'intera plancia
             rimuoviTuttaLaNave(planceNave); 
             return; // Esci subito dal metodo
@@ -127,7 +127,7 @@ public class GestorePlanceNave {
                     Posizione posVicino = new Posizione(rigaVicino, colonnaVicino);
                     Casella casellaVicina = caselle[rigaVicino][colonnaVicino];
 
-                    if (casellaVicina.isOccupata() && !tessereConnesse.contains(posVicino)) {
+                    if (casellaVicina.getTessera() != null && !tessereConnesse.contains(posVicino)) {
                         Tessera tesseraVicina = casellaVicina.getTessera();
                         Connettore connettoreDaAttuale = getLato(tesseraAttuale, i);
                         Connettore connettoreDaVicino = getLatoOpposto(tesseraVicina, i);
@@ -141,12 +141,13 @@ public class GestorePlanceNave {
             }
         }
 
-        // Fase 3: Rimuovi tutte le tessere sulla plancia che non sono state raggiunte dal BFS.
+        // Rimuovi tutte le tessere sulla plancia che non sono state raggiunte dal BFS.
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
-                if (caselle[r][c].isOccupata() && !tessereConnesse.contains(new Posizione(r, c))) {
+                if (caselle[r][c].getTessera() != null && !tessereConnesse.contains(new Posizione(r, c))) {
                     System.out.println("Tessera orfana rimossa a: (" + r + ", " + c + ")");
                     caselle[r][c].setTessera(null);
+                    planceNave.incrementaPilaScarti();
                 }
             }
         }
@@ -161,7 +162,7 @@ public class GestorePlanceNave {
     	System.out.println("La Cabina Centrale è stata distrutta! Tutta la nave è persa.");
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
-                if (caselle[r][c].isOccupata()) {
+                if (caselle[r][c].getTessera() != null) {
                     caselle[r][c].setTessera(null);
                 }
             }
@@ -210,7 +211,7 @@ public class GestorePlanceNave {
         // per evitare problemi di concorrenza durante l'iterazione.
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
-                if (caselle[r][c].isOccupata()) {
+                if (caselle[r][c].getTessera() != null) {
                     Tessera tesseraCorrente = caselle[r][c].getTessera();
                     boolean isLegale = true;
 
@@ -223,6 +224,7 @@ public class GestorePlanceNave {
 
                     if (!isLegale) {
                         posizioniDaRimuovere.add(new Posizione(r, c));
+                        planceNave.incrementaPilaScarti();
                     }
                 }
             }
@@ -253,7 +255,7 @@ public class GestorePlanceNave {
         if (cannone.getLatoSup() == Connettore.CANNONE || cannone.getLatoSup() == Connettore.CANNONEDOPPIO) {
             int rigaDavanti = r - 1;
             // Se c'è una casella davanti e questa è occupata, il piazzamento è illegale.
-            if (isPosizioneValida(rigaDavanti, c) && caselle[rigaDavanti][c].isOccupata()) {
+            if (isPosizioneValida(rigaDavanti, c) && caselle[rigaDavanti][c].getTessera() != null) {
                 return false;
             }
         }
@@ -261,7 +263,7 @@ public class GestorePlanceNave {
         // Cannone punta a EST (verso destra)
         if (cannone.getLatoDx() == Connettore.CANNONE || cannone.getLatoDx() == Connettore.CANNONEDOPPIO) {
             int colonnaDavanti = c + 1;
-            if (isPosizioneValida(r, colonnaDavanti) && caselle[r][colonnaDavanti].isOccupata()) {
+            if (isPosizioneValida(r, colonnaDavanti) && caselle[r][colonnaDavanti].getTessera() != null) {
                 return false;
             }
         }
@@ -269,7 +271,7 @@ public class GestorePlanceNave {
         // Cannone punta a SUD (verso il basso)
         if (cannone.getLatoDown() == Connettore.CANNONE || cannone.getLatoDown() == Connettore.CANNONEDOPPIO) {
             int rigaDavanti = r + 1;
-            if (isPosizioneValida(rigaDavanti, c) && caselle[rigaDavanti][c].isOccupata()) {
+            if (isPosizioneValida(rigaDavanti, c) && caselle[rigaDavanti][c].getTessera() != null) {
                 return false;
             }
         }
@@ -277,7 +279,7 @@ public class GestorePlanceNave {
         // Cannone punta a OVEST (verso sinistra)
         if (cannone.getLatoSx() == Connettore.CANNONE || cannone.getLatoSx() == Connettore.CANNONEDOPPIO) {
             int colonnaDavanti = c - 1;
-            if (isPosizioneValida(r, colonnaDavanti) && caselle[r][colonnaDavanti].isOccupata()) {
+            if (isPosizioneValida(r, colonnaDavanti) && caselle[r][colonnaDavanti].getTessera() != null) {
                 return false;
             }
         }
@@ -314,7 +316,7 @@ public class GestorePlanceNave {
 
         // Ora controlliamo se lo scarico ha dietro una tessera
         int rigaDietro = r + 1;
-        if (isPosizioneValida(rigaDietro, c) && caselle[rigaDietro][c].isOccupata()) {
+        if (isPosizioneValida(rigaDietro, c) && caselle[rigaDietro][c].getTessera() != null) {
             return false; // Piazzamento illegale: scarico del motore bloccato.
         }
         
@@ -350,7 +352,7 @@ public class GestorePlanceNave {
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
                 
-                if (!caselle[r][c].isOccupata()) {
+                if (caselle[r][c].getTessera() == null) {
                     continue; // Salta le caselle vuote
                 }
                 
@@ -368,7 +370,7 @@ public class GestorePlanceNave {
                         // Un connettore è esposto se il suo vicino è fuori dalla plancia
                         // O se il suo vicino è una casella non occupata.
                         if (!isPosizioneValida(rigaVicino, colonnaVicino) || 
-                            !caselle[rigaVicino][colonnaVicino].isOccupata()) {
+                            caselle[rigaVicino][colonnaVicino].getTessera() == null) {
                             
                             contatoreEsposti++;
                         }

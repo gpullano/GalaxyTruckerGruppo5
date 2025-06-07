@@ -56,7 +56,7 @@ public class ConsoleIO {
 		for(int r = 0; r <= 4; r++) {
 			for(int c = 0; c <= 6; c++) {
 				if(planceNaveLivello1.getCaselle()[r][c].isUtilizzabile()) {
-					if (planceNaveLivello1.getCaselle()[r][c].isOccupata()) {
+					if (planceNaveLivello1.getCaselle()[r][c].getTessera() != null) {
 						System.out.print(planceNaveLivello1.getCaselle()[r][c].getTessera().toString());
 					} else {
 						System.out.print("▢\t\t");	
@@ -477,7 +477,7 @@ public class ConsoleIO {
 	
 	
 	
-	
+	//TODO - crea un unico metodo inizioFase e poi fagli passare una stringa
 	public void inizioPreparazioneAlDecollo() {
 		System.out.println("-----FASE DI PREPARAZIONE AL DECOLLO-----");
 	}
@@ -517,7 +517,15 @@ public class ConsoleIO {
 		//punto di codice irraggiungibile
 		return false;
 	}
+		
 	
+	
+	
+	//-------------
+	// fase di volo
+	//-------------
+	
+	//TODO - vedi come chiamare con lo stesso nome anche il metodo per gli alieni
 	public boolean chiediSeAzionareComponente(String domanda) {
 		boolean inputValido = false;
 		String scelta;
@@ -544,15 +552,6 @@ public class ConsoleIO {
 	
 		return false;
 	}
-		
-	
-	
-	
-	//-------------
-	// fase di volo
-	//-------------
-	
-	
 	
 	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore
 	public boolean chiediAttivare(Giocatore giocatore ) {
@@ -584,6 +583,17 @@ public class ConsoleIO {
 	
 	public void chiediMerciDaPrendere() {
 		//TODO 
+	}
+	
+	
+	
+	// PIOGGIA DI METEORITI/CANNONATE
+	public void lancioDeiDadi(Colore colore, int risultato) {
+		System.out.println("\nIL LEADER, IL GIOCATORE " + colore + " TIRA I DADI...");
+		System.out.println("RISULTATO: " + risultato);
+	}
+	public void pericoloScampato() {
+		System.out.println("Hai scampato il pericolo!");
 	}
 
 }

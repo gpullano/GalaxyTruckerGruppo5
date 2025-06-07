@@ -12,6 +12,7 @@ import tessere.CannoneDoppio;
 import tessere.Motore;
 import tessere.MotoreDoppio;
 import tessere.Tessera;
+import tessere.VanoBatteria;
 
 public class PlanceNaveLivello1 extends PlanceNave{
 	
@@ -27,6 +28,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	private static final int NUM_TESSERE_PRENOTABILI = 2;
     
+	//TODO - aggiungere lati coperti dai cannoni e lati coperti dallo scudo.
+	private int pilaScarti;
 	private int potenzaFuoco;
 	private int potenzaMotori;
 	private int equipaggioTotale;
@@ -42,7 +45,11 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	public PlanceNaveLivello1(Colore colore) {
 		super(NUM_RIGHE, NUM_COLONNE);
+		if(colore == null) {
+			throw new IllegalArgumentException("Non puoi inserire un colore nullo.");
+		}
 		this.creaNave();
+		this.pilaScarti = 0;
 		this.equipaggioTotale = 0;
 		this.potenzaFuoco = 0;
 		this.potenzaMotori = 0;
@@ -168,8 +175,18 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.merciNave = merciNave;
 	}
 
+	/**
+	 * @return the pilaScarti
+	 */
+	public int getPilaScarti() {
+		return pilaScarti;
+	}
 	
 	// metodi
+	
+	public void incrementaPilaScarti() {
+		this.pilaScarti++;
+	}
 	
 	public boolean isSpazioTesserePrenotatePieno() {
 		return spazioTesserePrenotate.size() == NUM_TESSERE_PRENOTABILI;
@@ -200,14 +217,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	public void calcolaPotenzaFuoco(ConsoleIO inputOutput) {
-		boolean chiediAttivazione = false;
+		boolean cannoniDoppiAttivati = false;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Cannone cannone) {
 					this.potenzaFuoco += cannone.getSparo();
 				} else if(this.caselle[i][j].getTessera() instanceof CannoneDoppio cannoneDoppio && this.energiaTotale > 0) {
-					chiediAttivazione = inputOutput.chiediSeAzionareComponente("Vuoi attivare il cannone doppio?");
-					if (chiediAttivazione == true) {
+					cannoniDoppiAttivati = inputOutput.chiediSeAzionareComponente("Vuoi attivare il cannone doppio?");
+					if (cannoniDoppiAttivati) {
 					this.potenzaFuoco += cannoneDoppio.getSparo();
 					this.energiaTotale--;
 					}
@@ -217,14 +234,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	public void calcolaPotenzaMotori(ConsoleIO inputOutput) {
-		boolean chiediAttivazione = false;
+		boolean motoriDoppiAttivati = false;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Motore motore) {
 					this.potenzaMotori += motore.getPotenza();
 				} else if(this.caselle[i][j].getTessera() instanceof MotoreDoppio motoreDoppio && this.energiaTotale > 0) {
-					chiediAttivazione = inputOutput.chiediSeAzionareComponente("Vuoi attivare i motori doppi?");
-					if (chiediAttivazione == true) {
+					motoriDoppiAttivati = inputOutput.chiediSeAzionareComponente("Vuoi attivare i motori doppi?");
+					if (motoriDoppiAttivati) {
 					this.potenzaMotori += motoreDoppio.getPotenza();
 					this.energiaTotale--;
 					}
@@ -242,6 +259,16 @@ public class PlanceNaveLivello1 extends PlanceNave{
 				} else if(this.caselle[i][j].getTessera() instanceof CabinaCentrale cabinaCentrale) {
 					this.equipaggioTotale += cabinaCentrale.getEquipaggio();
 				}
+			}
+		}
+	}
+	
+	public void calcolaQtBatterie() {
+		for(int i = 0; i < NUM_RIGHE; i++) {
+			for(int j = 0; j < NUM_COLONNE; j++) {
+				if(this.caselle[i][j].getTessera() instanceof VanoBatteria vanoBatteria) {
+					this.energiaTotale += vanoBatteria.getBatterie();
+				} 
 			}
 		}
 	}
@@ -288,5 +315,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}	
 		}
 	}
+
+	
 	
 }
