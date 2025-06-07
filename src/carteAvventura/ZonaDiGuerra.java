@@ -55,7 +55,26 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		// TODO Auto-generated method stub
+		//il giocatore con meno equipaggio perde 3 gg di volo pertanto scorro la lista 
+		Giocatore temp;
+		for (int i=0;i<giocatore.size();i++) {
+			for (int j=i+1;j<giocatore.size();j++) {
+				Giocatore giocatorei=giocatore.get(i);
+				Giocatore giocatorej=giocatore.get(j);
+				if (giocatorej.getPlanceNave().getEquipaggioTotale()<giocatorei.getPlanceNave().getEquipaggioTotale()) {
+					// scambiare
+					temp = giocatore.get(i);
+					giocatore.set(i, giocatore.get(j));
+					giocatore.set(j, temp);
+				}
+				
+			}
+		}
+		// tolgo 3gg di volo 
+		planceVolo.getPosizioneGiocatori()[0].aggiornaPosizione(3);
+		
+		
+		
 		
 	}
 
