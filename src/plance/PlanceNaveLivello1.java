@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import collezionabili.Merci;
 import gameLogic.Colore;
+import gameLogic.ConsoleIO;
 import tessere.Cabina;
 import tessere.CabinaCentrale;
 import tessere.Cannone;
@@ -198,31 +199,35 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.equipaggioTotale += equipaggio;
 	}
 	
-	public void calcolaPotenzaFuoco(int energieDaSpendere) {
+	public void calcolaPotenzaFuoco(ConsoleIO inputOutput) {
+		boolean chiediAttivazione = false;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Cannone cannone) {
 					this.potenzaFuoco += cannone.getSparo();
-				} else if(this.caselle[i][j].getTessera() instanceof CannoneDoppio cannoneDoppio && 
-						energieDaSpendere > 0 && this.energiaTotale > 0) {
+				} else if(this.caselle[i][j].getTessera() instanceof CannoneDoppio cannoneDoppio && this.energiaTotale > 0) {
+					chiediAttivazione = inputOutput.chiediSeAzionareComponente("Vuoi attivare il cannone doppio?");
+					if (chiediAttivazione == true) {
 					this.potenzaFuoco += cannoneDoppio.getSparo();
 					this.energiaTotale--;
-					energieDaSpendere--;
+					}
 				}
 			}
 		}
 	}
 	
-	public void calcolaPotenzaMotori(int energieDaSpendere) {
+	public void calcolaPotenzaMotori(ConsoleIO inputOutput) {
+		boolean chiediAttivazione = false;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Motore motore) {
 					this.potenzaMotori += motore.getPotenza();
-				} else if(this.caselle[i][j].getTessera() instanceof MotoreDoppio motoreDoppio && 
-						energieDaSpendere > 0 && this.energiaTotale > 0) {
+				} else if(this.caselle[i][j].getTessera() instanceof MotoreDoppio motoreDoppio && this.energiaTotale > 0) {
+					chiediAttivazione = inputOutput.chiediSeAzionareComponente("Vuoi attivare i motori doppi?");
+					if (chiediAttivazione == true) {
 					this.potenzaMotori += motoreDoppio.getPotenza();
 					this.energiaTotale--;
-					energieDaSpendere--;
+					}
 				}
 			}
 		}
