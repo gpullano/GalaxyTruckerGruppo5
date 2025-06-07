@@ -129,28 +129,8 @@ public class GestorePlanceNave {
 
                     if (casellaVicina.isOccupata() && !tessereConnesse.contains(posVicino)) {
                         Tessera tesseraVicina = casellaVicina.getTessera();
-                        Connettore connettoreDaAttuale = null;
-                        Connettore connettoreDaVicino = null;
-
-                        // Logica identica a prima per ottenere i connettori corretti
-                        switch (i) {
-                            case 0: // Vicino a NORD
-                                connettoreDaAttuale = tesseraAttuale.getLatoSup();
-                                connettoreDaVicino = tesseraVicina.getLatoDown();
-                                break;
-                            case 1: // Vicino a EST
-                                connettoreDaAttuale = tesseraAttuale.getLatoDx();
-                                connettoreDaVicino = tesseraVicina.getLatoSx();
-                                break;
-                            case 2: // Vicino a SUD
-                                connettoreDaAttuale = tesseraAttuale.getLatoDown();
-                                connettoreDaVicino = tesseraVicina.getLatoSup();
-                                break;
-                            case 3: // Vicino a OVEST
-                                connettoreDaAttuale = tesseraAttuale.getLatoSx();
-                                connettoreDaVicino = tesseraVicina.getLatoDx();
-                                break;
-                        }
+                        Connettore connettoreDaAttuale = getLato(tesseraAttuale, i);
+                        Connettore connettoreDaVicino = getLatoOpposto(tesseraVicina, i);
 
                         if (possonoConnettersi(connettoreDaAttuale, connettoreDaVicino)) {
                             tessereConnesse.add(posVicino);
@@ -347,5 +327,89 @@ public class GestorePlanceNave {
      */
     private static boolean isPosizioneValida(int r, int c) {
         return r >= 0 && r < PlanceNaveLivello1.getNumRighe() && c >= 0 && c < PlanceNaveLivello1.getNumColonne();
+    }
+    
+    /**
+     * Conta quanti connettori "esposti" ci sono sull'intera plancia.
+     * Un connettore è considerato esposto SOLO se è di tipo legame
+     * (SINGOLO, DOPPIO, UNIVERSALE) e punta verso una casella vuota 
+     * o fuori dai limiti della plancia.
+     * NON conta le connessioni illegali tra tessere.
+     *
+     * @param planceNave La plancia da analizzare.
+     * @return Il numero totale di connettori esposti.
+     */
+    public static int contaConnettoriEsposti(PlanceNaveLivello1 planceNave) {
+        Casella[][] caselle = planceNave.getCaselle();
+        int contatoreEsposti = 0;
+
+        int[] dr = {-1, 0, 1, 0}; 
+        int[] dc = {0, 1, 0, -1};
+
+        // Scansiona ogni casella della plancia
+        for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
+            for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
+                
+                if (!caselle[r][c].isOccupata()) {
+                    continue; // Salta le caselle vuote
+                }
+                
+                Tessera tesseraCorrente = caselle[r][c].getTessera();
+
+                // Controlla tutti e 4 i lati della tessera corrente
+                for (int i = 0; i < 4; i++) {
+                    Connettore connettoreCorrente = getLato(tesseraCorrente, i);
+
+                    // Ci interessa solo se il connettore è di tipo legame
+                    if (isConnettoreDiLegame(connettoreCorrente)) {
+                        int rigaVicino = r + dr[i];
+                        int colonnaVicino = c + dc[i];
+
+                        // Un connettore è esposto se il suo vicino è fuori dalla plancia
+                        // O se il suo vicino è una casella non occupata.
+                        if (!isPosizioneValida(rigaVicino, colonnaVicino) || 
+                            !caselle[rigaVicino][colonnaVicino].isOccupata()) {
+                            
+                            contatoreEsposti++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return contatoreEsposti;
+    }
+
+    /**
+     * Metodo helper per ottenere il connettore di una tessera in una data direzione.
+     * Usa la stessa convenzione del resto della classe.
+     * 0=NORD, 1=EST, 2=SUD, 3=OVEST
+     */
+    private static Connettore getLato(Tessera t, int direzione) {
+        switch (direzione) {
+            case 0: return t.getLatoSup();
+            case 1: return t.getLatoDx();
+            case 2: return t.getLatoDown();
+            case 3: return t.getLatoSx();
+            default: throw new IllegalArgumentException("Direzione non valida: " + direzione);
+        }
+    }
+
+    /**
+     * Metodo helper per ottenere il connettore OPPOSsTO di una tessera rispetto 
+     * alla direzione data. Es. se la direzione è NORD (0), restituisce il lato SUD (Down).
+     */
+    private static Connettore getLatoOpposto(Tessera t, int direzioneDalVicino) {
+        switch (direzioneDalVicino) {
+            case 0: // Il vicino è a NORD, quindi il suo lato di connessione è quello a SUD (Down)
+                return t.getLatoDown();
+            case 1: // Il vicino è a EST, il suo lato di connessione è OVEST (Sx)
+                return t.getLatoSx();
+            case 2: // Il vicino è a SUD, il suo lato di connessione è NORD (Sup)
+                return t.getLatoSup();
+            case 3: // Il vicino è a OVEST, il suo lato di connessione è EST (Dx)
+                return t.getLatoDx();
+            default: throw new IllegalArgumentException("Direzione non valida: " + direzioneDalVicino);
+        }
     }
 }

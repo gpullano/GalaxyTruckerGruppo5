@@ -11,6 +11,7 @@ import carteAvventura.SpazioAperto;
 import carteAvventura.StazioneAbbandonata;
 import carteAvventura.ZonaDiGuerra;
 import gameLogic.Colore;
+import gameLogic.ConsoleIO;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
@@ -24,9 +25,9 @@ public class TestPlance {
 		PlanceNaveLivello1 s = new PlanceNaveLivello1(Colore.ROSSO);
 		Tessera tessera = GeneratoreTessere.generaTessere();
 		System.out.println(tessera);
-		GestorePlanceNave.agganciaTessera(s, tessera, 2, 3);
-//		s.stampaNave();
-		
+		GestorePlanceNave.agganciaTessera(s, tessera, 3, 3);
+		ConsoleIO inputOutput = new ConsoleIO();
+		inputOutput.stampaNave(s);
 		
 		PlanceVolo p = new PlanceVolo(5, 8, 1, null);
 		PlanceVolo psp = new PlanceVolo(5, 8, 1, null);
