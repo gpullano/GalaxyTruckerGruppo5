@@ -11,6 +11,7 @@ import eccezioni.NumeroNonValidoException;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
+import tessere.Cabina;
 import tessere.Tessera;
 
 public class ConsoleIO {
@@ -481,8 +482,41 @@ public class ConsoleIO {
 		System.out.println("-----FASE DI PREPARAZIONE AL DECOLLO-----");
 	}
 	
+	public void posizionamentoAlieni() {
+		System.out.println("POSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
+	}
 	
 	
+	public boolean chiediSePosizionareAlieno(String domanda) {
+		//inputValido non verra' mai modificata in quanto appena si inserisce un input
+		//valido la funzione ritorna un valore e torna al chiamante.
+		boolean inputValido = false;
+		String scelta;
+		while(!inputValido) {
+			System.out.println(domanda);
+			System.out.println("PREMI:");
+			System.out.println("si - posiziona l'alieno");
+			System.out.println("no - riempi la cabina con equipaggio");
+			try {
+				scelta = sc.nextLine().trim();
+				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
+					!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
+					throw new IllegalArgumentException("scelta non valida, reinseriscila.");
+				}
+				
+				if(scelta.equalsIgnoreCase("si") || scelta.equalsIgnoreCase("s")) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (IllegalArgumentException e){
+				System.err.println(e.getMessage());
+			}
+			
+		}
+		//punto di codice irraggiungibile
+		return false;
+	}
 	
 	
 	

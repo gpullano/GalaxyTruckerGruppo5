@@ -34,6 +34,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private List<Merci> merciNave;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
+	/*Gli alieni sono un attributo boolean perché se ce n'e' uno non ce ne possono essere
+	*altri. In questo caso il controllo diventa piu' rapido e gestibile con un booleano.*/
 	private boolean haAlienoViola;
 	private boolean haAlienoMarrone;
 
@@ -226,12 +228,12 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}
 	}
 	
-	//TODO - valutare se serve
+	//TODO - gestirne meglio la logica
 	public void calcolaEquipaggio() {
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Cabina cabina) {
-					this.equipaggioTotale += cabina.getEquipaggio() + cabina.getAlieni();
+					this.equipaggioTotale += cabina.getEquipaggio();
 				} else if(this.caselle[i][j].getTessera() instanceof CabinaCentrale cabinaCentrale) {
 					this.equipaggioTotale += cabinaCentrale.getEquipaggio();
 				}

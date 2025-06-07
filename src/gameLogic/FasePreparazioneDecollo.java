@@ -72,17 +72,23 @@ public class FasePreparazioneDecollo extends Fase {
 	public void posizionaAlieniEdEquipaggio(Giocatore giocatore) {
 		Casella[][] caselle = giocatore.getPlanceNave().getCaselle();
 		OpzioniSupportoVitale opzioniSupportoVitale;
+		this.getInputOutput().posizionamentoAlieni();
 		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
 			for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
-				if(caselle[i][j].getTessera() instanceof Cabina) {
+				if(caselle[i][j].getTessera() instanceof Cabina cabina) {
 					opzioniSupportoVitale = supportoIntornoCabina(caselle, i, j);
 					
 					switch(opzioniSupportoVitale) {
 						case SUPPORTO_VITALE_VIOLA:{
 							//Il giocatore non ha nessun alieno viola?
-							if(!giocatore.getPlanceNave().HaAlienoViola()) {
-								giocatore.getPlanceNave().setHaAlienoViola(true);
-								//TODO 
+							if (!giocatore.getPlanceNave().HaAlienoViola()) {
+							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno viola?");
+							    if (vuolePiazzare) {
+							        cabina.setAlienoViola(true);
+							        giocatore.getPlanceNave().setHaAlienoViola(true);
+							    } else {
+							        cabina.setEquipaggio();
+							    }
 							}
 							
 							break;
@@ -90,14 +96,20 @@ public class FasePreparazioneDecollo extends Fase {
 						
 						case SUPPORTO_VITALE_MARRONE:{
 							//Il giocatore non ha nessun alieno marrone?
-							if(!giocatore.getPlanceNave().HaAlienoMarrone()) {
-								giocatore.getPlanceNave().setHaAlienoMarrone(true);
-								//TODO
+							if (!giocatore.getPlanceNave().HaAlienoMarrone()) {
+							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno viola?");
+							    if (vuolePiazzare) {
+							        cabina.setAlienoMarrone(true); 
+							        giocatore.getPlanceNave().setHaAlienoMarrone(true);;
+							    } else {
+							        cabina.setEquipaggio();
+							    }
 							}
 							break;
 						}
 						
 						case NESSUN_SUPPORTO:{
+							cabina.setEquipaggio();
 							giocatore.getPlanceNave().aggiungiEquipaggio(Cabina.getNumEquipaggio());
 							break;
 						}
@@ -119,10 +131,12 @@ public class FasePreparazioneDecollo extends Fase {
 	        //Verifico che i lati adiacenti siano compresi nella matrice
 	        if (rigaVicino >= 0 && rigaVicino < PlanceNaveLivello1.getNumRighe() &&
 	            colonnaVicino >= 0 && colonnaVicino < PlanceNaveLivello1.getNumColonne()) {
-
+	        		
+	        	//Trovo un supporto viola
 	        	if(caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleViola) {
 	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_VIOLA;
 	        		
+	        	//Trovo un supporto marrone
 	        	} else if (caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleMarrone) {
 	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_MARRONE;
 	        	}
