@@ -518,6 +518,63 @@ public class ConsoleIO {
 		return false;
 	}
 	
+	public boolean chiediSeAzionareMotoriDoppi(String domanda) {
+		boolean inputValido = false;
+		String scelta;
+		while(!inputValido) {
+			System.out.println(domanda);
+			System.out.println("PREMI:");
+			System.out.println("si - voglio azionare i motori doppi");
+			System.out.println("no - non voglio azionare i motori doppi");
+			try {
+				scelta = sc.nextLine().trim();
+				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
+					!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
+					throw new IllegalArgumentException("scelta non valida, reinseriscila.");
+				}
+				
+				if(scelta.equalsIgnoreCase("si") || scelta.equalsIgnoreCase("s")) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (IllegalArgumentException e){
+				System.err.println(e.getMessage());
+			}
+			
+		}
+	
+		return false;
+	}
+	public boolean chiediSeAzionareCannoniDoppi(String domanda) {
+		boolean inputValido = false;
+		String scelta;
+		while(!inputValido) {
+			System.out.println(domanda);
+			System.out.println("PREMI:");
+			System.out.println("si - voglio azionare i cannoni doppi");
+			System.out.println("no - non voglio azionare i cannoni doppi");
+			try {
+				scelta = sc.nextLine().trim();
+				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
+					!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
+					throw new IllegalArgumentException("scelta non valida, reinseriscila.");
+				}
+				
+				if(scelta.equalsIgnoreCase("si") || scelta.equalsIgnoreCase("s")) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (IllegalArgumentException e){
+				System.err.println(e.getMessage());
+			}
+			
+		}
+	
+		return false;
+	}
+		
 	
 	
 	
