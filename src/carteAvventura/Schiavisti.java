@@ -1,5 +1,6 @@
 package carteAvventura;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -61,9 +62,27 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		// TODO Auto-generated method stub
-		
-	}
-
+		int i = 0;
+		boolean schiavistiSconfitti = false;
+		boolean giorniVolo = false;
+		while(i < giocatore.size() || !schiavistiSconfitti) {
+			Giocatore giocatoreCorrente = giocatore.get(i);
+			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
+			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.potenzaFuoco) {
+				//giorniVolo = inputOutput.chideSeVuolePerdereGiorniVolo(giocatoreCorrente); TODO
+				if (giorniVolo == true) {
+					giocatoreCorrente.aggiungiCrediti(this.creditiCosmici);
+					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
+				} 
+				schiavistiSconfitti = true;
+			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() <= this.potenzaFuoco){
+				giocatoreCorrente.getPlanceNave().aggiungiEquipaggio(this.equipaggioPerso);
+				
+			}	
+				
+			
+			}
+				i++;
+		}
 
 }

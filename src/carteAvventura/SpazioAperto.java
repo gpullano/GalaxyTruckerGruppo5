@@ -30,8 +30,10 @@ public class SpazioAperto extends Carta {
 		int i=0;
 		while(i<giocatore.size()) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
+			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
+			
 			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() == 0) {
-				//TODO implementare l'abbandono nave
+				giocatoreCorrente.abbandonaPartita();
 			} else {
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(giocatoreCorrente.getPlanceNave().getPotenzaFuoco());
 				}
