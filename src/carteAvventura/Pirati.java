@@ -1,4 +1,5 @@
 package carteAvventura;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import dadiEClessidra.Dadi;
@@ -68,31 +69,40 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		
 		int i=0;
 		boolean piratisconfitti=false;
-		Giocatore giocatoriSconfitti[]=new Giocatore[4];
+		List<Giocatore> giocatoriSconfitti=new ArrayList();
 		while(i<giocatore.size()||!piratisconfitti) {
 			// controllare se la potenza fuoco dei pirati è maggiore
 			if (giocatore.get(i).getPlanceNave().getPotenzaFuoco()<this.potenzaFuoco) {
-				// aggiungo nell'array nella posizione i-esima il giocatore sconfitto 
-				giocatoriSconfitti[i]= giocatore.get(i);
+				// aggiungo nella lista nella posizione i-esima il giocatore sconfitto 
+				giocatoriSconfitti.add(giocatore.get(i));
 				
 			}else {
+				piratisconfitti=true;
+				// ottieni tot crediti cosmici 
 				giocatore.get(i).aggiungiCrediti(this.creditiCosmici);
+				// perdi giorni di volo 
+				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(getGiorniVoloPersi());
 				
 			}
 			i++;
 		}
-		// finito il ciclo ottengo l'array di chi è stato sconfitto per cui faccio tirare i dadi al primo così che si sa dove spareranno i pirati 
-		if(giocatoriSconfitti.length==0) {
+		// finito il ciclo ottengo la lista di chi è stato sconfitto per cui faccio tirare i dadi così che si sa dove spareranno i pirati 
+		if(giocatoriSconfitti.isEmpty()) {
 			// nessuno è stato sconfitto
 		}else {
 			// faccio lanciare i dadi per capire dove colpire 
-			int direzione=dadi.lancia();+
-			// colpisco i giocatori presenti nell'array
+			int direzione=dadi.lancia();
+			// colpisco i giocatori presenti nella lista 
+			for (int j=0;j<giocatoriSconfitti.size();j++) {
+				// sparare al giocatore j-esimo 
+		//		giocatoriSconfitti.get(j).getPlanceNave().
+				
+			}
 			
 		}
 		
 		
-		// se è maggiore li sconfiggi e ottieni ricompensa, affrontarli costa perdita giorni di volo
+		//
 		
 	}
 
