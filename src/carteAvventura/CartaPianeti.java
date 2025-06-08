@@ -42,12 +42,12 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 		
 		for (int i = 0; i < pianeti.length; i++) {
 			sb.append("- Pianeta ").append(i + 1).append(":\n");
-			collezionabili.Merci[] merci =pianeti[i].getMerciPianeta();
+			Merci[] merci =pianeti[i].getMerciPianeta();
 			
 			if (merci.length == 0) {
 				sb.append("  - Nessuna merce\n");
 			} else {
-				for (collezionabili.Merci merce : merci) {
+				for (Merci merce : merci) {
 					sb.append("  - Merce di colore: ").append(merce.getColore()).append("\n");
 				}
         }
@@ -84,7 +84,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 			if (pianetaScelto >= 0) {
 				Giocatore giocatoreCorrente = giocatore.get(i);
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
-			    
+				Merci[] merciAcquisite = pianeti[pianetaScelto].getMerciPianeta();
 				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
 					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
 				} else {
@@ -95,11 +95,6 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 		}
 		
 		
-		int merciGiocatore=giocatore.getPlanceNave().getMerciTotali();
-		int merciPianeta=pianeti[0].getMerciPianeta().length;
-		giocatore.getPlanceNave().setMerciTotali(merciGiocatore+merciPianeta);
-		
-		posizioneGiocatore.aggiornaPosizione(getGiorniVoloPersi(), 18);
 	}
 
 }
