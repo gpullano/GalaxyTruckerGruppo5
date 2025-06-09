@@ -58,6 +58,7 @@ public class ConsoleIO {
 				if(planceNaveLivello1.getCaselle()[r][c].isUtilizzabile()) {
 					if (planceNaveLivello1.getCaselle()[r][c].getTessera() != null) {
 						System.out.print(planceNaveLivello1.getCaselle()[r][c].getTessera().toString());
+						System.out.print("\t\t");
 					} else {
 						System.out.print("▢\t\t");	
 					}
