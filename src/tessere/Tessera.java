@@ -98,7 +98,7 @@ public abstract class Tessera {
 		risultato += sx + nome + dx + "\n";
 		risultato +="    "+ inf;
 
-		return risultato;
+		return nome;
 			 
 	}
 	//method to get the name of every class
