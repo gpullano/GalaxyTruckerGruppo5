@@ -11,8 +11,10 @@ import plance.OpzioniSupportoVitale;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import tessere.Cabina;
+import tessere.Connettore;
 import tessere.SupportoVitaleMarrone;
 import tessere.SupportoVitaleViola;
+import tessere.Tessera;
 
 public class FasePreparazioneDecollo extends Fase {
 	
@@ -118,29 +120,53 @@ public class FasePreparazioneDecollo extends Fase {
 	}
 	
 	public OpzioniSupportoVitale supportoIntornoCabina(Casella[][] caselle, int riga, int colonna) {
-		int numLatiTessera = 4;
-		int[] dr = {-1, 0, 1, 0};
+	    // Array per iterare sui 4 vicini: NORD, EST, SUD, OVEST
+	    int[] dr = {-1, 0, 1, 0};
 	    int[] dc = {0, 1, 0, -1};
 
-	    for (int i = 0; i < numLatiTessera; i++) {
+	    // inizializzo le variabili necessarie
+	    Tessera cabina = caselle[riga][colonna].getTessera();
+	    Tessera tesseraVicina;
+	    Casella casellaVicina;
+	    Connettore connettoreDellaCabina;
+	    Connettore connettoreDelSupporto;
+
+	    // Itera su tutti e 4 i possibili vicini
+	    for (int i = 0; i < 4; i++) {
 	        int rigaVicino = riga + dr[i];
 	        int colonnaVicino = colonna + dc[i];
 
-	        //Verifico che i lati adiacenti siano compresi nella matrice
+	        // 1. Controlla se il vicino è dentro i limiti della plancia
 	        if (rigaVicino >= 0 && rigaVicino < PlanceNaveLivello1.getNumRighe() &&
 	            colonnaVicino >= 0 && colonnaVicino < PlanceNaveLivello1.getNumColonne()) {
-	        		
-	        	//Trovo un supporto viola
-	        	if(caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleViola) {
-	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_VIOLA;
-	        		
-	        	//Trovo un supporto marrone
-	        	} else if (caselle[rigaVicino][colonnaVicino].getTessera() instanceof SupportoVitaleMarrone) {
-	        		return OpzioniSupportoVitale.SUPPORTO_VITALE_MARRONE;
-	        	}
+	            
+	            casellaVicina = caselle[rigaVicino][colonnaVicino];
+
+	            // 2. Controlla se il vicino è occupato
+	            if (casellaVicina.getTessera() != null) {
+	                tesseraVicina = casellaVicina.getTessera();
+
+	                // 3. Controlla se il vicino è effettivamente un supporto vitale
+	                if (tesseraVicina instanceof SupportoVitaleViola || tesseraVicina instanceof SupportoVitaleMarrone) {
+	                                      
+	                    // Ottieni i connettori corretti da confrontare usando gli helper di GestorePlanceNave
+	                    connettoreDellaCabina = GestorePlanceNave.getLato(cabina, i);
+	                    connettoreDelSupporto = GestorePlanceNave.getLatoOpposto(tesseraVicina, i);
+	                    
+	                    // 4. Usa il gestore per verificare se la connessione è valida
+	                    if (GestorePlanceNave.possonoConnettersi(connettoreDellaCabina, connettoreDelSupporto)) {
+	                        if (tesseraVicina instanceof SupportoVitaleViola) {
+	                            return OpzioniSupportoVitale.SUPPORTO_VITALE_VIOLA;
+	                        } else {
+	                            return OpzioniSupportoVitale.SUPPORTO_VITALE_MARRONE;
+	                        }
+	                    }
+	                }
 	            }
 	        }
-	    //Se non trovo nessun supporto vitale...
+	    }
+
+	    // Non è stato trovato nessun supporto vitale validamente connesso.
 	    return OpzioniSupportoVitale.NESSUN_SUPPORTO;
 	}
 

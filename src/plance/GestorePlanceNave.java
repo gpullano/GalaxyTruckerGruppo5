@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import carteAvventura.Provenienza;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
 import tessere.Connettore;
@@ -83,7 +84,7 @@ public class GestorePlanceNave {
 	        return false;
 	    }
 
-	    // --- Se tutti i controlli leggeri passano, piazza la tessera ---
+	    
 	    casellaTarget.setTessera(tesseraDaAgganciare);    
 	    return true;
 	}
@@ -173,7 +174,7 @@ public class GestorePlanceNave {
     /**
      * Metodo helper per verificare se due connettori possono connettersi.
      */
-    private static boolean possonoConnettersi(Connettore c1, Connettore c2) {
+    public static boolean possonoConnettersi(Connettore c1, Connettore c2) {
         // Un connettore valido per la connessione è SINGOLO, DOPPIO o UNIVERSALE.
         // Altri tipi (NULLO, CANNONE, MOTORE, etc.) non formano legami.
         if (!isConnettoreDiLegame(c1) || !isConnettoreDiLegame(c2)) {
@@ -387,7 +388,7 @@ public class GestorePlanceNave {
      * Usa la stessa convenzione del resto della classe.
      * 0=NORD, 1=EST, 2=SUD, 3=OVEST
      */
-    private static Connettore getLato(Tessera t, int direzione) {
+    public static Connettore getLato(Tessera t, int direzione) {
         switch (direzione) {
             case 0: return t.getLatoSup();
             case 1: return t.getLatoDx();
@@ -401,7 +402,7 @@ public class GestorePlanceNave {
      * Metodo helper per ottenere il connettore OPPOSsTO di una tessera rispetto 
      * alla direzione data. Es. se la direzione è NORD (0), restituisce il lato SUD (Down).
      */
-    private static Connettore getLatoOpposto(Tessera t, int direzioneDalVicino) {
+    public static Connettore getLatoOpposto(Tessera t, int direzioneDalVicino) {
         switch (direzioneDalVicino) {
             case 0: // Il vicino è a NORD, quindi il suo lato di connessione è quello a SUD (Down)
                 return t.getLatoDown();
@@ -413,5 +414,103 @@ public class GestorePlanceNave {
                 return t.getLatoDx();
             default: throw new IllegalArgumentException("Direzione non valida: " + direzioneDalVicino);
         }
+    }
+    
+    
+    
+    //TODO - aggiungere javadoc
+    public static  Posizione colpisciComponenteDaSopra(PlanceNaveLivello1 planceNave, int colonna) {
+		Casella[][] caselle  = planceNave.getCaselle();
+		//Shift della colonna per allinearla agli indici della nave
+		colonna -= 5;
+		//Fissata la colonna, scorro le righe per cercare componenti da colpire
+		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
+			if(caselle[i][colonna].getTessera() != null) {
+				return new Posizione(i, colonna);
+			}
+		}
+		return null;
+	}
+	public static Posizione colpisciComponenteDaSinistra(PlanceNaveLivello1 planceNave, int riga) {
+		Casella[][] caselle  = planceNave.getCaselle();
+		//Shift della riga per allinearla agli indici della nave
+		riga -= 5;
+		//Fissata la riga, scorro le colonne per cercare componenti da colpire
+		for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
+			if(caselle[riga][j].getTessera() != null) {
+				return new Posizione(riga, j);
+			}
+		}
+		return null;
+	}
+	 public static Posizione colpisciComponenteDaSotto(PlanceNaveLivello1 planciaNave, int colonna) {
+	        Casella[][] caselle = planciaNave.getCaselle();
+	        // Shift della colonna per allinearla agli indici della nave
+	        colonna -= 5;
+	        
+	        // il ciclo for parte dall'ultima riga e va verso la prima.
+	        for (int i = PlanceNaveLivello1.getNumRighe() - 1; i >= 0; i--) {
+	            if (caselle[i][colonna].getTessera() != null) {
+	                // Trovato il primo componente lo restituisco.
+	                return new Posizione(i, colonna);
+	            }
+	        }
+	        return null; // Nessun componente trovato nella colonna.
+	    }
+	 public static Posizione colpisciComponenteDaDestra(PlanceNaveLivello1 planciaNave, int riga) {
+	        Casella[][] caselle = planciaNave.getCaselle();
+	        // Shift della riga per allinearla agli indici della nave
+	        riga -= 5;
+	        
+	        // il ciclo for parte dall'ultima colonna e va verso la prima.
+	        for (int j = PlanceNaveLivello1.getNumColonne() - 1; j >= 0; j--) {
+	            if (caselle[riga][j].getTessera() != null) {
+	                // Trovato il primo componente lo restituisco.
+	                return new Posizione(riga, j);
+	            }
+	        }
+	        return null; // Nessun componente trovato nella riga.
+	    }
+	 
+    
+    /**
+     * Verifica se una tessera in una data posizione ha un lato liscio (NULLO)
+     * esposto nella direzione da cui proviene la minaccia.
+     *
+     * @param nave La plancia della nave.
+     * @param posColpita La posizione della tessera che è stata colpita.
+     * @param provenienza La direzione da cui arriva il proiettile.
+     * @return true se il lato colpito è liscio, false altrimenti.
+     */
+    public static boolean haLatoLiscioEsposto(PlanceNaveLivello1 nave, Posizione posColpita, Provenienza provenienza) {
+        // Ottieni la tessera che si trova nella posizione colpita
+        Tessera tesseraColpita = nave.getCaselle()[posColpita.getRiga()][posColpita.getColonna()].getTessera();
+        
+        // Se per qualche motivo non c'è una tessera, non può avere un lato liscio
+        if (tesseraColpita == null) {
+            return false;
+        }
+
+        Connettore latoColpito = null;
+        
+        // Determina quale lato della tessera è stato effettivamente colpito
+        // in base alla provenienza del proiettile.
+        switch (provenienza) {
+            case SOPRA:
+                latoColpito = tesseraColpita.getLatoSup();
+                break;
+            case SOTTO:
+                latoColpito = tesseraColpita.getLatoDown();
+                break;
+            case DESTRA:
+                latoColpito = tesseraColpita.getLatoDx();
+                break;
+            case SINISTRA:
+                latoColpito = tesseraColpita.getLatoSx();
+                break;
+        }
+        
+        // La difesa ha successo se e solo se il lato colpito è di tipo NULLO.
+        return latoColpito == Connettore.NULLO;
     }
 }
