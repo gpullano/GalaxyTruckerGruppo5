@@ -27,6 +27,7 @@ public class FaseVolo extends Fase {
 
 	}
 	
+	//TODO - vedi se serve
 	public void rimuoviCartaInCima() {
 		this.mazzoDiCarte.remove(0);
 	}

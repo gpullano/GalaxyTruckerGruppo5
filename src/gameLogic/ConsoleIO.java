@@ -595,5 +595,51 @@ public class ConsoleIO {
 	public void pericoloScampato() {
 		System.out.println("Hai scampato il pericolo!");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//-------------------------
+	// Fine del viaggio
+	//-------------------------
+	
+	
+	
+	
+	public void stampaMessaggio(String messaggio) {
+		System.out.println(messaggio);
+	}
+	
+	/**
+	 * Stampa a schermo il risultato finale della partita, gestendo i casi di
+	 * nessun vincitore, vincitore singolo o parità.
+	 *
+	 * @param vincitori La lista dei giocatori che hanno vinto (può essere vuota).
+	 * @param maxCrediti Il punteggio più alto raggiunto.
+	 */
+	public void annunciaVincitore(List<Giocatore> vincitori, int maxCrediti) {
+	    // Caso 1: Nessun vincitore
+	    if (vincitori.isEmpty() || maxCrediti < 1) { 
+	        System.out.println("\nNessun vincitore! Un viaggio fallimentare per tutti.");
+	    } 
+	    // Caso 2: C'è un solo vincitore
+	    else if (vincitori.size() == 1) {
+	        Giocatore vincitore = vincitori.get(0);
+	        System.out.println("\nIL VINCITORE È IL GIOCATORE " + vincitore.getColore().toString().toUpperCase() + "!");
+	    } 
+	    // Caso 3: Ci sono più vincitori in parità
+	    else {
+	        System.out.print("\nC'È UNA PARITÀ! I VINCITORI SONO: ");
+	        for (Giocatore vincitore : vincitori) {
+	            System.out.print("GIOCATORE " + vincitore.getColore().toString().toUpperCase() + " ");
+	        }
+	    }
+	}
 
 }
