@@ -106,29 +106,6 @@ public class PioggiaDiMeteoriti extends Carta {
 	}
 	
 	//TODO - gestire il discorso isOccupata
-	public Posizione colpisciComponenteColonna(PlanceNaveLivello1 planceNave, int colonna) {
-		Casella[][] caselle  = planceNave.getCaselle();
-		//Shift della colonna per allinearla agli indici della nave
-		colonna -= 5;
-		//Fissata la colonna, scorro le righe per cercare componenti da colpire
-		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
-			if(caselle[i][colonna].getTessera() != null) {
-				return new Posizione(i, colonna);
-			}
-		}
-		return null;
-	}
-	public Posizione colpisciComponenteRiga(PlanceNaveLivello1 planceNave, int riga) {
-		Casella[][] caselle  = planceNave.getCaselle();
-		//Shift della riga per allinearla agli indici della nave
-		riga -= 5;
-		//Fissata la riga, scorro le colonne per cercare componenti da colpire
-		for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
-			if(caselle[riga][j].getTessera() != null) {
-				return new Posizione(riga, j);
-			}
-		}
-		return null;
-	}
+	
 
 }
