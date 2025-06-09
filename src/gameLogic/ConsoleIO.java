@@ -71,8 +71,39 @@ public class ConsoleIO {
 			System.out.println();
 		}
 	}
+
 	
-	
+	// print all the tile in our game and the connection type for each tile in the four sides but should we have a fixed connection type for each tile 
+	public static void printTileTable() {
+		String[][] tiles = {
+			{"VanBa", "--", "S", "--", "--"},
+			{"STVV", "U", "D", "--", "S"},
+			{"STVM", "S", "S", "D", "S"},
+			{"Stiva", "--", "S", "S", "U"},
+			{"MotoD", "S", "M2", "S", "--"},
+			{"Motor", "U", "S", "M", "--"},
+			{"ModSt", "S", "--", "S", "--"},
+			{"Scudo", "()", "()", "--", "U"},
+			{"CannD", "C2", "D", "S", "U"},
+			{"CANON", "+", "D", "S", "S"},
+			{"CabCen", "U", "U", "U", "U"},
+			{"CABIN", "S", "S", "D", "S"}
+		};
+
+		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
+		System.out.println("| Tessera                 | Superiore | Destra    | Inferiore | Sinistra  |");
+		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
+
+		for (String[] tile : tiles) {
+			System.out.printf(
+				"| %-24s | %-9s | %-9s | %-9s | %-9s |\n",
+				tile[0], tile[1], tile[2], tile[3], tile[4]
+			);
+		}
+
+		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
+		System.out.println("LEGENDA: U=Universale, D=Doppio, S=Singolo, +=Cannone, M=Motore, C2=CannoneDoppio, M2=MotoreDoppio, ()=Scudo, --=Nullo");
+	}
 	
 	
 	
