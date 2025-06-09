@@ -5,12 +5,13 @@ import java.util.List;
 import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
+import plance.Casella;
 import plance.PlanceVolo;
+import plance.Posizione;
 import plance.PosizioneGiocatore;
 
 public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
-	private final int potenzaFuoco;
 	private final Cannonata cannonata[];
 	private Dadi dadi;
 	
@@ -19,9 +20,11 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		super(livello);
 		this.equipaggioPerso = 0;
 		this.dadi = new Dadi();
-		this.potenzaFuoco = 0;
 		this.cannonata = new Cannonata[2];
-		// TODO Auto-generated constructor stub
+		this.cannonata[0]=new Cannonata(Dimensione.GROSSO,Provenienza.SOTTO);
+		this.cannonata[1]=new Cannonata(Dimensione.PICCOLO,Provenienza.SOTTO);
+		
+		
 	}
 
 
@@ -30,10 +33,6 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	}
 
 
-	public int getPotenzaFuoco() {
-		return potenzaFuoco;
-	}
-	
 	public Cannonata[] getCannonata() {
 		return cannonata;
 	}
@@ -58,7 +57,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		//il giocatore con meno equipaggio perde 3 gg di volo pertanto scorro la lista 
 		// inizializzo il giocatore assumendo che il primo sia quello con meno equipaggio
 		int indicePrimo=0;
-		int giocatoreMinEquipaggio=giocatore.get(indicePrimo).getPlanceNave().getEquipaggioTotale();
+		int giocatoreMinEquipaggio=giocatore.get(0).getPlanceNave().getEquipaggioTotale();
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreIesimo=giocatore.get(i);
 			int equipaggioGiocatoreIesimo=giocatoreIesimo.getPlanceNave().getEquipaggioTotale();
@@ -103,6 +102,36 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 			}
 		}
 		// TODO sparare una cannonata leggera e pesante dal dietro al giocatore con indice 'indiceTerzo'
+		int num=0;
+		Casella[][] caselle;
+		Posizione posizioneColpita;
+		for (int j=0;j<cannonata.length;j++) {
+			Dimensione dimensioneCannonata=this.cannonata[j].getDimensione();
+	//		Provenienza provenienzaCannonata=this.cannonata[j].getProvenienza();		NON SERVE 
+			num=dadi.lancia();
+			caselle=giocatore.get(indiceTerzo).getPlanceNave().getCaselle();
+			switch(dimensioneCannonata) {
+			case GROSSO:{
+				posizioneColpita=GestioneProiettili.colpisciComponenteDaSotto(giocatore.get(indiceTerzo).getPlanceNave(), num);
+				if (posizioneColpita==null) {
+					inputOutput.pericoloScampato();
+				}else {
+					caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+				}
+				break;
+			}
+			case PICCOLO:{
+				
+				
+			}
+			}
+			
+			
+		}
+		
+		
+		
+		
 	}
 
 }
