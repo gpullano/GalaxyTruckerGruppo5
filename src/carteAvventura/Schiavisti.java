@@ -58,7 +58,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		
 		return sb.toString();
 	}
-
+ 
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
