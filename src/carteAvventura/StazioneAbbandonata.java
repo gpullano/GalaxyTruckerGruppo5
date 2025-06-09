@@ -67,7 +67,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		int i = 0;
 		boolean attivata = false;
-		while(i < giocatore.size() || !attivata) {
+		while(i < giocatore.size() && !attivata) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			if (giocatoreCorrente.getPlanceNave().getEquipaggioTotale() >= this.equipaggioRichiesto) {
 				attivata=inputOutput.chiediAttivare(giocatoreCorrente);

@@ -63,7 +63,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 		boolean [] pianetiOccupati = new boolean [pianeti.length];
 		int [] scelteAtterraggio = new int[giocatore.size()];
 		Arrays.fill(scelteAtterraggio, -1);//imposta tutti i pianeti con -1 quindi tutti liberi
-		while(i < giocatore.size() || !attivata) {
+		while(i < giocatore.size() && !attivata) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			attivata=inputOutput.chiediAttivare(giocatoreCorrente);
 				if (attivata) {

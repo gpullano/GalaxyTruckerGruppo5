@@ -65,7 +65,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		int i = 0;
 		boolean schiavistiSconfitti = false;
 		boolean giorniVolo = false;
-		while(i < giocatore.size() || !schiavistiSconfitti) {
+		while(i < giocatore.size() && !schiavistiSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
 			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.potenzaFuoco) {
@@ -76,7 +76,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 				} 
 				schiavistiSconfitti = true;
 			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() <= this.potenzaFuoco){
-				giocatoreCorrente.getPlanceNave().aggiungiEquipaggio(this.equipaggioPerso);
+				giocatoreCorrente.getPlanceNave().aggiungiEquipaggio(-this.equipaggioPerso);
 				
 			}	
 				

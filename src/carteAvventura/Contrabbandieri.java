@@ -76,7 +76,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		int i = 0;
 		boolean contrabbandieriSconfitti = false;
-		while(i < giocatore.size() || !contrabbandieriSconfitti) {
+		while(i < giocatore.size() && !contrabbandieriSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
 			

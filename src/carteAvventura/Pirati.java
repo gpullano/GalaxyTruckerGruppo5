@@ -70,7 +70,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		int i=0;
 		boolean piratisconfitti=false;
 		List<Giocatore> giocatoriSconfitti=new ArrayList();
-		while(i<giocatore.size()||!piratisconfitti) {
+		while(i<giocatore.size()&&!piratisconfitti) {
 			// controllare se la potenza fuoco dei pirati è maggiore
 			if (giocatore.get(i).getPlanceNave().getPotenzaFuoco()<this.potenzaFuoco) {
 				// aggiungo nella lista nella posizione i-esima il giocatore sconfitto 
