@@ -2,6 +2,8 @@ package plance;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import carteAvventura.Provenienza;
 import collezionabili.Merci;
 import gameLogic.Colore;
 import gameLogic.ConsoleIO;
@@ -9,6 +11,8 @@ import tessere.Cabina;
 import tessere.CabinaCentrale;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
+import tessere.Connettore;
+import tessere.GeneratoreScudi;
 import tessere.Motore;
 import tessere.MotoreDoppio;
 import tessere.Tessera;
@@ -271,6 +275,25 @@ public class PlanceNaveLivello1 extends PlanceNave{
 				} 
 			}
 		}
+	}
+	
+	public void utilizzoScudo(Provenienza provenienza) {
+		for(int i = 0; i < NUM_RIGHE; i++) {
+			for(int j = 0; j < NUM_COLONNE; j++) {
+				if(this.caselle[i][j].getTessera() instanceof GeneratoreScudi scudo) {
+					if (provenienza == Provenienza.SOPRA && scudo.getLatoSup() == Connettore.SCUDO) {
+						
+					} else if (provenienza == Provenienza.SOTTO && scudo.getLatoDown() == Connettore.SCUDO) {
+						
+					} else if (provenienza == Provenienza.DESTRA && scudo.getLatoDx() == Connettore.SCUDO) {
+						
+					} else if (provenienza == Provenienza.SINISTRA && scudo.getLatoSx() == Connettore.SCUDO) {
+					}
+				}
+			}
+		}
+
+	
 	}
 	
 	//TODO - valutare una funzione attiva scudo che permette di attivare lo scudo se abbiamo energia
