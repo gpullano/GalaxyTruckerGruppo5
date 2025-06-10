@@ -29,7 +29,7 @@ public class FaseFineDelViaggio extends Fase {
             }
         }
         
-        List<PosizioneGiocatore> posizioniFinali = Arrays.asList(getPlanceVolo().getPosizioneGiocatori());
+        List<PosizioneGiocatore> posizioniFinali = getPlanceVolo().getPosizioneGiocatori();
 
         // 1. RICOMPENSA PER L'ORDINE DI ARRIVO
         assegnaRicompensaArrivo(giocatoriAttivi, posizioniFinali);

@@ -57,7 +57,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 				if (attivata) {
 					giocatore.get(i).getPlanceNave().setEquipaggioTotale(equipaggio-this.equipaggioRichiesto);
 					giocatore.get(i).aggiungiCrediti(this.creditiCosmiciOttenuti);
-					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
+					planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(this.getGiorniVoloPersi());
 				}
 			} else {
 				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatore.get(i).getColore() + " NON hai abbastanza equipaggio"

@@ -113,7 +113,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 				    List<Merci> merciDaCaricare = inputOutput.chiediMerciDaPrendere(Arrays.asList(merciAcquisite), spazioRimanente);
 				    giocatoreCorrente.getPlanceNave().aggiungiMerci(merciDaCaricare);
 				}
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());		
+				planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(this.getGiorniVoloPersi());		
 				contrabbandieriSconfitti = true;
 				
 			//3. Potenza fuoco uguale ai contrabbandieri

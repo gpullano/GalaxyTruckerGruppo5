@@ -78,7 +78,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 			int pianetaScelto = scelteAtterraggio[j];
 			if (pianetaScelto >= 0) {
 				Giocatore giocatoreCorrente = giocatore.get(j);
-				planceVolo.getPosizioneGiocatori()[j].aggiornaPosizione(this.getGiorniVoloPersi());
+				planceVolo.getPosizioneGiocatori().get(j).aggiornaPosizione(this.getGiorniVoloPersi());
 				Merci[] merciAcquisite = pianeti[pianetaScelto].getMerciPianeta();
 				int spazioRimanente = giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale();
 

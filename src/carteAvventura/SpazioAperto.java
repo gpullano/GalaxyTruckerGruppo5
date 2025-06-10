@@ -37,7 +37,7 @@ public class SpazioAperto extends Carta {
 				giocatoreCorrente.abbandonaPartita();
 				inputOutput.stampaMessaggio("Non hai più potenza motori, sei costretto ad abbandonare la corsa");
 			} else {
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(potenzaMotoriGiocatoreCorrente);
+				planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(potenzaMotoriGiocatoreCorrente);
 				inputOutput.stampaMessaggio("Hai una potenza motori pari a " + potenzaMotoriGiocatoreCorrente +
 						", guadagni " + potenzaMotoriGiocatoreCorrente + " giorni di volo.");
 				}

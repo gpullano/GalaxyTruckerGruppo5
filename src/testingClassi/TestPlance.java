@@ -29,8 +29,8 @@ public class TestPlance {
 		ConsoleIO inputOutput = new ConsoleIO();
 		inputOutput.stampaNave(s);
 		
-		PlanceVolo p = new PlanceVolo(5, 8, 1, null);
-		PlanceVolo psp = new PlanceVolo(5, 8, 1, null);
+		PlanceVolo p = new PlanceVolo(5, 8, null);
+		PlanceVolo psp = new PlanceVolo(5, 8, null);
 		p.percorso();
 //		p.stampaVolo();
 		

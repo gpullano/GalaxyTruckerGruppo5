@@ -38,7 +38,7 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 			// se il giocatore ne ha, arretrare quanti connettori esposti ha 
 			if (connettoriEsposti>0) {
 				// tolgo i gg di volo 
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(-connettoriEsposti);
+				planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(-connettoriEsposti);
 				inputOutput.stampaMessaggio("Hai una somma pari a " + connettoriEsposti +
 						", perdi " + connettoriEsposti + " giorni di volo.");
 			}

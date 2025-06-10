@@ -104,7 +104,8 @@ public class GestorePlanceNave {
     public static void gestisciRimozioneOrfani(PlanceNaveLivello1 planceNave) {       
      // Controlla se la cabina esiste ANCORA. Se no, tutta la nave è persa.
     	Casella[][] caselle = planceNave.getCaselle();
-        if (caselle[POSIZIONE_CABINA_CENTRALE.getRiga()][POSIZIONE_CABINA_CENTRALE.getColonna()].getTessera() == null) {
+    	System.out.println(caselle[2][3].getTessera());
+        if (caselle[2][3].getTessera() == null) {
             // Metodo helper per pulire l'intera plancia
             rimuoviTuttaLaNave(planceNave); 
             return; // Esci subito dal metodo

@@ -71,8 +71,8 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 			}
 		}
 		// tolgo 3gg di volo in base a 'indicePrimo' 
-		planceVolo.getPosizioneGiocatori()[indicePrimo].aggiornaPosizione(-3);
-		inputOutput.stampaMessaggio("\nIL GIOCATORE " + planceVolo.getPosizioneGiocatori()[indicePrimo].getColore() + " ha meno equipaggio rispetto agli altri giocatori, PERDE 3 GIORNI DI VOLO.");
+		planceVolo.getPosizioneGiocatori().get(indicePrimo).aggiornaPosizione(-3);
+		inputOutput.stampaMessaggio("\nIL GIOCATORE " + planceVolo.getPosizioneGiocatori().get(indicePrimo).getColore() + " ha meno equipaggio rispetto agli altri giocatori, PERDE 3 GIORNI DI VOLO.");
 		
 		
 		// trovare il giocatore con meno potenza motrice(perde 2 membri dell'equipaggio)

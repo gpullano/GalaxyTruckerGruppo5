@@ -126,6 +126,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						}
 						case TERMINA_ASSEMBLAGGIO:{
+							//TODO - assegna la posizione al giocatore 
 							giocatore.terminaAssemblaggio();
 							numAssemblaggiTerminati++;
 							break;

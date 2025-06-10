@@ -40,7 +40,7 @@ public class VanoBatteria extends Tessera {
 */ 
 	@Override
 	public String getNomeBreve() {
-    	return "VanBa";
+    	return " VanBa ";
 	}
 
 	

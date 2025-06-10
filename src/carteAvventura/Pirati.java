@@ -90,7 +90,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 				// ottieni tot crediti cosmici 
 				giocatore.get(i).aggiungiCrediti(this.creditiCosmici);
 				// perdi giorni di volo 
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(getGiorniVoloPersi());
+				planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(getGiorniVoloPersi());
 				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " Hai una potenza di fuoco maggiore dei Pirati. LI HAI SCONFITTI.");
 
 				

@@ -119,7 +119,17 @@ public class ConsoleIO {
 	    }
 	}
 	
-	
+	//------------------------------------------------------------------
+		// STAMPA NAVE E PLANCIA DI VOLO
+		public void stampaVolo(PlanceVolo planceVolo) {
+			for(int r = 0; r < planceVolo.getCella().length; r++) {
+				for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
+						System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
+					
+				}
+				System.out.println('\n');
+			}
+		}
 	
 	
 	

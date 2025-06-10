@@ -76,7 +76,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 			"ma perdi " + this.getGiorniVoloPersi() + " giorni di volo.");
 				attivata=inputOutput.chiediAttivare(giocatoreCorrente);
 				if (attivata) {
-					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(-this.getGiorniVoloPersi());
+					planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(-this.getGiorniVoloPersi());
 					int spazioRimanente = giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale();
 					if(spazioRimanente >= merciAcquisite.length) {
 						inputOutput.stampaMessaggio("Hai spazio per tutte le merci, sono TUTTE TUE.");

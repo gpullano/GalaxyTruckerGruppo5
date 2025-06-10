@@ -1,31 +1,32 @@
 package plance;
 
+import java.util.ArrayList;
+import java.util.List;
 import gameLogic.Colore;
-import gameLogic.Giocatore;
+
 
 public class PlanceVolo {
 	
-	private Cella cella[][];
-	private PosizioneGiocatore[] posizioneGiocatori;
+	private Cella[][] cella;
+	private List<PosizioneGiocatore> posizioniGiocatori; // Modificato da array a List
 	private static final int LUNGHEZZA_PERCORSO = 18;
 	
-	public PlanceVolo(int riga, int colonna, int numeroGiocatori, Colore colori[]) {
-		this.setCella(new Cella[riga][colonna]);
+	public PlanceVolo(int riga, int colonna, Colore[] colori) {
+		this.cella = new Cella[riga][colonna];
 		
 		for(int r = 0; r < riga; r++) {
 			for(int c = 0; c < colonna; c++) {
-				getCella()[r][c] = new Cella(' ');
-				
+				this.cella[r][c] = new Cella(' ');
 			}
 		}
 
-		
-		posizioneGiocatori = new PosizioneGiocatore[numeroGiocatori];
-	
-		
+		// Inizializza la lista e la popola con le posizioni iniziali dei giocatori
+		this.posizioniGiocatori = new ArrayList<>();
+		for (Colore colore: colori) {
+		    this.posizioniGiocatori.add(new PosizioneGiocatore(0, 0, 0, colore));
+		}
 	}
 	
-	// TODO - da spostare in ConsoleIO
 	public void percorso() {
 		int righe = cella.length;
 		int colonne = cella[0].length;
@@ -53,69 +54,61 @@ public class PlanceVolo {
 		
     }
 	
-	public PosizioneGiocatore[] getPosizioneGiocatori() {
-		return posizioneGiocatori;
+	/**
+	 * Restituisce la lista delle posizioni dei giocatori.
+	 * @return Una List<PosizioneGiocatore>.
+	 */
+	public List<PosizioneGiocatore> getPosizioneGiocatori() {
+		return this.posizioniGiocatori;
 	}
+
+    /**
+     * Trova e restituisce l'oggetto PosizioneGiocatore associato a un dato colore.
+     * @param colore Il colore del giocatore da cercare.
+     * @return L'oggetto PosizioneGiocatore, o null se non trovato.
+     */
+    public PosizioneGiocatore getPosizioneDi(Colore colore) {
+        for (PosizioneGiocatore pos : this.posizioniGiocatori) {
+            if (pos.getColore() == colore) {
+                return pos;
+            }
+        }
+        return null;
+    }
 	
 	public void stampaGiocatori() {
-		for (PosizioneGiocatore p : posizioneGiocatori ) {
+		for (PosizioneGiocatore p : posizioniGiocatori ) {
 			System.out.println(p);
 		}
 	}
 	
-	
-	public void controlloDoppiaggio() {
-		for(int i = posizioneGiocatori.length - 1; i >= 1; i--) {
-			if(posizioneGiocatori[0].getGiro() >= posizioneGiocatori[i].getGiro() && posizioneGiocatori[0].getPosizione() >= posizioneGiocatori[i].getPosizione()) {
-				
-			}
-		}
-		return;
+	/**
+	 * Ordina la lista dei giocatori dalla prima all'ultima posizione.
+	 * Il giocatore più avanti (giro maggiore, o posizione maggiore a parità di giro)
+	 * si troverà all'indice 0 della lista.
+	 */
+	public void ordinaGiocatoriPerPosizione() {
+	    this.posizioniGiocatori.sort((p1, p2) -> {
+	        // Confronta prima i giri. L'ordine è decrescente (p2 vs p1).
+	        int confrontoGiro = Integer.compare(p2.getGiro(), p1.getGiro());
+	        if (confrontoGiro != 0) {
+	            return confrontoGiro;
+	        }
+	        // Se i giri sono uguali, confronta la posizione, sempre in ordine decrescente.
+	        return Integer.compare(p2.getPosizione(), p1.getPosizione());
+	    });
 	}
-	
-	
-	
-	
-	
-	
+
+
 	public Cella[][] getCella() {
 		return cella;
 	}
 
-	public void setCella(Cella cella[][]) {
+	public void setCella(Cella[][] cella) {
 		this.cella = cella;
 	}
-
-	//TODO - se non è necessaria rimuoverla
+	
 	public int getLunghezzaPercorso() {
 		return LUNGHEZZA_PERCORSO;
 	}
-	
-	public void trovaLeader() {
-		int lungh=this.posizioneGiocatori.length;
-		PosizioneGiocatore temp;
-		for (int i=0;i<lungh-1;i++) {
-			for(int j=i+1;j<lungh;j++) {
-				PosizioneGiocatore attuale=this.posizioneGiocatori[i];
-				PosizioneGiocatore dopo=this.posizioneGiocatori[j];
-				if (attuale.getGiro()<dopo.getGiro()) {
-				temp=attuale;
-				attuale=dopo;
-				dopo=temp;
-					 
-				}else if(attuale.getGiro()==dopo.getGiro()) {
-					if (attuale.getPosizione()<dopo.getPosizione()) {
-						temp=attuale;
-						attuale=dopo;
-						dopo=temp;
-					}
-				}
-				
-				
-			}
-		}
-		return;
-		
-	}
-
 }
