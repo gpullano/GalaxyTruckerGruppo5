@@ -62,14 +62,17 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		int giocatoreMinEquipaggio=Integer.MAX_VALUE;
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreIesimo=giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreIesimo.getColore() + " ---");
 			int equipaggioGiocatoreIesimo=giocatoreIesimo.getPlanceNave().getEquipaggioTotale();
 			if (equipaggioGiocatoreIesimo<giocatoreMinEquipaggio) {
 				indicePrimo=i;
 				giocatoreMinEquipaggio = equipaggioGiocatoreIesimo;
+				
 			}
 		}
 		// tolgo 3gg di volo in base a 'indicePrimo' 
 		planceVolo.getPosizioneGiocatori()[indicePrimo].aggiornaPosizione(-3);
+		inputOutput.stampaMessaggio("\nIL GIOCATORE " + planceVolo.getPosizioneGiocatori()[indicePrimo].getColore() + " ha meno equipaggio rispetto agli altri giocatori, PERDE 3 GIORNI DI VOLO.");
 		
 		
 		// trovare il giocatore con meno potenza motrice(perde 2 membri dell'equipaggio)
@@ -85,7 +88,8 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 				giocatoreMinPotenzaMotrice = potenzaMotoriGiocatoreAttuale;
 			}
 		}
-		
+		inputOutput.stampaMessaggio("\nIL GIOCATORE " + giocatore.get(indiceSecondo).getColore() + " ha meno potenza motori rispetto agli altri giocatori, quindi ");
+
 		// tolgo 2 membri dell'equipaggio al giocatore sfortunato 
 		inputOutput.stampaMessaggio("La nave del GIOCATORE " + giocatore.get(indiceSecondo).getColore() + " deve perdere " + 2 + " membri dell'equipaggio!");
 		giocatore.get(indiceSecondo).getPlanceNave().rimuoviMembriEquipaggio(2);
@@ -99,6 +103,9 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 			if (potenzaFuocoGiocatoreKesimo<giocatoreMinPotenzaFuoco) {
 				indiceTerzo=k;
 				giocatoreMinPotenzaFuoco = potenzaFuocoGiocatoreKesimo;
+				inputOutput.stampaMessaggio("\nIL GIOCATORE " + giocatore.get(indiceTerzo).getColore() + " ha meno potenza di fuoco rispetto agli altri giocatori, la tua nave verrà minacciata da una cannonata leggiera e da una cannonata pesante da dietro ");
+
+				
 			}
 		}
 		

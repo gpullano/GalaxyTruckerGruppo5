@@ -31,15 +31,19 @@ public class SpazioAperto extends Carta {
 		int i=0;
 		while(i<giocatore.size()) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreCorrente.getColore() + " ---");
 			int potenzaMotoriGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaMotori(inputOutput);
 			if (potenzaMotoriGiocatoreCorrente == 0) {
 				giocatoreCorrente.abbandonaPartita();
+				inputOutput.stampaMessaggio("Non hai più potenza motori, sei costretto ad abbandonare la corsa");
 			} else {
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(potenzaMotoriGiocatoreCorrente);
+				inputOutput.stampaMessaggio("Hai una potenza motori pari a " + potenzaMotoriGiocatoreCorrente +
+						", guadagni " + potenzaMotoriGiocatoreCorrente + " giorni di volo.");
 				}
 			
 			i++;
-		}
+		} 
 		
 	}
 

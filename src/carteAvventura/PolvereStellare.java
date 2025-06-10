@@ -32,12 +32,15 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 		// uso un ciclo for 
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreAttuale=giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreAttuale.getColore() + " ---");
 			PlanceNaveLivello1 planceGiocatore=giocatoreAttuale.getPlanceNave();
 			int connettoriEsposti=GestorePlanceNave.contaConnettoriEsposti(planceGiocatore);
 			// se il giocatore ne ha, arretrare quanti connettori esposti ha 
 			if (connettoriEsposti>0) {
 				// tolgo i gg di volo 
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(-connettoriEsposti);
+				inputOutput.stampaMessaggio("Hai una somma pari a " + connettoriEsposti +
+						", perdi " + connettoriEsposti + " giorni di volo.");
 			}
 		}
 	}

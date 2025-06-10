@@ -76,10 +76,14 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		List<Giocatore> giocatoriSconfitti=new ArrayList<>();
 		while(i<giocatore.size()&&!piratisconfitti) {
 			// controllare se la potenza fuoco dei pirati è maggiore
-			int potenzaDiFuocoGiocatoreCorrente = giocatore.get(i).getPlanceNave().getPotenzaFuoco(inputOutput);
+			Giocatore giocatoreCorrente = giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreCorrente.getColore() + " ---");
+			int potenzaDiFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
 			if (potenzaDiFuocoGiocatoreCorrente < this.potenzaFuoco) {
 				// aggiungo nella lista nella posizione i-esima il giocatore sconfitto 
 				giocatoriSconfitti.add(giocatore.get(i));
+				
+				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " Hai una potenza di fuoco minore dei Pirati. TI HANNO SCONFITTO.");
 				
 			}else {
 				piratisconfitti=true;
@@ -87,6 +91,8 @@ public class Pirati extends CartaPerditaGiorniVolo {
 				giocatore.get(i).aggiungiCrediti(this.creditiCosmici);
 				// perdi giorni di volo 
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(getGiorniVoloPersi());
+				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " Hai una potenza di fuoco maggiore dei Pirati. LI HAI SCONFITTI.");
+
 				
 			}
 			i++;
