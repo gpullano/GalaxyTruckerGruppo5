@@ -102,13 +102,11 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 				indiceTerzo=k;
 			}
 		}
-		// TODO sparare una cannonata leggera e pesante dal dietro al giocatore con indice 'indiceTerzo'
 		int num=0;
 		Casella[][] caselle;
 		Posizione posizioneColpita;
 		for (int j=0;j<cannonata.length;j++) {
 			Dimensione dimensioneCannonata=this.cannonata[j].getDimensione();
-	//		Provenienza provenienzaCannonata=this.cannonata[j].getProvenienza();		NON SERVE 
 			num=dadi.lancia();
 			caselle=giocatore.get(indiceTerzo).getPlanceNave().getCaselle();
 			switch(dimensioneCannonata) {
@@ -129,7 +127,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 					inputOutput.pericoloScampato();
 				}else {
 				Casella casellaColpita=caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()];
-				// se usa lo scudo if (scudo attivato ) { tutto ok} else {
+				// TODO se usa lo scudo if (scudo attivato ) { tutto ok} else {
 				caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
 				GestorePlanceNave.gestisciRimozioneOrfani(giocatore.get(indiceTerzo).getPlanceNave());
 				break;
