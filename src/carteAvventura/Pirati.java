@@ -5,7 +5,10 @@ import java.util.Random;
 import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
+import plance.Casella;
+import plance.GestorePlanceNave;
 import plance.PlanceVolo;
+import plance.Posizione;
 import plance.PosizioneGiocatore;
 public class Pirati extends CartaPerditaGiorniVolo {
 	private final int potenzaFuoco;
@@ -66,7 +69,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		
+		Casella[][] caselle = null;
 		int i=0;
 		boolean piratisconfitti=false;
 		List<Giocatore> giocatoriSconfitti=new ArrayList();
@@ -90,12 +93,60 @@ public class Pirati extends CartaPerditaGiorniVolo {
 		if(giocatoriSconfitti.isEmpty()) {
 			// nessuno è stato sconfitto
 		}else {
-			// faccio lanciare i dadi per capire dove colpire 
+			// faccio lanciare i dadi per capire dove colpire, tutti i colpi si baseranno su questo lancio
 			int direzione=dadi.lancia();
+			Posizione posizioneColpita=null;
 			// colpisco i giocatori presenti nella lista 
 			for (int j=0;j<giocatoriSconfitti.size();j++) {
 				// sparare al giocatore j-esimo 
-		
+				
+				Giocatore giocatoreColpito=giocatoriSconfitti.get(j);
+				// la sua nave ora verrà colpita da tutte le cannonate dei pirati
+				for (int k=0;k<cannonate.length;k++) {
+					// devo distinguere il caso GROSSO e PICCOLO e da dove proviene
+					Dimensione dimensioneCannonata=this.cannonate[k].getDimensione();
+					Provenienza provenienzaCannonata=this.cannonate[k].getProvenienza();
+					// switch in base alla provenienza
+					switch (provenienzaCannonata) {
+					case SOPRA:{
+						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSopra(giocatoreColpito.getPlanceNave(), direzione);
+						break;
+					}
+					case SOTTO:{
+						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSotto(giocatoreColpito.getPlanceNave(), direzione);
+						break;
+					}
+					case DESTRA:{
+						posizioneColpita=GestorePlanceNave.colpisciComponenteDaDestra(giocatoreColpito.getPlanceNave(), direzione);
+						break;
+					}
+					case SINISTRA:{
+						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSinistra(giocatoreColpito.getPlanceNave(), direzione);
+						break;
+					}
+					}
+					// applico il danno in base alla dimensione ma prima controllo che effettivamentte ci sia una posisizione da colpire
+					if (posizioneColpita==null) {
+						inputOutput.pericoloScampato();
+					}else {
+						// switch in base alla dimensione
+						switch(dimensioneCannonata) {
+						case GROSSO:{
+							caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+							GestorePlanceNave.gestisciRimozioneOrfani(giocatoreColpito.getPlanceNave());
+							break;
+							}
+						case PICCOLO:{
+							// TODO devo controllare se vuole azionare lo scudo senno è uguale al grosso
+							caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+							GestorePlanceNave.gestisciRimozioneOrfani(giocatoreColpito.getPlanceNave());
+							break;
+						}
+						}
+					}
+					
+					
+				}
 				
 			}
 			

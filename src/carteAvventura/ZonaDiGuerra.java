@@ -129,10 +129,10 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 					inputOutput.pericoloScampato();
 				}else {
 				Casella casellaColpita=caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()];
-				// TODO se usa lo scudo if (scudo attivato ) { tutto ok} else {
+				// se usa lo scudo if (scudo attivato ) { tutto ok} else {
 				caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
 				GestorePlanceNave.gestisciRimozioneOrfani(giocatore.get(indiceTerzo).getPlanceNave());
-				
+				break;
 				}
 			}
 				
@@ -145,5 +145,5 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		
 	}
 
-	}
+}
 }
