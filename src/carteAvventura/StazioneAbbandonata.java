@@ -70,13 +70,19 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 		boolean attivata = false;
 		while(i < giocatore.size() && !attivata) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreCorrente.getColore() + " ---");
 			if (giocatoreCorrente.getPlanceNave().getEquipaggioTotale() >= this.equipaggioRichiesto) {
+				inputOutput.stampaMessaggio("Hai un numero di astronauti sufficienti. Puoi scegliere di attivare la carta e prendere le merci" +
+			"ma perdi " + this.getGiorniVoloPersi() + " giorni di volo.");
 				attivata=inputOutput.chiediAttivare(giocatoreCorrente);
 				if (attivata) {
 					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(-this.getGiorniVoloPersi());
-					if(giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale() >= merciAcquisite.length) {
+					int spazioRimanente = giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale();
+					if(spazioRimanente >= merciAcquisite.length) {
+						inputOutput.stampaMessaggio("Hai spazio per tutte le merci, sono TUTTE TUE.");
 						giocatoreCorrente.getPlanceNave().aggiungiMerci(Arrays.asList(merciAcquisite));
 					} else {
+						inputOutput.stampaMessaggio("NON hai abbastanza spazio per tutte le merci. Puoi caricarne solo " + spazioRimanente + ".");
 						List<Merci> merciDaCaricare = inputOutput.chiediMerciDaPrendere(Arrays.asList(merciAcquisite), giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale());
 						giocatoreCorrente.getPlanceNave().aggiungiMerci(merciDaCaricare);
 					}

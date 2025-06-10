@@ -74,9 +74,8 @@ public class FaseFineDelViaggio extends Fase {
         for (Giocatore giocatore : giocatori) {
             valoreTotaleMerci = 0;
 
-            //TODO
-            for (Merci merce : giocatore.getPlanceNave().getMerciNave()) {
-//                valoreTotaleMerci += merce.getValore(); 
+            for (Merci merce : giocatore.getPlanceNave().getTutteLeMerciABordo()) {
+                valoreTotaleMerci += merce.getValore(); 
             }
             
             //il valore viene arrotondato per difetto

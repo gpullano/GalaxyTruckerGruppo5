@@ -64,7 +64,7 @@ public class PioggiaDiMeteoriti extends Carta {
 
 	        // Per ogni meteorite, colpisci tutti i giocatori
 	        for (Giocatore giocatore : giocatori) {
-	            inputOutput.stampaMessaggio("\n--- Turno di " + giocatore.getColore() + " ---");
+	            inputOutput.stampaMessaggio("\n--- Turno del GIOCATORE " + giocatore.getColore() + " ---");
 
 	            // 1. Trova dove colpisce il meteorite
 	            Posizione posColpita = GestorePlanceNave.trovaComponenteColpito(giocatore.getPlanceNave(), meteoriteCorrente.getProvenienza(), risultatoLancioDadi);

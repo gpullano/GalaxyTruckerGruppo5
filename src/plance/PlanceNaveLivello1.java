@@ -34,14 +34,12 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	private static final int NUM_TESSERE_PRENOTABILI = 2;
     
-	//TODO - aggiungere lati coperti dai cannoni e lati coperti dallo scudo.
 	private int pilaScarti;
 	private int potenzaFuoco;
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int batterieTotali;
-//	private int merciTotali;
-//	private List<Merci> merciNave;
+	//TODO - serve?
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
 	/*Gli alieni sono un attributo boolean perché se ce n'e' uno non ce ne possono essere
@@ -60,8 +58,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaFuoco = 0;
 		this.potenzaMotori = 0;
 		this.batterieTotali = 0;
-//		this.setMerciTotali(0);
-//		this.merciNave = new LinkedList<>();
 		this.componenteAgganciato = false;
 		this.spazioTesserePrenotate = new LinkedList<>();
 		this.caselle[2][3].setTessera(new CabinaCentrale(colore));

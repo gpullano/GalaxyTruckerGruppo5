@@ -3,34 +3,41 @@ package collezionabili;
 import gameLogic.Colore;
 
 /**
-*rappresenta una merce con un colore associato.
-*/
-
+ * Rappresenta una merce con un colore associato.
+ */
 public class Merci {
-	private Colore colore;
+    private Colore colore;
 
-/**
-*costruttore della classe merci
-*@param colore il colore della merce
-*/
-	public Merci (Colore colore) {
-		this.setColore(colore);
-	}
+    /**
+     * Costruttore della classe merci.
+     * @param colore il colore della merce.
+     */
+    public Merci(Colore colore) {
+        this.setColore(colore);
+    }
 
-/**
-*restituisce il colore della merce
-*@return colore associato alla merce
-*/
-	public Colore getColore() {
-		return colore;
-	}
+    /**
+     * Restituisce il colore della merce.
+     * @return colore associato alla merce.
+     */
+    public Colore getColore() {
+        return colore;
+    }
 
-/**
-*imposta il colore della merce.
-*@param colore il nuovo colore asociato alla merce.
-*/
-	public void setColore(Colore colore) {
-		this.colore = colore;
-	}
-	
+    /**
+     * Imposta il colore della merce.
+     * @param colore il nuovo colore associato alla merce.
+     */
+    public void setColore(Colore colore) {
+        this.colore = colore;
+    }
+    
+    /**
+     * Restituisce il valore in crediti di questa merce, basato sul suo colore.
+     * @return il valore della merce.
+     */
+    public int getValore() {
+        // Se il colore non è nullo, restituisce il suo valore, altrimenti 0.
+        return (this.colore != null) ? this.colore.getValore() : 0;
+    }
 }

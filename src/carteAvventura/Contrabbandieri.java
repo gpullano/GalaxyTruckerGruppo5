@@ -79,31 +79,47 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		boolean contrabbandieriSconfitti = false;
 		while(i < giocatore.size() && !contrabbandieriSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del GIOCATORE " + giocatoreCorrente.getColore() + " ---");
+			
+			int merciNaveCorrente = giocatoreCorrente.getPlanceNave().getTutteLeMerciABordo().size();
 			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
+			
+			//1. Potenza fuoco minore dei contrabbandieri
 			if (potenzaFuocoGiocatoreCorrente < this.fuocoNemico) {
-				if(giocatoreCorrente.getPlanceNave().getMerciNave().size() >= this.merciRimosse) {
-					giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(this.merciRimosse));
-			      }
-					
-			} else if (potenzaFuocoGiocatoreCorrente > this.fuocoNemico){
-				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
-					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
+				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatoreCorrente.getColore() + " Hai potenza di fuoco MINORE DEI " +
+						"contrabbandieri. TI HANNO SCONFITTO! :("); 
+				if (merciNaveCorrente > 0) {
+				    // Calcola quante merci possono essere effettivamente rubate
+				    int daRimuovere = Math.min(this.merciRimosse, merciNaveCorrente);
+				    giocatoreCorrente.getPlanceNave().rimuoviMerci(daRimuovere);
+				    inputOutput.stampaMessaggio("Ti sono state rubate " + daRimuovere + " merci.");
 				} else {
-					inputOutput.chiediMerciDaPrendere();
+				    // Gestisci il caso in cui non ci sono merci da rubare
+				    inputOutput.stampaMessaggio("Non hai merci, i contrabbandieri se ne vanno a mani vuote!");
+				}
+			
+			//2. Potenza fuoco maggiore dei contrabbandieri
+			} else if (potenzaFuocoGiocatoreCorrente > this.fuocoNemico){
+				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatoreCorrente.getColore() + " Hai potenza di fuoco MAGGIORE DEI " +
+						"contrabbandieri. LI HAI SCONFITTI! :O");
+				int spazioRimanente = giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale();
+
+				if (spazioRimanente >= merciAcquisite.length) {
+				    inputOutput.stampaMessaggio("Hai spazio per tutte le merci, sono TUTTE TUE.");
+				    giocatoreCorrente.getPlanceNave().aggiungiMerci(Arrays.asList(merciAcquisite));	
+				} else {
+				    inputOutput.stampaMessaggio("NON hai abbastanza spazio per tutte le merci. Puoi caricarne solo " + spazioRimanente + ".");
+				    // Passa lo spazio rimanente per far sapere al giocatore quante può sceglierne
+				    List<Merci> merciDaCaricare = inputOutput.chiediMerciDaPrendere(Arrays.asList(merciAcquisite), spazioRimanente);
+				    giocatoreCorrente.getPlanceNave().aggiungiMerci(merciDaCaricare);
 				}
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());		
 				contrabbandieriSconfitti = true;
-			
-			} else if(potenzaFuocoGiocatoreCorrente == this.fuocoNemico) {
 				
-				
-				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
-						giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(merciRimosse));//TODO
-					} else {
-						inputOutput.chiediMerciDaPrendere();
-					}
-					
-			
+			//3. Potenza fuoco uguale ai contrabbandieri
+			} else {
+				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatoreCorrente.getColore() + " Hai potenza di fuoco UGUALE ai " +
+			"contrabbandieri. Non ti succede nulla e i contrabbandieri vanno avanti ad attaccare."); 
 			}
 				i++;
 		}

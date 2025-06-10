@@ -31,12 +31,11 @@ public class SpazioAperto extends Carta {
 		int i=0;
 		while(i<giocatore.size()) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
-			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
-			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
-			if (potenzaFuocoGiocatoreCorrente == 0) {
+			int potenzaMotoriGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaMotori(inputOutput);
+			if (potenzaMotoriGiocatoreCorrente == 0) {
 				giocatoreCorrente.abbandonaPartita();
 			} else {
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(potenzaFuocoGiocatoreCorrente);
+				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(potenzaMotoriGiocatoreCorrente);
 				}
 			
 			i++;

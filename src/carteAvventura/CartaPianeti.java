@@ -58,6 +58,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 	
 
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i = 0;
 		boolean [] pianetiOccupati = new boolean [pianeti.length];
 		int [] scelteAtterraggio = new int[giocatore.size()];
@@ -79,10 +80,16 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 				Giocatore giocatoreCorrente = giocatore.get(j);
 				planceVolo.getPosizioneGiocatori()[j].aggiornaPosizione(this.getGiorniVoloPersi());
 				Merci[] merciAcquisite = pianeti[pianetaScelto].getMerciPianeta();
-				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
-					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
+				int spazioRimanente = giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale();
+
+				if (spazioRimanente >= merciAcquisite.length) {
+				    inputOutput.stampaMessaggio("Hai spazio per tutte le merci, sono TUTTE TUE.");
+				    giocatoreCorrente.getPlanceNave().aggiungiMerci(Arrays.asList(merciAcquisite));	
 				} else {
-					inputOutput.chiediMerciDaPrendere();
+				    inputOutput.stampaMessaggio("NON hai abbastanza spazio per tutte le merci. Puoi caricarne solo " + spazioRimanente + ".");
+				    // Passa lo spazio rimanente per far sapere al giocatore quante può sceglierne
+				    List<Merci> merciDaCaricare = inputOutput.chiediMerciDaPrendere(Arrays.asList(merciAcquisite), spazioRimanente);
+				    giocatoreCorrente.getPlanceNave().aggiungiMerci(merciDaCaricare);
 				}
 			}
 			

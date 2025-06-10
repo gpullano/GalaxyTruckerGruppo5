@@ -70,15 +70,19 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
 			if (potenzaFuocoGiocatoreCorrente > this.potenzaFuoco) {
+				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " Hai una potenza di fuoco maggiore degli schiavisti. LI HAI SCONFITTI.");
 				vuolePerderegiorniVolo = inputOutput.chiediSeEseguireAzione("Vuoi perdere " + this.getGiorniVoloPersi() + " di volo?");
 				if (vuolePerderegiorniVolo) {
 					giocatoreCorrente.aggiungiCrediti(this.creditiCosmici);
 					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
 				} 
 				schiavistiSconfitti = true;
-			} else{
-				giocatoreCorrente.getPlanceNave().aggiungiEquipaggio(-this.equipaggioPerso);
-			}	
+			} else if(potenzaFuocoGiocatoreCorrente < this.potenzaFuoco){
+				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " gli schiavisti TI HANNO SCONFITTO. Tocca dare in ostaggio qualcuno dei tuoi...");
+				giocatoreCorrente.getPlanceNave().rimuoviMembriEquipaggio(2);
+			} else {
+				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + "NON succede nulla, potenza di fuoco pari a quella degli schiavisti.");
+			}
 				
 			i++;
 			}
