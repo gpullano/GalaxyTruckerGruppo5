@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import carteAvventura.Dimensione;
+import carteAvventura.Meteorite;
 import carteAvventura.Provenienza;
+import carteAvventura.RisultatoImpatto;
+import gameLogic.ConsoleIO;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
 import tessere.Connettore;
@@ -512,5 +516,71 @@ public class GestorePlanceNave {
         
         // La difesa ha successo se e solo se il lato colpito è di tipo NULLO.
         return latoColpito == Connettore.NULLO;
+    }
+    
+    
+    /**
+     * Metodo principale che gestisce l'impatto di un meteorite su una nave.
+     * Contiene tutta la logica di difesa e distruzione.
+     *
+     * @param nave La plancia della nave colpita.
+     * @param meteorite L'oggetto meteorite.
+     * @param posColpita La posizione del componente colpito.
+     * @param inputOutput Per chiedere al giocatore se vuole usare lo scudo.
+     * @return Un RisultatoImpatto che descrive l'esito.
+     */
+    public static RisultatoImpatto gestisciImpattoMeteorite(PlanceNaveLivello1 nave, Meteorite meteorite, Posizione posColpita, ConsoleIO inputOutput) {
+        // Se non c'è una posizione, il meteorite ha mancato la nave.
+        if (posColpita == null) {
+            return RisultatoImpatto.MANCATO;
+        }
+
+        // Logica per meteorite PICCOLO
+        if (meteorite.getDimensione() == Dimensione.PICCOLO) {
+            // 1. Controlla se il lato colpito è un lato liscio
+            if (haLatoLiscioEsposto(nave, posColpita, meteorite.getProvenienza())) {
+                return RisultatoImpatto.SALVATO_DA_LATO_LISCIO;
+            }
+            // 2. Se non ha un lato liscio chiede se ci sono scudi per coprire e chiede se attivarli
+            if (nave.utilizzoScudo(meteorite.getProvenienza()) && nave.haBatterie()) {
+                boolean vuoleUsareScudo = inputOutput.chiediSeAzionareComponente("Un meteorite piccolo sta per colpire un lato non protetto. Vuoi usare 1 batteria per attivare lo scudo?");
+                if (vuoleUsareScudo) {
+                    nave.aggiungiEnergia(-1); // Consuma la batteria
+                    return RisultatoImpatto.SALVATO_DA_SCUDO;
+                }
+            }
+        } 
+        // Logica per meteorite GROSSO
+        else if (meteorite.getDimensione() == Dimensione.GROSSO) {
+            // TODO: Aggiungere logica per chiedere al giocatore se vuole usare cannoni doppi (che consumano energia)
+//            if (puoSparareAMeteoriteGrosso(nave, posColpita, meteorite.getProvenienza())) {
+//                return RisultatoImpatto.SALVATO_DA_CANNONE;
+//            }
+        }
+
+        // Se nessuna difesa ha funzionato, il componente viene distrutto.
+        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + posColpita + " è stato distrutto.");
+        distruggiComponente(nave, posColpita);
+        return RisultatoImpatto.DISTRUTTO;
+    }
+
+    //metodo per la rimozione del componente e la gestione degli orfani
+    private static void distruggiComponente(PlanceNaveLivello1 nave, Posizione pos) {
+        nave.getCaselle()[pos.getRiga()][pos.getColonna()].setTessera(null);
+        nave.incrementaPilaScarti();
+        // Dopo ogni distruzione, è FONDAMENTALE controllare se si sono create isole.
+        gestisciRimozioneOrfani(nave);
+    }
+
+
+    // helper per trovare la linea colpita
+    public static Posizione trovaComponenteColpito(PlanceNaveLivello1 nave, Provenienza provenienza, int lineaDiImpatto) {
+        switch(provenienza) {
+            case SOPRA: return colpisciComponenteDaSopra(nave, lineaDiImpatto);
+            case SOTTO: return colpisciComponenteDaSotto(nave, lineaDiImpatto);
+            case DESTRA: return colpisciComponenteDaDestra(nave, lineaDiImpatto);
+            case SINISTRA: return colpisciComponenteDaSinistra(nave, lineaDiImpatto);
+            default: return null;
+        }
     }
 }

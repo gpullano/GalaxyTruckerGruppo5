@@ -6,6 +6,7 @@ import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.Casella;
+import plance.GestorePlanceNave;
 import plance.PlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.Posizione;
@@ -49,63 +50,50 @@ public class PioggiaDiMeteoriti extends Carta {
 	//TODO - da completare
 	//Ricordati di chiamare la stampa della carta.
 	public void attiva(List<Giocatore> giocatori, ConsoleIO inputOutput) {
-			Dimensione dimensioneMeteorite;
-			Provenienza provenienzaMeteorite;
-			Posizione posizioneDaColpire;
-			int risultatoLancioDadi;
-			Casella[][] caselle;
-		for(int i = 0; i < numeroMeteoriti; i++) {
-			dimensioneMeteorite = this.meteoriti[i].getDimensione();
-			provenienzaMeteorite = this.meteoriti[i].getProvenienza();
-			risultatoLancioDadi = this.dadi.lancia();
-			//Per ogni meteorite vengono colpiti tutti i giocatori prima di passare al prossimo meteorite.
-			inputOutput.lancioDeiDadi(giocatori.get(0).getColore(), risultatoLancioDadi);
-			for(Giocatore giocatore : giocatori) {
-				caselle = giocatore.getPlanceNave().getCaselle();
-				switch(dimensioneMeteorite) {
-					case GROSSO:{
-						if(provenienzaMeteorite == Provenienza.SOPRA ||
-						   provenienzaMeteorite == Provenienza.SOTTO) {
-							posizioneDaColpire = this.colpisciComponenteColonna(giocatore.getPlanceNave(), risultatoLancioDadi);
-							if(posizioneDaColpire != null) {
-								//TODO - verifica se c'e' un cannone in quella direzione
-								//funzione booleana
-								caselle[posizioneDaColpire.getRiga()][posizioneDaColpire.getColonna()].setTessera(null);
-							} else {
-								inputOutput.pericoloScampato();
-							}
-							
-							
-							//se i controlli falliscono
-							
-						} else {
-							
-						}
-							
-						
-						
-						break;
-					}
-					case PICCOLO:{
-						if(provenienzaMeteorite == Provenienza.SOPRA ||
-						   	provenienzaMeteorite == Provenienza.SOTTO) {
-							//TODO - verifica se lato liscio o se c'e' uno scudo
-							//funzione booleana
-							
-							//se i controlli falliscono
-							
-						} else {
-							
-						}
-						
-						break;
-					}
-					}
-			}
-		}
+	    
+	    inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
+	    
+	    Meteorite meteoriteCorrente;
+	    int risultatoLancioDadi;
+	    // Scorro per ogni meteorite
+	    for (int i = 0; i < numeroMeteoriti; i++) {
+	        meteoriteCorrente = this.meteoriti[i];
+	        risultatoLancioDadi = this.dadi.lancia();
+	        
+	        inputOutput.lancioDeiDadi(giocatori.get(0).getColore(), risultatoLancioDadi);
+
+	        // Per ogni meteorite, colpisci tutti i giocatori
+	        for (Giocatore giocatore : giocatori) {
+	            inputOutput.stampaMessaggio("\n--- Turno di " + giocatore.getColore() + " ---");
+
+	            // 1. Trova dove colpisce il meteorite
+	            Posizione posColpita = GestorePlanceNave.trovaComponenteColpito(giocatore.getPlanceNave(), meteoriteCorrente.getProvenienza(), risultatoLancioDadi);
+
+	            // 2. Delega tutta la logica di impatto e difesa al Gestore
+	            RisultatoImpatto risultato = GestorePlanceNave.gestisciImpattoMeteorite(giocatore.getPlanceNave(), meteoriteCorrente, posColpita, inputOutput);
+
+	            // 3. Stampa il risultato in base a ciò che è successo
+	            switch (risultato) {
+	                case MANCATO:
+	                    inputOutput.pericoloScampato();
+	                    break;
+	                case SALVATO_DA_LATO_LISCIO:
+	                    inputOutput.stampaMessaggio("METEORITE DEVIATO! Ha colpito un lato liscio.");
+	                    break;
+	                case SALVATO_DA_SCUDO:
+	                    inputOutput.stampaMessaggio("METEORITE DEVIATO! Hai attivato uno scudo.");
+	                    break;
+	                case SALVATO_DA_CANNONE:
+	                    inputOutput.stampaMessaggio("METEORITE DISTRUTTO! I tuoi cannoni hanno fatto centro.");
+	                    break;
+	                case DISTRUTTO:
+	                    // Il messaggio di distruzione viene già stampato da GestorePlanceNave
+	                    // Potresti aggiungere un messaggio generico qui se vuoi
+	                    inputOutput.stampaMessaggio("La tua nave ha subito danni!");
+	                    break;
+	            }
+	        }
+	    }
 	}
-	
-	//TODO - gestire il discorso isOccupata
-	
 
 }
