@@ -65,25 +65,23 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i = 0;
 		boolean schiavistiSconfitti = false;
-		boolean giorniVolo = false;
+		boolean vuolePerderegiorniVolo = false;
 		while(i < giocatore.size() && !schiavistiSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
-			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
-			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.potenzaFuoco) {
-				//giorniVolo = inputOutput.chideSeVuolePerdereGiorniVolo(giocatoreCorrente); TODO
-				if (giorniVolo == true) {
+			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
+			if (potenzaFuocoGiocatoreCorrente > this.potenzaFuoco) {
+				vuolePerderegiorniVolo = inputOutput.chiediSeEseguireAzione("Vuoi perdere " + this.getGiorniVoloPersi() + " di volo?");
+				if (vuolePerderegiorniVolo) {
 					giocatoreCorrente.aggiungiCrediti(this.creditiCosmici);
 					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
 				} 
 				schiavistiSconfitti = true;
-			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() <= this.potenzaFuoco){
+			} else{
 				giocatoreCorrente.getPlanceNave().aggiungiEquipaggio(-this.equipaggioPerso);
-				
 			}	
 				
-			
+			i++;
 			}
-				i++;
 		}
 
 }

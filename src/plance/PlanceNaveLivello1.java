@@ -236,7 +236,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 				if(this.caselle[i][j].getTessera() instanceof Cannone cannone) {
 					this.potenzaFuoco += cannone.getSparo();
 				} else if(this.caselle[i][j].getTessera() instanceof CannoneDoppio cannoneDoppio && this.batterieTotali > 0) {
-					cannoniDoppiAttivati = inputOutput.chiediSeAzionareComponente("Vuoi attivare il cannone doppio?");
+					cannoniDoppiAttivati = inputOutput.chiediSeEseguireAzione("Vuoi attivare il cannone doppio?");
 					if (cannoniDoppiAttivati) {
 					this.potenzaFuoco += cannoneDoppio.getSparo();
 					this.batterieTotali--;
@@ -255,7 +255,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 				if(this.caselle[i][j].getTessera() instanceof Motore motore) {
 					this.potenzaMotori += motore.getPotenza();
 				} else if(this.caselle[i][j].getTessera() instanceof MotoreDoppio motoreDoppio && this.batterieTotali > 0) {
-					motoriDoppiAttivati = inputOutput.chiediSeAzionareComponente("Vuoi attivare i motori doppi?");
+					motoriDoppiAttivati = inputOutput.chiediSeEseguireAzione("Vuoi attivare i motori doppi?");
 					if (motoriDoppiAttivati) {
 					this.potenzaMotori += motoreDoppio.getPotenza();
 					this.batterieTotali--;

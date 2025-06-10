@@ -571,10 +571,9 @@ public class ConsoleIO {
 	
 	
 	//TODO - vedi come chiamare con lo stesso nome anche il metodo per gli alieni
-	public boolean chiediSeAzionareComponente(String domanda) {
-		boolean inputValido = false;
+	public boolean chiediSeEseguireAzione(String domanda) {
 		String scelta;
-		while(!inputValido) {
+		while(true) {
 			System.out.println(domanda);
 			System.out.println("PREMI si/no:");
 			try {
@@ -594,8 +593,6 @@ public class ConsoleIO {
 			}
 			
 		}
-	
-		return false;
 	}
 	
 	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore

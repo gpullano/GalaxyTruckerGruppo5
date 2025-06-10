@@ -545,7 +545,7 @@ public class GestorePlanceNave {
             }
             // 2. Se non ha un lato liscio chiede se ci sono scudi per coprire e chiede se attivarli
             if (nave.utilizzoScudo(meteorite.getProvenienza()) && nave.haBatterie()) {
-                boolean vuoleUsareScudo = inputOutput.chiediSeAzionareComponente("Un meteorite piccolo sta per colpire un lato non protetto. Vuoi usare 1 batteria per attivare lo scudo?");
+                boolean vuoleUsareScudo = inputOutput.chiediSeEseguireAzione("Un meteorite piccolo sta per colpire un lato non protetto. Vuoi usare 1 batteria per attivare lo scudo?");
                 if (vuoleUsareScudo) {
                     nave.aggiungiEnergia(-1); // Consuma la batteria
                     return RisultatoImpatto.SALVATO_DA_SCUDO;

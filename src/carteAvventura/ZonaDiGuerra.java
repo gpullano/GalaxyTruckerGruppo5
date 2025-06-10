@@ -93,7 +93,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		for(int k=0;k<giocatore.size();k++) {
 			Giocatore giocatoreKesimo=giocatore.get(k);
 			int potenzaFuocoGiocatoreKesimo=giocatoreKesimo.getPlanceNave().getPotenzaFuoco(inputOutput);
-			boolean domanda=inputOutput.chiediSeAzionareComponente("Vuoi azionare i cannoni doppi? Ricordati che ciò comporta uno spreco di energia");
+			boolean domanda=inputOutput.chiediSeEseguireAzione("Vuoi azionare i cannoni doppi? Ricordati che ciò comporta uno spreco di energia");
 			// TODO in base alla risposta bisognerà calcolare l'effettiva potenza motrice del giocatore.
 			if (potenzaFuocoGiocatoreKesimo<giocatoreMinPotenzaFuoco) {
 				indiceTerzo=k;
