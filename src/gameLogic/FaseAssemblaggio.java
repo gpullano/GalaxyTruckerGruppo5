@@ -100,6 +100,8 @@ public class FaseAssemblaggio extends Fase {
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									break;
 								}
 								case AGGANCIA_TESSERA:{

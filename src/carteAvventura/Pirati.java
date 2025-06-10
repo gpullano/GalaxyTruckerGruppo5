@@ -7,6 +7,7 @@ import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.Casella;
 import plance.GestorePlanceNave;
+import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import plance.Posizione;
 
@@ -90,73 +91,90 @@ public class Pirati extends CartaPerditaGiorniVolo {
 			}
 			i++;
 		}
-		// finito il ciclo ottengo la lista di chi è stato sconfitto per cui faccio tirare i dadi così che si sa dove spareranno i pirati 
-		if(giocatoriSconfitti.isEmpty()) {
-			// nessuno è stato sconfitto
-		}else {
-			// faccio lanciare i dadi per capire dove colpire, tutti i colpi si baseranno su questo lancio
-			int direzione=dadi.lancia();
-			Posizione posizioneColpita=null;
-			// colpisco i giocatori presenti nella lista 
-			for (int j=0;j<giocatoriSconfitti.size();j++) {
-				Casella[][] caselle = giocatoriSconfitti.get(i).getPlanceNave().getCaselle();
-				// sparare al giocatore j-esimo 
-				
-				Giocatore giocatoreColpito=giocatoriSconfitti.get(j);
-				// la sua nave ora verrà colpita da tutte le cannonate dei pirati
-				for (int k=0;k<cannonate.length;k++) {
-					// devo distinguere il caso GROSSO e PICCOLO e da dove proviene
-					Dimensione dimensioneCannonata=this.cannonate[k].getDimensione();
-					Provenienza provenienzaCannonata=this.cannonate[k].getProvenienza();
-					// switch in base alla provenienza
-					switch (provenienzaCannonata) {
-					case SOPRA:{
-						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSopra(giocatoreColpito.getPlanceNave(), direzione);
-						break;
-					}
-					case SOTTO:{
-						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSotto(giocatoreColpito.getPlanceNave(), direzione);
-						break;
-					}
-					case DESTRA:{
-						posizioneColpita=GestorePlanceNave.colpisciComponenteDaDestra(giocatoreColpito.getPlanceNave(), direzione);
-						break;
-					}
-					case SINISTRA:{
-						posizioneColpita=GestorePlanceNave.colpisciComponenteDaSinistra(giocatoreColpito.getPlanceNave(), direzione);
-						break;
-					}
-					}
-					// applico il danno in base alla dimensione ma prima controllo che effettivamentte ci sia una posisizione da colpire
-					if (posizioneColpita==null) {
-						inputOutput.pericoloScampato();
-					}else {
-						// switch in base alla dimensione
-						switch(dimensioneCannonata) {
-						case GROSSO:{
-							caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
-							GestorePlanceNave.gestisciRimozioneOrfani(giocatoreColpito.getPlanceNave());
-							break;
-							}
-						case PICCOLO:{
-							// TODO devo controllare se vuole azionare lo scudo senno è uguale al grosso
-							caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
-							GestorePlanceNave.gestisciRimozioneOrfani(giocatoreColpito.getPlanceNave());
-							break;
-						}
-						}
-					}
-					
-					
-				}
-				
+		if (!giocatoriSconfitti.isEmpty() && !piratisconfitti) {
+			StringBuilder messaggioGiocatoriSconfitti = new StringBuilder("\nI seguenti giocatori subiranno l'attacco dei Pirati: ");
+			for (int j = 0; j < giocatoriSconfitti.size(); j++) {
+			    Giocatore giocatoreSconfitto = giocatoriSconfitti.get(j);
+			    
+			    // 3. Aggiungi il colore del giocatore alla stringa.
+			    messaggioGiocatoriSconfitti.append(giocatoreSconfitto.getColore().toString().toUpperCase());
+			    
+			    // 4. Se non è l'ultimo giocatore della lista, aggiungi una virgola e uno spazio per separare.
+			    if (j < giocatoriSconfitti.size() - 1) {
+			        messaggioGiocatoriSconfitti.append(", ");
+			    }
 			}
-			
-		}
-		
-		
-		//
-		
+
+			// 5. Stampa la stringa completa che abbiamo costruito.
+			inputOutput.stampaMessaggio(messaggioGiocatoriSconfitti.toString());
+	        
+	        // Ogni cannonata viene sparata contro tutti i giocatori sconfitti
+	        for (Cannonata cannonataCorrente : this.cannonate) {
+	            int risultatoLancioDadi = dadi.lancia();
+	            inputOutput.lancioDeiDadi(null, risultatoLancioDadi); // Dado generico
+	            
+	            for (Giocatore giocatoreDaColpire : giocatoriSconfitti) {
+	                inputOutput.stampaMessaggio("\n--- Cannonata contro " + giocatoreDaColpire.getColore() + " ---");
+	                
+	                // 1. Trova la posizione colpita
+	                Posizione posizioneColpita = GestorePlanceNave.trovaComponenteColpito(
+	                    giocatoreDaColpire.getPlanceNave(),
+	                    cannonataCorrente.getProvenienza(),
+	                    risultatoLancioDadi
+	                );
+
+	                // 2. Applica il danno se un componente è stato effettivamente colpito
+	                if (posizioneColpita == null) {
+	                    inputOutput.pericoloScampato();
+	                } else {
+	                    PlanceNaveLivello1 naveColpita = giocatoreDaColpire.getPlanceNave();
+	                    boolean colpoAnnullato = false; // Flag per sapere se il colpo viene fermato
+
+	                    // Logica di difesa specifica per la cannonata
+	                    switch (cannonataCorrente.getDimensione()) {
+	                        case GROSSO:
+	                            // Le cannonate grosse non possono essere bloccate da scudi.
+	                            inputOutput.stampaMessaggio("Una cannonata pesante colpisce la nave! Impossibile difendersi.");
+	                            colpoAnnullato = false;
+	                            break;
+	                            
+	                        case PICCOLO:
+	                            // Le cannonate piccole possono essere bloccate da scudi.
+	                            // Controlla se c'è uno scudo che punta nella direzione giusta
+	                            if (naveColpita.utilizzoScudo(cannonataCorrente.getProvenienza())) {
+	                                // Se c'è uno scudo, controlla se ci sono batterie
+	                                if (naveColpita.haBatterie()) {
+	                                    boolean vuoleUsareScudo = inputOutput.chiediSeEseguireAzione(
+	                                        "Una cannonata leggera minaccia la nave. Vuoi usare 1 batteria per attivare lo scudo?"
+	                                    );
+	                                    if (vuoleUsareScudo) {
+	                                        naveColpita.aggiungiBatterie(-1); // Consuma la batteria
+	                                        inputOutput.stampaMessaggio("SCUDO ATTIVATO! La cannonata è stata bloccata.");
+	                                        colpoAnnullato = true;
+	                                    } else {
+	                                        inputOutput.stampaMessaggio("Hai scelto di non attivare lo scudo.");
+	                                    }
+	                                } else {
+	                                    inputOutput.stampaMessaggio("Hai uno scudo ma non hai batterie per attivarlo!");
+	                                }
+	                            } else {
+	                                inputOutput.stampaMessaggio("Nessuno scudo protegge da questa direzione.");
+	                            }
+	                            break;
+	                    }
+
+	                    // 3. Se il colpo non è stato annullato, distruggi il componente
+	                    if (!colpoAnnullato) {
+	                        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + posizioneColpita + " è stato distrutto.");
+	                        // Distruzione manuale come da tua richiesta
+	                        naveColpita.getCaselle()[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+	                        naveColpita.incrementaPilaScarti();
+	                        GestorePlanceNave.gestisciRimozioneOrfani(naveColpita);
+	                    }
+	                }
+	            }
+	        }
+	    }
 	}
 
 	
