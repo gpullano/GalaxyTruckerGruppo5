@@ -38,8 +38,11 @@ public class Cabina extends Tessera {
 	*Imposta il numero dei membri dell'equipaggio nella cabina.
 	*@param equipaggio il numero membri equipaggio.
 	*/
-	public void setEquipaggio() {
-		this.equipaggio = NUM_EQUIPAGGIO;
+	public void setEquipaggio(int num) {
+		if(num < 0) {
+			throw new IllegalArgumentException("Non puoi inserire un equipaggio minore di zero.");
+		}
+		this.equipaggio = num;
 	}
 
 	/**

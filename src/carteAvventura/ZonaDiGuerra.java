@@ -70,35 +70,32 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		planceVolo.getPosizioneGiocatori()[indicePrimo].aggiornaPosizione(-3);
 		
 		
-		// trovare il giocatore con meno potenza motrice(perde 2 membri dell'equipaggio), ricordarsi di usare una inputOutput se necessitano usare i motori doppi
+		// trovare il giocatore con meno potenza motrice(perde 2 membri dell'equipaggio)
 		int indiceSecondo=0;
-		int GiocatoreMinPotenzaMotrice=giocatore.get(0).getPlanceNave().getPotenzaMotori();
+		int giocatoreMinPotenzaMotrice=Integer.MAX_VALUE;
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreAttuale=giocatore.get(i);
-			int potenzaMotoriGiocatoreAttuale=giocatoreAttuale.getPlanceNave().getPotenzaMotori();
-			// qui bisognerebbe gestire il caso in cui non  vuole attivare tutti i motori. 
-			boolean domanda=inputOutput.chiediSeAzionareComponente("Vuoi azionare i motori doppi? Ricordati che ciò comporta uno spreco di energia");
-			// TODO in base alla risposta bisognerà calcolare l'effettiva potenza motrice del giocatore.
-			
-			
+			int potenzaMotoriGiocatoreAttuale=giocatoreAttuale.getPlanceNave().getPotenzaMotori(inputOutput);
+						
 			// controllo su chi ha meno potenza motrice
-			if(potenzaMotoriGiocatoreAttuale<GiocatoreMinPotenzaMotrice) {
+			if(potenzaMotoriGiocatoreAttuale<giocatoreMinPotenzaMotrice) {
 			indiceSecondo=i;	// trovato il giocatore con meno potenza motrice mi salvo la posizione 
 			}
 		}
+		
 		// tolgo 2 membri dell'equipaggio al giocatore sfortunato 
 		int equipaggioGiocatoreSfortunato=giocatore.get(indiceSecondo).getPlanceNave().getEquipaggioTotale();
 		giocatore.get(indiceSecondo).getPlanceNave().setEquipaggioTotale(equipaggioGiocatoreSfortunato-2);
 		
 		// trovo il giocatore con meno potenza di fuoco, verrà minacciato da una cannonata leggera e da una cannonata pesante provenienti da dietro
 		int indiceTerzo=0;
-		int GiocatoreMinPotenzaFuoco=giocatore.get(0).getPlanceNave().getPotenzaFuoco();
+		int giocatoreMinPotenzaFuoco=Integer.MAX_VALUE;
 		for(int k=0;k<giocatore.size();k++) {
 			Giocatore giocatoreKesimo=giocatore.get(k);
-			int potenzaFuocoGiocatoreKesimo=giocatoreKesimo.getPlanceNave().getPotenzaFuoco();
+			int potenzaFuocoGiocatoreKesimo=giocatoreKesimo.getPlanceNave().getPotenzaFuoco(inputOutput);
 			boolean domanda=inputOutput.chiediSeAzionareComponente("Vuoi azionare i cannoni doppi? Ricordati che ciò comporta uno spreco di energia");
 			// TODO in base alla risposta bisognerà calcolare l'effettiva potenza motrice del giocatore.
-			if (potenzaFuocoGiocatoreKesimo<GiocatoreMinPotenzaFuoco) {
+			if (potenzaFuocoGiocatoreKesimo<giocatoreMinPotenzaFuoco) {
 				indiceTerzo=k;
 			}
 		}

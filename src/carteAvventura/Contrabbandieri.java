@@ -75,17 +75,17 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		int i = 0;
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		boolean contrabbandieriSconfitti = false;
 		while(i < giocatore.size() && !contrabbandieriSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
-			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
-			
-			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() < this.fuocoNemico) {
+			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
+			if (potenzaFuocoGiocatoreCorrente < this.fuocoNemico) {
 				if(giocatoreCorrente.getPlanceNave().getMerciNave().size() >= this.merciRimosse) {
 					giocatoreCorrente.getPlanceNave().getMerciNave().removeAll(Arrays.asList(this.merciRimosse));
 			      }
 					
-			} else if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() > this.fuocoNemico){
+			} else if (potenzaFuocoGiocatoreCorrente > this.fuocoNemico){
 				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
 					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
 				} else {
@@ -94,7 +94,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());		
 				contrabbandieriSconfitti = true;
 			
-			} else if(giocatoreCorrente.getPlanceNave().getPotenzaFuoco() == this.fuocoNemico) {
+			} else if(potenzaFuocoGiocatoreCorrente == this.fuocoNemico) {
 				
 				
 				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {

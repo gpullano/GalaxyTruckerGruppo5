@@ -78,7 +78,8 @@ public class FaseAssemblaggio extends Fase {
 					while(this.clessidra.isNotExpired()){
 					
 					//TODO - stampa la planceNave del giocatore con le tessere prenotate
-					//TODO - stampa le tessere scoperte
+					getInputOutput().stampaSetupAssemblaggio(giocatore.getColore(), giocatore.getPlanceNave(), 
+							giocatore.getPlanceNave().getTesserePrenotate(), tessereScoperte);
 					//TODO - gestisci il caso in cui le tessere sono finite
 					//scelta tra le seguenti opzioni:
 					//1 - PESCARE UNA TESSERA
@@ -104,6 +105,8 @@ public class FaseAssemblaggio extends Fase {
 							//2 - AGGANCIARLA
 							//3 - RIMETTERLA SUL TAVOLO
 							//4 - PRENOTARLA PER DOPO
+							
+							//TODO - gestisci il fatto che dopo aver ruotato una tessera puoi agganciarla o fare altro
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);

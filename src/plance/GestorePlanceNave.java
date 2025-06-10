@@ -12,6 +12,8 @@ import carteAvventura.Meteorite;
 import carteAvventura.Provenienza;
 import carteAvventura.RisultatoImpatto;
 import gameLogic.ConsoleIO;
+import tessere.Cabina;
+import tessere.CabinaCentrale;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
 import tessere.Connettore;
@@ -583,4 +585,18 @@ public class GestorePlanceNave {
             default: return null;
         }
     }
+    
+    
+    
+    //logica di rimozione degli astronauti - prende la prima cabina che trova scorrendo dall'alto e glieli toglie
+    public static void rimozioneAstronauti(PlanceNaveLivello1 planceNave) {
+    	for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
+			for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
+				if(planceNave.caselle[i][j].getTessera() instanceof Cabina cabina) {
+				cabina.setEquipaggio(0);
+				}
+			}
+    	}
+    }
+    
 }

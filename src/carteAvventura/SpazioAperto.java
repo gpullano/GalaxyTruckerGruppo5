@@ -27,15 +27,16 @@ public class SpazioAperto extends Carta {
 	
 	
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i=0;
 		while(i<giocatore.size()) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			giocatoreCorrente.getPlanceNave().calcolaPotenzaFuoco(inputOutput);
-			
-			if (giocatoreCorrente.getPlanceNave().getPotenzaFuoco() == 0) {
+			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
+			if (potenzaFuocoGiocatoreCorrente == 0) {
 				giocatoreCorrente.abbandonaPartita();
 			} else {
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(giocatoreCorrente.getPlanceNave().getPotenzaFuoco());
+				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(potenzaFuocoGiocatoreCorrente);
 				}
 			
 			i++;

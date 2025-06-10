@@ -9,7 +9,7 @@ import plance.Casella;
 import plance.GestorePlanceNave;
 import plance.PlanceVolo;
 import plance.Posizione;
-import plance.PosizioneGiocatore;
+
 public class Pirati extends CartaPerditaGiorniVolo {
 	private final int potenzaFuoco;
 	private final int creditiCosmici;
@@ -69,13 +69,14 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
-		Casella[][] caselle = null;
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i=0;
 		boolean piratisconfitti=false;
-		List<Giocatore> giocatoriSconfitti=new ArrayList();
+		List<Giocatore> giocatoriSconfitti=new ArrayList<>();
 		while(i<giocatore.size()&&!piratisconfitti) {
 			// controllare se la potenza fuoco dei pirati è maggiore
-			if (giocatore.get(i).getPlanceNave().getPotenzaFuoco()<this.potenzaFuoco) {
+			int potenzaDiFuocoGiocatoreCorrente = giocatore.get(i).getPlanceNave().getPotenzaFuoco(inputOutput);
+			if (potenzaDiFuocoGiocatoreCorrente < this.potenzaFuoco) {
 				// aggiungo nella lista nella posizione i-esima il giocatore sconfitto 
 				giocatoriSconfitti.add(giocatore.get(i));
 				
@@ -98,6 +99,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 			Posizione posizioneColpita=null;
 			// colpisco i giocatori presenti nella lista 
 			for (int j=0;j<giocatoriSconfitti.size();j++) {
+				Casella[][] caselle = giocatoriSconfitti.get(i).getPlanceNave().getCaselle();
 				// sparare al giocatore j-esimo 
 				
 				Giocatore giocatoreColpito=giocatoriSconfitti.get(j);

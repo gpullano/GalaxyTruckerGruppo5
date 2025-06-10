@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import carteAvventura.Carta;
 import carteAvventura.Mazzetto;
+import carteAvventura.Pianeta;
+import collezionabili.Merci;
 import eccezioni.NumeroNonValidoException;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
@@ -122,7 +124,7 @@ public class ConsoleIO {
 	    boolean inputValido = false;
 
 	    while (!inputValido) {
-	        System.out.println("--- MODALITA' - PREMI: ---");
+	        System.out.println("\n--- MODALITA' - PREMI: ---");
 	        System.out.println("1 - LIVELLO 1");
 	        System.out.println("2 - LIVELLO 2");
 	        System.out.println("3 - LIVELLO 3");
@@ -150,7 +152,7 @@ public class ConsoleIO {
 	public int chiediNumGiocatori() {
 	    int numGiocatori = 0;
 	    boolean inputValido = false;
-	    System.out.println("--- SCELTA GIOCATORI: ---");
+	    System.out.println("\n--- SCELTA GIOCATORI: ---");
 	    while (!inputValido) {
 	        System.out.println("In quanti siete, camionisti spaziali?: ");
 	        try {
@@ -174,7 +176,7 @@ public class ConsoleIO {
 		Colore coloreGiocatori[] = new Colore[numGiocatori];
 		List<Colore> coloriSceltiTemp = new ArrayList<>();
 		boolean inputValido;
-		System.out.println("SCELTA COLORE GIOCATORI: ");
+		System.out.println("\nSCELTA COLORE GIOCATORI: ");
 		System.out.println("G/g -> GIALLO");
 		System.out.println("B/b -> BLU");
 		System.out.println("V/v -> VERDE");
@@ -220,6 +222,16 @@ public class ConsoleIO {
 	//Fase di assemblaggio
 	//-------------
 	
+	public void stampaSetupAssemblaggio(Colore coloreGiocatore, PlanceNaveLivello1 planceNave, List<Tessera> tesserePrenotate,
+			List<Tessera> tessereScoperte) {
+		System.out.println("\nSETUP DEL GIOCATORE " + coloreGiocatore);
+		stampaNave(planceNave);
+		System.out.println("\nTESSERE PRENOTATE:\n");
+		stampaTessere(tesserePrenotate);
+		System.out.println("\nTESSERE SCOPERTE:\n");
+		stampaTessere(tessereScoperte);
+		
+	}
 	
 	public void inizioAssemblaggio() {
 		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
@@ -237,7 +249,7 @@ public class ConsoleIO {
 		int scelta = 0;
 		
 		while(!inputValido) {
-			System.out.println("Giocatore " + colore + " quale azione vuoi compiere? - PREMI:");
+			System.out.println("\nGiocatore " + colore + " quale azione vuoi compiere? - PREMI:");
 			if(esistonoTessereMucchio) {
 				System.out.println("1 - PESCARE UNA TESSERA");
 				scelteDisponibili.add(1);
@@ -289,8 +301,8 @@ public class ConsoleIO {
 		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
 		
 		do {
-			System.out.println("TESSERA PESCATA:\n" + tesseraPescata);
-			System.out.println("Giocatore " + colore + " cosa vuoi fare con la tessera che hai in mano - PREMI:");
+			System.out.println("\nTESSERA PESCATA:\n\n" + tesseraPescata);
+			System.out.println("\nGiocatore " + colore + " cosa vuoi fare con la tessera che hai in mano - PREMI:");
 			System.out.println("1 - RUOTARLA (senso antiorario)");
 	        System.out.println("2 - AGGANCIARLA");
 	        
@@ -341,9 +353,9 @@ public class ConsoleIO {
 		String scelta;
 		while(ruotaAncora) {
 			tesseraPescata.ruota();
-			System.out.println("Tessera ruotata:");
+			System.out.println("\nTessera ruotata:\n");
 			System.out.println(tesseraPescata);
-			System.out.println("Vuoi ruotarla ancora? premi si/no");
+			System.out.println("\nVuoi ruotarla ancora? premi si/no: ");
 			try {
 				scelta = sc.nextLine().trim();
 				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
@@ -364,7 +376,7 @@ public class ConsoleIO {
 		int scelta = 0;
 		while(!inputValido)
 		{
-			System.out.println("QUALE MAZZETTO DI CARTE VUOI GUARDARE (da 1 a 3)?");
+			System.out.println("\nQUALE MAZZETTO DI CARTE VUOI GUARDARE (da 1 a 3)?");
 			try {
 				 scelta = Integer.parseInt(sc.nextLine());
 				 if(scelta < 1 || scelta > 3) {
@@ -489,7 +501,7 @@ public class ConsoleIO {
 			        } catch (NumberFormatException e) {
 			            System.err.println("Formato colonna non valido. Inserisci un numero.");
 			        }
-			        colonna++; //per gestire lo shift delle colonne
+			        
 			    }
 			    
 			    if(GestorePlanceNave.agganciaTessera(giocatore.getPlanceNave(), tesseraDaAgganciare, riga, colonna)) {
@@ -556,6 +568,7 @@ public class ConsoleIO {
 	//-------------
 	// fase di volo
 	//-------------
+	
 	
 	//TODO - vedi come chiamare con lo stesso nome anche il metodo per gli alieni
 	public boolean chiediSeAzionareComponente(String domanda) {
@@ -630,7 +643,59 @@ public class ConsoleIO {
 	
 	
 	
-	
+	/**
+	 * Mostra al giocatore i pianeti disponibili e chiede di inserire un numero.
+	 * NON esegue una validazione completa, ma si limita a restituire l'input numerico.
+	 * La validazione della scelta (es. pianeta occupato) viene gestita dal chiamante.
+	 *
+	 * @param giocatoreCorrente Il giocatore che sta facendo la scelta.
+	 * @param pianeti L'array dei pianeti disponibili su questa carta.
+	 * @param pianetiOccupati Un array booleano che indica quali pianeti sono già stati scelti.
+	 * @return L'indice (0-based) del pianeta scelto, o -1 se l'input non è un numero valido.
+	 */
+	public int scegliPianeta(Giocatore giocatoreCorrente, Pianeta[] pianeti, boolean[] pianetiOccupati) {
+
+		System.out.println("\n--- TURNO DEL GIOCATORE " + giocatoreCorrente.getColore() + " ---");
+	    
+	    // --- 1. Mostra le opzioni disponibili ---
+	    System.out.println("Pianeti disponibili:");
+	    for (int i = 0; i < pianeti.length; i++) {
+	        // Stampa il numero del pianeta e se è occupato
+	        System.out.print("  " + (i + 1) + ". Pianeta " + (i + 1));
+	        if (pianetiOccupati[i]) {
+	            System.out.print(" (OCCUPATO)\n");
+	        } else {
+	            // Se non è occupato, mostra le merci che contiene
+	            System.out.print(" - Merci: ");
+	            Merci[] merci = pianeti[i].getMerciPianeta();
+	                for (int j = 0; j < merci.length; j++) {
+	                    // Stampo l'iniziale del colore della merce (es. R, G, B)
+	                    System.out.print(merci[j].getColore().toString().charAt(0)); 
+	                    if (j < merci.length - 1) {
+	                        System.out.print(", ");
+	                    }
+	                }
+	                System.out.println();
+	        }
+	    }
+	     
+	    
+	    //il ciclo continua finche' non viene inserita una scelta valida
+	    while(true) {
+		    System.out.print("Inserisci il numero del pianeta che vuoi scegliere (1-" + pianeti.length + "): ");
+		    try {
+	            int scelta = Integer.parseInt(sc.nextLine());
+	            if (scelta >= 1 && scelta <= pianeti.length && !pianetiOccupati[scelta - 1]) {
+	            	return scelta - 1;
+	            } else {
+	                System.err.println("Numero del pianeta scelto non valido, reinserirlo.");
+	            }
+	        } catch (NumberFormatException e) {
+	            System.err.println(INPUT_NON_VALIDO);
+	        }
+	    }
+	}
+
 	
 	
 	
@@ -673,5 +738,8 @@ public class ConsoleIO {
 	        }
 	    }
 	}
+
+
+
 
 }

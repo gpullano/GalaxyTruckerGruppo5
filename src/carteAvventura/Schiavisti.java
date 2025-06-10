@@ -62,6 +62,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i = 0;
 		boolean schiavistiSconfitti = false;
 		boolean giorniVolo = false;

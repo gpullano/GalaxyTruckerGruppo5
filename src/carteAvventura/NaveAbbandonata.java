@@ -43,6 +43,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	}
 
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i=0;
 		boolean attivata=false;
 		while(i<giocatore.size()&&!attivata) {

@@ -123,7 +123,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.merciTotali = merciTotali;
 	}
 	
-	public int getPotenzaFuoco() {
+	public int getPotenzaFuoco(ConsoleIO inputOutput) {
+		calcolaPotenzaFuoco(inputOutput);
 		return potenzaFuoco;
 	}
 
@@ -133,7 +134,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 
 
-	public int getPotenzaMotori() {
+	public int getPotenzaMotori(ConsoleIO inputOutput) {
+		calcolaPotenzaMotori(inputOutput);
 		return potenzaMotori;
 	}
 
@@ -145,6 +147,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	
 	public int getEquipaggioTotale() {
+		calcolaEquipaggio();
 		return equipaggioTotale;
 	}
 
@@ -266,10 +269,20 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	public void calcolaEquipaggio() {
 		//Reinizializzo per evitare un conteggio falsato
 		this.equipaggioTotale = 0;
+		this.haAlienoMarrone = false;
+		this.haAlienoViola = false;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Cabina cabina) {
 					this.equipaggioTotale += cabina.getEquipaggio();
+					if(cabina.isAlienoMarrone()) {
+						this.equipaggioTotale++;
+						this.haAlienoMarrone = true;
+					}
+					if(cabina.isAlienoViola()) {
+						this.equipaggioTotale++;
+						this.haAlienoViola = true;
+					}
 				} else if(this.caselle[i][j].getTessera() instanceof CabinaCentrale cabinaCentrale) {
 					this.equipaggioTotale += cabinaCentrale.getEquipaggio();
 				}

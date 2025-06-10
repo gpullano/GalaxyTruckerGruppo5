@@ -87,7 +87,7 @@ public class FasePreparazioneDecollo extends Fase {
 							        cabina.setAlienoViola(true);
 							        giocatore.getPlanceNave().setHaAlienoViola(true);
 							    } else {
-							        cabina.setEquipaggio();
+							        cabina.setEquipaggio(Cabina.getNumEquipaggio());
 							    }
 							}
 							
@@ -102,14 +102,14 @@ public class FasePreparazioneDecollo extends Fase {
 							        cabina.setAlienoMarrone(true); 
 							        giocatore.getPlanceNave().setHaAlienoMarrone(true);
 							    } else {
-							        cabina.setEquipaggio();
+							        cabina.setEquipaggio(Cabina.getNumEquipaggio());
 							    }
 							}
 							break;
 						}
 						
 						case NESSUN_SUPPORTO:{
-							cabina.setEquipaggio();
+							cabina.setEquipaggio(Cabina.getNumEquipaggio());
 							giocatore.getPlanceNave().aggiungiEquipaggio(Cabina.getNumEquipaggio());
 							break;
 						}

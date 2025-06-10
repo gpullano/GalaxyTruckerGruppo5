@@ -59,22 +59,16 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		int i = 0;
-		boolean attivata = false;
 		boolean [] pianetiOccupati = new boolean [pianeti.length];
 		int [] scelteAtterraggio = new int[giocatore.size()];
 		Arrays.fill(scelteAtterraggio, -1);//imposta tutti i pianeti con -1 quindi tutti liberi
-		while(i < giocatore.size() && !attivata) {
+		while(i < giocatore.size()) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
-			attivata=inputOutput.chiediAttivare(giocatoreCorrente);
+			boolean attivata=inputOutput.chiediAttivare(giocatoreCorrente);
 				if (attivata) {
-					int sceltaPianeta = inputOutput.scegliPianeta(giocatoreCorrente, pianeti, pianetiOccupati);//TODO
-					if(sceltaPianeta >= 0 && sceltaPianeta < pianeti.length && !pianetiOccupati[sceltaPianeta]) {
-						pianetiOccupati[sceltaPianeta] = true;
-						scelteAtterraggio[i] = sceltaPianeta;
-					} else {
-						inputOutput.mostraMessaggio("pianeta occupato o scelta non valida");
-					}
-					
+					int sceltaPianeta = inputOutput.scegliPianeta(giocatoreCorrente, pianeti, pianetiOccupati);
+					pianetiOccupati[sceltaPianeta] = true;
+					scelteAtterraggio[i] = sceltaPianeta;					
 				}
 				i++;
 		}
@@ -82,8 +76,8 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 		for (int j = giocatore.size() -1; j >= 0; j--) {
 			int pianetaScelto = scelteAtterraggio[j];
 			if (pianetaScelto >= 0) {
-				Giocatore giocatoreCorrente = giocatore.get(i);
-				planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
+				Giocatore giocatoreCorrente = giocatore.get(j);
+				planceVolo.getPosizioneGiocatori()[j].aggiornaPosizione(this.getGiorniVoloPersi());
 				Merci[] merciAcquisite = pianeti[pianetaScelto].getMerciPianeta();
 				if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
 					giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));	
