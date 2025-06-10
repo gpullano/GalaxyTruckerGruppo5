@@ -10,10 +10,12 @@ import carteAvventura.Mazzetto;
 import carteAvventura.Pianeta;
 import collezionabili.Merci;
 import eccezioni.NumeroNonValidoException;
+import plance.Casella;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import tessere.Cabina;
+import tessere.Connettore;
 import tessere.Tessera;
 
 public class ConsoleIO {
@@ -43,72 +45,79 @@ public class ConsoleIO {
 	
 	//------------------------------------------------------------------
 	// STAMPA NAVE E PLANCIA DI VOLO
-	public void stampaVolo(PlanceVolo planceVolo) {
-		for(int r = 0; r < planceVolo.getCella().length; r++) {
-			for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
-					System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
-				
-			}
-			System.out.println('\n');
-		}
+	/**
+	 * Stampa una rappresentazione grafica completa della plancia di una nave.
+	 * Semplificata grazie alla lunghezza fissa dei nomi delle tessere.
+	 */
+	public void stampaNave(PlanceNaveLivello1 planceNave) {
+	    // Costanti per le celle vuote, per una maggiore leggibilità
+	    final String RIGA_VUOTA_1_E_3 = "             "; // 13 spazi
+	    final String RIGA_VUOTA_2      = "      .      "; // 13 caratteri con un punto al centro
+	    
+	    // Stampo l'intestazione delle COLONNE (da 4 a 10)
+	    StringBuilder intestazioneColonne = new StringBuilder();
+	    // Aggiungi uno spazio iniziale per allineare con i numeri delle righe che aggiungeremo dopo
+	    intestazioneColonne.append("    "); // Spazio per l'etichetta della riga (es. "5: ")
+
+	    for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
+	        int numeroColonna = c + 4;
+	        System.out.print("       " + numeroColonna + "        ");
+	    }
+	    System.out.println(); // Riga vuota per separazione
+
+	    // Per ogni riga della griglia...
+	    for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
+	    	int numeroRiga = r + 5;
+	        StringBuilder rigaTesto1 = new StringBuilder(); // Connettori NORD
+	        StringBuilder rigaTesto2 = new StringBuilder(); // Lati OVEST - NOME - EST
+	        StringBuilder rigaTesto3 = new StringBuilder(); // Connettori SUD
+	        
+	        // ...itera su ogni colonna...
+	        for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
+	        	
+	            Casella casella = planceNave.getCaselle()[r][c];
+	            
+	            if (casella.getTessera() != null) {
+	                Tessera t = casella.getTessera();
+	                
+	                // Formatta i connettori per avere una lunghezza fissa (es. " S", "D ", "--")
+	                String sup = t.getLatoSup().toString();
+	                String inf = t.getLatoDown().toString();
+	                String sx  = t.getLatoSx().toString();
+	                String dx  = t.getLatoDx().toString();
+
+	                // Costruisci le tre righe della tessera
+	                rigaTesto1.append("      ").append(sup).append("     ");
+	                rigaTesto2.append(" ").append(sx).append(t.getNomeBreve()).append(dx).append(" ");
+	                rigaTesto3.append("      ").append(inf).append("     ");
+
+	            } else if (casella.isUtilizzabile()) {
+	                // Se la casella è vuota ma utilizzabile, usa il placeholder
+	                rigaTesto1.append(RIGA_VUOTA_1_E_3);
+	                rigaTesto2.append(RIGA_VUOTA_2);
+	                rigaTesto3.append(RIGA_VUOTA_1_E_3);
+	            } else {
+	                // Se la casella non è nemmeno utilizzabile, stampiamo solo spazi
+	                rigaTesto1.append(RIGA_VUOTA_1_E_3);
+	                rigaTesto2.append(RIGA_VUOTA_1_E_3);
+	                rigaTesto3.append(RIGA_VUOTA_1_E_3);
+	            }
+	            
+	            // Aggiungi un separatore tra le celle per distanziarle
+	            rigaTesto1.append("  ");
+	            rigaTesto2.append("  ");
+	            rigaTesto3.append("  ");
+	        }
+
+	        // Stampa la prima riga di testo (connettori NORD)
+	        System.out.println("    " + rigaTesto1); // Spazio vuoto per allineare con il numero di riga
+	        // Stampa la seconda riga di testo (corpo della tessera) con il numero di riga
+	        System.out.println(numeroRiga + ":  " + rigaTesto2);
+	        // Stampa la terza riga di testo (connettori SUD)
+	        System.out.println("    " + rigaTesto3);
+	        System.out.println(); // Riga vuota per separazione verticale tra le righe della griglia
+	    }
 	}
-	
-	public void stampaNave(PlanceNaveLivello1 planceNaveLivello1) {
-		System.out.println();
-		for(int r = 0; r <= 4; r++) {
-			for(int c = 0; c <= 6; c++) {
-				if(planceNaveLivello1.getCaselle()[r][c].isUtilizzabile()) {
-					if (planceNaveLivello1.getCaselle()[r][c].getTessera() != null) {
-						System.out.print(planceNaveLivello1.getCaselle()[r][c].getTessera().toString());
-						System.out.print("\t\t");
-					} else {
-						System.out.print("▢\t\t");	
-					}
-				}else {
-			    	System.out.print("\t\t");
-				}
-				
-			}
-			System.out.println();
-			System.out.println();
-			System.out.println();
-		}
-	}
-
-	
-	// print all the tile in our game and the connection type for each tile in the four sides but should we have a fixed connection type for each tile 
-	public static void printTileTable() {
-		String[][] tiles = {
-			{"VanBa", "--", "S", "--", "--"},
-			{"STVV", "U", "D", "--", "S"},
-			{"STVM", "S", "S", "D", "S"},
-			{"Stiva", "--", "S", "S", "U"},
-			{"MotoD", "S", "M2", "S", "--"},
-			{"Motor", "U", "S", "M", "--"},
-			{"ModSt", "S", "--", "S", "--"},
-			{"Scudo", "()", "()", "--", "U"},
-			{"CannD", "C2", "D", "S", "U"},
-			{"CANON", "+", "D", "S", "S"},
-			{"CabCen", "U", "U", "U", "U"},
-			{"CABIN", "S", "S", "D", "S"}
-		};
-
-		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
-		System.out.println("| Tessera                 | Superiore | Destra    | Inferiore | Sinistra  |");
-		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
-
-		for (String[] tile : tiles) {
-			System.out.printf(
-				"| %-24s | %-9s | %-9s | %-9s | %-9s |\n",
-				tile[0], tile[1], tile[2], tile[3], tile[4]
-			);
-		}
-
-		System.out.println("+--------------------------+-----------+-----------+-----------+-----------+");
-		System.out.println("LEGENDA: U=Universale, D=Doppio, S=Singolo, +=Cannone, M=Motore, C2=CannoneDoppio, M2=MotoreDoppio, ()=Scudo, --=Nullo");
-	}
-	
-	
 	
 	
 	
@@ -301,7 +310,25 @@ public class ConsoleIO {
 		List<Integer> scelteDisponibili = new ArrayList<>(Arrays.asList(1, 2));
 		
 		do {
-			System.out.println("\nTESSERA PESCATA:\n\n" + tesseraPescata);
+			System.out.println("\nTESSERA PESCATA:\n\n");
+			StringBuilder rigaTesto1 = new StringBuilder(); // Connettori NORD
+	        StringBuilder rigaTesto2 = new StringBuilder(); // Lati OVEST - NOME - EST
+	        StringBuilder rigaTesto3 = new StringBuilder(); // Connettori SUD
+
+	        String sup = tesseraPescata.getLatoSup().toString();
+            String inf = tesseraPescata.getLatoDown().toString();
+            String sx  = tesseraPescata.getLatoSx().toString();
+            String dx  = tesseraPescata.getLatoDx().toString();
+
+            rigaTesto1.append("      ").append(sup).append("     ");
+            rigaTesto2.append(" ").append(sx).append(tesseraPescata.getNomeBreve()).append(dx).append(" ");
+            rigaTesto3.append("      ").append(inf).append("     ");
+            
+            System.out.println(rigaTesto1);
+	        System.out.println(rigaTesto2);
+	        System.out.println(rigaTesto3);
+	        System.out.println();
+            
 			System.out.println("\nGiocatore " + colore + " cosa vuoi fare con la tessera che hai in mano - PREMI:");
 			System.out.println("1 - RUOTARLA (senso antiorario)");
 	        System.out.println("2 - AGGANCIARLA");
@@ -523,11 +550,11 @@ public class ConsoleIO {
 	
 	//TODO - crea un unico metodo inizioFase e poi fagli passare una stringa
 	public void inizioPreparazioneAlDecollo() {
-		System.out.println("-----FASE DI PREPARAZIONE AL DECOLLO-----");
+		System.out.println("----- FASE DI PREPARAZIONE AL DECOLLO -----");
 	}
 	
 	public void posizionamentoAlieni() {
-		System.out.println("POSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
+		System.out.println("\nPOSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
 	}
 	
 	

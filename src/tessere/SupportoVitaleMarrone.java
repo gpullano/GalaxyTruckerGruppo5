@@ -35,7 +35,7 @@ public class SupportoVitaleMarrone extends Tessera {
 */
 	@Override
 	public String getNomeBreve() {
-    	return " STVM ";
+    	return " SupVM ";
 	}
 
 }

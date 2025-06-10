@@ -11,7 +11,7 @@ public enum Connettore {
     SINGOLO("S"),
     CANNONE("+"),
     MOTORE("M"),
-    CANNONEDOPPIO("C2"),
+    CANNONEDOPPIO("+2"),
     MOTOREDOPPIO("M2"),
     SCUDO("()"),
 	NULLO("--");
@@ -19,24 +19,24 @@ public enum Connettore {
 
     private final String simbolo;
 
-/**
-*costruttore privato dell'enum.
-*@param simbolo simbolo stringa associato al connettore.
-*/	
+	/**
+	*costruttore privato dell'enum.
+	*@param simbolo simbolo stringa associato al connettore.
+	*/	
     // Costruttore
     private Connettore(String simbolo) {
         this.simbolo = simbolo;
     }
 
 
-/**
-* restituisce il simbolo connettore sotto forma di stringa.
-*@return simbolo connettore.
-*/
+	/**
+	* restituisce il simbolo connettore sotto forma di stringa.
+	*@return simbolo connettore.
+	*/
     // Metodo toString sovrascritto per mostrare il simbolo
     @Override
     public String toString() {
-        return simbolo;
+        return simbolo; // Esempio: restituisce "S", non " S "
     }
 	
 }

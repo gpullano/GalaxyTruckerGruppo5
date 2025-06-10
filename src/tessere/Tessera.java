@@ -80,28 +80,17 @@ public abstract class Tessera {
 	}
 
 
-/**
-*restituisce in formato scritto la tessera
-*vedendo i connettori e il nome breve
-*/
+	/**
+	*restituisce in formato scritto la tessera
+	*vedendo il nome breve
+	*/
 	@Override
 	public String toString() {
-		String sup = (getLatoSup() != null) ? getLatoSup().toString() : " ";
-		String inf = (getLatoDown() != null) ? getLatoDown().toString() : " ";
-		String sx = (getLatoSx() != null) ? getLatoSx().toString() : " ";
-		String dx = (getLatoDx() != null) ? getLatoDx().toString() : " ";
-
 		String nome = getNomeBreve();//get the name of every unic class
-
-		String risultato = "";
-		risultato += "    " + sup + "\n";
-		risultato += sx + nome + dx + "\n";
-		risultato +="    "+ inf;
-
 		return nome;
 			 
 	}
-	//method to get the name of every class
+	
 
 
 /**
@@ -112,4 +101,4 @@ public abstract class Tessera {
    		return this.getClass().getSimpleName().toUpperCase();
 	}
 
-	}
+}

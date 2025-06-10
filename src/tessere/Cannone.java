@@ -36,7 +36,7 @@ public class Cannone extends Tessera {
 */
 	@Override
 	public String getNomeBreve() {
-    	return " CANON ";
+    	return " Canno ";
 	}
 
 }

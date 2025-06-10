@@ -58,7 +58,7 @@ public class CabinaCentrale extends Tessera {
 */
 	@Override
 	public String getNomeBreve() {
-    	return "CabCen";
+    	return " CabCe ";
 	}
 	
 	public void aggiungiEquipaggio(int equipaggio) {

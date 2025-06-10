@@ -101,11 +101,14 @@ public class FaseAssemblaggio extends Fase {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
 									//Dopo averla ruotata, chiedo di agganciarla
+									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
@@ -144,10 +147,15 @@ public class FaseAssemblaggio extends Fase {
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
+									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
@@ -172,10 +180,15 @@ public class FaseAssemblaggio extends Fase {
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
+									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
+									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
+									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
 								}
 								case RIMETTI_TESSERA_A_POSTO:{
@@ -194,7 +207,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						
 						}
-					
+					this.getInputOutput().stampaNave(giocatore.getPlanceNave());
 				}
 			}
 				

@@ -79,7 +79,7 @@ public class Cabina extends Tessera {
 	*/
 	@Override
 	public String getNomeBreve() {
-    	return " CABIN ";
+    	return " Cabin ";
 	}
 
 	/**

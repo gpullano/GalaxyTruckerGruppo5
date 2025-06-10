@@ -60,7 +60,7 @@ public class Motore extends Tessera {
 */
     	@Override
 	public String getNomeBreve() {
-    	return " Motor ";
+    	return " MOTOR ";
 	}
 
 }
