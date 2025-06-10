@@ -6,6 +6,7 @@ import dadiEClessidra.Dadi;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.Casella;
+import plance.GestorePlanceNave;
 import plance.PlanceVolo;
 import plance.Posizione;
 import plance.PosizioneGiocatore;
@@ -76,7 +77,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 			Giocatore giocatoreAttuale=giocatore.get(i);
 			int potenzaMotoriGiocatoreAttuale=giocatoreAttuale.getPlanceNave().getPotenzaMotori();
 			// qui bisognerebbe gestire il caso in cui non  vuole attivare tutti i motori. 
-			boolean domanda=inputOutput.chiediSeAzionareMotoriDoppi("Vuoi azionare i motori doppi? Ricordati che ciò comporta uno spreco di energia");
+			boolean domanda=inputOutput.chiediSeAzionareComponente("Vuoi azionare i motori doppi? Ricordati che ciò comporta uno spreco di energia");
 			// TODO in base alla risposta bisognerà calcolare l'effettiva potenza motrice del giocatore.
 			
 			
@@ -95,7 +96,7 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		for(int k=0;k<giocatore.size();k++) {
 			Giocatore giocatoreKesimo=giocatore.get(k);
 			int potenzaFuocoGiocatoreKesimo=giocatoreKesimo.getPlanceNave().getPotenzaFuoco();
-			boolean domanda=inputOutput.chiediSeAzionareCannoniDoppi("Vuoi azionare i cannoni doppi? Ricordati che ciò comporta uno spreco di energia");
+			boolean domanda=inputOutput.chiediSeAzionareComponente("Vuoi azionare i cannoni doppi? Ricordati che ciò comporta uno spreco di energia");
 			// TODO in base alla risposta bisognerà calcolare l'effettiva potenza motrice del giocatore.
 			if (potenzaFuocoGiocatoreKesimo<GiocatoreMinPotenzaFuoco) {
 				indiceTerzo=k;
@@ -112,19 +113,29 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 			caselle=giocatore.get(indiceTerzo).getPlanceNave().getCaselle();
 			switch(dimensioneCannonata) {
 			case GROSSO:{
-				posizioneColpita=GestioneProiettili.colpisciComponenteDaSotto(giocatore.get(indiceTerzo).getPlanceNave(), num);
+				posizioneColpita=GestorePlanceNave.colpisciComponenteDaSotto(giocatore.get(indiceTerzo).getPlanceNave(), num);
 				if (posizioneColpita==null) {
 					inputOutput.pericoloScampato();
 				}else {
 					caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+					GestorePlanceNave.gestisciRimozioneOrfani(giocatore.get(indiceTerzo).getPlanceNave());
 				}
 				break;
 			}
 			case PICCOLO:{
+				// la logica è la stessa l'unica cosa da controllare è l'utilizzo o meno dello scudo energia 
+				posizioneColpita=GestorePlanceNave.colpisciComponenteDaSotto(giocatore.get(indiceTerzo).getPlanceNave(), num);
+				if (posizioneColpita==null) {
+					inputOutput.pericoloScampato();
+				}else {
+				Casella casellaColpita=caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()];
+				// TODO se usa lo scudo if (scudo attivato ) { tutto ok} else {
+				caselle[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
+				GestorePlanceNave.gestisciRimozioneOrfani(giocatore.get(indiceTerzo).getPlanceNave());
 				
+				}
+			}
 				
-			}
-			}
 			
 			
 		}
@@ -134,4 +145,5 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		
 	}
 
+	}
 }

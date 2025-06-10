@@ -95,7 +95,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 			// colpisco i giocatori presenti nella lista 
 			for (int j=0;j<giocatoriSconfitti.size();j++) {
 				// sparare al giocatore j-esimo 
-		//		giocatoriSconfitti.get(j).getPlanceNave().
+		
 				
 			}
 			
