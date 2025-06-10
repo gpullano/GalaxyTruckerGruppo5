@@ -45,7 +45,7 @@ public class FasePreparazioneDecollo extends Fase {
 			posizionaAlieniEdEquipaggio(giocatoreDaControllare);
 			
 			//Calcolo delle batterie
-			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie();		
+			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie(0);		
 		}
 	}
 	

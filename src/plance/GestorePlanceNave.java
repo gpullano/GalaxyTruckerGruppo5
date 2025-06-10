@@ -547,7 +547,7 @@ public class GestorePlanceNave {
             if (nave.utilizzoScudo(meteorite.getProvenienza()) && nave.haBatterie()) {
                 boolean vuoleUsareScudo = inputOutput.chiediSeEseguireAzione("Un meteorite piccolo sta per colpire un lato non protetto. Vuoi usare 1 batteria per attivare lo scudo?");
                 if (vuoleUsareScudo) {
-                    nave.aggiungiEnergia(-1); // Consuma la batteria
+                    nave.aggiungiBatterie(-1); // Consuma la batteria
                     return RisultatoImpatto.SALVATO_DA_SCUDO;
                 }
             }

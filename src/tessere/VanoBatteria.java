@@ -44,6 +44,13 @@ public class VanoBatteria extends Tessera {
 	}
 
 	
+	public void rimuoviBatteria() {
+		if(this.batterie < 1) {
+			throw new IllegalStateException("Non puoi togliere altre batterie a questo vano, ne ha gia' zero.");
+		}
+		this.batterie--;
+	}
+	
 	
 	
 }

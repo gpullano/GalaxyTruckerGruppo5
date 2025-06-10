@@ -60,4 +60,12 @@ public class CabinaCentrale extends Tessera {
 	public String getNomeBreve() {
     	return "CabCen";
 	}
+	
+	public void aggiungiEquipaggio(int equipaggio) {
+		if(this.equipaggio - equipaggio < 0) {
+			this.equipaggio = 0;
+		} else {
+			this.equipaggio -= equipaggio;
+		}
+	}
 }

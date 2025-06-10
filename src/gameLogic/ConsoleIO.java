@@ -623,8 +623,71 @@ public class ConsoleIO {
 		return false; // messo per chiarezza 
 	}
 	
-	public void chiediMerciDaPrendere() {
-		//TODO 
+	/**
+	 * Gestisce la situazione in cui un giocatore non ha abbastanza spazio per
+	 * tutte le merci disponibili e deve scegliere quali prendere.
+	 *
+	 * @param merciDisponibili La lista completa delle merci che il giocatore potrebbe prendere.
+	 * @param spazioDisponibile Il numero di scomparti liberi sulla nave del giocatore.
+	 * @return Una nuova lista contenente solo le merci che il giocatore ha scelto di caricare.
+	 */
+	public List<Merci> chiediMerciDaPrendere(List<Merci> merciDisponibili, int spazioDisponibile) {
+	    System.out.println("\nATTENZIONE: Spazio di carico insufficiente!");
+	    System.out.println("Hai " + spazioDisponibile + " scomparti liberi, ma ci sono " + merciDisponibili.size() + " merci disponibili.");
+	    System.out.println("Scegli quali merci caricare.");
+
+	    // Creiamo una copia della lista di merci disponibili per poterla modificare (rimuovendo le merci scelte)
+	    List<Merci> merciAncoraDaScegliere = new ArrayList<>(merciDisponibili);
+	    // Questa lista conterrà le merci che il giocatore decide di prendere
+	    List<Merci> merciScelte = new ArrayList<>();
+
+	    // Il giocatore continua a scegliere finché non riempie il suo spazio o finché non ci sono più merci da scegliere
+	    while (merciScelte.size() < spazioDisponibile && !merciAncoraDaScegliere.isEmpty()) {
+	        
+	        // 1. Mostra le opzioni rimanenti
+	        System.out.println("\nSpazio rimanente: " + (spazioDisponibile - merciScelte.size()));
+	        System.out.println("Merci ancora disponibili:");
+	        for (int i = 0; i < merciAncoraDaScegliere.size(); i++) {
+	            System.out.println("  " + (i + 1) + ". Merce di colore " + merciAncoraDaScegliere.get(i).getColore());
+	        }
+	        System.out.println("  0. Ho finito, non voglio caricare altre merci.");
+
+	        // 2. Chiedi l'input
+	        int scelta = -1;
+	        boolean inputValido = false;
+	        while (!inputValido) {
+	            System.out.print("Inserisci il numero della merce da caricare: ");
+	            try {
+	                scelta = Integer.parseInt(sc.nextLine());
+	                if (scelta >= 0 && scelta <= merciAncoraDaScegliere.size()) {
+	                    inputValido = true;
+	                } else {
+	                    System.err.println("Scelta non valida. Riprova.");
+	                }
+	            } catch (NumberFormatException e) {
+	                System.err.println(INPUT_NON_VALIDO);
+	            }
+	        }
+
+	        // 3. Processa la scelta
+	        if (scelta == 0) {
+	            // Il giocatore ha deciso di fermarsi
+	            System.out.println("Scelta terminata.");
+	            break; 
+	        } else {
+	            // Il giocatore ha scelto una merce. La spostiamo dalla lista delle disponibili a quella delle scelte.
+	            int indiceScelto = scelta - 1;
+	            Merci mercePresa = merciAncoraDaScegliere.remove(indiceScelto);
+	            merciScelte.add(mercePresa);
+	            System.out.println("Caricata merce di colore " + mercePresa.getColore() + ".");
+	        }
+	    }
+
+	    if (merciScelte.size() == spazioDisponibile) {
+	        System.out.println("Spazio di carico pieno!");
+	    }
+
+	    return merciScelte;
 	}
 	
 	

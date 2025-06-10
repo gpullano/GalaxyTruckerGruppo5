@@ -65,6 +65,7 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		int i = 0;
 		boolean attivata = false;
 		while(i < giocatore.size() && !attivata) {
@@ -72,16 +73,17 @@ public class StazioneAbbandonata extends CartaPerditaGiorniVolo {
 			if (giocatoreCorrente.getPlanceNave().getEquipaggioTotale() >= this.equipaggioRichiesto) {
 				attivata=inputOutput.chiediAttivare(giocatoreCorrente);
 				if (attivata) {
-					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(this.getGiorniVoloPersi());
-					if(giocatoreCorrente.getPlanceNave().getSpazioMerciRimasto() >= merciAcquisite.length) {
-						giocatoreCorrente.getPlanceNave().getMerciNave().addAll(Arrays.asList(merciAcquisite));
+					planceVolo.getPosizioneGiocatori()[i].aggiornaPosizione(-this.getGiorniVoloPersi());
+					if(giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale() >= merciAcquisite.length) {
+						giocatoreCorrente.getPlanceNave().aggiungiMerci(Arrays.asList(merciAcquisite));
 					} else {
-						inputOutput.chiediMerciDaPrendere();
+						List<Merci> merciDaCaricare = inputOutput.chiediMerciDaPrendere(Arrays.asList(merciAcquisite), giocatoreCorrente.getPlanceNave().getSpazioMerciDisponibileTotale());
+						giocatoreCorrente.getPlanceNave().aggiungiMerci(merciDaCaricare);
 					}
 					
 				}
 			}
-				i++;
+			i++;
 		}
 		
 	}

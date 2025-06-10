@@ -1,5 +1,6 @@
 package plance;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import tessere.Connettore;
 import tessere.GeneratoreScudi;
 import tessere.Motore;
 import tessere.MotoreDoppio;
+import tessere.Stiva;
 import tessere.Tessera;
 import tessere.VanoBatteria;
 
@@ -38,8 +40,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int batterieTotali;
-	private int merciTotali;
-	private List<Merci> merciNave;
+//	private int merciTotali;
+//	private List<Merci> merciNave;
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
 	/*Gli alieni sono un attributo boolean perché se ce n'e' uno non ce ne possono essere
@@ -58,8 +60,8 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.potenzaFuoco = 0;
 		this.potenzaMotori = 0;
 		this.batterieTotali = 0;
-		this.setMerciTotali(0);
-		this.merciNave = new LinkedList<>();
+//		this.setMerciTotali(0);
+//		this.merciNave = new LinkedList<>();
 		this.componenteAgganciato = false;
 		this.spazioTesserePrenotate = new LinkedList<>();
 		this.caselle[2][3].setTessera(new CabinaCentrale(colore));
@@ -101,9 +103,9 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return spazioTesserePrenotate;
 	}
 	
-	public int getSpazioMerciRimasto() {
-		return this.merciTotali - this.merciNave.size();
-	}
+//	public int getSpazioMerciRimasto() {
+//		return this.merciTotali - this.merciNave.size();
+//	}
 	
 	public void aggiungiTesseraPrenotata(Tessera t) {
 		if(this.spazioTesserePrenotate.size() >= NUM_TESSERE_PRENOTABILI) {
@@ -114,14 +116,14 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	
-	// getter e setter
-	public int getMerciTotali() {
-		return merciTotali;
-	}
-
-	public void setMerciTotali(int merciTotali) {
-		this.merciTotali = merciTotali;
-	}
+//	// getter e setter
+//	public int getMerciTotali() {
+//		return merciTotali;
+//	}
+//
+//	public void setMerciTotali(int merciTotali) {
+//		this.merciTotali = merciTotali;
+//	}
 	
 	public int getPotenzaFuoco(ConsoleIO inputOutput) {
 		calcolaPotenzaFuoco(inputOutput);
@@ -147,7 +149,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 
 	
 	public int getEquipaggioTotale() {
-		calcolaEquipaggio();
 		return equipaggioTotale;
 	}
 
@@ -174,13 +175,13 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.componenteAgganciato = componenteAgganciato;
 	}
 	
-	public List<Merci> getMerciNave() {
-		return merciNave;
-	}
-
-	public void setMerciNave(List<Merci> merciNave) {
-		this.merciNave = merciNave;
-	}
+//	public List<Merci> getMerciNave() {
+//		return merciNave;
+//	}
+//
+//	public void setMerciNave(List<Merci> merciNave) {
+//		this.merciNave = merciNave;
+//	}
 
 	/**
 	 * @return the pilaScarti
@@ -215,11 +216,11 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	//TODO - verificare se serve
-	public void aggiungiEnergia(int energia) {
-		if(this.batterieTotali - energia < 0) {
+	public void aggiungiBatterie(int batterie) {
+		if(this.batterieTotali - batterie < 0) {
 			throw new IllegalArgumentException("Non puoi avere un'energia negativa");
 		}
-		this.batterieTotali += energia;
+		calcolaQtBatterie(-batterie);
 	}
 	
 	public void aggiungiEquipaggio(int equipaggio) {
@@ -290,12 +291,85 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}
 	}
 	
-	public void calcolaQtBatterie() {
+	
+	
+	public void rimuoviMembriEquipaggio(int quantitaDaRimuovere) {
+	    if (quantitaDaRimuovere <= 0) {
+	        return;
+	    }
+
+	    // Scansiona la nave per rimuovere i membri
+	    for(int i = 0; i < NUM_RIGHE; i++) {
+	        for(int j = 0; j < NUM_COLONNE; j++) {
+	            
+	            if (quantitaDaRimuovere == 0) {
+	                break;
+	            }
+
+	            if(this.caselle[i][j].getTessera() instanceof Cabina cabina) {
+	                
+	                // 1: Rimuovi gli umani dalla cabina
+	                int umaniInCabina = cabina.getEquipaggio();
+	                if (umaniInCabina > 0) {
+	                    int daRimuovere = Math.min(quantitaDaRimuovere, umaniInCabina);
+	                    cabina.aggiungiEquipaggio(-daRimuovere); 
+	                    quantitaDaRimuovere -= daRimuovere;
+	                    System.out.println("Rimossi " + daRimuovere + " umani dalla cabina in (" + i + "," + j + ")");
+	                }
+
+	                if (quantitaDaRimuovere == 0) continue;
+
+	                // 2: Rimuovi gli alieni
+	                if (cabina.isAlienoViola()) {
+	                    cabina.setAlienoViola(false);
+	                    quantitaDaRimuovere--;
+	                    System.out.println("Rimosso alieno viola dalla cabina in (" + i + "," + j + ")");
+	                }
+	                if (quantitaDaRimuovere == 0) continue;
+	                if (cabina.isAlienoMarrone()) {
+	                    cabina.setAlienoMarrone(false);
+	                    quantitaDaRimuovere--;
+	                    System.out.println("Rimosso alieno marrone dalla cabina in (" + i + "," + j + ")");
+	                }
+	            }
+	        }
+	        if (quantitaDaRimuovere == 0) break;
+	    }
+	    
+	    // 3: Se ancora dobbiamo rimuovere membri, tocca alla cabina centrale
+	    if (quantitaDaRimuovere > 0) {
+	        Casella casellaCentrale = this.caselle[2][3];
+	        if (casellaCentrale.getTessera() instanceof CabinaCentrale cabinaCentrale) {
+	            int umaniInCabina = cabinaCentrale.getEquipaggio();
+	            if (umaniInCabina > 0) {
+	                int daRimuovere = Math.min(quantitaDaRimuovere, umaniInCabina);
+	                cabinaCentrale.aggiungiEquipaggio(daRimuovere); // Anche CabinaCentrale deve avere questo metodo
+	                quantitaDaRimuovere -= daRimuovere;
+	                System.out.println("Rimossi " + daRimuovere + " umani dalla cabina centrale.");
+	            }
+	        }
+	    }
+	    
+	    calcolaEquipaggio();
+	}
+	
+	
+	/**
+	 * Calcola il numero di batterie totali della nave
+	 * @param numBatterieDaRimuovere - indica il numero di batterie da rimuovere
+	 * non fa scegliere all'utente dove rimuovere le batterie, le rimuove partendo
+	 * dal vano situato alla riga e colonna di indice minore, scorrendo la nave.
+	 */
+	public void calcolaQtBatterie(int numBatterieDaRimuovere) {
 		//Reinizializzo per evitare un conteggio falsato
 		this.batterieTotali = 0;
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof VanoBatteria vanoBatteria) {
+					if(vanoBatteria.getBatterie() > 0 && numBatterieDaRimuovere > 0) {
+						vanoBatteria.rimuoviBatteria();
+						numBatterieDaRimuovere--;
+					}
 					this.batterieTotali += vanoBatteria.getBatterie();
 				} 
 			}
@@ -321,10 +395,119 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return false;
 	}
 	
-	//TODO - valutare una funzione attiva scudo che permette di attivare lo scudo se abbiamo energia
-	// e creare eventualmente un attributo "latiProtetti" che tiene traccia dei lati della nave
-	// protetti dagli scudi, di modo da non dover controllare tessera per tessera. Questa funzione
-	// verrà chiamata durante l'assemblaggio.
+	
+	//Gestione merci
+	
+	/**
+	 * Calcola lo spazio di carico totale ancora disponibile su tutta la nave.
+	 * @return Il numero di scomparti vuoti totali.
+	 */
+	public int getSpazioMerciDisponibileTotale() {
+	    int spazioTotale = 0;
+	    for (int r = 0; r < NUM_RIGHE; r++) {
+	        for (int c = 0; c < NUM_COLONNE; c++) {
+	            if (this.caselle[r][c].getTessera() instanceof Stiva stiva) {
+	                spazioTotale += stiva.getSpazioDisponibile();
+	            }
+	        }
+	    }
+	    return spazioTotale;
+	}
+
+	/**
+	 * Aggiunge una lista di merci alla nave, riempiendo le stive una per una.
+	 * Si ferma se finisce lo spazio.
+	 *
+	 * @param merciDaAggiungere La lista di merci da caricare.
+	 * @return Il numero di merci effettivamente caricate.
+	 */
+	public int aggiungiMerci(List<Merci> merciDaAggiungere) {
+	    int merciCaricate = 0;
+	    
+	    // Scansiona la nave per trovare stive con spazio
+	    for (int r = 0; r < NUM_RIGHE; r++) {
+	        for (int c = 0; c < NUM_COLONNE; c++) {
+	            if (this.caselle[r][c].getTessera() instanceof Stiva stiva) {
+	                
+	                // Prova a caricare più merci possibili in questa stiva
+	                while (!stiva.isPiena() && merciCaricate < merciDaAggiungere.size()) {
+	                    stiva.aggiungiMerce(merciDaAggiungere.get(merciCaricate));
+	                    merciCaricate++;
+	                }
+	                
+	                // Se abbiamo caricato tutte le merci, usciamo
+	                if (merciCaricate == merciDaAggiungere.size()) {
+	                    System.out.println("Caricate tutte le " + merciCaricate + " merci.");
+	                    return merciCaricate;
+	                }
+	            }
+	        }
+	    }
+
+	    System.out.println("Spazio di carico esaurito. Caricate solo " + merciCaricate + " su " + merciDaAggiungere.size() + " merci.");
+	    return merciCaricate;
+	}
+
+
+	/**
+	 * Rimuove un certo numero di merci dalla nave.
+	 * Scansiona le stive e rimuove le merci dalla prima stiva non vuota che trova.
+	 *
+	 * @param quantitaDaRimuovere Il numero di merci da rimuovere.
+	 */
+	public void rimuoviMerci(int quantitaDaRimuovere) {
+	    if (quantitaDaRimuovere <= 0) return;
+
+	    System.out.println("La nave deve perdere " + quantitaDaRimuovere + " merci.");
+	    int merciRimasteDaRimuovere = quantitaDaRimuovere;
+
+	    // Scansiona la nave per trovare stive da cui rimuovere le merci
+	    for (int r = 0; r < NUM_RIGHE; r++) {
+	        for (int c = 0; c < NUM_COLONNE; c++) {
+	            if (merciRimasteDaRimuovere == 0) {
+	                System.out.println("Rimozione merci completata.");
+	                return; // Abbiamo finito
+	            }
+
+	            if (this.caselle[r][c].getTessera() instanceof Stiva stiva) {
+	                // Rimuovi merci da questa stiva finché non è vuota o abbiamo finito
+	                while (stiva.getMerciContenute() > 0 && merciRimasteDaRimuovere > 0) {
+	                    Merci merceRimossa = stiva.rimuoviMerce();
+	                    if (merceRimossa != null) {
+	                        System.out.println("Scaricata merce di colore: " + merceRimossa.getColore() + " dalla stiva in (" + r + "," + c + ")");
+	                        merciRimasteDaRimuovere--;
+	                    }
+	                }
+	            }
+	        }
+	    }
+	    
+	    if (merciRimasteDaRimuovere > 0) {
+	        System.out.println("Non c'erano abbastanza merci sulla nave per soddisfare la perdita.");
+	    }
+	}
+
+
+	/**
+	 * Restituisce una lista di TUTTE le merci presenti su TUTTE le stive della nave.
+	 * Utile per il calcolo del punteggio finale.
+	 * @return Una lista aggregata di tutte le merci.
+	 */
+	public List<Merci> getTutteLeMerciABordo() {
+	    List<Merci> merciTotali = new ArrayList<>();
+	    for (int r = 0; r < NUM_RIGHE; r++) {
+	        for (int c = 0; c < NUM_COLONNE; c++) {
+	            if (this.caselle[r][c].getTessera() instanceof Stiva stiva) {
+	                merciTotali.addAll(stiva.getMerci());
+	            }
+	        }
+	    }
+	    return merciTotali;
+	}
+	
+	
+	
+
 	
 	@Override
 	public void creaNave() {

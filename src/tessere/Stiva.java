@@ -1,40 +1,74 @@
 package tessere;
 
+import java.util.ArrayList;
+import java.util.List;
+import collezionabili.Merci;
 
 /**
-*rappresenta una tessera usata per immagazzinare merci.
-*può avere 2 o 3 scomparti
-*/
+ * Rappresenta una tessera usata per immagazzinare merci.
+ * Ogni stiva ha una sua lista interna di merci.
+ */
 public class Stiva extends Tessera {
-	//La stiva per motivi di tempo è stata inizializzata a tre scomparti
-	private static final int N_SCOMPARTI = 3;
+    private static final int CAPIENZA_MAX = 3;
+    private List<Merci> scomparti; 
 
-	
-/**
-*costruttore stiva
-*@param latoDx connettori lato destro
-*@param latoSx connettori lato sinistro
-*@param latoSup connettori lato superiori
-*@param latoDown connettori lato inferiori
-*/
-	public Stiva(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
-		super(latoDx, latoSx, latoSup, latoDown);
-	}
+    public Stiva(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
+        super(latoDx, latoSx, latoSup, latoDown);
+        this.scomparti = new ArrayList<>(CAPIENZA_MAX); 
+    }
 
-/** 
-*restituisce il numero di scomparti della stiva.
-*@return numero scomparti
-*/
-	public static int getScomparti() {
-		return N_SCOMPARTI;
-	}
+    // --- Metodi per gestire le merci della stiva
 
-/** 
-*restituisce il nome breve della tessera
-*@return stringa stiva
-*/
-	@Override
-	public String getNomeBreve() {
-    	return " Stiva ";
-	}
+    public int getCapienzaMassima() {
+        return CAPIENZA_MAX;
+    }
+    
+    public int getMerciContenute() {
+        return this.scomparti.size();
+    }
+
+    public int getSpazioDisponibile() {
+        return CAPIENZA_MAX - this.scomparti.size();
+    }
+
+    public boolean isPiena() {
+        return this.scomparti.size() >= CAPIENZA_MAX;
+    }
+    
+    /**
+     * Aggiunge una merce a questa stiva, se c'è spazio.
+     * @param merce La merce da aggiungere.
+     * @return true se la merce è stata aggiunta, false altrimenti.
+     */
+    public boolean aggiungiMerce(Merci merce) {
+        if (!isPiena()) {
+            this.scomparti.add(merce);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Rimuove e restituisce la prima merce trovata in questa stiva.
+     * @return L'oggetto Merci rimosso, o null se la stiva è vuota.
+     */
+    public Merci rimuoviMerce() {
+        if (!scomparti.isEmpty()) {
+            return this.scomparti.remove(0); // Rimuove il primo elemento
+        }
+        return null;
+    }
+    
+    /**
+     * Restituisce una copia della lista di merci per la visualizzazione,
+     * per evitare modifiche esterne non controllate.
+     */
+    public List<Merci> getMerci() {
+        return new ArrayList<>(this.scomparti);
+    }
+
+    @Override
+    public String getNomeBreve() {
+        return " Stiva ";
+    }
 }

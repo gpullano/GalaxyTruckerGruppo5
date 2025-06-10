@@ -117,11 +117,16 @@ public void setPosizione(int posizione) {
 }
 
 public void aggiornaPosizione(int giorni) {
-	//TODO gestire i casi di posizione negativa
+	//Sforamento del giro in avanti
 	if(this.posizione + giorni > LUNGHEZZA_PERCORSO) {
 		this.posizione += giorni - LUNGHEZZA_PERCORSO;
 		this.giro++;
-	}else {
+		
+	//Sforamento del giro all'indietro
+	}else if (this.posizione + giorni < 1) {
+        this.posizione = this.posizione + giorni + LUNGHEZZA_PERCORSO;
+        this.giro--;
+    }else {
 		this.posizione += giorni;
 	}
 	daPosizioneACoordinate();
