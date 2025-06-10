@@ -3,7 +3,7 @@ package gameLogic;
 import java.util.List;
 import carteAvventura.Carta;
 import carteAvventura.CartaPerditaGiorniVolo;
-import dadiEClessidra.Dadi;
+import carteAvventura.Dadi;
 import plance.PlanceVolo;
 
 public class FaseVolo extends Fase {

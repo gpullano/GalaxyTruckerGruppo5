@@ -6,18 +6,15 @@ import java.util.Deque;
 import java.util.List;
 
 import carteAvventura.Mazzetto;
-import dadiEClessidra.Clessidra;
 import plance.PlanceVolo;
 import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
 public class FaseAssemblaggio extends Fase {
 	private static final int N_TESSERE = 20; // TODO - da modificare con 156 per il gioco vero
-	private static final int TEMPO_CLESSIDRA = 20;
     private Deque<Tessera> mucchioTessere;
     private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
-    private Clessidra clessidra;
     
     //costruttore
 	public FaseAssemblaggio(List<Giocatore> giocatori, PlanceVolo planceVolo,  Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
@@ -26,8 +23,6 @@ public class FaseAssemblaggio extends Fase {
 		
 		// Le 3 pile inferiori - La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
 		this.mazzettiDiCarte = new Mazzetto[]{mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2]}; 
-		
-		this.clessidra = new Clessidra(TEMPO_CLESSIDRA);
 		this.tessereScoperte = new ArrayList<>();	
 	}
 	
@@ -72,12 +67,7 @@ public class FaseAssemblaggio extends Fase {
 				//se il giocatore non ha terminato l'assemblaggio gli do la possibilità di compiere azioni
 				if(!giocatore.isAssemblaggioTerminato())
 				{
-					//TODO - valuta il funzionamento della clessidra
-					this.clessidra.start();
-					//il giocatore può continuare a svolgere azioni finché non scade il tempo della clessidra
-					while(this.clessidra.isNotExpired()){
-					
-					//TODO - stampa la planceNave del giocatore con le tessere prenotate
+									
 					getInputOutput().stampaSetupAssemblaggio(giocatore.getColore(), giocatore.getPlanceNave(), 
 							giocatore.getPlanceNave().getTesserePrenotate(), tessereScoperte);
 					//TODO - gestisci il caso in cui le tessere sono finite
@@ -202,7 +192,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						
 						}
-					}
+					
 				}
 			}
 				

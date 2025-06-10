@@ -2,13 +2,10 @@ package gameLogic;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import carteAvventura.Carta;
 import carteAvventura.GeneratoreCarte;
 import carteAvventura.Mazzetto;
-import dadiEClessidra.Clessidra;
-import dadiEClessidra.Dadi;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 

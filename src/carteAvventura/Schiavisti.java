@@ -68,6 +68,7 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		boolean vuolePerderegiorniVolo = false;
 		while(i < giocatore.size() && !schiavistiSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
+			inputOutput.stampaMessaggio("\n--- Turno del GIOCATORE " + giocatoreCorrente.getColore() + " ---");
 			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);
 			if (potenzaFuocoGiocatoreCorrente > this.potenzaFuoco) {
 				inputOutput.stampaMessaggio("GIOCATORE " + giocatoreCorrente.getColore() + " Hai una potenza di fuoco maggiore degli schiavisti. LI HAI SCONFITTI.");

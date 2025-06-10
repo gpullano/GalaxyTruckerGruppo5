@@ -1,4 +1,4 @@
-package dadiEClessidra;
+package carteAvventura;
 
 import java.util.Random;
 

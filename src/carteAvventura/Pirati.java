@@ -2,7 +2,7 @@ package carteAvventura;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import dadiEClessidra.Dadi;
+
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.Casella;
