@@ -48,6 +48,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 		boolean attivata=false;
 		while(i<giocatore.size()&&!attivata) {
 			inputOutput.stampaMessaggio("\n--- Turno del GIOCATORE " + giocatore.get(i).getColore() + " ---");
+			inputOutput.stampaNave(giocatore.get(i).getPlanceNave());
 			
 			if (giocatore.get(i).getPlanceNave().getEquipaggioTotale()>=this.equipaggioRichiesto) {
 				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatore.get(i).getColore() + " hai abbastanza equipaggio"
@@ -61,7 +62,7 @@ public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 				}
 			} else {
 				inputOutput.stampaMessaggio("\nGIOCATORE " + giocatore.get(i).getColore() + " NON hai abbastanza equipaggio"
-						+ "per ottenere i crediti.");
+						+ " per ottenere i crediti.");
 			}
 			
 			i++;

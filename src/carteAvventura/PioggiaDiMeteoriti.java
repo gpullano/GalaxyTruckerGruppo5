@@ -78,17 +78,21 @@ public class PioggiaDiMeteoriti extends Carta {
 	                    break;
 	                case SALVATO_DA_LATO_LISCIO:
 	                    inputOutput.stampaMessaggio("METEORITE DEVIATO! Ha colpito un lato liscio.");
+	                    inputOutput.stampaNave(giocatore.getPlanceNave());
 	                    break;
 	                case SALVATO_DA_SCUDO:
 	                    inputOutput.stampaMessaggio("METEORITE DEVIATO! Hai attivato uno scudo.");
+	                    inputOutput.stampaNave(giocatore.getPlanceNave());
 	                    break;
 	                case SALVATO_DA_CANNONE:
 	                    inputOutput.stampaMessaggio("METEORITE DISTRUTTO! I tuoi cannoni hanno fatto centro.");
+	                    inputOutput.stampaNave(giocatore.getPlanceNave());
 	                    break;
 	                case DISTRUTTO:
 	                    // Il messaggio di distruzione viene già stampato da GestorePlanceNave
 	                    // Potresti aggiungere un messaggio generico qui se vuoi
 	                    inputOutput.stampaMessaggio("La tua nave ha subito danni!");
+	                    inputOutput.stampaNave(giocatore.getPlanceNave());
 	                    break;
 	            }
 	        }

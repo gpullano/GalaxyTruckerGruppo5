@@ -9,8 +9,7 @@ import java.util.Random;
 *non può essere realizzata.
 */
 public class GeneratoreTessere {
-	private static Random rand1=new Random();
-	private static Random rand2=new Random();
+	private static Random rand = new Random();
 	// aggiungo un parametro che è la qta di tessere disponibili
 	private static final int NUMERO_TIPI_TESSERE=11; 
 
@@ -45,7 +44,7 @@ public class GeneratoreTessere {
 		}
 		
 		// scelgo a caso dalla lista 'validi' 
-		return validi.get(rand1.nextInt(validi.size()));
+		return validi.get(rand.nextInt(validi.size()));
 		
 				
 		
@@ -249,7 +248,7 @@ public class GeneratoreTessere {
 			connettori.get(1),
 		    connettori.get(2),
 		    connettori.get(3),
-		    rand1.nextInt(2) + 2 // da 2 a 3
+		    rand.nextInt(2) + 2 // da 2 a 3
 			);
 		}
 	private  static boolean controllaConnettoriNulli(List<Connettore> connettori) {
@@ -267,7 +266,7 @@ public class GeneratoreTessere {
 *@return un oggetto {@link Tessera} generato casualmente.
 */
 		public static Tessera generaTessere () {
-			 int indiceTessera=rand2.nextInt(NUMERO_TIPI_TESSERE);
+			 int indiceTessera=rand.nextInt(NUMERO_TIPI_TESSERE);
 			 Tessera tessera=null;
 			switch (indiceTessera) {
 			case 0:

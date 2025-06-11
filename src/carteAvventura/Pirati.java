@@ -117,7 +117,7 @@ public class Pirati extends CartaPerditaGiorniVolo {
 	        // Ogni cannonata viene sparata contro tutti i giocatori sconfitti
 	        for (Cannonata cannonataCorrente : this.cannonate) {
 	            int risultatoLancioDadi = dadi.lancia();
-	            inputOutput.lancioDeiDadi(null, risultatoLancioDadi); // Dado generico
+	            inputOutput.lancioDeiDadi(planceVolo.getPosizioneGiocatori().get(0).getColore(), risultatoLancioDadi); // Dado generico
 	            
 	            for (Giocatore giocatoreDaColpire : giocatoriSconfitti) {
 	                inputOutput.stampaMessaggio("\n--- Cannonata contro " + giocatoreDaColpire.getColore() + " ---");
@@ -171,7 +171,8 @@ public class Pirati extends CartaPerditaGiorniVolo {
 
 	                    // 3. Se il colpo non è stato annullato, distruggi il componente
 	                    if (!colpoAnnullato) {
-	                        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + posizioneColpita + " è stato distrutto.");
+	                        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + "(" + (posizioneColpita.getRiga() + 5) + ", " + (posizioneColpita.getColonna() + 4) + ")" + " è stato distrutto.");
+	                        inputOutput.stampaNave(naveColpita);
 	                        // Distruzione manuale come da tua richiesta
 	                        naveColpita.getCaselle()[posizioneColpita.getRiga()][posizioneColpita.getColonna()].setTessera(null);
 	                        naveColpita.incrementaPilaScarti();

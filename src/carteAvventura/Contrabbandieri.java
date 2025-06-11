@@ -80,6 +80,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 		while(i < giocatore.size() && !contrabbandieriSconfitti) {
 			Giocatore giocatoreCorrente = giocatore.get(i);
 			inputOutput.stampaMessaggio("\n--- Turno del GIOCATORE " + giocatoreCorrente.getColore() + " ---");
+			inputOutput.stampaNave(giocatoreCorrente.getPlanceNave());
 			
 			int merciNaveCorrente = giocatoreCorrente.getPlanceNave().getTutteLeMerciABordo().size();
 			int potenzaFuocoGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaFuoco(inputOutput);

@@ -31,6 +31,7 @@ public class FasePreparazioneDecollo extends Fase {
 		
 		//Ciclo per ogni giocatore.	
 		for(Giocatore giocatoreDaControllare : getGiocatori()) {
+			this.getInputOutput().stampaMessaggio("\nGIOCATORE " + giocatoreDaControllare.getColore());
 			//1. Vengono prima rimossi tutte le tessere che violano le regole di posizionamento:
 			//- cannoni che puntano verso altre tessere
 			//- motori che non puntano verso "dietro"
@@ -45,7 +46,9 @@ public class FasePreparazioneDecollo extends Fase {
 			posizionaAlieniEdEquipaggio(giocatoreDaControllare);
 			
 			//Calcolo delle batterie
-			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie(0);		
+			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie(0);	
+			
+			this.getInputOutput().stampaNave(giocatoreDaControllare.getPlanceNave());
 		}
 	}
 	

@@ -70,6 +70,7 @@ public class CartaPianeti extends CartaPerditaGiorniVolo {
 	    for (int i = 0; i < giocatori.size(); i++) {
 	        Giocatore giocatoreCorrente = giocatori.get(i);
 	        inputOutput.stampaMessaggio("\n-> Turno di scelta per il GIOCATORE " + giocatoreCorrente.getColore());
+	        inputOutput.stampaNave(giocatoreCorrente.getPlanceNave());
 
 	        boolean vuoleAtterrare = inputOutput.chiediAttivare(giocatoreCorrente);
 	        if (vuoleAtterrare) {

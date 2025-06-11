@@ -50,14 +50,14 @@ public class GestorePlanceNave {
 	    // --- Controllo Limiti Plancia ---
 	    // Verifica se le coordinate target (riga, colonna) sono valide per la matrice.
 	    if (riga < 0 || riga >= PlanceNaveLivello1.getNumRighe() || colonna < 0 || colonna >= PlanceNaveLivello1.getNumColonne()) {
-	        System.err.println("Le coordinate (" + riga + "," + colonna + ") sono fuori dai limiti della plancia.");
+	        System.err.println("Le coordinate (" + (riga + 5) + "," + (colonna + 4) + ") sono fuori dai limiti della plancia.");
 	        return false;
 	    }
 
 	    // --- Controllo Casella Target ---
 	    Casella casellaTarget = planceNave.getCaselle()[riga][colonna];
 	    if (!casellaTarget.isUtilizzabile() || casellaTarget.getTessera() != null) {
-	        System.err.println("Errore: La casella (" + riga + "," + colonna + ") non è utilizzabile o è già occupata.");
+	        System.err.println("Errore: La casella (" + (riga + 5) + "," + (colonna + 4) + ") non è utilizzabile o è già occupata.");
 	        return false;
 	    }
 
@@ -152,7 +152,7 @@ public class GestorePlanceNave {
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
                 if (caselle[r][c].getTessera() != null && !tessereConnesse.contains(new Posizione(r, c))) {
-                    System.out.println("Tessera orfana rimossa a: (" + r + ", " + c + ")");
+                    System.out.println("Tessera orfana rimossa a: (" + (r + 5) + ", " + (c + 4) + ")");
                     caselle[r][c].setTessera(null);
                     planceNave.incrementaPilaScarti();
                 }
@@ -240,7 +240,7 @@ public class GestorePlanceNave {
         // Fase 2: Rimuovi tutte le tessere identificate come illegali.
         for (Posizione pos : posizioniDaRimuovere) {
         	caselle[pos.getRiga()][pos.getColonna()].setTessera(null);
-            System.out.println("Tessera illegale rimossa a: " + pos);
+            System.out.println("Tessera illegale rimossa a: (" + (pos.getRiga() + 5) + ", " + (pos.getColonna() + 4) + ")");
         }
     }
 
@@ -571,7 +571,7 @@ public class GestorePlanceNave {
         }
 
         // Se nessuna difesa ha funzionato, il componente viene distrutto.
-        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + posColpita + " è stato distrutto.");
+        inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + "(" + (posColpita.getRiga() + 5) + ", " + (posColpita.getColonna() + 4) + ")" + " e' stato distrutto.");
         distruggiComponente(nave, posColpita);
         return RisultatoImpatto.DISTRUTTO;
     }

@@ -454,8 +454,10 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	//TODO - testare le quattro funzioni seguenti
 	public void ruotaTessera(Tessera tesseraPescata) {
 		boolean ruotaAncora = true;
+		boolean inputValido = false;
 		String scelta;
 		while(ruotaAncora) {
+			inputValido = false;
 			tesseraPescata.ruota();
 			System.out.println("\nTessera ruotata:\n");
 			StringBuilder rigaTesto1 = new StringBuilder(); // Connettori NORD
@@ -476,21 +478,23 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	        System.out.println(rigaTesto3);
 	        System.out.println();
 	        
+	        while(!inputValido) {
 			System.out.println("\nVuoi ruotarla ancora? premi si/no: ");
-			try {
-				scelta = sc.nextLine().trim();
-				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
-					!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
-					throw new IllegalArgumentException("scelta non valida, reinseriscila.");
+			scelta = sc.nextLine().trim();
+			if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
+				!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
+				System.err.println("scelta non valida, reinseriscila.");
+			} else if(scelta.equalsIgnoreCase("no") || scelta.equalsIgnoreCase("n")) {
+				ruotaAncora = false;
+				inputValido = true;
+				} else {
+					inputValido = true;
 				}
-				if(scelta.equalsIgnoreCase("no") || scelta.equalsIgnoreCase("n"))
-					ruotaAncora = false;
-			} catch (IllegalArgumentException e){
-				System.err.println(e.getMessage());
-			}
+					
+			} 
 			
 		}
-	}
+	}	
 	
 	public void guardaMazzettoScelto(Mazzetto[] mazzettiDiCarte) {
 		boolean inputValido = false;
@@ -546,8 +550,7 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	public void stampaTessere(List<Tessera> tessereDaStampare) {
 		//TODO - da sistemare con la nuova toString()
 		for(Tessera tessera : tessereDaStampare) {
-			System.out.println("\n");
-			System.out.println(tessera);
+			System.out.println("\n" + tessera);
 		}
 	}
 	
@@ -650,8 +653,7 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	}
 	
 	public void posizionamentoAlieni(Colore coloreGiocatore) {
-		System.out.println("GIOCATORE " + coloreGiocatore);
-		System.out.println("\nPOSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
+		System.out.println("POSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
 	}
 	
 	

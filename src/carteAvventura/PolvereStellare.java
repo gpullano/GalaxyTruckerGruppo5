@@ -29,7 +29,7 @@ public class PolvereStellare extends CartaPerditaGiorniVolo {
 	@Override
 	public void attiva(List<Giocatore> giocatore, PlanceVolo planceVolo, ConsoleIO inputOutput) {
 		// contare i connettori esposti per ogni nave di ogni giocatore 
-		// uso un ciclo for 
+		inputOutput.stampaMessaggio(this.toString()); // Stampa le info della carta all'inizio
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreAttuale=giocatore.get(i);
 			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreAttuale.getColore() + " ---");

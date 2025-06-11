@@ -62,7 +62,6 @@ public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 		int giocatoreMinEquipaggio=Integer.MAX_VALUE;
 		for (int i=0;i<giocatore.size();i++) {
 			Giocatore giocatoreIesimo=giocatore.get(i);
-			inputOutput.stampaMessaggio("\n--- Turno del Giocatore " + giocatoreIesimo.getColore() + " ---");
 			int equipaggioGiocatoreIesimo=giocatoreIesimo.getPlanceNave().getEquipaggioTotale();
 			if (equipaggioGiocatoreIesimo<giocatoreMinEquipaggio) {
 				indicePrimo=i;
