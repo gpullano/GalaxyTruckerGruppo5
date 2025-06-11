@@ -18,6 +18,9 @@ import tessere.Cabina;
 import tessere.Connettore;
 import tessere.Tessera;
 
+/**
+*la classe ConsoleIO gestisce tutte le interazioni di input e output con la console.
+*/
 public class ConsoleIO {
 	//stringhe costanti
 	private static final String INPUT_NON_VALIDO = "Input non valido. Per favore, inserisci un numero.";
@@ -25,30 +28,24 @@ public class ConsoleIO {
 	// attributi
 	private final Scanner sc;
 	
-	// costruttore
+	/**
+	*costruttore della classe ConsoleIO.
+	*/
 	public ConsoleIO() {
 		this.sc = new Scanner(System.in);
 	}
 	
-	
-	
-	//metodi
+	/**
+	*chiude lo scanner per liberare le risorse.
+	*/
 	public void chiudiScanner() {
 		sc.close();	
 	}
-	
-	
-	
-	
-	
-	
-	
-	//------------------------------------------------------------------
-	// STAMPA NAVE E PLANCIA DI VOLO
+
 	/**
-	 * Stampa una rappresentazione grafica completa della plancia di una nave.
-	 * Semplificata grazie alla lunghezza fissa dei nomi delle tessere.
-	 */
+	*stampa una rappresentazione grafica della plancia della nave.
+	*@param planceNave la plancia della nave da stampare.
+	*/
 	public void stampaNave(PlanceNaveLivello1 planceNave) {
 	    // Costanti per le celle vuote, per una maggiore leggibilità
 	    final String RIGA_VUOTA_1_E_3 = "             "; // 13 spazi
@@ -119,24 +116,24 @@ public class ConsoleIO {
 	    }
 	}
 	
-	//------------------------------------------------------------------
-		// STAMPA NAVE E PLANCIA DI VOLO
-		public void stampaVolo(PlanceVolo planceVolo) {
-			for(int r = 0; r < planceVolo.getCella().length; r++) {
-				for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
-						System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
-					
-				}
-				System.out.println('\n');
+	/**
+	*stampa una rappresentazione della plancia di volo.
+	*@param planceVolo la plancia di volo da stampare.
+	*/
+	public void stampaVolo(PlanceVolo planceVolo) {
+		for(int r = 0; r < planceVolo.getCella().length; r++) {
+			for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
+					System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
+				
 			}
+			System.out.println('\n');
 		}
+	}
 	
-	
-	
-	
-	//------------------------------------------------------------------
-	//------- SETUP PARTITA
-	
+	/**
+	*chiede all'utente di selezionare il livello di gioco.
+	*@return il livello di partita scelto dall'utente.
+	*/
 	public LivelloPartita chiediLivelloGioco() {
 	    int scelta = -1;
 	    LivelloPartita livelloScelto = null;
@@ -152,22 +149,21 @@ public class ConsoleIO {
 
 	        try {
 	            scelta = Integer.parseInt(sc.nextLine());
-
-	            // Tento di convertire l'intero letto in un valore enum
 	            livelloScelto = LivelloPartita.fromNumero(scelta);
 	            inputValido = true;
-	            // TODO - cambiare quest'eccezione e metterne una controllata
 	        } catch (NumberFormatException e) {
 	            System.err.println(INPUT_NON_VALIDO);
 	        } catch (NumeroNonValidoException e) {
-	            // Se l'input è un intero ma non valido
 	            System.err.println(e.getMessage());
 	        }
 	    }
-
 	    return livelloScelto;
 	}
 
+	/**
+	*chiede all'utente di inserire il numero di giocatori.
+	*@return il numero di giocatori (da 2 a 4).
+	*/
 	public int chiediNumGiocatori() {
 	    int numGiocatori = 0;
 	    boolean inputValido = false;
@@ -189,8 +185,11 @@ public class ConsoleIO {
 	    return numGiocatori;
 	}
 
-	//TODO - verifica il corretto funzionamento di questo metodo per
-	//colori diversi da quelli esatti. Ad es: "roSSo" anziché "ROSSO".
+	/**
+	*chiede a ogni giocatore di scegliere un colore univoco.
+	*@param numGiocatori il numero di giocatori che devono scegliere un colore.
+	*@return un array contenente i colori scelti da ogni giocatore.
+	*/
 	public Colore[] chiediColoreGiocatori(int numGiocatori) {
 		Colore coloreGiocatori[] = new Colore[numGiocatori];
 		List<Colore> coloriSceltiTemp = new ArrayList<>();
@@ -221,26 +220,16 @@ public class ConsoleIO {
                 }
             }
         }
-
         return coloreGiocatori;
     }
 	
-	
-	
-	
-	
-	
-	//------------------------------------------------------------------
-	//---- FASI DI GIOCO 
-	
-	
-	
-	
-	
-	//-------------
-	//Fase di assemblaggio
-	//-------------
-	
+	/**
+	*stampa lo stato iniziale del turno di un giocatore durante la fase di assemblaggio.
+	*@param coloreGiocatore il colore del giocatore corrente.
+	*@param planceNave la plancia della nave del giocatore.
+	*@param tesserePrenotate la lista delle tessere prenotate dal giocatore.
+	*@param tessereScoperte la lista delle tessere scoperte disponibili a tutti.
+	*/
 	public void stampaSetupAssemblaggio(Colore coloreGiocatore, PlanceNaveLivello1 planceNave, List<Tessera> tesserePrenotate,
 			List<Tessera> tessereScoperte) {
 		System.out.println("\nSETUP DEL GIOCATORE " + coloreGiocatore);
@@ -252,18 +241,26 @@ public class ConsoleIO {
 		
 	}
 	
+	/**
+	*stampa un messaggio di inizio della fase di assemblaggio.
+	*/
 	public void inizioAssemblaggio() {
 		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
 	}
 	
-	
+	/**
+	*chiede al giocatore quale azione compiere durante la fase di assemblaggio, mostrando solo le opzioni disponibili.
+	*@param colore il colore del giocatore di turno.
+	*@param haAgganciatoComponente indica se il giocatore ha già agganciato una tessera.
+	*@param haPrenotatoComponente indica se il giocatore ha una tessera prenotata.
+	*@param esistonoTessereScoperte indica se ci sono tessere scoperte.
+	*@param esistonoTessereMucchio indica se ci sono tessere nel mucchio principale.
+	*@return l'azione di assemblaggio scelta dal giocatore.
+	*/
 	public AzioneAssemblaggio chiediAzioneAssemblaggio(Colore colore, boolean haAgganciatoComponente, 
 			boolean haPrenotatoComponente, boolean esistonoTessereScoperte, boolean esistonoTessereMucchio) {
 		AzioneAssemblaggio azioneScelta = null;
-		//lista di scelte che si aggiorna in base alle scelte disponibili
 		List<Integer> scelteDisponibili = new ArrayList<>();
-		
-		
 		boolean inputValido = false;
 		int scelta = 0;
 		
@@ -288,8 +285,6 @@ public class ConsoleIO {
 	        
 	        try {
 	            scelta = Integer.parseInt(sc.nextLine());
-	            
-	            //verifico se la scelta inserita dall'utente è tra le opzioni stampate
 	            for(Integer opzione : scelteDisponibili) {
 	            	if(scelta == opzione) {
 	            		azioneScelta = AzioneAssemblaggio.fromNumero(scelta);
@@ -306,13 +301,18 @@ public class ConsoleIO {
 	        }
 	        scelteDisponibili.clear();
 		}
-		
-		//TODO - valutare se tenere la riga di codice seguente
 		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
-		
 		return azioneScelta;
 	}
 	
+	/**
+	*chiede al giocatore cosa fare con la tessera che ha in mano (ruotare, agganciare, etc.).
+	*@param colore il colore del giocatore di turno.
+	*@param tesseraPrenotata indica se la tessera in mano proviene dalla riserva personale.
+	*@param tesseraPescata la tessera attualmente in mano al giocatore.
+	*@param spazioTesserePrenotatePieno indica se gli slot per le tessere prenotate sono pieni.
+	*@return l'azione scelta dal giocatore riguardo alla tessera.
+	*/
 	public AzioneAssemblaggio chiediAzioneSulleTessere(Colore colore, boolean tesseraPrenotata, Tessera tesseraPescata, boolean spazioTesserePrenotatePieno) {
 		AzioneAssemblaggio azioneScelta = null;
 		boolean inputValido = false;
@@ -321,9 +321,9 @@ public class ConsoleIO {
 		
 		do {
 			System.out.println("\nTESSERA PESCATA:\n\n");
-			StringBuilder rigaTesto1 = new StringBuilder(); // Connettori NORD
-	        StringBuilder rigaTesto2 = new StringBuilder(); // Lati OVEST - NOME - EST
-	        StringBuilder rigaTesto3 = new StringBuilder(); // Connettori SUD
+			StringBuilder rigaTesto1 = new StringBuilder();
+	        StringBuilder rigaTesto2 = new StringBuilder();
+	        StringBuilder rigaTesto3 = new StringBuilder();
 
 	        String sup = tesseraPescata.getLatoSup().toString();
             String inf = tesseraPescata.getLatoDown().toString();
@@ -343,9 +343,6 @@ public class ConsoleIO {
 			System.out.println("1 - RUOTARLA (senso antiorario)");
 	        System.out.println("2 - AGGANCIARLA");
 	        
-	        //Se ho preso la tessera dai miei due slot di tessere prenotate, non ha senso lasciare
-	        //disponibili queste due opzioni seguenti.
-	        //Questo controllo verifica che la tessera considerata non sia una tessera prenotata.
 	        if(!tesseraPrenotata) {
 	        	System.out.println("3 - RIMETTERLA A POSTO");
 	        	scelteDisponibili.add(3);
@@ -358,8 +355,6 @@ public class ConsoleIO {
 	        
 	        try {
 	            scelta = Integer.parseInt(sc.nextLine());
-	            
-	            //verifico se la scelta inserita dall'utente è tra le opzioni stampate
 	            for(Integer opzione : scelteDisponibili) {
 	            	if(scelta == opzione) {
 	            		azioneScelta = AzioneAssemblaggio.fromNumero(scelta + 5);
@@ -377,14 +372,14 @@ public class ConsoleIO {
 	        scelteDisponibili.clear();
 		}while(!inputValido);
 		
-		//TODO - valutare se tenere la riga di codice seguente
 		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
-		
 		return azioneScelta;
 	}
 	
-
-	//TODO - testare le quattro funzioni seguenti
+	/**
+	*gestisce la rotazione di una tessera, chiedendo all'utente se vuole continuare a ruotare.
+	*@param tesseraPescata la tessera da ruotare.
+	*/
 	public void ruotaTessera(Tessera tesseraPescata) {
 		boolean ruotaAncora = true;
 		String scelta;
@@ -404,10 +399,13 @@ public class ConsoleIO {
 			} catch (IllegalArgumentException e){
 				System.err.println(e.getMessage());
 			}
-			
 		}
 	}
 	
+	/**
+	*chiede all'utente quale mazzetto di carte vuole ispezionare e ne stampa il contenuto.
+	*@param mazzettiDiCarte l'array dei mazzetti di carte tra cui scegliere.
+	*/
 	public void guardaMazzettoScelto(Mazzetto[] mazzettiDiCarte) {
 		boolean inputValido = false;
 		int scelta = 0;
@@ -432,6 +430,11 @@ public class ConsoleIO {
 		}
 	}
 	
+	/**
+	*mostra le tessere scoperte e chiede al giocatore di sceglierne una da prendere.
+	*@param tessereScoperte la lista delle tessere scoperte disponibili.
+	*@return la tessera scelta e rimossa dalla lista.
+	*/
 	public Tessera chiediTesseraScopertaDaPescare(List<Tessera> tessereScoperte) {
 		boolean indiceNonValido = true;
 		int sceltaIndice = -1;
@@ -445,7 +448,6 @@ public class ConsoleIO {
 				if(sceltaIndice < 1 || sceltaIndice > tessereScoperte.size()) {
 					System.err.println("Scelta non valida, indice non esistente.");
 				} else {
-					//tolgo 1 a sceltaIndice di modo da ottenere l'indice corretto
 					sceltaIndice--;
 					System.out.println(tessereScoperte.get(sceltaIndice));
 					return tessereScoperte.remove(sceltaIndice);
@@ -459,13 +461,21 @@ public class ConsoleIO {
 			return null;
 	}
 	
+	/**
+	*stampa una lista di tessere.
+	*@param tessereDaStampare la lista di tessere da visualizzare.
+	*/
 	public void stampaTessere(List<Tessera> tessereDaStampare) {
-		//TODO - da sistemare con la nuova toString()
 		for(Tessera tessera : tessereDaStampare) {
 			System.out.println("\n" + tessera);
 		}
 	}
 	
+	/**
+	*mostra le tessere prenotate dal giocatore e gli chiede di sceglierne una.
+	*@param tesserePrenotate la lista delle tessere prenotate dal giocatore.
+	*@return la tessera scelta e rimossa dalla lista.
+	*/
 	public Tessera chiediTesseraPrenotata(List<Tessera> tesserePrenotate) {
 		boolean indiceNonValido = true;
 		int sceltaIndice = -1;
@@ -479,7 +489,6 @@ public class ConsoleIO {
 				if(sceltaIndice < 1 || sceltaIndice > tesserePrenotate.size()) {
 					System.err.println("Scelta non valida, indice non esistente.");
 				} else {
-					//tolgo 1 a sceltaIndice di modo da ottenere l'indice corretto
 					sceltaIndice--;
 					System.out.println(tesserePrenotate.get(sceltaIndice));
 					return tesserePrenotate.remove(sceltaIndice);
@@ -493,25 +502,24 @@ public class ConsoleIO {
 			return null;
 	}
 
-	
+	/**
+	*gestisce l'aggancio di una tessera, chiedendo al giocatore le coordinate sulla plancia.
+	*@param giocatore il giocatore che sta agganciando la tessera.
+	*@param tesseraDaAgganciare la tessera da posizionare.
+	*/
 	public void agganciaTessera(Giocatore giocatore, Tessera tesseraDaAgganciare) {
 		boolean tesseraAgganciata = false;
-		
-		
 		while(!tesseraAgganciata) {
 			 int riga = -1, colonna = -1;
 			    boolean rigaValida = false;
 			    boolean colonnaValida = false;
 
-			    // Stampa la plancia per aiutare l'utente (metodo helper)
 			    stampaNave(giocatore.getPlanceNave());
-			    // Chiedi la riga
 			    while (!rigaValida) {
 			        System.out.print("Inserisci la RIGA dove agganciare (es. 1, 2, ...): ");
 			        String inputRiga = sc.nextLine().trim();
 			        try {
 			            riga = Integer.parseInt(inputRiga);
-			             //verifica se la riga è dentro i limiti
 			             if (riga >= 1 && riga <= PlanceNaveLivello1.getNumRighe()) {
 			                 rigaValida = true;
 			             } else {
@@ -523,13 +531,11 @@ public class ConsoleIO {
 			        }
 			    }
 
-			    // Chiedi la colonna
 			    while (!colonnaValida) {
 			        System.out.print("Inserisci la COLONNA dove agganciare (es. 1, 2, ...): ");
 			        String inputColonna = sc.nextLine().trim();
 			        try {
 			            colonna = Integer.parseInt(inputColonna);
-			             
 			             if (colonna >= 1 && colonna <= PlanceNaveLivello1.getNumColonne()) {
 			                 colonnaValida = true;
 			             } else {
@@ -538,39 +544,35 @@ public class ConsoleIO {
 			        } catch (NumberFormatException e) {
 			            System.err.println("Formato colonna non valido. Inserisci un numero.");
 			        }
-			        
 			    }
 			    
 			    if(GestorePlanceNave.agganciaTessera(giocatore.getPlanceNave(), tesseraDaAgganciare, riga, colonna)) {
 			    	System.out.println("Tessera agganciata con successo alla posizione (" + riga + "," + colonna + ").");
 			    	tesseraAgganciata = true;
 			    }
-			
 		}
 	}
 	
-	
-	
-	//-------------
-	// fase di preparazione al decollo
-	//-------------
-	
-	
-	
-	
-	//TODO - crea un unico metodo inizioFase e poi fagli passare una stringa
+	/**
+	*stampa un messaggio di inizio della fase di preparazione al decollo.
+	*/
 	public void inizioPreparazioneAlDecollo() {
 		System.out.println("----- FASE DI PREPARAZIONE AL DECOLLO -----");
 	}
 	
+	/**
+	*stampa un messaggio relativo al posizionamento di alieni o equipaggio.
+	*/
 	public void posizionamentoAlieni() {
 		System.out.println("\nPOSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
 	}
 	
-	
+	/**
+	*pone una domanda si/no al giocatore per decidere se posizionare un alieno.
+	*@param domanda il testo della domanda da mostrare all'utente.
+	*@return true se la risposta è sì, false se è no.
+	*/
 	public boolean chiediSePosizionareAlieno(String domanda) {
-		//inputValido non verra' mai modificata in quanto appena si inserisce un input
-		//valido la funzione ritorna un valore e torna al chiamante.
 		boolean inputValido = false;
 		String scelta;
 		while(!inputValido) {
@@ -593,21 +595,15 @@ public class ConsoleIO {
 			} catch (IllegalArgumentException e){
 				System.err.println(e.getMessage());
 			}
-			
 		}
-		//punto di codice irraggiungibile
 		return false;
 	}
-		
-	
-	
-	
-	//-------------
-	// fase di volo
-	//-------------
-	
-	
-	//TODO - vedi come chiamare con lo stesso nome anche il metodo per gli alieni
+
+	/**
+	*pone una domanda generica si/no per confermare un'azione.
+	*@param domanda il testo della domanda da mostrare.
+	*@return true se la risposta è sì, false se è no.
+	*/
 	public boolean chiediSeEseguireAzione(String domanda) {
 		String scelta;
 		while(true) {
@@ -628,11 +624,14 @@ public class ConsoleIO {
 			} catch (IllegalArgumentException e){
 				System.err.println(e.getMessage());
 			}
-			
 		}
 	}
 	
-	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore
+	/**
+	*chiede al giocatore se desidera attivare una carta.
+	*@param giocatore il giocatore a cui viene posta la domanda.
+	*@return true se sceglie di attivare, false altrimenti.
+	*/
 	public boolean chiediAttivare(Giocatore giocatore ) {
 		String scelta="";
 		boolean inputValido=false;
@@ -646,42 +645,33 @@ public class ConsoleIO {
 				}
 				if(scelta.equalsIgnoreCase("no") || scelta.equalsIgnoreCase("n")) {
 					return false;
-				}else if(scelta.equalsIgnoreCase("si")||scelta.equalsIgnoreCase("s")) { // messo per chiarezza
+				}else if(scelta.equalsIgnoreCase("si")||scelta.equalsIgnoreCase("s")) {
 					return true;
 				}
-				// messo per chiarezza
 				inputValido=true;
 					
 			} catch (IllegalArgumentException e){
 				System.err.println(e.getMessage());
 			}
-			
 		}
-		return false; // messo per chiarezza 
+		return false;
 	}
 	
 	/**
-	 * Gestisce la situazione in cui un giocatore non ha abbastanza spazio per
-	 * tutte le merci disponibili e deve scegliere quali prendere.
-	 *
-	 * @param merciDisponibili La lista completa delle merci che il giocatore potrebbe prendere.
-	 * @param spazioDisponibile Il numero di scomparti liberi sulla nave del giocatore.
-	 * @return Una nuova lista contenente solo le merci che il giocatore ha scelto di caricare.
-	 */
+	*gestisce la scelta delle merci quando lo spazio di carico è insufficiente.
+	*@param merciDisponibili la lista completa delle merci tra cui scegliere.
+	*@param spazioDisponibile il numero di scomparti liberi nella nave.
+	*@return una lista contenente le merci scelte dal giocatore.
+	*/
 	public List<Merci> chiediMerciDaPrendere(List<Merci> merciDisponibili, int spazioDisponibile) {
 	    System.out.println("\nATTENZIONE: Spazio di carico insufficiente!");
 	    System.out.println("Hai " + spazioDisponibile + " scomparti liberi, ma ci sono " + merciDisponibili.size() + " merci disponibili.");
 	    System.out.println("Scegli quali merci caricare.");
 
-	    // Creiamo una copia della lista di merci disponibili per poterla modificare (rimuovendo le merci scelte)
 	    List<Merci> merciAncoraDaScegliere = new ArrayList<>(merciDisponibili);
-	    // Questa lista conterrà le merci che il giocatore decide di prendere
 	    List<Merci> merciScelte = new ArrayList<>();
 
-	    // Il giocatore continua a scegliere finché non riempie il suo spazio o finché non ci sono più merci da scegliere
 	    while (merciScelte.size() < spazioDisponibile && !merciAncoraDaScegliere.isEmpty()) {
-	        
-	        // 1. Mostra le opzioni rimanenti
 	        System.out.println("\nSpazio rimanente: " + (spazioDisponibile - merciScelte.size()));
 	        System.out.println("Merci ancora disponibili:");
 	        for (int i = 0; i < merciAncoraDaScegliere.size(); i++) {
@@ -689,7 +679,6 @@ public class ConsoleIO {
 	        }
 	        System.out.println("  0. Ho finito, non voglio caricare altre merci.");
 
-	        // 2. Chiedi l'input
 	        int scelta = -1;
 	        boolean inputValido = false;
 	        while (!inputValido) {
@@ -706,13 +695,10 @@ public class ConsoleIO {
 	            }
 	        }
 
-	        // 3. Processa la scelta
 	        if (scelta == 0) {
-	            // Il giocatore ha deciso di fermarsi
 	            System.out.println("Scelta terminata.");
 	            break; 
 	        } else {
-	            // Il giocatore ha scelto una merce. La spostiamo dalla lista delle disponibili a quella delle scelte.
 	            int indiceScelto = scelta - 1;
 	            Merci mercePresa = merciAncoraDaScegliere.remove(indiceScelto);
 	            merciScelte.add(mercePresa);
@@ -723,50 +709,44 @@ public class ConsoleIO {
 	    if (merciScelte.size() == spazioDisponibile) {
 	        System.out.println("Spazio di carico pieno!");
 	    }
-
 	    return merciScelte;
 	}
-	
-	
-	
-	// PIOGGIA DI METEORITI/CANNONATE
+
+	/**
+	*annuncia il lancio dei dadi e il suo risultato.
+	*@param colore il colore del giocatore che lancia i dadi.
+	*@param risultato il risultato numerico del lancio.
+	*/
 	public void lancioDeiDadi(Colore colore, int risultato) {
 		System.out.println("\nIL LEADER, IL GIOCATORE " + colore + " TIRA I DADI...");
 		System.out.println("RISULTATO: " + risultato);
 	}
+
+	/**
+	*stampa un messaggio per comunicare che il pericolo è stato evitato.
+	*/
 	public void pericoloScampato() {
 		System.out.println("Hai scampato il pericolo!");
 	}
 	
-	
-	
 	/**
-	 * Mostra al giocatore i pianeti disponibili e chiede di inserire un numero.
-	 * NON esegue una validazione completa, ma si limita a restituire l'input numerico.
-	 * La validazione della scelta (es. pianeta occupato) viene gestita dal chiamante.
-	 *
-	 * @param giocatoreCorrente Il giocatore che sta facendo la scelta.
-	 * @param pianeti L'array dei pianeti disponibili su questa carta.
-	 * @param pianetiOccupati Un array booleano che indica quali pianeti sono già stati scelti.
-	 * @return L'indice (0-based) del pianeta scelto, o -1 se l'input non è un numero valido.
-	 */
+	*mostra i pianeti disponibili e chiede al giocatore di sceglierne uno non occupato.
+	*@param giocatoreCorrente il giocatore che sta effettuando la scelta.
+	*@param pianeti l'array dei pianeti disponibili.
+	*@param pianetiOccupati un array booleano che indica quali pianeti sono già stati scelti.
+	*@return l'indice (0-based) del pianeta scelto.
+	*/
 	public int scegliPianeta(Giocatore giocatoreCorrente, Pianeta[] pianeti, boolean[] pianetiOccupati) {
-
 		System.out.println("\n--- TURNO DEL GIOCATORE " + giocatoreCorrente.getColore() + " ---");
-	    
-	    // --- 1. Mostra le opzioni disponibili ---
 	    System.out.println("Pianeti disponibili:");
 	    for (int i = 0; i < pianeti.length; i++) {
-	        // Stampa il numero del pianeta e se è occupato
 	        System.out.print("  " + (i + 1) + ". Pianeta " + (i + 1));
 	        if (pianetiOccupati[i]) {
 	            System.out.print(" (OCCUPATO)\n");
 	        } else {
-	            // Se non è occupato, mostra le merci che contiene
 	            System.out.print(" - Merci: ");
 	            Merci[] merci = pianeti[i].getMerciPianeta();
 	                for (int j = 0; j < merci.length; j++) {
-	                    // Stampo l'iniziale del colore della merce (es. R, G, B)
 	                    System.out.print(merci[j].getColore().toString().charAt(0)); 
 	                    if (j < merci.length - 1) {
 	                        System.out.print(", ");
@@ -776,8 +756,6 @@ public class ConsoleIO {
 	        }
 	    }
 	     
-	    
-	    //il ciclo continua finche' non viene inserita una scelta valida
 	    while(true) {
 		    System.out.print("Inserisci il numero del pianeta che vuoi scegliere (1-" + pianeti.length + "): ");
 		    try {
@@ -793,41 +771,27 @@ public class ConsoleIO {
 	    }
 	}
 
-	
-	
-	
-	
-	
-	
-	//-------------------------
-	// Fine del viaggio
-	//-------------------------
-	
-	
-	
-	
+	/**
+	*stampa un messaggio generico sulla console.
+	*@param messaggio il messaggio da stampare.
+	*/
 	public void stampaMessaggio(String messaggio) {
 		System.out.println(messaggio);
 	}
 	
 	/**
-	 * Stampa a schermo il risultato finale della partita, gestendo i casi di
-	 * nessun vincitore, vincitore singolo o parità.
-	 *
-	 * @param vincitori La lista dei giocatori che hanno vinto (può essere vuota).
-	 * @param maxCrediti Il punteggio più alto raggiunto.
-	 */
+	*annuncia il vincitore o i vincitori della partita.
+	*@param vincitori la lista dei giocatori vincitori (può essere vuota o contenere più giocatori in caso di parità).
+	*@param maxCrediti il punteggio massimo raggiunto.
+	*/
 	public void annunciaVincitore(List<Giocatore> vincitori, int maxCrediti) {
-	    // Caso 1: Nessun vincitore
 	    if (vincitori.isEmpty() || maxCrediti < 1) { 
 	        System.out.println("\nNessun vincitore! Un viaggio fallimentare per tutti.");
 	    } 
-	    // Caso 2: C'è un solo vincitore
 	    else if (vincitori.size() == 1) {
 	        Giocatore vincitore = vincitori.get(0);
 	        System.out.println("\nIL VINCITORE È IL GIOCATORE " + vincitore.getColore().toString().toUpperCase() + "!");
 	    } 
-	    // Caso 3: Ci sono più vincitori in parità
 	    else {
 	        System.out.print("\nC'È UNA PARITÀ! I VINCITORI SONO: ");
 	        for (Giocatore vincitore : vincitori) {
@@ -835,8 +799,4 @@ public class ConsoleIO {
 	        }
 	    }
 	}
-
-
-
-
 }
