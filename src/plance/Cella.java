@@ -2,19 +2,19 @@ package plance;
 
 public class Cella {
 	
-	private final char freccia;
+	private final char simbolo;
 	
-	public Cella(char freccia) {
-		this.freccia = freccia;
+	public Cella(char simbolo) {
+		this.simbolo = simbolo;
 	}
 
-	public char getFreccia() {
-		return freccia;
+	public char getSimbolo() {
+		return simbolo;
 	}
 	
 	@Override 
 	public String toString() {
-		return String.valueOf(freccia);
+		return String.valueOf(simbolo);
 	}
 
 }

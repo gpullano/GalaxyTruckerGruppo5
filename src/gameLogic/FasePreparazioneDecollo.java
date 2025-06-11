@@ -72,10 +72,12 @@ public class FasePreparazioneDecollo extends Fase {
 	public void posizionaAlieniEdEquipaggio(Giocatore giocatore) {
 		Casella[][] caselle = giocatore.getPlanceNave().getCaselle();
 		OpzioniSupportoVitale opzioniSupportoVitale;
-		this.getInputOutput().posizionamentoAlieni();
+		boolean presenti = false;
+		this.getInputOutput().posizionamentoAlieni(giocatore.getColore());
 		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
 			for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
 				if(caselle[i][j].getTessera() instanceof Cabina cabina) {
+					presenti = true;
 					opzioniSupportoVitale = supportoIntornoCabina(caselle, i, j);
 					
 					switch(opzioniSupportoVitale) {
@@ -116,6 +118,10 @@ public class FasePreparazioneDecollo extends Fase {
 					}
 				}
 			}
+		}
+		if(!presenti) {
+			this.getInputOutput().stampaMessaggio("Nessuna cabina collegata ad un SUPPORTO VITALE\n" +
+						"le cabine (se esistenti) verranno riempite di ASTRONAUTI.");
 		}
 	}
 	

@@ -27,7 +27,7 @@ public class Dadi {
 */
     
     public int lancia(){         
-        this.faccia=rn.nextInt(12)+1;
+        this.faccia=rn.nextInt(11)+2;
         return this.faccia;
         
     }    

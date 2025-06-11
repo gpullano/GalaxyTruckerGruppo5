@@ -28,45 +28,44 @@ public class FaseFineDelViaggio extends Fase {
                 giocatoriAttivi.add(g);
             }
         }
-        
-        List<PosizioneGiocatore> posizioniFinali = getPlanceVolo().getPosizioneGiocatori();
 
-        // 1. RICOMPENSA PER L'ORDINE DI ARRIVO
-        assegnaRicompensaArrivo(giocatoriAttivi, posizioniFinali);
+        //Ricompensa per l'ordine di arrivo
+        assegnaRicompensaArrivo(giocatoriAttivi);
 
-        // 2. VENDITA DELLE MERCI
+        //Vendita delle merci
         vendiMerci(getGiocatori());
 
-        // 3. RICOMPENSA PER LA NAVE PIÙ BELLA
+        //Ricompensa per la nave più bella
         assegnaRicompensaNaveBella(giocatoriAttivi);
 
-        // 4. PERDITE PER COMPONENTI DISTRUTTI
+        //Perdite per i componenti distrutti
         applicaPerditeComponenti(getGiocatori());
         
-        // 5. DETERMINA E ANNUNCIA IL VINCITORE
+        //Determino e annuncio il vincitore
         annunciaVincitore(getGiocatori()); // Annunciamo il punteggio di tutti, anche di chi ha abbandonato
     }
 
     
 
-    private void assegnaRicompensaArrivo(List<Giocatore> giocatori, List<PosizioneGiocatore> posizioni) {
-        this.getInputOutput().stampaMessaggio("\n--- Ricompensa per l'Ordine di Arrivo ---");
-        int[] ricompense = {4, 3, 2, 1};
-        
-        PosizioneGiocatore pos;
-        Giocatore giocatore;
-        int premio;
-        for (int i = 0; i < posizioni.size(); i++) {
-            pos = posizioni.get(i);
-            giocatore = trovaGiocatorePerColore(giocatori, pos.getColore());
-            
-            if (giocatore != null && i < ricompense.length) {
-                premio = ricompense[i];
-                giocatore.aggiungiCrediti(premio);
-                this.getInputOutput().stampaMessaggio("Giocatore " + giocatore.getColore() + " (Posizione " + (i + 1) + ") riceve " + premio + " crediti.");
-            }
-        }
-    }
+	private void assegnaRicompensaArrivo(List<Giocatore> giocatoriOrdinati) {
+	    this.getInputOutput().stampaMessaggio("\n--- Ricompensa per l'Ordine di Arrivo ---");
+	    int[] ricompense = {4, 3, 2, 1};
+	    
+	    // Iteriamo direttamente sulla lista dei giocatori, che è già in ordine di arrivo.
+	    for (int i = 0; i < giocatoriOrdinati.size(); i++) {
+	        // Se ci sono ancora premi da assegnare
+	        if (i < ricompense.length) {
+	            Giocatore giocatoreCorrente = giocatoriOrdinati.get(i);
+	            int premio = ricompense[i];
+	            
+	            giocatoreCorrente.aggiungiCrediti(premio);
+	            this.getInputOutput().stampaMessaggio("Giocatore " + giocatoreCorrente.getColore() + " (Posizione " + (i + 1) + ") riceve " + premio + " crediti.");
+	        } else {
+	            // Se i premi sono finiti, posso smettere di ciclare.
+	            break;
+	        }
+	    }
+	}
     
     private void vendiMerci(List<Giocatore> giocatori) {
         this.getInputOutput().stampaMessaggio("\n--- Vendita delle Merci ---");
@@ -95,7 +94,7 @@ public class FaseFineDelViaggio extends Fase {
         int minConnettoriEsposti = Integer.MAX_VALUE;
         List<Giocatore> vincitoriNaveBella = new ArrayList<>();
 
-        // Fase 1: Trova il numero minimo di connettori esposti
+        //Trovo il numero minimo di connettori esposti
         for (Giocatore giocatore : giocatori) {
             int esposti = GestorePlanceNave.contaConnettoriEsposti(giocatore.getPlanceNave());
             this.getInputOutput().stampaMessaggio("Info: Giocatore " + giocatore.getColore() + " ha " + esposti + " connettori esposti.");
@@ -104,14 +103,14 @@ public class FaseFineDelViaggio extends Fase {
             }
         }
 
-        // Fase 2: Trova tutti i giocatori in parità con il numero minimo
+        //Trovo tutti i giocatori in parità con il numero minimo
         for (Giocatore giocatore : giocatori) {
             if (GestorePlanceNave.contaConnettoriEsposti(giocatore.getPlanceNave()) == minConnettoriEsposti) {
                 vincitoriNaveBella.add(giocatore);
             }
         }
 
-        // Fase 3: Assegna 2 crediti a tutti i vincitori (come da regola della parità)
+        //Assegno 2 crediti a tutti i vincitori (come da regola della parità)
         int premio = 2;
         for (Giocatore vincitore : vincitoriNaveBella) {
             vincitore.aggiungiCrediti(premio);
@@ -134,7 +133,7 @@ public class FaseFineDelViaggio extends Fase {
         List<Giocatore> vincitori = new ArrayList<>();
         int maxCrediti = 0;
 
-        // Fase 1: Calcola il punteggio massimo
+        //Calcolo il punteggio massimo
         for (Giocatore giocatore : tuttiIGiocatori) {
             int crediti = giocatore.getCreditiStellari();
             this.getInputOutput().stampaMessaggio("Giocatore " + giocatore.getColore() + " termina con " + crediti + " crediti.");
@@ -143,14 +142,14 @@ public class FaseFineDelViaggio extends Fase {
             }
         }
 
-        // Fase 2: Trova tutti i giocatori che hanno raggiunto il punteggio massimo
+        //Trovo tutti i giocatori che hanno raggiunto il punteggio massimo
         for (Giocatore giocatore : tuttiIGiocatori) {
             if (giocatore.getCreditiStellari() == maxCrediti) {
                 vincitori.add(giocatore);
             }
         }
         
-        // Fase 3: Annuncia i risultati - per vincere i giocatori devono aver accumulato almeno un credito
+        //Annuncio i risultati - per vincere i giocatori devono aver accumulato almeno un credito
         if (vincitori.isEmpty() || maxCrediti <= 0) { 
              this.getInputOutput().stampaMessaggio("\nNessun vincitore! Un viaggio fallimentare per tutti.");
         } else if (vincitori.size() == 1) {
@@ -165,7 +164,7 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
     
-    // Metodo helper per trovare un giocatore nella lista
+    //Metodo helper per trovare un giocatore nella lista
     private Giocatore trovaGiocatorePerColore(List<Giocatore> giocatori, Colore colore) {
         for (Giocatore g : giocatori) {
             if (g.getColore() == colore) {

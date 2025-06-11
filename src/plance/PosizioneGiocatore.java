@@ -3,8 +3,6 @@ package plance;
 import gameLogic.Colore;
 
 public class PosizioneGiocatore {
-	private int riga;
-	private int colonna;
 	private int giro;
 	private Colore colore;
 	private int posizione;
@@ -12,76 +10,10 @@ public class PosizioneGiocatore {
 
 
 
-public PosizioneGiocatore(int riga, int colonna, int giro, Colore colore) {
-	this.setRiga(riga);
-	this.setColonna(colonna);
-	this.setGiro(giro);
-	this.setColore(colore);
-}
-
-
-public void daCordinateAPosizione() {
-	
-	if (this.riga == 0) {
-		this.posizione = this.colonna;
-		
-	}
-	
-	if (this.colonna == 0) {
-		this.posizione = 19 - this.riga;
-	}
-	
-	if (this.colonna == 7) {
-		this.posizione = this.riga + 6;
-	}
-	
-	if (this.riga == 4) {
-		this.posizione = 16 - this.colonna;
-	}
-	
-	
-	
-	setPosizione(this.posizione);
-}
-
-public void daPosizioneACoordinate() {
-
-	if (this.posizione >= 1 && this.posizione < 7) {
-		this.riga = 0;
-		this.colonna = this.posizione;	
-	} else if (this.posizione >= 7 && this.posizione < 10) {
-		this.riga = this.posizione - 6;
-		this.colonna = 7;
-	} else if (this.posizione >= 10 && this.posizione < 16) {
-		this.riga = 4;
-		this.colonna = 16 - this.posizione;
-	} else if (this.posizione >= 16 && this.posizione < 19) {
-		this.riga = 19 - this.posizione;
-		this.colonna = 0;
-	}
-	
-}
-
-public int getRiga() {
-	return riga;
-}
-
-
-
-public void setRiga(int riga) {
-	this.riga = riga;
-}
-
-
-
-public int getColonna() {
-	return colonna;
-}
-
-
-
-public void setColonna(int colonna) {
-	this.colonna = colonna;
+public PosizioneGiocatore(int posizione, int giro, Colore colore) {
+	this.posizione = posizione;
+	this.giro = giro;
+	this.colore = colore;
 }
 
 
@@ -129,12 +61,11 @@ public void aggiornaPosizione(int giorni) {
     }else {
 		this.posizione += giorni;
 	}
-	daPosizioneACoordinate();
 }
 
 @Override
 public String toString() {
-	return "PosizioneGiocatore{" + "riga=" + riga + ", colonna=" + colonna + ", giro=" + giro + ", colore=" + colore + "}";
+	return "PosizioneGiocatore{" + "Posizione = " + this.posizione + ", giro=" + this.giro + ", colore=" + this.colore + "}";
 	
 }
 

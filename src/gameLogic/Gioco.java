@@ -24,7 +24,7 @@ public class Gioco {
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita, ConsoleIO inputOutput) {
         this.livelloPartita = livelloPartita;
         this.N_GIOCATORI = numGiocatori;
-        this.planceVolo = new PlanceVolo(5, 8, coloriGiocatori);
+        this.planceVolo = new PlanceVolo(coloriGiocatori);
         
         //inizializzo l'array di giocatori
         this.giocatori = creaGiocatori(coloriGiocatori);

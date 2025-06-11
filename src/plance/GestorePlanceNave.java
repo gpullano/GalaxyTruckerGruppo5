@@ -104,8 +104,7 @@ public class GestorePlanceNave {
     public static void gestisciRimozioneOrfani(PlanceNaveLivello1 planceNave) {       
      // Controlla se la cabina esiste ANCORA. Se no, tutta la nave è persa.
     	Casella[][] caselle = planceNave.getCaselle();
-    	System.out.println(caselle[2][3].getTessera());
-        if (caselle[2][3].getTessera() == null) {
+        if (caselle[POSIZIONE_CABINA_CENTRALE.getRiga()][POSIZIONE_CABINA_CENTRALE.getColonna()].getTessera() == null) {
             // Metodo helper per pulire l'intera plancia
             rimuoviTuttaLaNave(planceNave); 
             return; // Esci subito dal metodo
@@ -429,7 +428,10 @@ public class GestorePlanceNave {
     public static  Posizione colpisciComponenteDaSopra(PlanceNaveLivello1 planceNave, int colonna) {
 		Casella[][] caselle  = planceNave.getCaselle();
 		//Shift della colonna per allinearla agli indici della nave
-		colonna -= 5;
+		colonna -= 4;
+		if(colonna < 0 || colonna > 6) {
+        	return null; //il proiettile non colpisce la nave
+        }
 		//Fissata la colonna, scorro le righe per cercare componenti da colpire
 		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
 			if(caselle[i][colonna].getTessera() != null) {
@@ -442,6 +444,9 @@ public class GestorePlanceNave {
 		Casella[][] caselle  = planceNave.getCaselle();
 		//Shift della riga per allinearla agli indici della nave
 		riga -= 5;
+		if(riga < 0 || riga > 4) {
+        	return null; //il proiettile non colpisce la nave
+        }
 		//Fissata la riga, scorro le colonne per cercare componenti da colpire
 		for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
 			if(caselle[riga][j].getTessera() != null) {
@@ -453,8 +458,10 @@ public class GestorePlanceNave {
 	 public static Posizione colpisciComponenteDaSotto(PlanceNaveLivello1 planciaNave, int colonna) {
 	        Casella[][] caselle = planciaNave.getCaselle();
 	        // Shift della colonna per allinearla agli indici della nave
-	        colonna -= 5;
-	        
+	        colonna -= 4;
+	        if(colonna < 0 || colonna > 6) {
+	        	return null; //il proiettile non colpisce la nave
+	        }
 	        // il ciclo for parte dall'ultima riga e va verso la prima.
 	        for (int i = PlanceNaveLivello1.getNumRighe() - 1; i >= 0; i--) {
 	            if (caselle[i][colonna].getTessera() != null) {
@@ -468,7 +475,9 @@ public class GestorePlanceNave {
 	        Casella[][] caselle = planciaNave.getCaselle();
 	        // Shift della riga per allinearla agli indici della nave
 	        riga -= 5;
-	        
+	        if(riga < 0 || riga > 4) {
+	        	return null; //il proiettile non colpisce la nave
+	        }
 	        // il ciclo for parte dall'ultima colonna e va verso la prima.
 	        for (int j = PlanceNaveLivello1.getNumColonne() - 1; j >= 0; j--) {
 	            if (caselle[riga][j].getTessera() != null) {

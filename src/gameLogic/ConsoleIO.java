@@ -14,6 +14,7 @@ import plance.Casella;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 import tessere.Cabina;
 import tessere.Connettore;
 import tessere.Tessera;
@@ -120,16 +121,74 @@ public class ConsoleIO {
 	}
 	
 	//------------------------------------------------------------------
-		// STAMPA NAVE E PLANCIA DI VOLO
-		public void stampaVolo(PlanceVolo planceVolo) {
-			for(int r = 0; r < planceVolo.getCella().length; r++) {
-				for(int c = 0; c < planceVolo.getCella()[r].length; c++) {
-						System.out.print(planceVolo.getCella()[r][c].toString() + '\t');
-					
-				}
-				System.out.println('\n');
-			}
-		}
+
+/**
+ * Stampa a schermo la plancia di volo lineare.
+ * La plancia mostra le caselle del percorso e la posizione attuale di ogni giocatore.
+ *
+ * @param planceVolo L'oggetto PlanceVolo da stampare.
+ */
+public void stampaVolo(PlanceVolo planceVolo) {
+    int lunghezzaPercorso = planceVolo.getLunghezzaPercorso();
+    List<PosizioneGiocatore> posizioni = planceVolo.getPosizioneGiocatori();
+
+    // 1. Crea una rappresentazione testuale della plancia vuota.
+    // Usiamo String[] per poterci scrivere sopra le iniziali dei giocatori.
+    String[] visualizzazionePlancia = new String[lunghezzaPercorso];
+    for (int i = 0; i < lunghezzaPercorso; i++) {
+        // Inizializza ogni casella con il suo numero (es. "[ 1 ]", "[ 2 ]", ...)
+        // Il +1 serve perché gli indici dell'array sono 0-based, ma noi vogliamo mostrare 1-18.
+        visualizzazionePlancia[i] = String.format("[%2d]", i + 1);
+    }
+    
+    // 2. "Disegna" i giocatori sulla rappresentazione testuale.
+    for (PosizioneGiocatore posGiocatore : posizioni) {
+        // Ottieni la posizione (1-18) e il colore del giocatore
+        int posizioneAttuale = posGiocatore.getPosizione();
+        char inizialeColore = posGiocatore.getColore().toString().charAt(0);
+
+        // La posizione 1 corrisponde all'indice 0 dell'array, quindi dobbiamo fare -1.
+        int indiceArray = posizioneAttuale;
+
+        // Assicurati che la posizione sia valida per non causare errori
+        if (indiceArray >= 0 && indiceArray < lunghezzaPercorso) {
+            // Se la casella è ancora il suo numero (es. "[ 5 ]"), la svuotiamo.
+            if (visualizzazionePlancia[indiceArray].startsWith("[")) {
+                visualizzazionePlancia[indiceArray] = " ";
+            }
+            // Aggiungi l'iniziale del giocatore a quella casella.
+            // Se più giocatori sono sulla stessa casella, le loro iniziali appariranno una dopo l'altra.
+            visualizzazionePlancia[indiceArray] += inizialeColore + " ";
+        }
+    }
+
+    // 3. Stampa la plancia finale.
+    System.out.println("\n--- PLANCIA DI VOLO ---");
+    StringBuilder lineaSuperiore = new StringBuilder();
+    StringBuilder lineaMezzo = new StringBuilder();
+    StringBuilder lineaInferiore = new StringBuilder();
+
+    for (String casella : visualizzazionePlancia) {
+        lineaSuperiore.append("+------");
+        // Formatta la stringa della casella per essere lunga 6 caratteri, centrata
+        lineaMezzo.append(String.format("|%-6s", casella));
+        lineaInferiore.append("+------");
+    }
+    lineaSuperiore.append("+");
+    lineaMezzo.append("|");
+    lineaInferiore.append("+");
+
+    System.out.println(lineaSuperiore);
+    System.out.println(lineaMezzo);
+    System.out.println(lineaInferiore);
+    
+    // Stampa anche le informazioni dettagliate dei giri
+    System.out.println("Dettaglio Giri:");
+    for (PosizioneGiocatore posGiocatore : posizioni) {
+        System.out.println("  - Giocatore " + posGiocatore.getColore() + ": Giro " + posGiocatore.getGiro());
+    }
+    System.out.println();
+}
 	
 	
 	
@@ -143,7 +202,12 @@ public class ConsoleIO {
 	    boolean inputValido = false;
 
 	    while (!inputValido) {
-	        System.out.println("\n--- MODALITA' - PREMI: ---");
+	    	System.out.println("--------------------------------------------------------------------");
+	    	System.out.println("..........................GALAXY TRUCKER............................");
+	    	System.out.println("--------------------------------------------------------------------\n");
+	        System.out.println("\n--- SCEGLI LA MODALITA' - PREMI: ---");
+	        System.out.println("\n\nNOTA BENE: ATTUALMENTE, A QUESTO STADIO DI SVILUPPO L'UNICA MODALITA'\n" +
+	        				"DISPONIBILE E' IL LIVELLO 1.\n\n");
 	        System.out.println("1 - LIVELLO 1");
 	        System.out.println("2 - LIVELLO 2");
 	        System.out.println("3 - LIVELLO 3");
@@ -173,7 +237,7 @@ public class ConsoleIO {
 	    boolean inputValido = false;
 	    System.out.println("\n--- SCELTA GIOCATORI: ---");
 	    while (!inputValido) {
-	        System.out.println("In quanti siete, camionisti spaziali?: ");
+	        System.out.println("In quanti siete, camionisti spaziali (da 2 a 4)?: ");
 	        try {
 	            numGiocatori = Integer.parseInt(sc.nextLine());
 	            
@@ -272,6 +336,9 @@ public class ConsoleIO {
 			if(esistonoTessereMucchio) {
 				System.out.println("1 - PESCARE UNA TESSERA");
 				scelteDisponibili.add(1);
+			}
+			if(!esistonoTessereMucchio) {
+				System.out.println("TESSERE FINITE, NON puoi pescarne altre");
 			}
 	        if(haAgganciatoComponente) {
 	        	System.out.println("2 - TERMINARE ASSEMBLAGGIO");
@@ -391,7 +458,24 @@ public class ConsoleIO {
 		while(ruotaAncora) {
 			tesseraPescata.ruota();
 			System.out.println("\nTessera ruotata:\n");
-			System.out.println(tesseraPescata);
+			StringBuilder rigaTesto1 = new StringBuilder(); // Connettori NORD
+	        StringBuilder rigaTesto2 = new StringBuilder(); // Lati OVEST - NOME - EST
+	        StringBuilder rigaTesto3 = new StringBuilder(); // Connettori SUD
+
+	        String sup = tesseraPescata.getLatoSup().toString();
+            String inf = tesseraPescata.getLatoDown().toString();
+            String sx  = tesseraPescata.getLatoSx().toString();
+            String dx  = tesseraPescata.getLatoDx().toString();
+
+            rigaTesto1.append("      ").append(sup).append("     ");
+            rigaTesto2.append(" ").append(sx).append(tesseraPescata.getNomeBreve()).append(dx).append(" ");
+            rigaTesto3.append("      ").append(inf).append("     ");
+            
+            System.out.println(rigaTesto1);
+	        System.out.println(rigaTesto2);
+	        System.out.println(rigaTesto3);
+	        System.out.println();
+	        
 			System.out.println("\nVuoi ruotarla ancora? premi si/no: ");
 			try {
 				scelta = sc.nextLine().trim();
@@ -462,7 +546,8 @@ public class ConsoleIO {
 	public void stampaTessere(List<Tessera> tessereDaStampare) {
 		//TODO - da sistemare con la nuova toString()
 		for(Tessera tessera : tessereDaStampare) {
-			System.out.println("\n" + tessera);
+			System.out.println("\n");
+			System.out.println(tessera);
 		}
 	}
 	
@@ -507,12 +592,13 @@ public class ConsoleIO {
 			    stampaNave(giocatore.getPlanceNave());
 			    // Chiedi la riga
 			    while (!rigaValida) {
-			        System.out.print("Inserisci la RIGA dove agganciare (es. 1, 2, ...): ");
+			        System.out.print("Inserisci la RIGA dove agganciare (es. 5, 6, ...): ");
 			        String inputRiga = sc.nextLine().trim();
 			        try {
 			            riga = Integer.parseInt(inputRiga);
+			            //aggiusto la riga sulla base degli indici stampati
 			             //verifica se la riga è dentro i limiti
-			             if (riga >= 1 && riga <= PlanceNaveLivello1.getNumRighe()) {
+			             if (riga - 5 >= 0 && riga - 5 <= PlanceNaveLivello1.getNumRighe()) {
 			                 rigaValida = true;
 			             } else {
 			                 System.err.println("Riga fuori dai limiti della plancia.");
@@ -525,12 +611,12 @@ public class ConsoleIO {
 
 			    // Chiedi la colonna
 			    while (!colonnaValida) {
-			        System.out.print("Inserisci la COLONNA dove agganciare (es. 1, 2, ...): ");
+			        System.out.print("Inserisci la COLONNA dove agganciare (es. 4, 5, ...): ");
 			        String inputColonna = sc.nextLine().trim();
 			        try {
 			            colonna = Integer.parseInt(inputColonna);
 			             
-			             if (colonna >= 1 && colonna <= PlanceNaveLivello1.getNumColonne()) {
+			             if (colonna - 4 >= 1 && colonna - 4 <= PlanceNaveLivello1.getNumColonne()) {
 			                 colonnaValida = true;
 			             } else {
 			                 System.err.println("Colonna fuori dai limiti della plancia.");
@@ -541,7 +627,7 @@ public class ConsoleIO {
 			        
 			    }
 			    
-			    if(GestorePlanceNave.agganciaTessera(giocatore.getPlanceNave(), tesseraDaAgganciare, riga, colonna)) {
+			    if(GestorePlanceNave.agganciaTessera(giocatore.getPlanceNave(), tesseraDaAgganciare, riga - 5, colonna - 4)) {
 			    	System.out.println("Tessera agganciata con successo alla posizione (" + riga + "," + colonna + ").");
 			    	tesseraAgganciata = true;
 			    }
@@ -563,7 +649,8 @@ public class ConsoleIO {
 		System.out.println("----- FASE DI PREPARAZIONE AL DECOLLO -----");
 	}
 	
-	public void posizionamentoAlieni() {
+	public void posizionamentoAlieni(Colore coloreGiocatore) {
+		System.out.println("GIOCATORE " + coloreGiocatore);
 		System.out.println("\nPOSIZIONAMENTO ALIENI e/o EQUIPAGGIO.");
 	}
 	
@@ -633,11 +720,12 @@ public class ConsoleIO {
 	}
 	
 	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore
-	public boolean chiediAttivare(Giocatore giocatore ) {
+	public boolean chiediAttivare(Giocatore giocatore) {
+		System.out.println("\n--- TURNO DEL GIOCATORE " + giocatore.getColore() + " ---");
 		String scelta="";
 		boolean inputValido=false;
 		while(!inputValido) {
-			System.out.println("Vuoi attivare la carta? premi si/no");
+			System.out.println("Vuoi attivare la carta? premi si/no: ");
 			try {
 				scelta = sc.nextLine().trim();
 				if(!scelta.equalsIgnoreCase("si") && !scelta.equalsIgnoreCase("no") && 
@@ -751,8 +839,6 @@ public class ConsoleIO {
 	 * @return L'indice (0-based) del pianeta scelto, o -1 se l'input non è un numero valido.
 	 */
 	public int scegliPianeta(Giocatore giocatoreCorrente, Pianeta[] pianeti, boolean[] pianetiOccupati) {
-
-		System.out.println("\n--- TURNO DEL GIOCATORE " + giocatoreCorrente.getColore() + " ---");
 	    
 	    // --- 1. Mostra le opzioni disponibili ---
 	    System.out.println("Pianeti disponibili:");

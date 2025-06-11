@@ -98,10 +98,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	public List<Tessera> getTesserePrenotate(){
 		return spazioTesserePrenotate;
 	}
-	
-//	public int getSpazioMerciRimasto() {
-//		return this.merciTotali - this.merciNave.size();
-//	}
+
 	
 	public void aggiungiTesseraPrenotata(Tessera t) {
 		if(this.spazioTesserePrenotate.size() >= NUM_TESSERE_PRENOTABILI) {
@@ -111,15 +108,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		this.spazioTesserePrenotate.add(t);
 	}
 	
-	
-//	// getter e setter
-//	public int getMerciTotali() {
-//		return merciTotali;
-//	}
-//
-//	public void setMerciTotali(int merciTotali) {
-//		this.merciTotali = merciTotali;
-//	}
 	
 	public int getPotenzaFuoco(ConsoleIO inputOutput) {
 		calcolaPotenzaFuoco(inputOutput);
@@ -170,14 +158,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	public void setComponenteAgganciato(boolean componenteAgganciato) {
 		this.componenteAgganciato = componenteAgganciato;
 	}
-	
-//	public List<Merci> getMerciNave() {
-//		return merciNave;
-//	}
-//
-//	public void setMerciNave(List<Merci> merciNave) {
-//		this.merciNave = merciNave;
-//	}
 
 	/**
 	 * @return the pilaScarti
@@ -227,7 +207,11 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	public void calcolaPotenzaFuoco(ConsoleIO inputOutput) {
 		boolean cannoniDoppiAttivati = false;
 		//Reinizializzo per evitare un conteggio falsato
-		this.potenzaFuoco = 0;
+		if(haAlienoViola) {
+			this.potenzaMotori = 2;
+		} else {
+			this.potenzaMotori = 0;
+		}
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Cannone cannone) {
@@ -244,9 +228,13 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	public void calcolaPotenzaMotori(ConsoleIO inputOutput) {
-		//Reinizializzo per evitare un conteggio falsato
-		this.potenzaMotori = 0;
 		boolean motoriDoppiAttivati = false;
+		//Reinizializzo per evitare un conteggio falsato
+		if(haAlienoMarrone) {
+			this.potenzaMotori = 2;
+		} else {
+			this.potenzaMotori = 0;
+		}
 		for(int i = 0; i < NUM_RIGHE; i++) {
 			for(int j = 0; j < NUM_COLONNE; j++) {
 				if(this.caselle[i][j].getTessera() instanceof Motore motore) {

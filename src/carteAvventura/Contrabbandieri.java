@@ -52,7 +52,7 @@ public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Carta Pianeti - Livello: ").append(getLivello()).append("\n");
+		sb.append("CONTRABBANDIERI - Livello: ").append(getLivello()).append("\n");
 		sb.append("I contrabbandieri hanno una potenza di fuoco = ").append(getFuocoNemico()).append("\n");
 		sb.append("Attaccano in ordine di rotta partendo dal leader").append("\n\n");
 		sb.append("- Se il giocatore perde ").append("\n");

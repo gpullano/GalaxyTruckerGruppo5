@@ -1,58 +1,31 @@
 package plance;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import gameLogic.Colore;
 
 
 public class PlanceVolo {
 	
-	private Cella[][] cella;
+	private Cella[] celle;
 	private List<PosizioneGiocatore> posizioniGiocatori; // Modificato da array a List
 	private static final int LUNGHEZZA_PERCORSO = 18;
 	
-	public PlanceVolo(int riga, int colonna, Colore[] colori) {
-		this.cella = new Cella[riga][colonna];
+	public PlanceVolo(Colore[] colori) {
+		this.celle = new Cella[LUNGHEZZA_PERCORSO];
 		
-		for(int r = 0; r < riga; r++) {
-			for(int c = 0; c < colonna; c++) {
-				this.cella[r][c] = new Cella(' ');
-			}
+		for(int r = 0; r < LUNGHEZZA_PERCORSO; r++) {
+			this.celle[r] = new Cella(' ');
 		}
 
 		// Inizializza la lista e la popola con le posizioni iniziali dei giocatori
 		this.posizioniGiocatori = new ArrayList<>();
 		for (Colore colore: colori) {
-		    this.posizioniGiocatori.add(new PosizioneGiocatore(0, 0, 0, colore));
+		    this.posizioniGiocatori.add(new PosizioneGiocatore(0, 0, colore));
 		}
 	}
 	
-	public void percorso() {
-		int righe = cella.length;
-		int colonne = cella[0].length;
-		for(int c = 1; c < colonne - 1; c++) {//▶
-			cella[0][c] = new Cella('→');
-			cella[0][1] = new Cella('4');
-			cella[0][2] = new Cella('3');
-			cella[0][3] = new Cella('2');
-			cella[0][5] = new Cella('1');
-			
-		}
-        for(int r = 1; r < righe - 1; r++) {//▼
-			
-			cella[r][colonne - 1] = new Cella('↓');
-			
-		}
-        
-        for(int c = colonne - 2; c > 0;c--) {//◀
-        	cella[righe - 1][c] = new Cella('←');
-        }
-        
-        for(int r = righe - 2; r > 0; r--) {//▲
-        	cella[r][0] = new Cella('↑');
-        }
-		
-    }
 	
 	/**
 	 * Restituisce la lista delle posizioni dei giocatori.
@@ -88,24 +61,62 @@ public class PlanceVolo {
 	 * si troverà all'indice 0 della lista.
 	 */
 	public void ordinaGiocatoriPerPosizione() {
-	    this.posizioniGiocatori.sort((p1, p2) -> {
-	        // Confronta prima i giri. L'ordine è decrescente (p2 vs p1).
-	        int confrontoGiro = Integer.compare(p2.getGiro(), p1.getGiro());
-	        if (confrontoGiro != 0) {
-	            return confrontoGiro;
+	    this.posizioniGiocatori.sort(new Comparator<PosizioneGiocatore>() {
+	        
+	        @Override
+	        public int compare(PosizioneGiocatore p1, PosizioneGiocatore p2) {
+	            // Confronta prima i giri.
+	            int confrontoGiro = Integer.compare(p2.getGiro(), p1.getGiro());
+	            
+	            // Se i giri sono diversi, abbiamo già il nostro risultato.
+	            if (confrontoGiro != 0) {
+	                return confrontoGiro;
+	            }
+	            
+	            // Se i giri sono uguali, confronto la posizione sulla plancia.
+	            return Integer.compare(p2.getPosizione(), p1.getPosizione());
 	        }
-	        // Se i giri sono uguali, confronta la posizione, sempre in ordine decrescente.
-	        return Integer.compare(p2.getPosizione(), p1.getPosizione());
 	    });
 	}
-
-
-	public Cella[][] getCella() {
-		return cella;
+	
+	/**
+	 * Rimuove un giocatore (e la sua posizione) dalla plancia di volo,
+	 * cercandolo tramite il suo colore.
+	 * Questa versione non usa Iterator ed è sicura per la rimozione.
+	 *
+	 * @param colore Il colore del giocatore da rimuovere.
+	 * @return true se il giocatore è stato trovato e rimosso, false altrimenti.
+	 */
+	public boolean rimuoviGiocatore(Colore colore) {
+	    // Iteriamo sulla lista all'indietro per evitare problemi con gli indici
+	    // quando rimuoviamo un elemento.
+	    for (int i = this.posizioniGiocatori.size() - 1; i >= 0; i--) {
+	        
+	        // Otteniamo l'elemento alla posizione corrente
+	        PosizioneGiocatore pos = this.posizioniGiocatori.get(i);
+	        
+	        // Controlliamo se è il giocatore che stiamo cercando
+	        if (pos.getColore() == colore) {
+	            
+	            // Trovato! Lo rimuoviamo usando il suo indice.
+	            this.posizioniGiocatori.remove(i);
+	            
+	            // Il nostro lavoro è finito, restituiamo true.
+	            return true;
+	        }
+	    }
+	    
+	    // Se il loop finisce, significa che non abbiamo trovato il giocatore.
+	    return false;
 	}
 
-	public void setCella(Cella[][] cella) {
-		this.cella = cella;
+
+	public Cella[] getCelle() {
+		return celle;
+	}
+
+	public void setCelle(Cella[] cella) {
+		this.celle = cella;
 	}
 	
 	public int getLunghezzaPercorso() {
