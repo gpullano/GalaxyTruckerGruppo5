@@ -9,28 +9,18 @@ import plance.GestorePlanceNave;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
 
-/**
-*la classe FaseFineDelViaggio gestisce il calcolo del punteggio finale e la determinazione del vincitore.
-*/
 public class FaseFineDelViaggio extends Fase {
 
-	/**
-	*costruttore della classe FaseFineDelViaggio.
-	*@param giocatori la lista dei giocatori.
-	*@param inputOutput l'oggetto per l'input/output.
-	*@param planceVolo la plancia di volo comune.
-	*/
 	public FaseFineDelViaggio(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo) {
 		super(giocatori, inputOutput, planceVolo);
 	}
 
-	/**
-	*esegue la logica di fine partita, calcolando i punteggi e determinando il vincitore.
-	*/
 	@Override
 	public void eseguiFase() {
 		this.getInputOutput().stampaMessaggio("----- FINE DEL VIAGGIO -----");
 		
+        
+        
         // troviamo i giocatori che non hanno abbandonato
 		List<Giocatore> giocatoriAttivi = new ArrayList<>();
         for (Giocatore g : getGiocatori()) {
@@ -54,14 +44,11 @@ public class FaseFineDelViaggio extends Fase {
         applicaPerditeComponenti(getGiocatori());
         
         // 5. DETERMINA E ANNUNCIA IL VINCITORE
-        annunciaVincitore(getGiocatori());
+        annunciaVincitore(getGiocatori()); // Annunciamo il punteggio di tutti, anche di chi ha abbandonato
     }
 
-    /**
-    *assegna i crediti bonus in base all'ordine di arrivo dei giocatori.
-    *@param giocatori la lista dei giocatori attivi.
-    *@param posizioni la lista delle posizioni finali sulla plancia di volo.
-    */
+    
+
     private void assegnaRicompensaArrivo(List<Giocatore> giocatori, List<PosizioneGiocatore> posizioni) {
         this.getInputOutput().stampaMessaggio("\n--- Ricompensa per l'Ordine di Arrivo ---");
         int[] ricompense = {4, 3, 2, 1};
@@ -81,10 +68,6 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
     
-    /**
-    *calcola il valore delle merci di ogni giocatore e lo aggiunge ai crediti.
-    *@param giocatori la lista di tutti i giocatori.
-    */
     private void vendiMerci(List<Giocatore> giocatori) {
         this.getInputOutput().stampaMessaggio("\n--- Vendita delle Merci ---");
         int valoreTotaleMerci;
@@ -107,10 +90,6 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
 
-    /**
-    *assegna la ricompensa per la "nave più bella" al giocatore con meno connettori esposti.
-    *@param giocatori la lista dei giocatori attivi.
-    */
     private void assegnaRicompensaNaveBella(List<Giocatore> giocatori) {
         this.getInputOutput().stampaMessaggio("\n--- Ricompensa per la Nave più Bella ---");
         int minConnettoriEsposti = Integer.MAX_VALUE;
@@ -140,10 +119,6 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
 
-    /**
-    *sottrae crediti ai giocatori in base al numero di componenti persi.
-    *@param giocatori la lista di tutti i giocatori.
-    */
     private void applicaPerditeComponenti(List<Giocatore> giocatori) {
         this.getInputOutput().stampaMessaggio("\n--- Penalità per Componenti Persi ---");
         for (Giocatore giocatore : giocatori) {
@@ -153,10 +128,6 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
 
-    /**
-    *determina il giocatore con il punteggio più alto e annuncia il vincitore.
-    *@param tuttiIGiocatori la lista completa dei giocatori per il calcolo finale.
-    */
     private void annunciaVincitore(List<Giocatore> tuttiIGiocatori) {
         this.getInputOutput().stampaMessaggio("\n--- PUNTEGGIO FINALE ---");
         
@@ -179,7 +150,7 @@ public class FaseFineDelViaggio extends Fase {
             }
         }
         
-        // Fase 3: Annuncia i risultati
+        // Fase 3: Annuncia i risultati - per vincere i giocatori devono aver accumulato almeno un credito
         if (vincitori.isEmpty() || maxCrediti <= 0) { 
              this.getInputOutput().stampaMessaggio("\nNessun vincitore! Un viaggio fallimentare per tutti.");
         } else if (vincitori.size() == 1) {
@@ -194,12 +165,7 @@ public class FaseFineDelViaggio extends Fase {
         }
     }
     
-    /**
-    *metodo di utilità per trovare un giocatore in una lista dato il suo colore.
-    *@param giocatori la lista in cui cercare.
-    *@param colore il colore del giocatore da trovare.
-    *@return il giocatore trovato o null se non presente.
-    */
+    // Metodo helper per trovare un giocatore nella lista
     private Giocatore trovaGiocatorePerColore(List<Giocatore> giocatori, Colore colore) {
         for (Giocatore g : giocatori) {
             if (g.getColore() == colore) {
@@ -209,3 +175,5 @@ public class FaseFineDelViaggio extends Fase {
         return null;
     }
 }
+
+

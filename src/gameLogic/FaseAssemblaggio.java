@@ -10,22 +10,13 @@ import plance.PlanceVolo;
 import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
-/**
-*la classe FaseAssemblaggio rappresenta la fase di gioco in cui i giocatori costruiscono le loro navi.
-*/
 public class FaseAssemblaggio extends Fase {
 	private static final int N_TESSERE = 20; // TODO - da modificare con 156 per il gioco vero
     private Deque<Tessera> mucchioTessere;
     private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
     
-    /**
-    *costruttore della classe FaseAssemblaggio.
-    *@param giocatori la lista dei giocatori che partecipano alla fase.
-    *@param planceVolo la plancia di volo comune.
-    *@param mazzettiDiCarte i mazzetti di carte avventura disponibili.
-    *@param inputOutput l'oggetto per gestire l'input e l'output.
-    */
+    //costruttore
 	public FaseAssemblaggio(List<Giocatore> giocatori, PlanceVolo planceVolo,  Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
 		super(giocatori, inputOutput, planceVolo);
 		this.setMucchioTessere(creaMucchioTessere());
@@ -35,26 +26,17 @@ public class FaseAssemblaggio extends Fase {
 		this.tessereScoperte = new ArrayList<>();	
 	}
 	
-	/**
-	*restituisce il mucchio delle tessere.
-	*@return il mucchio (deque) delle tessere.
-	*/
+	//getter e setter
 	public Deque<Tessera> getMucchioTessere() {
 		return mucchioTessere;
 	}
 
-	/**
-	*imposta il mucchio delle tessere.
-	*@param mucchioTessere il nuovo mucchio di tessere.
-	*/
 	public void setMucchioTessere(Deque<Tessera> mucchioTessere) {
 		this.mucchioTessere = mucchioTessere;
 	}
 	
-	/**
-	*crea e restituisce il mazzo iniziale di tessere.
-	*@return un deque contenente le tessere generate.
-	*/
+	
+	//metodi
 	private Deque<Tessera> creaMucchioTessere(){
     	Deque<Tessera> mucchio = new ArrayDeque<>();
     	for(int i = 0; i < N_TESSERE; i++) {
@@ -63,11 +45,12 @@ public class FaseAssemblaggio extends Fase {
 		return mucchio; 	
     }
 
-	/**
-	*esegue il ciclo principale della fase di assemblaggio, gestendo i turni dei giocatori.
-	*/
+
 	@Override
 	public void eseguiFase() {
+		
+		// valutare se introdurre l'attributo "haAgganciato" in planceVolo o in Giocatore
+		// in giocatore c'è l'attributo "assemblaggioTermianto"
 		
 		AzioneAssemblaggio sceltaOpzioni = null;
 		AzioneAssemblaggio sceltaTessera = null;
@@ -87,7 +70,14 @@ public class FaseAssemblaggio extends Fase {
 									
 					getInputOutput().stampaSetupAssemblaggio(giocatore.getColore(), giocatore.getPlanceNave(), 
 							giocatore.getPlanceNave().getTesserePrenotate(), tessereScoperte);
-					
+					//TODO - gestisci il caso in cui le tessere sono finite
+					//scelta tra le seguenti opzioni:
+					//1 - PESCARE UNA TESSERA
+					//2 - TERMINARE ASSEMBLAGGIO
+					//3 - GUARDARE MAZZI DI CARTE
+					//4 - PRENDI TESSERA PRENOTATA 	
+					//5 - PRENDI TESSERA SCOPERTA
+						
 					sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
 							giocatore.getPlanceNave().isComponenteAgganciato(),
 							giocatore.getPlanceNave().haTesserePrenotate(), 
@@ -100,9 +90,17 @@ public class FaseAssemblaggio extends Fase {
 							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
 									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
+							//Dopo aver pescato una carta, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA SUL TAVOLO
+							//4 - PRENOTARLA PER DOPO
+							
+							//TODO - gestisci il fatto che dopo aver ruotato una tessera puoi agganciarla o fare altro
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
@@ -118,6 +116,7 @@ public class FaseAssemblaggio extends Fase {
 									break;
 								}
 								case PRENOTA_TESSERA:{
+									//sistema se il giocatore ha già il massimo di tessere prenotate
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
 								}
@@ -127,6 +126,7 @@ public class FaseAssemblaggio extends Fase {
 							break;
 						}
 						case TERMINA_ASSEMBLAGGIO:{
+							//TODO - assegna la posizione al giocatore 
 							giocatore.terminaAssemblaggio();
 							numAssemblaggiTerminati++;
 							break;
@@ -140,9 +140,15 @@ public class FaseAssemblaggio extends Fase {
 							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
 									true, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
+							//Dopo aver pescato una carta prenotata, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA A POSTO
+							
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
@@ -167,9 +173,15 @@ public class FaseAssemblaggio extends Fase {
 							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
 									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
+							//Dopo aver pescato una carta scoperta, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA SUL TAVOLO
+							//4 - PRENOTARLA PER DOPO
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
@@ -194,10 +206,15 @@ public class FaseAssemblaggio extends Fase {
 						}
 						default:
 							break;
+						
 						}
 					this.getInputOutput().stampaNave(giocatore.getPlanceNave());
 				}
 			}
+				
 		}
+
 	}
+	
+	
 }

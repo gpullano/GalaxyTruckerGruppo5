@@ -2,9 +2,6 @@ package gameLogic;
 
 import eccezioni.NumeroNonValidoException;
 
-/**
-*l'enum AzioneAssemblaggio rappresenta le diverse azioni che un giocatore può compiere durante la fase di assemblaggio.
-*/
 public enum AzioneAssemblaggio {
 	//Sempre disponibili
 	PESCA_TESSERA(1),
@@ -26,28 +23,14 @@ public enum AzioneAssemblaggio {
 	
 	private final int numeroScelta;
 
-	/**
-	*costruttore privato dell'enum.
-	*@param numeroScelta il numero associato all'azione.
-	*/
 	private AzioneAssemblaggio(int numeroScelta) {
         this.numeroScelta = numeroScelta;
 	 }
 	
-	/**
-	*restituisce il numero associato all'azione.
-	*@return il numero intero che rappresenta la scelta.
-	*/
 	public int getNumeroScelta() {
 		return numeroScelta;
 	}
 	
-	/**
-	*converte un numero intero nell'azione di assemblaggio corrispondente.
-	*@param numero il numero dell'azione da trovare.
-	*@return l'azione di assemblaggio corrispondente al numero.
-	*@throws NumeroNonValidoException se il numero non corrisponde a nessuna azione.
-	*/
 	public static AzioneAssemblaggio fromNumero(int numero) throws NumeroNonValidoException{
         for (AzioneAssemblaggio azione : values()) {
             if (azione.getNumeroScelta() == numero) {

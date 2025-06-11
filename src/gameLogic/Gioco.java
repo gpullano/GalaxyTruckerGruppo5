@@ -9,9 +9,6 @@ import carteAvventura.Mazzetto;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 
-/**
-*la classe Gioco gestisce l'intera logica e il flusso di una partita.
-*/
 public class Gioco {
 	private final List<Giocatore> giocatori;
     private PlanceVolo planceVolo; 
@@ -23,13 +20,7 @@ public class Gioco {
     private final int N_GIOCATORI;
     private final ConsoleIO inputOutput;
     
-    /**
-    *costruttore della classe Gioco.
-    *@param numGiocatori il numero di giocatori.
-    *@param coloriGiocatori l'array dei colori scelti dai giocatori.
-    *@param livelloPartita il livello di difficoltà scelto per la partita.
-    *@param inputOutput l'oggetto per gestire l'input e l'output.
-    */
+    
     public Gioco(int numGiocatori, Colore[] coloriGiocatori, LivelloPartita livelloPartita, ConsoleIO inputOutput) {
         this.livelloPartita = livelloPartita;
         this.N_GIOCATORI = numGiocatori;
@@ -41,13 +32,10 @@ public class Gioco {
         //creazione mazzi di carte
         this.mazzettiDiCarte = creaMazzetti();
         this.inputOutput = inputOutput;
+        
     }
 	
-    /**
-    *crea la lista dei giocatori in base ai colori scelti e al livello della partita.
-    *@param coloriGiocatori l'array dei colori da assegnare ai giocatori.
-    *@return la lista dei giocatori inizializzati.
-    */
+    
     private List<Giocatore> creaGiocatori(Colore[] coloriGiocatori) {
     	List<Giocatore> giocatoriCreati = new ArrayList<>();
     	
@@ -74,10 +62,6 @@ public class Gioco {
 		return giocatoriCreati;
     }
 
-    /**
-    *crea i mazzetti di carte iniziali utilizzati durante la fase di assemblaggio.
-    *@return un array contenente i mazzetti di carte generati.
-    */
     private Mazzetto[] creaMazzetti() {
     	Mazzetto[] mazzetti = new Mazzetto[N_MAZZETTI];
     	for(int i = 0; i < N_MAZZETTI; i++) {
@@ -89,9 +73,7 @@ public class Gioco {
     	return mazzetti;
     }
    
-	/**
-	*avvia il gioco e ne orchestra le fasi principali in sequenza: assemblaggio, preparazione, volo e fine del viaggio.
-	*/
+
 	public void play() {    
 		
 		// 1. Assemblaggio
