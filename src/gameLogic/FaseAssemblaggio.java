@@ -10,76 +10,48 @@ import plance.PlanceVolo;
 import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
-/**
- * Gestisce la fase di assemblaggio delle navi.
- * In questa fase, i giocatori a turno pescano e posizionano tessere
- * per costruire la propria nave spaziale.
- */
 public class FaseAssemblaggio extends Fase {
-	
 	private static final int N_TESSERE = 20; // TODO - da modificare con 156 per il gioco vero
-    
-    /** Il mazzo di tessere coperte da cui pescare. */
     private Deque<Tessera> mucchioTessere;
-    
-    /** La lista di tessere scoperte disponibili sul tavolo. */
     private List<Tessera> tessereScoperte;
-    
-    /** I mazzetti di carte avventura che i giocatori possono ispezionare. */
     private Mazzetto[] mazzettiDiCarte;
     
-    /**
-     * Costruttore della fase di assemblaggio.
-     * Inizializza il mazzo di tessere e le altre risorse necessarie.
-     * @param giocatori La lista dei giocatori partecipanti.
-     * @param planceVolo La plancia di volo (per riferimento futuro).
-     * @param mazzettiDiCarte I mazzetti di carte avventura.
-     * @param inputOutput L'oggetto per la gestione dell'input/output.
-     */
+    //costruttore
 	public FaseAssemblaggio(List<Giocatore> giocatori, PlanceVolo planceVolo,  Mazzetto[] mazzettiDiCarte, ConsoleIO inputOutput) {
 		super(giocatori, inputOutput, planceVolo);
 		this.setMucchioTessere(creaMucchioTessere());
 		
 		// Le 3 pile inferiori - La pila in alto (mazzettiDiCarteAvventura[3]) è ignota
-		this.mazzettiDiCarte = new Mazzetto[] { mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2] }; 
+		this.mazzettiDiCarte = new Mazzetto[]{mazzettiDiCarte[0], mazzettiDiCarte[1], mazzettiDiCarte[2]}; 
 		this.tessereScoperte = new ArrayList<>();	
 	}
 	
-	/**
-     * Restituisce il mazzo di tessere coperte.
-     * @return Il mazzo di tessere.
-     */
+	//getter e setter
 	public Deque<Tessera> getMucchioTessere() {
 		return mucchioTessere;
 	}
 
-	/**
-     * Imposta il mazzo di tessere coperte.
-     * @param mucchioTessere Il nuovo mazzo di tessere.
-     */
 	public void setMucchioTessere(Deque<Tessera> mucchioTessere) {
 		this.mucchioTessere = mucchioTessere;
 	}
 	
-	/**
-     * Crea e popola il mazzo iniziale di tessere.
-     * @return Un Deque contenente le tessere generate.
-     */
-	private Deque<Tessera> creaMucchioTessere() {
+	
+	//metodi
+	private Deque<Tessera> creaMucchioTessere(){
     	Deque<Tessera> mucchio = new ArrayDeque<>();
-    	for (int i = 0; i < N_TESSERE; i++) {
+    	for(int i = 0; i < N_TESSERE; i++) {
     		mucchio.add(GeneratoreTessere.generaTessere());
     	}
 		return mucchio; 	
     }
 
-	/**
-     * Esegue il ciclo principale della fase di assemblaggio.
-     * I giocatori compiono azioni a turno (pescare, piazzare, prenotare tessere)
-     * fino a quando tutti hanno deciso di terminare la costruzione della propria nave.
-     */
+
 	@Override
 	public void eseguiFase() {
+		
+		// valutare se introdurre l'attributo "haAgganciato" in planceVolo o in Giocatore
+		// in giocatore c'è l'attributo "assemblaggioTermianto"
+		
 		AzioneAssemblaggio sceltaOpzioni = null;
 		AzioneAssemblaggio sceltaTessera = null;
 		Tessera tesseraPescata = null;
@@ -87,142 +59,162 @@ public class FaseAssemblaggio extends Fase {
 		
 		this.getInputOutput().inizioAssemblaggio();
 		
-		// Il ciclo prosegue finché tutti i giocatori non hanno terminato l'assemblaggio.
-		while (numAssemblaggiTerminati < this.getGiocatori().size()) {
+		//ciclo che va avanti finché tutti non hanno terminato l'assemblaggio
+		while(numAssemblaggiTerminati < this.getGiocatori().size()){
 			
-			// Scorre ogni giocatore per il suo turno
-			for (Giocatore giocatore : this.getGiocatori()) {
-				
-				// Se il giocatore non ha ancora finito, può compiere un'azione.
-				if (!giocatore.isAssemblaggioTerminato()) {
+			//for per scorrere ogni giocatore
+			for(Giocatore giocatore : this.getGiocatori()) {
+				//se il giocatore non ha terminato l'assemblaggio gli do la possibilità di compiere azioni
+				if(!giocatore.isAssemblaggioTerminato())
+				{
 									
-					getInputOutput().stampaSetupAssemblaggio(
-						giocatore.getColore(), 
-						giocatore.getPlanceNave(), 
-						giocatore.getPlanceNave().getTesserePrenotate(), 
-						tessereScoperte
-					);
+					getInputOutput().stampaSetupAssemblaggio(giocatore.getColore(), giocatore.getPlanceNave(), 
+							giocatore.getPlanceNave().getTesserePrenotate(), tessereScoperte);
+					//TODO - gestisci il caso in cui le tessere sono finite
+					//scelta tra le seguenti opzioni:
+					//1 - PESCARE UNA TESSERA
+					//2 - TERMINARE ASSEMBLAGGIO
+					//3 - GUARDARE MAZZI DI CARTE
+					//4 - PRENDI TESSERA PRENOTATA 	
+					//5 - PRENDI TESSERA SCOPERTA
+						
+					sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(giocatore.getColore(),
+							giocatore.getPlanceNave().isComponenteAgganciato(),
+							giocatore.getPlanceNave().haTesserePrenotate(), 
+							!this.tessereScoperte.isEmpty(), !this.mucchioTessere.isEmpty());
 					
-					sceltaOpzioni = this.getInputOutput().chiediAzioneAssemblaggio(
-						giocatore.getColore(),
-						giocatore.getPlanceNave().isComponenteAgganciato(),
-						giocatore.getPlanceNave().haTesserePrenotate(), 
-						!this.tessereScoperte.isEmpty(), 
-						!this.mucchioTessere.isEmpty()
-					);
 					
-					switch (sceltaOpzioni) {
-						case PESCA_TESSERA: {
+						switch(sceltaOpzioni) {
+						case PESCA_TESSERA:{
 							tesseraPescata = this.mucchioTessere.pop();
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(
-								giocatore.getColore(), 
-								false, 
-								tesseraPescata, 
-								giocatore.getPlanceNave().isSpazioTesserePrenotatePieno()
-							);
+							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
-							switch (sceltaTessera) {
-								case RUOTA_TESSERA:
+							//Dopo aver pescato una carta, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA SUL TAVOLO
+							//4 - PRENOTARLA PER DOPO
+							
+							//TODO - gestisci il fatto che dopo aver ruotato una tessera puoi agganciarla o fare altro
+							switch(sceltaTessera) {
+								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case AGGANCIA_TESSERA:
+								}
+								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case RIMETTI_TESSERA_A_POSTO:
+								}
+								case RIMETTI_TESSERA_A_POSTO:{
 									this.tessereScoperte.add(tesseraPescata);
 									break;
-								case PRENOTA_TESSERA:
+								}
+								case PRENOTA_TESSERA:{
+									//sistema se il giocatore ha già il massimo di tessere prenotate
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
+								}
 								default:
 									break;
 							}
 							break;
 						}
-						
-						case TERMINA_ASSEMBLAGGIO: {
+						case TERMINA_ASSEMBLAGGIO:{
+							//TODO - assegna la posizione al giocatore 
 							giocatore.terminaAssemblaggio();
 							numAssemblaggiTerminati++;
 							break;
 						}
-
 						case GUARDA_MAZZETTI_CARTE: {
 							this.getInputOutput().guardaMazzettoScelto(this.mazzettiDiCarte);
 							break;
 						}
-
-						case PRENDI_TESSERA_PRENOTATA: {
+						case PRENDI_TESSERA_PRENOTATA:{
 							tesseraPescata = this.getInputOutput().chiediTesseraPrenotata(giocatore.getPlanceNave().getTesserePrenotate());
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(
-								giocatore.getColore(), 
-								true, 
-								tesseraPescata, 
-								giocatore.getPlanceNave().isSpazioTesserePrenotatePieno()
-							);
+							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+									true, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
-							switch (sceltaTessera) {
-								case RUOTA_TESSERA:
+							//Dopo aver pescato una carta prenotata, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA A POSTO
+							
+							switch(sceltaTessera) {
+								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case AGGANCIA_TESSERA:
+								}
+								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case RIMETTI_TESSERA_A_POSTO:
+								}
+								case RIMETTI_TESSERA_A_POSTO:{
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
+								}
 								default:
 									break;
 							}
 							break;
 						}
-
-						case PRENDI_TESSERA_SCOPERTA: {
+						case PRENDI_TESSERA_SCOPERTA:{
 							tesseraPescata = this.getInputOutput().chiediTesseraScopertaDaPescare(tessereScoperte);
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(
-								giocatore.getColore(), 
-								false, 
-								tesseraPescata, 
-								giocatore.getPlanceNave().isSpazioTesserePrenotatePieno()
-							);
+							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
-							switch (sceltaTessera) {
-								case RUOTA_TESSERA:
+							//Dopo aver pescato una carta scoperta, posso:
+							//1 - RUOTARLA
+							//2 - AGGANCIARLA
+							//3 - RIMETTERLA SUL TAVOLO
+							//4 - PRENOTARLA PER DOPO
+							switch(sceltaTessera) {
+								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
+									//Dopo averla ruotata, chiedo di agganciarla
 									this.getInputOutput().stampaMessaggio("\nAGGANCIA la tessera:\n");
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case AGGANCIA_TESSERA:
+								}
+								case AGGANCIA_TESSERA:{
 									this.getInputOutput().agganciaTessera(giocatore, tesseraPescata);
 									giocatore.getPlanceNave().setComponenteAgganciato(true);
 									break;
-								case RIMETTI_TESSERA_A_POSTO:
+								}
+								case RIMETTI_TESSERA_A_POSTO:{
 									this.tessereScoperte.add(tesseraPescata);
 									break;
-								case PRENOTA_TESSERA:
+								}
+								case PRENOTA_TESSERA:{
 									giocatore.getPlanceNave().aggiungiTesseraPrenotata(tesseraPescata);
 									break;
+								}
 								default:
 									break;
 							}
-							break;
 						}
-
 						default:
 							break;
-					}
-					
+						
+						}
 					this.getInputOutput().stampaNave(giocatore.getPlanceNave());
 				}
 			}
+				
 		}
+
 	}
+	
+	
 }

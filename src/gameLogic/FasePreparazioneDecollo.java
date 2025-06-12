@@ -2,6 +2,7 @@ package gameLogic;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import carteAvventura.Carta;
 import carteAvventura.Mazzetto;
 import plance.Casella;
@@ -15,45 +16,36 @@ import tessere.SupportoVitaleMarrone;
 import tessere.SupportoVitaleViola;
 import tessere.Tessera;
 
-/**
- * Gestisce la fase di preparazione al decollo.
- * In questa fase, le navi vengono controllate, le tessere illegali rimosse,
- * e vengono posizionati alieni ed equipaggio.
- */
 public class FasePreparazioneDecollo extends Fase {
 	
-	/**
-	 * Costruttore della fase di preparazione al decollo.
-	 * @param giocatori La lista dei giocatori.
-	 * @param inputOutput L'oggetto per l'interazione con la console.
-	 * @param planceVolo La plancia di volo.
-	 */
+
 	public FasePreparazioneDecollo(List<Giocatore> giocatori, ConsoleIO inputOutput, PlanceVolo planceVolo) {
 		super(giocatori, inputOutput, planceVolo);
 	}
 
-	/**
-	 * Esegue la logica della fase di preparazione per ogni giocatore.
-	 * Include la verifica della legalità della nave e il posizionamento di equipaggio/alieni.
-	 */
 	@Override
 	public void eseguiFase() {
+		
 		this.getInputOutput().inizioPreparazioneAlDecollo();
 
-		// Ciclo per ogni giocatore.	
-		for (Giocatore giocatoreDaControllare : getGiocatori()) {
+		
+		//Ciclo per ogni giocatore.	
+		for(Giocatore giocatoreDaControllare : getGiocatori()) {
 			this.getInputOutput().stampaMessaggio("\nGIOCATORE " + giocatoreDaControllare.getColore());
-			
-			// 1. Rimuove tessere che violano le regole di posizionamento (es. cannoni/motori errati).
+			//1. Vengono prima rimossi tutte le tessere che violano le regole di posizionamento:
+			//- cannoni che puntano verso altre tessere
+			//- motori che non puntano verso "dietro"
+			//...
 			GestorePlanceNave.verificaERimuoviTessereIllegali(giocatoreDaControllare.getPlanceNave());
 			
-			// 2. Rimuove le tessere non connesse alla struttura principale della nave.
+			//2. Vengono rimosse le tessere orfane - non si verifica che tutti i lati siano connessi, ma
+			//solo che le connessioni siano legali
 			GestorePlanceNave.gestisciRimozioneOrfani(giocatoreDaControllare.getPlanceNave());
 			
-			// 3. Posiziona alieni o equipaggio nelle cabine.
+			//Conta degli alieni e dell'equipaggio
 			posizionaAlieniEdEquipaggio(giocatoreDaControllare);
 			
-			// 4. Calcola il totale delle batterie disponibili sulla nave.
+			//Calcolo delle batterie
 			giocatoreDaControllare.getPlanceNave().calcolaQtBatterie(0);	
 			
 			this.getInputOutput().stampaNave(giocatoreDaControllare.getPlanceNave());
@@ -61,16 +53,17 @@ public class FasePreparazioneDecollo extends Fase {
 	}
 	
 	/**
-	 * Unisce i mazzetti di carte in un unico mazzo di avventura per la fase di volo.
-	 * @param mazzettiDiCarte Array dei mazzetti da unire.
-	 * @return Una lista di carte che rappresenta il mazzo unico.
+	 * Unisce i 4 mazzetti disponibili durante l'assemblaggio a formare il mazzo avventura completo.
+	 * @param mazzettiDiCarte
+	 * @return Una nuova lista di carte che rappresenta il mazzo unico.
 	 */
-	public List<Carta> creaMazzoUnico(Mazzetto[] mazzettiDiCarte) {
-    	List<Carta> mazzoUnico = new LinkedList<>();
+	public List<Carta> creaMazzoUnico(Mazzetto[] mazzettiDiCarte){
+    	List<Carta> mazzoUnico = new LinkedList<>(); // Inizializza il nuovo mazzo unico
 
         if (mazzettiDiCarte != null) {
             for (Mazzetto mazzettoCorrente : mazzettiDiCarte) {
                 if (mazzettoCorrente != null && mazzettoCorrente.getCarte() != null) {
+                    // Aggiunge tutte le carte del mazzettoCorrente al mazzoUnico
                     mazzoUnico.addAll(mazzettoCorrente.getCarte());
                 }
             }
@@ -78,27 +71,21 @@ public class FasePreparazioneDecollo extends Fase {
         return mazzoUnico;
     }
 	
-	/**
-	 * Gestisce il posizionamento di alieni o equipaggio nelle cabine di un giocatore.
-	 * Chiede al giocatore se desidera posizionare un alieno se una cabina è connessa
-	 * a un supporto vitale disponibile.
-	 * @param giocatore Il giocatore per cui effettuare il posizionamento.
-	 */
+	
 	public void posizionaAlieniEdEquipaggio(Giocatore giocatore) {
 		Casella[][] caselle = giocatore.getPlanceNave().getCaselle();
 		OpzioniSupportoVitale opzioniSupportoVitale;
 		boolean presenti = false;
-		
 		this.getInputOutput().posizionamentoAlieni(giocatore.getColore());
-		
-		for (int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
-			for (int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
-				if (caselle[i][j].getTessera() instanceof Cabina cabina) {
+		for(int i = 0; i < PlanceNaveLivello1.getNumRighe(); i++) {
+			for(int j = 0; j < PlanceNaveLivello1.getNumColonne(); j++) {
+				if(caselle[i][j].getTessera() instanceof Cabina cabina) {
 					presenti = true;
 					opzioniSupportoVitale = supportoIntornoCabina(caselle, i, j);
 					
-					switch (opzioniSupportoVitale) {
-						case SUPPORTO_VITALE_VIOLA:
+					switch(opzioniSupportoVitale) {
+						case SUPPORTO_VITALE_VIOLA:{
+							//Il giocatore non ha nessun alieno viola?
 							if (!giocatore.getPlanceNave().HaAlienoViola()) {
 							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno viola?");
 							    if (vuolePiazzare) {
@@ -108,9 +95,12 @@ public class FasePreparazioneDecollo extends Fase {
 							        cabina.setEquipaggio(Cabina.getNumEquipaggio());
 							    }
 							}
+							
 							break;
+						}
 						
-						case SUPPORTO_VITALE_MARRONE:
+						case SUPPORTO_VITALE_MARRONE:{
+							//Il giocatore non ha nessun alieno marrone?
 							if (!giocatore.getPlanceNave().HaAlienoMarrone()) {
 							    boolean vuolePiazzare = this.getInputOutput().chiediSePosizionareAlieno("Vuoi posizionare un alieno marrone?");
 							    if (vuolePiazzare) {
@@ -121,56 +111,58 @@ public class FasePreparazioneDecollo extends Fase {
 							    }
 							}
 							break;
+						}
 						
-						case NESSUN_SUPPORTO:
+						case NESSUN_SUPPORTO:{
 							cabina.setEquipaggio(Cabina.getNumEquipaggio());
 							giocatore.getPlanceNave().aggiungiEquipaggio(Cabina.getNumEquipaggio());
 							break;
+						}
 					}
 				}
 			}
 		}
-		
-		if (!presenti) {
+		if(!presenti) {
 			this.getInputOutput().stampaMessaggio("Nessuna cabina collegata ad un SUPPORTO VITALE\n" +
 						"le cabine (se esistenti) verranno riempite di ASTRONAUTI.");
 		}
 	}
 	
-	/**
-	 * Controlla se una cabina in una data posizione è connessa a un supporto vitale.
-	 * @param caselle La griglia della plancia nave.
-	 * @param riga La riga della cabina.
-	 * @param colonna La colonna della cabina.
-	 * @return Il tipo di supporto vitale trovato, o NESSUN_SUPPORTO se non ce ne sono.
-	 */
 	public OpzioniSupportoVitale supportoIntornoCabina(Casella[][] caselle, int riga, int colonna) {
-	    int[] dr = { -1, 0, 1, 0 }; // NORD, EST, SUD, OVEST (righe)
-	    int[] dc = { 0, 1, 0, -1 }; // NORD, EST, SUD, OVEST (colonne)
+	    // Array per iterare sui 4 vicini: NORD, EST, SUD, OVEST
+	    int[] dr = {-1, 0, 1, 0};
+	    int[] dc = {0, 1, 0, -1};
 
+	    // inizializzo le variabili necessarie
 	    Tessera cabina = caselle[riga][colonna].getTessera();
 	    Tessera tesseraVicina;
 	    Casella casellaVicina;
 	    Connettore connettoreDellaCabina;
 	    Connettore connettoreDelSupporto;
 
-	    // Itera sui 4 vicini
+	    // Itera su tutti e 4 i possibili vicini
 	    for (int i = 0; i < 4; i++) {
 	        int rigaVicino = riga + dr[i];
 	        int colonnaVicino = colonna + dc[i];
 
+	        // 1. Controlla se il vicino è dentro i limiti della plancia
 	        if (rigaVicino >= 0 && rigaVicino < PlanceNaveLivello1.getNumRighe() &&
 	            colonnaVicino >= 0 && colonnaVicino < PlanceNaveLivello1.getNumColonne()) {
 	            
 	            casellaVicina = caselle[rigaVicino][colonnaVicino];
 
+	            // 2. Controlla se il vicino è occupato
 	            if (casellaVicina.getTessera() != null) {
 	                tesseraVicina = casellaVicina.getTessera();
 
+	                // 3. Controlla se il vicino è effettivamente un supporto vitale
 	                if (tesseraVicina instanceof SupportoVitaleViola || tesseraVicina instanceof SupportoVitaleMarrone) {
+	                                      
+	                    // Ottieni i connettori corretti da confrontare usando gli helper di GestorePlanceNave
 	                    connettoreDellaCabina = GestorePlanceNave.getLato(cabina, i);
 	                    connettoreDelSupporto = GestorePlanceNave.getLatoOpposto(tesseraVicina, i);
 	                    
+	                    // 4. Usa il gestore per verificare se la connessione è valida
 	                    if (GestorePlanceNave.possonoConnettersi(connettoreDellaCabina, connettoreDelSupporto)) {
 	                        if (tesseraVicina instanceof SupportoVitaleViola) {
 	                            return OpzioniSupportoVitale.SUPPORTO_VITALE_VIOLA;
@@ -183,6 +175,8 @@ public class FasePreparazioneDecollo extends Fase {
 	        }
 	    }
 
+	    // Non è stato trovato nessun supporto vitale validamente connesso.
 	    return OpzioniSupportoVitale.NESSUN_SUPPORTO;
 	}
+
 }
