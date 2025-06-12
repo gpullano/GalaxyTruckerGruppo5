@@ -4,7 +4,6 @@ public class PlanceNaveLivello3 extends PlanceNave{
 
 	public PlanceNaveLivello3() {
 		super(5, 8);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void creaNave() {

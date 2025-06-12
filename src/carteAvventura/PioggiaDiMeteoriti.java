@@ -4,10 +4,7 @@ import java.util.Random;
 
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
-import plance.Casella;
 import plance.GestorePlanceNave;
-import plance.PlanceNave;
-import plance.PlanceNaveLivello1;
 import plance.Posizione;
 
 public class PioggiaDiMeteoriti extends Carta {
@@ -46,7 +43,6 @@ public class PioggiaDiMeteoriti extends Carta {
 		return sb.toString();
 	}
 	
-	//TODO - da completare
 	//Ricordati di chiamare la stampa della carta.
 	public void attiva(List<Giocatore> giocatori, ConsoleIO inputOutput) {
 	    

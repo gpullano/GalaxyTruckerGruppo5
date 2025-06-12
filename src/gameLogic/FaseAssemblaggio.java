@@ -7,11 +7,12 @@ import java.util.List;
 
 import carteAvventura.Mazzetto;
 import plance.PlanceVolo;
+import plance.PosizioneGiocatore;
 import tessere.GeneratoreTessere;
 import tessere.Tessera;
 
 public class FaseAssemblaggio extends Fase {
-	private static final int N_TESSERE = 20; // TODO - da modificare con 156 per il gioco vero
+	private static final int N_TESSERE = 156; 
     private Deque<Tessera> mucchioTessere;
     private List<Tessera> tessereScoperte;
     private Mazzetto[] mazzettiDiCarte;
@@ -70,7 +71,7 @@ public class FaseAssemblaggio extends Fase {
 									
 					getInputOutput().stampaSetupAssemblaggio(giocatore.getColore(), giocatore.getPlanceNave(), 
 							giocatore.getPlanceNave().getTesserePrenotate(), tessereScoperte);
-					//TODO - gestisci il caso in cui le tessere sono finite
+
 					//scelta tra le seguenti opzioni:
 					//1 - PESCARE UNA TESSERA
 					//2 - TERMINARE ASSEMBLAGGIO
@@ -87,7 +88,7 @@ public class FaseAssemblaggio extends Fase {
 						switch(sceltaOpzioni) {
 						case PESCA_TESSERA:{
 							tesseraPescata = this.mucchioTessere.pop();
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+							sceltaTessera = this.getInputOutput().chiediAzioneDopoPescaggio(giocatore.getColore(), 
 									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
 							//Dopo aver pescato una carta, posso:
@@ -96,7 +97,6 @@ public class FaseAssemblaggio extends Fase {
 							//3 - RIMETTERLA SUL TAVOLO
 							//4 - PRENOTARLA PER DOPO
 							
-							//TODO - gestisci il fatto che dopo aver ruotato una tessera puoi agganciarla o fare altro
 							switch(sceltaTessera) {
 								case RUOTA_TESSERA:{
 									this.getInputOutput().ruotaTessera(tesseraPescata);
@@ -125,8 +125,9 @@ public class FaseAssemblaggio extends Fase {
 							}
 							break;
 						}
-						case TERMINA_ASSEMBLAGGIO:{
-							//TODO - assegna la posizione al giocatore 
+						case TERMINA_ASSEMBLAGGIO:{ 
+							PosizioneGiocatore posGiocatore = this.getPlanceVolo().getPosizioneDi(giocatore.getColore());
+							posGiocatore.setPosizione(this.getGiocatori().size() - numAssemblaggiTerminati);
 							giocatore.terminaAssemblaggio();
 							numAssemblaggiTerminati++;
 							break;
@@ -137,7 +138,7 @@ public class FaseAssemblaggio extends Fase {
 						}
 						case PRENDI_TESSERA_PRENOTATA:{
 							tesseraPescata = this.getInputOutput().chiediTesseraPrenotata(giocatore.getPlanceNave().getTesserePrenotate());
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+							sceltaTessera = this.getInputOutput().chiediAzioneDopoPescaggio(giocatore.getColore(), 
 									true, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
 							//Dopo aver pescato una carta prenotata, posso:
@@ -170,7 +171,7 @@ public class FaseAssemblaggio extends Fase {
 						}
 						case PRENDI_TESSERA_SCOPERTA:{
 							tesseraPescata = this.getInputOutput().chiediTesseraScopertaDaPescare(tessereScoperte);
-							sceltaTessera = this.getInputOutput().chiediAzioneSulleTessere(giocatore.getColore(), 
+							sceltaTessera = this.getInputOutput().chiediAzioneDopoPescaggio(giocatore.getColore(), 
 									false, tesseraPescata, giocatore.getPlanceNave().isSpazioTesserePrenotatePieno());
 							
 							//Dopo aver pescato una carta scoperta, posso:

@@ -9,11 +9,10 @@ import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import plance.Posizione;
-import plance.PosizioneGiocatore;
 
 public class ZonaDiGuerra extends CartaPerditaGiorniVolo{
 	private final int equipaggioPerso;
-	private final Cannonata cannonata[];
+	private final Cannonata[] cannonata;
 	private Dadi dadi;
 	
 	

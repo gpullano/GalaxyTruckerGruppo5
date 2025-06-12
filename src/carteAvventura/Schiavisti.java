@@ -1,13 +1,9 @@
 package carteAvventura;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 
 public class Schiavisti extends CartaPerditaGiorniVolo {
 
@@ -22,7 +18,6 @@ public class Schiavisti extends CartaPerditaGiorniVolo {
 		this.equipaggioPerso = rand.nextInt(3)+4;
 		this.potenzaFuoco = rand.nextInt(2)+5;
 		this.creditiCosmici = rand.nextInt(2)+4;
-		// TODO Auto-generated constructor stub
 	}
 
 

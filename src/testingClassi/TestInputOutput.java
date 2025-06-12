@@ -10,7 +10,7 @@ public class TestInputOutput {
 	public void test() {
 		ConsoleIO inputOutput = new ConsoleIO();
 		inputOutput.chiediAzioneAssemblaggio(Colore.ROSSO, false, true, true, false);
-		inputOutput.chiediAzioneSulleTessere(Colore.GIALLO, false, new Cannone(
+		inputOutput.chiediAzioneDopoPescaggio(Colore.GIALLO, false, new Cannone(
 				Connettore.SINGOLO, 
 				Connettore.CANNONE, 
 				Connettore.DOPPIO, Connettore.NULLO), true);

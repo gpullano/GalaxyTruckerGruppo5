@@ -57,6 +57,10 @@ public class FaseVolo extends Fase {
 	            this.getInputOutput().stampaMessaggio("Tutti i giocatori hanno abbandonato! Il volo termina.");
 	            break; // Esci dal loop delle carte
 	        }
+	        
+	        this.getInputOutput().stampaMessaggio("\n-------------------------------------------");
+	        this.getInputOutput().stampaMessaggio("----------- Rivelazione Carta -------------");
+	        this.getInputOutput().stampaMessaggio("-------------------------------------------");
 			
 			if(carta instanceof CartaPerditaGiorniVolo cartaPerditaGiorniVolo) {
 				cartaPerditaGiorniVolo.attiva(giocatoriAncoraInGioco, getPlanceVolo(), getInputOutput());

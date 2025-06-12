@@ -5,8 +5,6 @@ import gameLogic.Colore;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

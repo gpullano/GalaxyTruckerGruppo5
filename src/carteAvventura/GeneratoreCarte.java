@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class GeneratoreCarte {
 
-    private static final int NUMERO_TIPI_CARTE = 9;
+    private static final int NUMERO_TIPI_CARTE = 10;
     private static Random random = new Random();
     private GeneratoreCarte() {
         throw new IllegalStateException("Utility class");
@@ -46,6 +46,9 @@ public class GeneratoreCarte {
                 break;
             case 8:
                 cartaGenerata = new CartaPianeti(livelloPartita);
+                break;
+            case 9:
+            	cartaGenerata = new SpazioAperto(livelloPartita);
                 break;
             default:
             	//nel caso venga modificato NUMERO_TIPI_CARTE

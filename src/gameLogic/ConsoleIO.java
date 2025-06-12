@@ -15,8 +15,6 @@ import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
 import plance.PosizioneGiocatore;
-import tessere.Cabina;
-import tessere.Connettore;
 import tessere.Tessera;
 
 public class ConsoleIO {
@@ -220,7 +218,6 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	            // Tento di convertire l'intero letto in un valore enum
 	            livelloScelto = LivelloPartita.fromNumero(scelta);
 	            inputValido = true;
-	            // TODO - cambiare quest'eccezione e metterne una controllata
 	        } catch (NumberFormatException e) {
 	            System.err.println(INPUT_NON_VALIDO);
 	        } catch (NumeroNonValidoException e) {
@@ -253,10 +250,13 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	    return numGiocatori;
 	}
 
-	//TODO - verifica il corretto funzionamento di questo metodo per
-	//colori diversi da quelli esatti. Ad es: "roSSo" anziché "ROSSO".
+	/**
+	 * Metodo che chiede ai giocatori che colore vogliono scegliere
+	 * @param numGiocatori -> il numero dei giocatori
+	 * @return -> un array di colori con cui formare la lista di giocatori.
+	 */
 	public Colore[] chiediColoreGiocatori(int numGiocatori) {
-		Colore coloreGiocatori[] = new Colore[numGiocatori];
+		Colore[] coloreGiocatori = new Colore[numGiocatori];
 		List<Colore> coloriSceltiTemp = new ArrayList<>();
 		boolean inputValido;
 		System.out.println("\nSCELTA COLORE GIOCATORI: ");
@@ -305,6 +305,14 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	//Fase di assemblaggio
 	//-------------
 	
+	/**
+	 * Stampa di intestazione per facilitare la visibilita' del gioco durante l'assemblaggio, per
+	 * distinguere di chi e' il turno.
+	 * @param coloreGiocatore -> il colore del giocatore
+	 * @param planceNave -> la planceNave del giocatore
+	 * @param tesserePrenotate -> le tessere prenotate del giocatore
+	 * @param tessereScoperte -> le tessere scoperte del giocatore
+	 */
 	public void stampaSetupAssemblaggio(Colore coloreGiocatore, PlanceNaveLivello1 planceNave, List<Tessera> tesserePrenotate,
 			List<Tessera> tessereScoperte) {
 		System.out.println("\nSETUP DEL GIOCATORE " + coloreGiocatore);
@@ -317,7 +325,9 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	}
 	
 	public void inizioAssemblaggio() {
-		System.out.println("-----FASE DI ASSEMBLAGGIO DELLE NAVI-----");
+		System.out.println("-------------------------------------------");
+		System.out.println("----- FASE DI ASSEMBLAGGIO DELLE NAVI -----");
+		System.out.println("-------------------------------------------");
 	}
 	
 	
@@ -374,13 +384,23 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	        scelteDisponibili.clear();
 		}
 		
-		//TODO - valutare se tenere la riga di codice seguente
-		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
-		
 		return azioneScelta;
 	}
 	
-	public AzioneAssemblaggio chiediAzioneSulleTessere(Colore colore, boolean tesseraPrenotata, Tessera tesseraPescata, boolean spazioTesserePrenotatePieno) {
+	/**
+	 * Chiede quale azione si vuole compiere dopo aver pescato una carta. In base a varie condizioni si puo':
+	 * 1. Ruotarla
+	 * 2. Agganciarla
+	 * 3. Rimetterla a posto
+	 * 4. Prenotarla per dopo
+	 * @param colore -> colore giocatore
+	 * @param tesseraPrenotata
+	 * @param tesseraPescata
+	 * @param spazioTesserePrenotatePieno -> booleano per controllare se il giocatore ha gia' prenotato il numero
+	 * massimo di tessere
+	 * @return un oggetto di tipo AzioneAssemblaggio che rappresenta l'azione da compiere.
+	 */
+	public AzioneAssemblaggio chiediAzioneDopoPescaggio(Colore colore, boolean tesseraPrenotata, Tessera tesseraPescata, boolean spazioTesserePrenotatePieno) {
 		AzioneAssemblaggio azioneScelta = null;
 		boolean inputValido = false;
 		int scelta = 0;
@@ -444,14 +464,11 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	        scelteDisponibili.clear();
 		}while(!inputValido);
 		
-		//TODO - valutare se tenere la riga di codice seguente
-		System.out.println("Hai scelto: " + scelta + ": " + azioneScelta.name());
-		
 		return azioneScelta;
 	}
 	
 
-	//TODO - testare le quattro funzioni seguenti
+	
 	public void ruotaTessera(Tessera tesseraPescata) {
 		boolean ruotaAncora = true;
 		boolean inputValido = false;
@@ -515,10 +532,17 @@ public void stampaVolo(PlanceVolo planceVolo) {
 		    	}
 		
 		}
-		for(Carta carta : mazzettiDiCarte[scelta].getCarte()) {
+		System.out.println("\n----------------------------------");
+		System.out.println("\nMAZZETTO NUMERO - " + scelta + ": ");
+		//Shift della scelta di -1 per far corrispondere l'indice corretto 0-based
+		for(Carta carta : mazzettiDiCarte[scelta - 1].getCarte()) {
 			System.out.println(carta);
+			System.out.print("**********************************\n");
 		}
+		System.out.println("\n----------------------------------");
 	}
+	
+	
 	
 	public Tessera chiediTesseraScopertaDaPescare(List<Tessera> tessereScoperte) {
 		boolean indiceNonValido = true;
@@ -548,9 +572,8 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	}
 	
 	public void stampaTessere(List<Tessera> tessereDaStampare) {
-		//TODO - da sistemare con la nuova toString()
 		for(Tessera tessera : tessereDaStampare) {
-			System.out.println("\n" + tessera);
+			System.out.println(tessera + "\n");
 		}
 	}
 	
@@ -647,9 +670,10 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	
 	
 	
-	//TODO - crea un unico metodo inizioFase e poi fagli passare una stringa
 	public void inizioPreparazioneAlDecollo() {
+		System.out.println("-------------------------------------------");
 		System.out.println("----- FASE DI PREPARAZIONE AL DECOLLO -----");
+		System.out.println("-------------------------------------------");
 	}
 	
 	public void posizionamentoAlieni(Colore coloreGiocatore) {
@@ -696,7 +720,6 @@ public void stampaVolo(PlanceVolo planceVolo) {
 	//-------------
 	
 	
-	//TODO - vedi come chiamare con lo stesso nome anche il metodo per gli alieni
 	public boolean chiediSeEseguireAzione(String domanda) {
 		String scelta;
 		while(true) {
@@ -721,7 +744,6 @@ public void stampaVolo(PlanceVolo planceVolo) {
 		}
 	}
 	
-	//TODO - da rinominare chiediSeAttivare, togli parametro giocatore
 	public boolean chiediAttivare(Giocatore giocatore) {
 		System.out.println("\n--- TURNO DEL GIOCATORE " + giocatore.getColore() + " ---");
 		String scelta="";

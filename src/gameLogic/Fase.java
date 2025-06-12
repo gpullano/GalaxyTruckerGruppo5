@@ -1,8 +1,6 @@
 package gameLogic;
 
 import java.util.List;
-
-import carteAvventura.Mazzetto;
 import plance.PlanceVolo;
 
 public abstract class Fase {

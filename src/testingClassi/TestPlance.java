@@ -1,21 +1,10 @@
 package testingClassi;
 
-import carteAvventura.CartaPianeti;
-import carteAvventura.Contrabbandieri;
-import carteAvventura.NaveAbbandonata;
-import carteAvventura.PioggiaDiMeteoriti;
-import carteAvventura.Pirati;
-import carteAvventura.PolvereStellare;
-import carteAvventura.Schiavisti;
-import carteAvventura.SpazioAperto;
-import carteAvventura.StazioneAbbandonata;
-import carteAvventura.ZonaDiGuerra;
 import gameLogic.Colore;
 import gameLogic.ConsoleIO;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 import tessere.GeneratoreTessere;
 
 import tessere.Tessera;

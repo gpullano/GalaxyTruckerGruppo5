@@ -6,7 +6,6 @@ import gameLogic.Colore;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 import collezionabili.Merci;
 public class Contrabbandieri extends CartaPerditaGiorniVolo {
 	

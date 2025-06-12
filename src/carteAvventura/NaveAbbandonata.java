@@ -1,13 +1,9 @@
 package carteAvventura;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
-import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 
 public class NaveAbbandonata extends CartaPerditaGiorniVolo {
 	// attributi secondo me equipaggio e crediti vanno generati casualmente 

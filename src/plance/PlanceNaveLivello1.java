@@ -39,7 +39,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	private int potenzaMotori;
 	private int equipaggioTotale;
 	private int batterieTotali;
-	//TODO - serve?
 	private boolean componenteAgganciato; // boolean, true/false
 	private List<Tessera> spazioTesserePrenotate;
 	/*Gli alieni sono un attributo boolean perché se ce n'e' uno non ce ne possono essere
@@ -191,7 +190,7 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		return this.batterieTotali > 0;
 	}
 	
-	//TODO - verificare se serve
+
 	public void aggiungiBatterie(int batterie) {
 		if(this.batterieTotali - batterie < 0) {
 			throw new IllegalArgumentException("Non puoi avere un'energia negativa");
@@ -200,7 +199,9 @@ public class PlanceNaveLivello1 extends PlanceNave{
 	}
 	
 	public void aggiungiEquipaggio(int equipaggio) {
-		//TODO - opportuni controlli da aggiungere
+		if(this.equipaggioTotale + equipaggio < 0) {
+			throw new IllegalStateException("Non puoi avere un equipaggio negativo.");
+		}
 		this.equipaggioTotale += equipaggio;
 	}
 	
@@ -250,7 +251,6 @@ public class PlanceNaveLivello1 extends PlanceNave{
 		}
 	}
 	
-	//TODO - gestirne meglio la logica
 	public void calcolaEquipaggio() {
 		//Reinizializzo per evitare un conteggio falsato
 		this.equipaggioTotale = 0;

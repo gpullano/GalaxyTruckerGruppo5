@@ -11,7 +11,7 @@ import java.util.Random;
 public class GeneratoreTessere {
 	private static Random rand = new Random();
 	// aggiungo un parametro che è la qta di tessere disponibili
-	private static final int NUMERO_TIPI_TESSERE=11; 
+	private static final int NUMERO_TIPI_TESSERE=12; 
 
 /**
 *costruttore privato per evitare la realizzazione della classe di utilità
@@ -61,6 +61,24 @@ public class GeneratoreTessere {
 		    } while (controllaConnettoriNulli(connettori));
 		// ora che ho controllato che la creazione casuale rispetta i vincoli
 		return new Cannone(
+				 connettori.get(0),
+			     connettori.get(1),
+			     connettori.get(2),
+			     connettori.get(3)
+							);
+				}
+	private static Tessera generaCabinaCasuale() {
+		List<Connettore>connettori;
+		do {
+			connettori = Arrays.asList(
+		            connettoreCasuale(),
+		            connettoreCasuale(),
+		            connettoreCasuale(),
+		            connettoreCasuale()
+		        );
+		    } while (controllaConnettoriNulli(connettori));
+		// ora che ho controllato che la creazione casuale rispetta i vincoli
+		return new Cabina(
 				 connettori.get(0),
 			     connettori.get(1),
 			     connettori.get(2),
@@ -242,13 +260,12 @@ public class GeneratoreTessere {
 					
 					);
 			
-		}while(!controllaConnettoriNulli(connettori));
+		}while(controllaConnettoriNulli(connettori));
 		return new VanoBatteria(
 			connettori.get(0),
 			connettori.get(1),
 		    connettori.get(2),
-		    connettori.get(3),
-		    rand.nextInt(2) + 2 // da 2 a 3
+		    connettori.get(3)
 			);
 		}
 	private  static boolean controllaConnettoriNulli(List<Connettore> connettori) {
@@ -258,7 +275,7 @@ public class GeneratoreTessere {
 				cont++;
 			}
 		}
-		return cont > 2;
+		return cont > 1;
 	}
 
 /**
@@ -301,6 +318,9 @@ public class GeneratoreTessere {
 				break;
 			case 10:
 				tessera=generaVanoBatteria();
+				break;
+			case 11:
+				tessera=generaCabinaCasuale();
 				break;
 			default:
             	//nel caso venga modificato numeroTessere

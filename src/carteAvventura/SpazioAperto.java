@@ -4,23 +4,20 @@ import java.util.List;
 
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
-import gameLogic.Gioco;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 
 
 public class SpazioAperto extends Carta {
 // non ha attributi 
 	public SpazioAperto(int livello) {
 		super(livello);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Spazio Aperto - Livello: ").append(getLivello()).append("\n");
-		sb.append("A turno partendo dal leader ogni giocatore dichiara la sua potenza motrice");
+		sb.append("A turno partendo dal leader ogni giocatore dichiara la sua potenza motrice\n");
 		sb.append("Ogni giocatore guadagna un giorno di volo per ogni potenza motrice che compone la sua nave ");	
 		return sb.toString();
 	}
@@ -35,6 +32,7 @@ public class SpazioAperto extends Carta {
 			int potenzaMotoriGiocatoreCorrente = giocatoreCorrente.getPlanceNave().getPotenzaMotori(inputOutput);
 			if (potenzaMotoriGiocatoreCorrente == 0) {
 				giocatoreCorrente.abbandonaPartita();
+				planceVolo.rimuoviGiocatore(giocatoreCorrente.getColore());
 				inputOutput.stampaMessaggio("Non hai più potenza motori, sei costretto ad abbandonare la corsa");
 			} else {
 				planceVolo.getPosizioneGiocatori().get(i).aggiornaPosizione(potenzaMotoriGiocatoreCorrente);

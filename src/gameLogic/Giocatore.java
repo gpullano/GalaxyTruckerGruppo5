@@ -57,11 +57,6 @@ public class Giocatore {
 	}
     
  
-
-//	TODO - valutare se è necessario un setter:
-//	public void setPilaScarti(int pilaScarti) {
-//		this.pilaScarti = pilaScarti;
-//	}
     
     //metodi
      public void aggiungiCrediti(int quantita) {
@@ -76,8 +71,6 @@ public class Giocatore {
  
     public void abbandonaPartita() {
     	haAbbandonato = true;
-        // TODO - va gestito nella classe ConsoleIO
-    	// System.out.println("Il giocatore ha deciso di arrendersi.");
     }
 
 }

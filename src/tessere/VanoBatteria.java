@@ -7,6 +7,7 @@ package tessere;
 */
 public class VanoBatteria extends Tessera {
 	// attributo
+	private static final int NUM_BATTERIE = 3;
 	private int batterie;
 	
 	
@@ -19,9 +20,9 @@ public class VanoBatteria extends Tessera {
 *@param batterie  quantità batterie presenti
 */
 	//costruttore ereditato superclasse
-	public VanoBatteria(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown, int batterie) {
+	public VanoBatteria(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {
 		super(latoDx, latoSx, latoSup, latoDown);
-		this.batterie=batterie;
+		this.batterie=NUM_BATTERIE;
 	}
 
 	

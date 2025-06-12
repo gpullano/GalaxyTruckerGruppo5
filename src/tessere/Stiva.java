@@ -9,7 +9,7 @@ import collezionabili.Merci;
  * Ogni stiva ha una sua lista interna di merci.
  */
 public class Stiva extends Tessera {
-    private static final int CAPIENZA_MAX = 3;
+    private static final int CAPIENZA_MAX = 3; // ogni stiva ha tre merci
     private List<Merci> scomparti; 
 
     public Stiva(Connettore latoDx, Connettore latoSx, Connettore latoSup, Connettore latoDown) {

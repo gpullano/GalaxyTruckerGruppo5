@@ -5,7 +5,6 @@ import java.util.Random;
 
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
-import plance.Casella;
 import plance.GestorePlanceNave;
 import plance.PlanceNaveLivello1;
 import plance.PlanceVolo;

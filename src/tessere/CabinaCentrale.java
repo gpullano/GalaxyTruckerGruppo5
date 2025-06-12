@@ -7,7 +7,6 @@ import gameLogic.Colore;
 *contiene due membri dell'equipaggio iniziale ed è associata ad un colore specifico.
 */
 
-//TODO - valutare che cabinaCentrale possa estendere cabina
 public class CabinaCentrale extends Tessera {
 	// attributi 
 	private static final int NUM_EQUIPAGGIO = 2;

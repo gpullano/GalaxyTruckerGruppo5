@@ -1,13 +1,10 @@
 package gameLogic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import collezionabili.Merci;
 import plance.GestorePlanceNave;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 
 public class FaseFineDelViaggio extends Fase {
 
@@ -17,8 +14,9 @@ public class FaseFineDelViaggio extends Fase {
 
 	@Override
 	public void eseguiFase() {
-		this.getInputOutput().stampaMessaggio("----- FINE DEL VIAGGIO -----");
-		
+		this.getInputOutput().stampaMessaggio("-------------------------------------------");
+		this.getInputOutput().stampaMessaggio("------------ FINE DEL VIAGGIO -------------");
+		this.getInputOutput().stampaMessaggio("-------------------------------------------");
         
         
         // troviamo i giocatori che non hanno abbandonato
@@ -162,16 +160,6 @@ public class FaseFineDelViaggio extends Fase {
             }
             this.getInputOutput().stampaMessaggio(sb.toString());
         }
-    }
-    
-    //Metodo helper per trovare un giocatore nella lista
-    private Giocatore trovaGiocatorePerColore(List<Giocatore> giocatori, Colore colore) {
-        for (Giocatore g : giocatori) {
-            if (g.getColore() == colore) {
-                return g;
-            }
-        }
-        return null;
     }
 }
 

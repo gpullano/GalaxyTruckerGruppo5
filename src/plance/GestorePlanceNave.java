@@ -13,7 +13,6 @@ import carteAvventura.Provenienza;
 import carteAvventura.RisultatoImpatto;
 import gameLogic.ConsoleIO;
 import tessere.Cabina;
-import tessere.CabinaCentrale;
 import tessere.Cannone;
 import tessere.CannoneDoppio;
 import tessere.Connettore;
@@ -86,7 +85,7 @@ public class GestorePlanceNave {
 
 
 	    if (!haAlmenoUnVicinoOccupato) {
-	        System.err.println("Errore: La tessera deve essere agganciata adiacente a una tessera esistente.");
+	        System.err.println("Errore: La tessera deve essere agganciata adiacente a una tessera esistente.\n");
 	        return false;
 	    }
 
@@ -165,7 +164,6 @@ public class GestorePlanceNave {
      */
     private static void rimuoviTuttaLaNave(PlanceNaveLivello1 planceNave) {
     	Casella[][] caselle = planceNave.getCaselle();
-        //TODO - da spostare in consoleIO
     	System.out.println("La Cabina Centrale è stata distrutta! Tutta la nave è persa.");
         for (int r = 0; r < PlanceNaveLivello1.getNumRighe(); r++) {
             for (int c = 0; c < PlanceNaveLivello1.getNumColonne(); c++) {
@@ -227,7 +225,6 @@ public class GestorePlanceNave {
                     } else if (tesseraCorrente instanceof Motore || tesseraCorrente instanceof MotoreDoppio) {
                         isLegale = isPiazzamentoMotoreLegale(planceNave, r, c);
                     }
-                    //TODO - aggiungi controlli supporti vitali
 
                     if (!isLegale) {
                         posizioniDaRimuovere.add(new Posizione(r, c));
@@ -315,11 +312,6 @@ public class GestorePlanceNave {
             return false; // Piazzamento illegale: motore non punta indietro.
         }
 
-        //TODO - valutare se necessario
-        // Controlla se il lato SUD ha effettivamente un motore. Se no, non è un motore valido.
-//        if (motore.getLatoDown() != Connettore.MOTORE && motore.getLatoDown() != Connettore.MOTOREDOPPIO) {
-//            return false;
-//        }
 
         // Ora controlliamo se lo scarico ha dietro una tessera
         int rigaDietro = r + 1;
@@ -424,7 +416,7 @@ public class GestorePlanceNave {
     
     
     
-    //TODO - aggiungere javadoc
+
     public static  Posizione colpisciComponenteDaSopra(PlanceNaveLivello1 planceNave, int colonna) {
 		Casella[][] caselle  = planceNave.getCaselle();
 		//Shift della colonna per allinearla agli indici della nave
@@ -562,13 +554,6 @@ public class GestorePlanceNave {
                 }
             }
         } 
-        // Logica per meteorite GROSSO
-        else if (meteorite.getDimensione() == Dimensione.GROSSO) {
-            // TODO: Aggiungere logica per chiedere al giocatore se vuole usare cannoni doppi (che consumano energia)
-//            if (puoSparareAMeteoriteGrosso(nave, posColpita, meteorite.getProvenienza())) {
-//                return RisultatoImpatto.SALVATO_DA_CANNONE;
-//            }
-        }
 
         // Se nessuna difesa ha funzionato, il componente viene distrutto.
         inputOutput.stampaMessaggio("COLPITO! Il componente in posizione " + "(" + (posColpita.getRiga() + 5) + ", " + (posColpita.getColonna() + 4) + ")" + " e' stato distrutto.");

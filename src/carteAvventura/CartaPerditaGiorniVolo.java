@@ -6,7 +6,6 @@ import java.util.Random;
 import gameLogic.ConsoleIO;
 import gameLogic.Giocatore;
 import plance.PlanceVolo;
-import plance.PosizioneGiocatore;
 
 
 public abstract class CartaPerditaGiorniVolo extends Carta{
